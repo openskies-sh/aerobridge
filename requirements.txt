@@ -2,3 +2,8 @@ Django
 djangorestframework
 markdown
 django-filter
+django-cors-headers
+drf-jwt
+pyjwt
+requests
+python-dotenv

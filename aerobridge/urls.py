@@ -24,9 +24,8 @@ from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('drones/', gcs_views.DroneList.as_view(), name='drone-list'),
-    path('drones/<uuid:pk>/', gcs_views.DroneDetail.as_view(), name='drone-detail'),
-    path('drones/<uuid:pk>/create', gcs_views.DroneCreate.as_view(), name='drone-create'),
+    path('drones/', gcs_views.drone_list, name='drone-list'),
+    path('drones/<uuid:pk>/', gcs_views.drone_detail, name='drone-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
