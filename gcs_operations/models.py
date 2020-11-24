@@ -17,8 +17,8 @@ class Drone(models.Model):
     DRONE_TYPES = ((0, _('Quadcopter')),(1, _('Fixed Wing')))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     drone_type_id = models.IntegerField(default=0, choices=DRONE_TYPES)
-    version = models.CharField(max_length=5, default='00000')
-    device_id = models.CharField(max_length=64, default='00000000-0000-0000-0000-000000000000')
+    version = models.CharField(max_length=5)
+    device_id = models.CharField(max_length=64)
     device_model_id = models.CharField(max_length=64)
     operator_business_id = models.CharField(max_length=36, default=os.environ.get("OPERATOR_BUSINESS_ID"))
 

@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+
+
 # Distribution / packaging
 .Python
 build/
@@ -60,6 +62,8 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+aerobridge.sqlite3
+aerobridge.sqlite3-journal
 
 # Flask stuff:
 instance/
@@ -136,3 +140,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+aerobridge.sqlite3

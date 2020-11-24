@@ -33,9 +33,7 @@ def requires_scope(required_scope):
         @wraps(f)
         def decorated(*args, **kwargs):
             token = get_token_auth_header(args[0])
-            print(token)
             decoded = jwt.decode(token, verify=False)
-            print(decoded)
             if decoded.get("scope"):
                 token_scopes = decoded["scope"].split()
                 for token_scope in token_scopes:
@@ -80,16 +78,16 @@ def drone_detail(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = DroneSerializer(snippet)
+        serializer = DroneSerializer(drone)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = DroneSerializer(snippet, data=request.data)
+        serializer = DroneSerializer(drone, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        snippet.delete()
+        drone.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
