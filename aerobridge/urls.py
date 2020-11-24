@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from rest_framework.urlpatterns import format_suffix_patterns
-from gcs_operations import views as gcs_views
+
 from django.urls import path,re_path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,8 +24,8 @@ from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('drones/', gcs_views.drone_list, name='drone-list'),
-    path('drones/<uuid:pk>/', gcs_views.drone_detail, name='drone-detail'),
+    path('gcs/', include('gcs_operations.urls')),
+    path('digitalsky/', include('digitalsky_provider.urls')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

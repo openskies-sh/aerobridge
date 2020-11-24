@@ -16,11 +16,12 @@ from django.utils import timezone as tz
 class Drone(models.Model):
     DRONE_TYPES = ((0, _('Quadcopter')),(1, _('Fixed Wing')))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    drone_type_id = models.IntegerField(default=0, choices=DRONE_TYPES)
+    type_id = models.IntegerField(default=0, choices=DRONE_TYPES)
     version = models.CharField(max_length=5)
     device_id = models.CharField(max_length=64)
     device_model_id = models.CharField(max_length=64)
     operator_business_id = models.CharField(max_length=36, default=os.environ.get("OPERATOR_BUSINESS_ID"))
+    is_registered = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
