@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'registry',
     'gcs_operations',    
-    'digitalsky_provider'
+    'digitalsky_provider',
 ]
 
 MIDDLEWARE = [

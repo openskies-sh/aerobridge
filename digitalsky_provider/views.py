@@ -16,51 +16,34 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 import jwt
 from django.http import JsonResponse
-from pki_framework.utils import get_token_auth_header, requires_scope
-from gcs_operations.models import Drone, Transaction
+from django.utils.decorators import method_decorator
+from gcs_operations.models import Transaction
 from .models import DigitalSkyLog
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 from base64 import b64encode, b64decode
-
+from registry.models import Aircraft
+from pki_framework.utils import requires_scopes
 from .serializers import DigitalSkyLogSerializer
 
 # Create your views here.
 
-@api_view(['POST'])
-@requires_scope('aerobridge.write')
-def register_drone(request, uuid):
-    """
-    List all code snippets, or create a new snippet.
-    """
-    
-    if request.method == 'POST':
-        drone = get_object_or_404(Drone, pk=uuid)
 
 
-
-        serializer = DigitalSkyLogSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-
-
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
 
     """
     Execute Drone registration
 
     """
-
+    serializer_class = DigitalSkyLogSerializer
     def post(self, request, drone_id,format=None):		
 
-        drone = get_object_or_404(Drone, pk=drone_id)
-        t = Transaction(drone = Drone, prefix="registration")
+        drone = get_object_or_404(Aircraft, pk=drone_id)
+        t = Transaction(drone = Aircraft, prefix="registration")
         t.save()
 
         private_key = os.environ.get('PRIVATE_KEY')
@@ -68,8 +51,7 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
         private_key = private_key.replace('-----BEGIN ENCRYPTED PRIVATE KEY-----goo', '')
         private_key = private_key.replace('-----END ENCRYPTED PRIVATE KEY-----', '')
 
-      
-
+    
         priv_key = serialization.load_pem_private_key(private_key, password=None, backend=default_backend())
         
         drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": drone.operator_business_id}

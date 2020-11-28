@@ -3,7 +3,7 @@ from . import views as gcs_views
 
 
 urlpatterns = [
-    path('drones/', gcs_views.drone_list, name='drone-list'),
-    path('drones/<uuid:drone_id>/', gcs_views.drone_detail, name='drone-detail'),
+    path('transaction/', gcs_views.TransactionList.as_view(), name='transaction-list'),
+    path('transaction/<uuid:transaction_id>/', gcs_views.TransactionDetail.as_view(), name='transaction-detail'),
     
 ]

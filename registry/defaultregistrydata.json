@@ -1,0 +1,374 @@
+[{
+   "model": "registry.activity",
+   "pk": "7a875ff9-79ee-460e-816f-30360e0ac645",
+   "fields": {
+      "name": "photographing"
+
+   }
+},
+{
+   "model": "registry.activity",
+   "pk": "26b6a66d-5e77-4a43-94e9-630e141a1087",
+   "fields": {
+      "name": "videotaping"
+   }
+},
+{
+   "model": "registry.authorization",
+   "pk": "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da",
+   "fields": {
+      "title": "SORA",
+      "airspace_type": 1,
+      "permit_to_fly_above_crowd": 1,
+      "risk_type": 1,
+      "authorization_type": 1,
+      "operation_max_height": 100,
+      "operation_area_type": 1,
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.authorization",
+   "pk": "6be25abc-a43d-44d2-9c16-b8dee47bb64d",
+   "fields": {
+      "title": "SORA V2",
+      "airspace_type": 2,
+      "permit_to_fly_above_crowd": 0,
+      "risk_type": 6,
+      "authorization_type": 1,
+      "operation_max_height": 200,
+      "operation_area_type": 1,
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.address",
+   "pk": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+   "fields": {
+      "address_line_1": "185-186/1, Narendra Singh Marg",
+      "address_line_2": "",
+      "address_line_3": "",
+      "postcode": "595974",
+      "city": "Simla",
+      "country": "IN",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+
+   }
+},
+{
+   "model": "registry.address",
+
+   "pk": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+   "fields": {
+      "address_line_1": "81, Madhavi Society,",
+      "address_line_2": "",
+      "address_line_3": "Jamnagar",
+      "postcode": "260699",
+      "city": "Prabhapur",
+      "country": "IN",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.address",
+   "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+   "fields": {
+      "address_line_1": "85, Vijay Apartments",
+      "address_line_2": "",
+      "address_line_3": "",
+      "postcode": "290580",
+      "city": "Gurgaon",
+      "country": "IN",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.address",
+   "pk": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+   "fields": {
+      "address_line_1": "36, Aarif Society, Jagrutipur",
+      "address_line_2": "",
+      "address_line_3": "",
+      "postcode": "570171",
+      "city": "Pondicherry",
+      "country": "IN",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.address",
+   "pk": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+   "fields": {
+      "address_line_1": "11, Teena Society",
+      "address_line_2": "Ganesh Chowk",
+      "address_line_3": "",
+      "postcode": "175575",
+      "city": "Ajmer",
+      "country": "IN",      
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+
+{
+   "model": "registry.operator",
+   "pk": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+   "fields": {
+      "company_name": "A.J. August Photography",
+      "website": "august.com",
+      "phone_number":"+497221816880",
+      "email": "aj@august.com",
+      "operator_type": "0",
+      "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+      "vat_number": "IE5895475T",
+      "company_number": "489434",
+      "operational_authorizations": [
+         "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
+      ],
+      "authorized_activities": [
+         "26b6a66d-5e77-4a43-94e9-630e141a1087",
+         "7a875ff9-79ee-460e-816f-30360e0ac645"
+      ],
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{  
+   "model": "registry.operator",
+   "pk": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+   "fields": {
+      "company_name": "Electric Inspection",
+      "website": "electricinspection.com",
+      "email": "contact@electricinspection.com",
+      "phone_number":"+9130292487",
+      "operator_type": "0",
+      "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+      "company_number": "895884",
+      "insurance_number": "985049991",
+      "operational_authorizations": [
+         "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
+      ],
+      "authorized_activities": [
+         "7a875ff9-79ee-460e-816f-30360e0ac645"
+      ],
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.person",
+   "pk": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+   "fields": {
+      "first_name": "Shreyas",
+      "last_name": "More",
+      "email": "shreyasm@gmail.com",
+      "phone_number": "+91416852181",
+      "date_of_birth": "1979-09-12",
+      "social_security_number": "79464412258",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+
+},
+{
+   "model": "registry.person",
+   "pk": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+   "fields": {
+      "first_name": "Rachana",
+      "middle_name": "S",
+      "last_name": "Dhatri",
+      "email": "rachna@hotmail.com",
+      "phone_number": "+917037380857",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+
+},
+{
+   "model": "registry.person",
+   "pk": "32153c3b-663b-41e4-afc2-47127a713704",
+   "fields": {
+      "email": "niteesh@teleworm.us",
+      "first_name": "Niteesh",
+      "middle_name": "Taral",
+      "last_name": "Pavani",
+      "phone_number": "+9141112232",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+
+{
+   "model": "registry.person",
+   "pk": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+   "fields": {
+      "first_name": "Rakesh",
+      "middle_name": "Kirtikumar",
+      "last_name": "Kankipati",
+      "email": "Rakeshk@posterous.com",
+      "phone_number": "+919122992107",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.contact",
+   "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+   "fields": {
+      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+      "person": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+      "role_type": "0",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+
+   }
+},
+{
+   "model": "registry.contact",
+   "pk": "c3ae2bb0-19f6-4738-a53b-cdb0acbaf5b1",
+   "fields": {
+      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+      "person": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+      "role_type": "1",
+      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.typecertificate",
+   "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+   "fields": {
+      "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
+      "type_certificate_issuing_country": "IRE",
+      "type_certificate_holder": "Agro Products Inc.",
+      "type_certificate_holder_country": "IRE"
+   }
+},
+{
+   "model": "registry.manufacturer",
+   "pk": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+   "fields": {
+      "full_name": "DJI Holdings Inc",
+      "common_name": "DJI",
+      "acronym": "DJI",
+      "role": "Manufacturer",
+      "country": "IRE"
+   }
+},
+{
+   "model": "registry.manufacturer",
+   "pk": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+   "fields": {
+      "full_name": "Sensefly Drones Inc",
+      "common_name": "Sensefly",
+      "acronym": "SF",
+      "role": "Manufacturer",
+      "country": "IRE"
+   }
+},
+{
+   "model": "registry.aircraft",
+   "pk": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+   "fields": {
+      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+      "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+      "mass": "300",
+      "manufacturer": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+      "make": "Series 2",
+      "popular_name": "Parrot 2",
+      "model": "Parrot",
+      "category": 1,
+      "sub_category": 7,
+      "photo_small":"https://i.imgur.com/DXHpWtK.jpg",
+      "photo":"https://i.imgur.com/qbHNXdQ.jpg",
+      "is_airworthy": 1,
+      "icao_aircraft_type_designator": "HS20",
+      "esn": "4D4652310000000000000000313233343436373839414243",
+      "maci_number": "86ac-42dc-8d19",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.aircraft",
+   "pk": "0450852f-856e-4ecb-beb6-01ccded8529d",
+   "fields": {
+      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+      "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+      "mass": "700",
+      "make": "Series 1",
+      "manufacturer": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+      "model": "eBee",
+      "category": 1,
+      "sub_category": 7,
+      "photo_small":"https://i.imgur.com/gwV04ms.png",
+      "photo":"https://i.imgur.com/d8QP0Ay.png",
+      "is_airworthy": 1,
+      "icao_aircraft_type_designator": "STRM",
+      "esn": "5G6532640000000000000000823050083171098833641055",
+      "maci_number": "eb30-4fb4-b12d",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.test",
+   "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
+   "fields": {
+      "test_type": 1,
+      "name": "RPAS Safety Basics",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.test",
+   "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
+   "fields": {
+      "test_type": 1,
+      "name": "Advanced RPAS flying in Urban Environments",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.pilot",
+   "pk": "d4b8aa2c-0a52-4adc-806a-f363deb6a1e0",
+   "fields": {
+      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+      "is_active": 1,
+      "person": "32153c3b-663b-41e4-afc2-47127a713704",
+      "photo_small":"https://i.imgur.com/p9wrHKC.png",
+      "photo":"https://i.imgur.com/3j5jWDt.png",
+      "address": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+      "identification_photo":"https://i.imgur.com/YYc4obB.png",
+      "identification_photo_small":"https://i.imgur.com/Lr4JP7H.png", 
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+},
+{
+   "model": "registry.pilot",
+   "pk": "2f15a395-65a3-4a73-a492-57c7c470d527",
+   "fields": {
+      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+      "person": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+      "photo_small":"https://i.imgur.com/p9wrHKC.png",
+      "photo":"https://i.imgur.com/3j5jWDt.png",
+      "identification_photo":"https://i.imgur.com/iyabToB.jpg",
+      "identification_photo_small":"https://i.imgur.com/3UAP5w1.jpg", 
+      "is_active": 1,
+      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+      "created_at": "2018-09-04T13:20:30+01:00",
+      "updated_at": "2018-09-04T13:20:30+01:00"
+   }
+}
+]

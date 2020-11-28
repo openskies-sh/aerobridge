@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from .models import Drone
+from .models import Transaction
 
 
 
-class DroneSerializer(serializers.ModelSerializer):
-    ''' A serializer to the drone create view '''
+class TransactionSerializer(serializers.ModelSerializer):
+    ''' A serializer to the transaction view '''
 
     class Meta:
-        model = Drone		
+        model = Transaction		
         ordering = ['-created_at']
-        exclude = ('operator_business_id',)

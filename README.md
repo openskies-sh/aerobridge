@@ -17,6 +17,10 @@ As of November 2020, once you connect / point your GCS software to an instance a
 - __Flight log management__: Upload Bundled Logs to the DGCA API and store logs on the server
 - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
 
+## References
+
+This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
+
 ## Test drive
 
 You can see the API using the API explorer: Link TBC
