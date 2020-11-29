@@ -17,7 +17,7 @@ from rest_framework.permissions import AllowAny
 import jwt
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
-from gcs_operations.models import Transaction
+from gcs_operations.models import Transaction, FlightPermission
 from .models import DigitalSkyLog
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
@@ -25,8 +25,10 @@ from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 from base64 import b64encode, b64decode
 from registry.models import Aircraft
+
 from pki_framework.utils import requires_scopes
 from .serializers import DigitalSkyLogSerializer
+from gcs_operations.serializers import FlightPermissionSerializer
 
 # Create your views here.
 
@@ -83,3 +85,44 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):
+    
+    queryset = FlightPermission.objects.all()
+    serializer_class = FlightPermissionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.GenericAPIView):
+    
+    queryset = FlightPermission.objects.all()
+    serializer_class = FlightPermissionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class FlyDronePermissionApplicationFlightLog(mixins.CreateModelMixin, generics.GenericAPIView):
+    
+    queryset = FlightPermission.objects.all()
+    serializer_class = FlightPermissionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class DownloadFlyDronePermissionArtefact(mixins.CreateModelMixin, generics.GenericAPIView):
+
+    # Get the Flight Permission id 
+    
+    # Process and submit 
+    pass

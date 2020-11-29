@@ -205,13 +205,26 @@ class Manufacturer(models.Model):
     def __str__(self):
        return self.common_name
 
+class Engine(models.Model):
+    
+    type = models.CharField(max_length=15)
+    power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    count = models.IntegerField(default =1 )
+    engine_type = models.CharField(max_length=15)
+    propellor = models.CharField(max_length=140)
+    
+    def __unicode__(self):
+       return self.type + ' '+ self.power
 
+    def __str__(self):
+       return self.type + ' '+ self.power
   
 class Aircraft(models.Model):
-    AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),)
+    AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),(5, _('MICRO')),(6, _('SMALL')),(7, _('MEIDUM')),(8, _('Large')),)
     AIRCRAFT_SUB_CATEGORY = ((0, _('Other')),(1, _('AIRPLANE')),(2, _('NONPOWERED GLIDER')),(3, _('POWERED GLIDER')),(4, _('HELICOPTER')),(5, _('GYROPLANE')),(6, _('BALLOON')),(6, _('AIRSHIP')),(7, _('UAV')),(8, _('Multirotor')),(9, _('Hybrid')),)
     STATUS_CHOICES = ((0, _('Inactive')),(1, _('Active')),)
-    
+  
+   
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE)
     mass = models.IntegerField()
@@ -226,8 +239,9 @@ class Aircraft(models.Model):
     sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default = 7)
     icao_aircraft_type_designator = models.CharField(max_length =4, default = '0000')
     max_certified_takeoff_weight = models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00)
+    max_height_attainable =  models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00)
+    compatible_payload = models.CharField(max_length=20, blank=True, null=True) 
     commission_date = models.DateTimeField(blank= True, null= True)
-    operating_frequencies = models.TextField(null=True, blank=True)
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True)
     model = models.CharField(max_length = 280)
     esn = models.CharField(max_length = 48, default='000000000000000000000000000000000000000000000000')
@@ -239,9 +253,15 @@ class Aircraft(models.Model):
     photo_small = models.URLField(blank=True, null=True)
     identification_photo = models.URLField(blank=True, null=True)
     identification_photo_small = models.URLField(blank=True, null=True)
+    engine = models.ForeignKey(Engine, models.CASCADE,blank=True, null=True)
     is_registered = models.BooleanField(default=False)
-
-
+    fuel_capacity = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    max_endurance = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    max_range = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    max_speed = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    dimension_length = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00) 
+    dimension_breadth = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    dimension_height = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __unicode__(self):
