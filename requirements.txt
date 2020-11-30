@@ -8,3 +8,4 @@ pyjwt
 requests
 python-dotenv
 django-heroku
+python-dateutil
