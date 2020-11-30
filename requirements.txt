@@ -7,3 +7,4 @@ drf-jwt
 pyjwt
 requests
 python-dotenv
+django-heroku
