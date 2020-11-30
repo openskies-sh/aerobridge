@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='flightoperation',
             name='name',
-            field=models.CharField(default='Flight Operation ofrzhh', max_length=20),
+            field=models.CharField(default='Flight Operation', max_length=20),
         ),
         migrations.AlterField(
             model_name='flightplan',
             name='name',
-            field=models.CharField(default='Flight Plan mrxtyi', max_length=20),
+            field=models.CharField(default='Flight Plan', max_length=20),
         ),
     ]
