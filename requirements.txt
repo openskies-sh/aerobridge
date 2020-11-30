@@ -10,3 +10,8 @@ requests
 python-dotenv
 django-heroku
 python-dateutil
+gunicorn
+psycopg2-binary
+gunicorn
+python-jose
+django-cors-headers
