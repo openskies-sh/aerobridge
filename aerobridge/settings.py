@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'registry',
     'gcs_operations',    
     'digitalsky_provider',
+    'jetway'
 ]
 
 MIDDLEWARE = [

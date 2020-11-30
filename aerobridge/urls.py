@@ -21,11 +21,13 @@ from django.urls import path,re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
+import jetway.views as jetwayviews
 
 urlpatterns = [
+    path('', jetwayviews.HomeView.as_view()),
     path('admin/', admin.site.urls),
     path('gcs/', include('gcs_operations.urls')),
     path('digitalsky/', include('digitalsky_provider.urls')),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
