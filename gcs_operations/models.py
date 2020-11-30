@@ -11,16 +11,16 @@ import os, random, string
 from django.utils import timezone as tz
 from registry.models import Aircraft, Operator,Activity
 
-def make_random_plan_common_name(length):
+def make_random_plan_common_name(prefix, length):
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
+    return  prefix + result_str
 
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=20, default= 'Flight Plan ' + make_random_plan_common_name(6))
+    name = models.CharField(max_length=30, default=  make_random_plan_common_name('Flight Plan ',6))
     details = models.TextField(null=True)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
@@ -41,7 +41,7 @@ class FlightOperation(models.Model):
     ''' A flight operation object for NPNT permission ''' 
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
-    name = models.CharField(max_length=20, default= 'Flight Operation ' + make_random_plan_common_name(6))
+    name = models.CharField(max_length=30, default= make_random_plan_common_name('Flight Operation ' , 6))
     drone = models.ForeignKey(Aircraft,models.CASCADE)
     flight_plan = models.ForeignKey(FlightPlan,models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
