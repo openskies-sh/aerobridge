@@ -41,9 +41,10 @@ class FlightOperation(models.Model):
     ''' A flight operation object for NPNT permission ''' 
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default= make_random_plan_common_name('Flight Operation ' , 6))
-    drone = models.ForeignKey(Aircraft,models.CASCADE)
-    flight_plan = models.ForeignKey(FlightPlan,models.CASCADE)
+    drone = models.ForeignKey(Aircraft, models.CASCADE)
+    flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")
     flight_termination_or_return_home_capability = models.BooleanField(default =1)
@@ -80,10 +81,9 @@ class FlightPermission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operation = models.ForeignKey(FlightOperation, models.CASCADE,related_name='Operation', null=True)
     is_successful = models.BooleanField(default = False)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    artefact = models.TextField(default="")
     def __unicode__(self):
        return self.operation.name
 
