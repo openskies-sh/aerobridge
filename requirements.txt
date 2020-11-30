@@ -1,6 +1,7 @@
 Django
 djangorestframework
 markdown
+cryptography
 django-filter
 django-cors-headers
 drf-jwt
