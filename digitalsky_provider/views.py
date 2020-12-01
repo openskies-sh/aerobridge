@@ -19,7 +19,7 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from gcs_operations.models import Transaction, FlightPermission
 from .models import DigitalSkyLog
-from gcs_operations.models import FlightOperation
+from gcs_operations.models import FlightOperation, UINApplication
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.x509 import load_pem_x509_certificate
@@ -30,10 +30,76 @@ from registry.models import Aircraft
 from pki_framework.utils import requires_scopes, BearerAuth
 from .serializers import DigitalSkyLogSerializer
 
-from gcs_operations.serializers import FlightPermissionSerializer
+from gcs_operations.serializers import FlightPermissionSerializer, UINApplicationSerializer
 
 # Create your views here.
 
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class UINApplicationList(mixins.ListModelMixin, generics.GenericAPIView):
+    
+    queryset = UINApplication.objects.all()
+    serializer_class = UINApplicationSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class UINApplicationDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    
+    queryset = UINApplication.objects.all()
+    serializer_class = UINApplicationSerializer
+
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class SubmitUINApplication(mixins.CreateModelMixin, generics.GenericAPIView):
+    
+    queryset = UINApplication.objects.all()
+    serializer_class = UINApplicationSerializer
+
+    def post(self, request, uin_application_id, format=None):
+        
+        uin_application = get_object_or_404(UINApplication, pk=uin_application_id)
+        drone = uin_application.drone
+
+        t = Transaction(drone = drone, prefix="uin_application")
+        t.save()
+        counter = uin_application.counter
+        operator = uin_application.operator
+        headers = {'content-type': 'application/json'}
+
+        securl = os.environ.get('DIGITAL_SKY_URL')  + '/api/applicationForm/uinApplication'
+        
+        
+        payload = {"feeDetails":"bank transfer","droneTypeId":drone.sub_category,"operatorDroneId":str(drone.id),"manufacturer":drone.manufacturer.common_name,"manufacturerAddress":drone.manufacturer.address,"manufacturerDesignation":drone.manufacturer.role,"manufacturerNationality":drone.manufacturer.country,"modelName":drone.model,"modelNo":drone.master_series,"serialNo":drone.esn,"dateOfManufacture":drone.manufactured_at,"wingType":drone.sub_category,"maxTakeOffWeight":drone.max_certified_takeoff_weight,"maxHeightAttainable":drone.max_height_attainable,"compatiblePayload":"","droneCategoryType":drone.category,"purposeOfOperation":operation.name,"engineType":drone.engine.type,"enginePower":drone.engine.power,"engineCount":drone.engine.count,"fuelCapacity":drone.fuel_capacity,"propellerDetails":drone.engine.propellor,"maxEndurance":drone.max_endurance,"maxRange":drone.max_range,"maxSpeed":drone.max_speed,"maxHeightOfOperation":"[max height property of selected drone as float]","dimensions":{"length":drone.dimension_length,"breadth":drone.dimension_breadth,"height":dronedimension_height},"ownerName":drone.operator.name,"ownerPhone":drone.operator.phone_number,"ownerEmail":drone.operator.email,"ownerAddress":drone.operator.get_address,"uinNumber":"TBC"}
+        r = requests.post(securl, data= json.dumps(payload), headers=headers)
+
+        now = datetime.datetime.now()
+        uin_response = json.loads(r.text)
+
+        if r.status_code == 200:
+            if uin_response['status'] == 'APPROVED':
+                uin_response.is_successful = True
+            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = uin_response['code'], timestamp = now)
+            ds_log.save()
+            return Response(status=status.HTTP_200_OK)
+        else:
+            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = uin_response['code'], timestamp = now)
+            ds_log.save()
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
@@ -107,13 +173,10 @@ class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.Gene
     queryset = FlightPermission.objects.all()
     serializer_class = FlightPermissionSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-    
     def post(self, request, operation_id,format=None):	
         operation = get_object_or_404(FlightOperation, pk=operation_id)
-
-        t = Transaction(drone = Aircraft, prefix="permission")
+        drone = operation.Aircraft
+        t = Transaction(drone = drone, prefix="permission")
         t.save()
         permission = FlightPermission(operation= operation)
         permission.save()
@@ -125,7 +188,7 @@ class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.Gene
         
         headers = {'content-type': 'application/json'}
 
-        securl = os.environ.get('DIGITAL_SKY_URL')
+        securl = os.environ.get('DIGITAL_SKY_URL')  + '/api/applicationForm/flyDronePermissionApplication'
         r = requests.post(securl, data= json.dumps(payload), headers=headers)
 
         now = datetime.datetime.now()
@@ -135,6 +198,8 @@ class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.Gene
             if permission_response['status'] == 'APPROVED':
                 permission.is_successful = True
             ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = permission_response['code'], timestamp = now)
+            ds_log.save()
+            return Response(status=status.HTTP_200_OK)
         else:
             ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = permission_response['code'], timestamp = now)
             ds_log.save()

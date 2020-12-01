@@ -1,8 +1,18 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightPermission
-from registry.serializers import AircraftDetailSerializer
-class FlightPlanSerializer(serializers.ModelSerializer):
+from .models import Transaction, FlightOperation, FlightPlan, FlightPermission, UINApplication
+from registry.serializers import AircraftDetailSerializer, OperatorSelectRelatedSerializer
 
+
+
+class UINApplicationSerializer(serializers.ModelSerializer):
+    ''' A serializer forUIN '''
+    drone = AircraftDetailSerializer(read_only=True)
+    operator = OperatorSelectRelatedSerializer(read_only=True)
+    class Meta:
+        model = UINApplication		
+        ordering = ['-created_at']
+        
+class FlightPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlightPlan		

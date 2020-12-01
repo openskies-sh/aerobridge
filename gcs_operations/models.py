@@ -108,6 +108,7 @@ class UINApplication(models.Model):
     eta = models.URLField()
     op_manual = models.URLField()
     maintainence_guidelines = models.URLField()
+    counter = models.IntegerField(default=1)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -109,7 +109,11 @@ class Operator(models.Model):
     insurance_number = models.CharField(max_length=25, blank=True, null=True)
     company_number = models.CharField(max_length=25, blank=True, null=True)
     country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'NA')
-
+    
+    def get_address(self):
+        full_address = '%s, %s, %s, %s %s, %s' % (self.address.address_line_1, self.address.address_line_2,self.address.address_line_3,self.address.city, self.address.state, self.address.country)
+        return full_address
+       
     def __unicode__(self):
        return self.company_name
 
@@ -264,6 +268,7 @@ class Aircraft(models.Model):
     dimension_height = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    manufactured_at = models.DateTimeField(null=True)
     def __unicode__(self):
         return self.operator.company_name +' ' + self.model
 
