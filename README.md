@@ -26,7 +26,7 @@ This is a open source implementation of the "Manufacturer's Management Server" t
 ## Features
 
 As of November 2020, once you connect / point your GCS software to an instance and can do the following using Aerobridge API:
-
+- __Drone Registration__: Submit details of a drone and get a UIN number 
 - __Flight log management__: Upload Bundled Logs to the DGCA API and store logs on the server
 - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
 
