@@ -1,6 +1,19 @@
 <img src="https://i.imgur.com/88pvVBP.png" height="200">
 
-# About
+# Introduction
+
+The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-portal/) in India has unveiled a policy of "No permission - No takeoff" for drone flights. This means that public and private companies intending to fly drones in India need to interface with DGCA's infrastructure for flight permissions and other authorizations. These APIs are called India's [Digital Sky](https://digitalsky.dgca.gov.in/) eco-system. Aerobridge is a server that helps you interface with the APIs in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
+
+## Get Involved
+
+Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel (details coming soon). Weather you are a drone enthusiast or a expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
+
+- You can shape the future of this software
+- Join the community of fellow professionals interested in a open flexible drone eco-system in India
+- Contribute to the development of open infrastructure to support your flight operations 
+- Reduce the time and cost of compliance
+
+## Technical Details
 
 This is a open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions.
 
