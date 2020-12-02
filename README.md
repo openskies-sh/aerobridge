@@ -32,7 +32,8 @@ As of November 2020, once you connect / point your GCS software to an instance a
 
 ## References
 
-This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
+- This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
+- Further details regarding NPNT can be found in the latest [RPAS Guaidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf) .
 
 ## Test drive
 
