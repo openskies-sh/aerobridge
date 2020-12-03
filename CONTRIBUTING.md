@@ -16,7 +16,7 @@ git checkout -b mydescriptivebranchname
 
 ### Coding styles
 
-- TBD 
+- Aerobridge follows PEP 8 Style Guide more details [here](https://www.python.org/dev/peps/pep-0008/)
 
 
 ### Commit your changes
