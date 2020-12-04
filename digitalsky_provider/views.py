@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 import requests
 import os, json
 from rest_framework import mixins
@@ -18,7 +17,7 @@ import jwt
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from gcs_operations.models import Transaction, FlightPermission
-from .models import DigitalSkyLog
+from .models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, UINApplication
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
@@ -28,7 +27,7 @@ from base64 import b64encode, b64decode
 from registry.models import Aircraft
 
 from pki_framework.utils import requires_scopes, BearerAuth
-from .serializers import DigitalSkyLogSerializer
+from .serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 
 from gcs_operations.serializers import FlightPermissionSerializer, UINApplicationSerializer
 
@@ -101,6 +100,39 @@ class SubmitUINApplication(mixins.CreateModelMixin, generics.GenericAPIView):
             ds_log.save()
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class AircraftRegisterList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+
+    queryset = AircraftRegister.objects.all()
+    serializer_class = AircraftRegisterSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class AircraftRegisterDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+
+    queryset = AircraftRegister.objects.all()
+    serializer_class = AircraftRegisterSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)        
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):

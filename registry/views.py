@@ -17,7 +17,7 @@ from rest_framework.views import APIView
 
 from .models import Activity, Authorization, Contact, Operator, Aircraft, Pilot, Test, TestValidity
 from .serializers import (ContactSerializer, ContactDetailSerializer, OperatorSerializer,               PilotSerializer, PilotDetailSerializer,
-                                  PrivilegedContactSerializer, PrivilegedPilotDetailSerializer, 
+                                  PrivilegedPilotDetailSerializer, 
                                   PrivilegedOperatorSerializer, AircraftSerializer, AircraftDetailSerializer)
 from django.http import JsonResponse
 from rest_framework.decorators import api_view

@@ -8,7 +8,8 @@ import requests
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
-
+from six.moves.urllib import request as req
+from django.http import JsonResponse
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 import requests
@@ -32,7 +33,7 @@ def jwt_decode_token(token):
         raise Exception('Public key not found.')
     issuer = 'https://{}/'.format(env.get('PASSPORT_DOMAIN'))
     audience = env.get('PASSPORT_AUDIENCE')
-    print(audience)
+    
     decoded = jwt.decode(token, public_key, audience=audience, issuer=issuer, algorithms=['RS256'])
     return decoded
 
@@ -58,17 +59,26 @@ def requires_scopes(required_scopes):
                 response.status_code = 401
                 return response
 
-            AUTH0_DOMAIN = 'https://{}/'.format(env.get('PASSPORT_DOMAIN'))
+            PASSPORT_DOMAIN = 'https://{}/.well-known/jwks.json'.format(env.get('PASSPORT_DOMAIN'))
             API_IDENTIFIER = env.get('PASSPORT_AUDIENCE')
             
-            jsonurl = req.urlopen(AUTH0_DOMAIN + '/.well-known/jwks.json')
-            jwks = json.loads(jsonurl.read())
-            cert = '-----BEGIN CERTIFICATE-----\n' + \
-                jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
-            certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
-            public_key = certificate.public_key()
+            jsonurl = req.urlopen(PASSPORT_DOMAIN)
+            
+            jwks = json.loads(jsonurl.read())   
+            # cert = '-----BEGIN CERTIFICATE-----\n' + \
+                # jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
+            # certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
+            # public_key = certificate.public_key()
+            public_keys = {}
+            for jwk in jwks['keys']:
+                kid = jwk['kid']
+                public_keys[kid] = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
+            
+            kid = jwt.get_unverified_header(token)['kid']
+            public_key = public_keys[kid]
             try:
                 decoded = jwt.decode(token, public_key, audience=API_IDENTIFIER, algorithms=['RS256'])
+                
             except jwt.ExpiredSignatureError as es: 
                 response = JsonResponse({'detail': 'Token Signature has expired'})
                 response.status_code = 401

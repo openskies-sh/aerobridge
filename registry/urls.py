@@ -25,9 +25,6 @@ from django.conf import settings
 
 urlpatterns = [
     
-    path('', registryviews.HomeView.as_view()),
-    
-    path('', registryviews.APIView.as_view()),
     path('operators', registryviews.OperatorList.as_view()),
     path('operators/<uuid:pk>', registryviews.OperatorDetail.as_view()),    
     
@@ -38,6 +35,3 @@ urlpatterns = [
     path('pilots/<uuid:pk>', registryviews.PilotDetail.as_view()),
     
 ]
-
-
-urlpatterns = format_suffix_patterns(urlpatterns)

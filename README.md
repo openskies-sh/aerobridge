@@ -10,7 +10,7 @@ Aerobridge is fully open source and you can get involved by participating in our
 
 - You can shape the future of this software
 - Join the community of fellow professionals interested in a open flexible drone eco-system in India
-- Contribute to the development of open infrastructure to support your flight operations 
+- Contribute to the development of open infrastructure to support your flight operations
 - Reduce the time and cost of compliance
 
 ## Technical Details
@@ -26,6 +26,7 @@ This is a open source implementation of the "Manufacturer's Management Server" t
 ## Features
 
 As of November 2020, once you connect / point your GCS software to an instance and can do the following using Aerobridge API:
+
 - __Drone Registration__: Submit details of a drone and get a UIN number 
 - __Flight log management__: Upload Bundled Logs to the DGCA API and store logs on the server
 - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
@@ -33,12 +34,12 @@ As of November 2020, once you connect / point your GCS software to an instance a
 ## References
 
 - This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
-- Further details regarding NPNT can be found in the latest [RPAS Guaidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf) .
+- Further details regarding NPNT can be found in the latest [RPAS Guidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf) .
 
 ## Test drive
 
 - You can see the API using the API explorer: Link TBC
-- To load the database with dummy data for your test-drive you can run the following Python / Django command: `python manage.py loaddata registry/defaultregistrydata.json`, this will populate the database with sample drone operator data. 
+- To load the database with dummy data for your test-drive you can run the following Python / Django command: `python manage.py loaddata registry/defaultregistrydata.json`, this will populate the database with sample drone operator data.
 
 ## Logo source / Credit
 
