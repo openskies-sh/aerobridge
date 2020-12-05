@@ -240,6 +240,13 @@ class AircraftSerializer(serializers.ModelSerializer):
         model = Aircraft
         fields = ('id', 'operator','registration_mark','updated_at','mass', 'maci_number','manufacturer', 'model','status','created_at', 'updated_at')
      
+
+class AircraftSigningSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Aircraft
+        fields = ('sub_category','series','esn','master_series','operator_id')
+     
 class AircraftDetailSerializer(serializers.ModelSerializer):
     type_certificate = TypeCertificateSerializer(read_only= True)
     manufacturer = ManufacturerSerializer(read_only=True)

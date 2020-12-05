@@ -144,49 +144,40 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = DigitalSkyLogSerializer
     def post(self, request, drone_id,format=None):		
 
-        drone = get_object_or_404(Aircraft, pk=drone_id)
-        t = Transaction(drone = Aircraft, prefix="registration")
+        aircraft_register = get_object_or_404(AircraftRegister, drone=drone_id)
+        drone = aircraft_register.drone
+        t = Transaction(drone = drone, prefix="registration")
         t.save()
-
-        private_key = os.environ.get('PRIVATE_KEY')
-        certificate = os.environ.get('X509_CERTIFICATE')
-        private_key = private_key.replace('-----BEGIN ENCRYPTED PRIVATE KEY-----goo', '')
-        private_key = private_key.replace('-----END ENCRYPTED PRIVATE KEY-----', '')
-
-    
-        priv_key = serialization.load_pem_private_key(private_key, password=None, backend=default_backend())
         
-        drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": drone.operator_business_id}
-        drone_details_string = json.dumps(drone_details)
-        drone_details_bytes = drone_details_string.encode("utf-8") 
+        if aircraft_register.is_signed:
+                
+            securl = os.environ.get('DIGITAL_SKY_URL')
+            headers = {'content-type': 'application/json'}
+
+            drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": drone.operator_business_id}
 
 
-        signature = priv_key.sign(drone_details_bytes,padding.PSS(mgf=padding.MGF1(hashes.SHA256()),salt_length=padding.PSS.MAX_LENGTH),hashes.SHA256())
-        # Sign the drone details
-        signature = b64encode(signature)
+            payload = {"drone": json.dumps(drone_details), "signature":aircraft_register.signature, "digitalCertificate":aircraft_register.certificate}
+
+            r = requests.post(securl, data= json.dumps(payload), headers=headers)
+            now = datetime.datetime.now()
+            registration_response = json.loads(r.text)
+            if r.status_code == 201:
+                # create a entry 
+                ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
+                ds_log.save()
+                drone.is_registered = True
+                drone.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
+                ds_log.save()
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         
-        securl = os.environ.get('DIGITAL_SKY_URL')
-        headers = {'content-type': 'application/json'}
+        else: 
+            message = {"msg": "Please sign the drone details first using a DSC token."}
+            return Response(json.dumps(message), status=status.HTTP_400_BAD_REQUEST)
 
-        drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": drone.operator_business_id}
-
-
-        payload = {"drone": json.dumps(drone_details), "signature":signature, "digitalCertificate":certificate}
-
-        r = requests.post(securl, data= json.dumps(payload), headers=headers)
-        now = datetime.datetime.now()
-        registration_response = json.loads(r.text)
-        if r.status_code == 201:
-            # create a entry 
-            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
-            ds_log.save()
-            drone.is_registered = True
-            drone.save()
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
-            ds_log.save()
-            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
