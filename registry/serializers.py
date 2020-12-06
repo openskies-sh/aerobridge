@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from registry.models import Activity, Authorization, Operator, Contact, Aircraft, Pilot, Address, Person, Test, TypeCertificate, Manufacturer, TestValidity
 
+from digitalsky_provider.models import Transaction
+
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
@@ -243,9 +245,40 @@ class AircraftSerializer(serializers.ModelSerializer):
 
 class AircraftSigningSerializer(serializers.ModelSerializer):
     
+    droneTypeId = serializers.SerializerMethodField()    
+    version = serializers.SerializerMethodField()
+    deviceId = serializers.SerializerMethodField()
+    deviceModelId = serializers.SerializerMethodField()    
+    operatorBusinessIdentifier = serializers.SerializerMethodField()
+    txn = serializers.SerializerMethodField()
+    
+    def get_txn(self, response):
+        drone = Aircraft.objects.get(id = response.id)
+        t, created = Transaction.objects.get_or_create(aircraft_id = drone.id, prefix="tsc_signing")
+        return t.id
+    
+    def get_droneTypeId(self, response):
+        a = Aircraft.objects.get(id=response.id)
+        return a.sub_category
+        
+    def get_version(self, response):
+        a = Aircraft.objects.get(id=response.id)
+        return a.model
+    
+    def get_deviceId(self, response):
+        a = Aircraft.objects.get(id=response.id)
+        return a.esn
+        
+    def get_deviceModelId(self, response):
+        a = Aircraft.objects.get(id=response.id)
+        return a.maci_number
+    def get_operatorBusinessIdentifier(self, response):
+        a = Aircraft.objects.get(id=response.id)
+        return a.operator.id
+    
     class Meta:
         model = Aircraft
-        fields = ('sub_category','series','esn','master_series','operator_id')
+        fields = ('droneTypeId','version','deviceId','deviceModelId','txn','operatorBusinessIdentifier')
      
 class AircraftDetailSerializer(serializers.ModelSerializer):
     type_certificate = TypeCertificateSerializer(read_only= True)

@@ -3,8 +3,8 @@ from . import views as ds_views
 
 
 urlpatterns = [
-    path("sign_drone/", ds_views.AircraftRegisterList.as_view(), name="sign_drone_list"),    
-    path("sign_drone/<uuid:pk>", ds_views.AircraftRegisterDetail.as_view(), name="sign_drone"),    
+    path("drone_register/", ds_views.AircraftRegisterList.as_view(), name="sign_drone_list"),    
+    path("drone_register/<uuid:pk>", ds_views.AircraftRegisterDetail.as_view(), name="sign_drone"),    
 
     path("register_drone/<uuid:pk>", ds_views.RegisterDrone.as_view(), name="register_drone"),    
     path("all_permissions/", ds_views.FlyDronePermissionApplicationList.as_view(), name="download_artefact"),    
