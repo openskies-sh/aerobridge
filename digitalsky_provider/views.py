@@ -162,7 +162,6 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
 
             drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": drone.operator_business_id}
 
-
             payload = {"drone": json.dumps(drone_details), "signature":aircraft_register.signature, "digitalCertificate":aircraft_register.certificate}
 
             r = requests.post(securl, data= json.dumps(payload), headers=headers)
