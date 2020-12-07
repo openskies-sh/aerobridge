@@ -6,7 +6,7 @@ The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-p
 
 ## Get Involved
 
-Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel (details coming soon). Weather you are a drone enthusiast or a expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
+Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Weather you are a drone enthusiast or a expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
 
 - You can shape the future of this software
 - Join the community of fellow professionals interested in a open flexible drone eco-system in India
