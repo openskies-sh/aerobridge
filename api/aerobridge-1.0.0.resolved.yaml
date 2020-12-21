@@ -1,0 +1,79 @@
+---
+openapi: "3.0.0"
+info:
+  title: "Aerobrige Server API specification"
+  description: |-
+    All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with the Digital Sky API and . 
+
+    Unless otherwise specified, fields specified in a message but not declared in the API shall be ignored.
+  version: "1.0.0"
+servers:
+  - url: "https://virtserver.swaggerhub.com/cygnus2936/aerobridge/1.0.0"
+    description: "Aerobridge Server API"
+security:
+  - AuthFromPassport:
+      - "write"
+      - "read"
+
+paths:
+  /ping:
+    get:
+      summary: "Server heartbeat operation"
+
+      description: "This operation is a ping to check if the server is running "
+
+      security: []
+      responses:
+        "200":
+          description: "pong"
+        "400":
+          $ref: "#/responses/BadRequest400ErrorResponse"
+        "401":
+          $ref: "#/responses/Unauthorized401ErrorResponse"
+        "403":
+          $ref: "#/responses/Forbidden403ErrorResponse"
+        "500":
+          $ref: "#/responses/Standard500ErrorResponse"
+
+components:
+  securitySchemes:
+    AuthFromPassport:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: "http://id.openskies.sh/oauth/token"
+          scopes:
+            aerobridge.write: "Write data into Flight Blender"
+            aerobridge.read: "Read data into Flight Blender"
+
+  definitions:
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+responses:
+  Standard500ErrorResponse:
+    description: An unexpected error occured.
+    schema:
+      $ref: "#/components/definitions/Error"
+
+  BadRequest400ErrorResponse:
+    description: The JSON is not valid
+    schema:
+      $ref: "#/components/definitions/Error"
+
+  Unauthorized401ErrorResponse:
+    description: The request requires an user authentication
+    schema:
+      $ref: "#/components/definitions/Error"
+
+  Forbidden403ErrorResponse:
+    description: the access is not allowed
+    schema:
+      $ref: "#/components/definitions/Error"
