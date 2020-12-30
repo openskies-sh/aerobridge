@@ -32,6 +32,7 @@ paths:
           $ref: "#/responses/Forbidden403ErrorResponse"
         "500":
           $ref: "#/responses/Standard500ErrorResponse"
+          
   /gcs/transaction:
     get:
       operationId: "Get All Transactions"
@@ -376,7 +377,6 @@ paths:
     get:
       operationId: List all permission artefacts stored in Aerobridge Server
       description: ""
-      parameters:
       responses:
         "200":
           content:
