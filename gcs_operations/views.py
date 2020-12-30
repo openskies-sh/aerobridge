@@ -30,8 +30,6 @@ class TransactionList(mixins.ListModelMixin,
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class TransactionDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
                     generics.GenericAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer

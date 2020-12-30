@@ -9,13 +9,15 @@ class UINApplicationSerializer(serializers.ModelSerializer):
     drone = AircraftDetailSerializer(read_only=True)
     operator = OperatorSelectRelatedSerializer(read_only=True)
     class Meta:
-        model = UINApplication		
+        model = UINApplication
+        fields = '__all__'		
         ordering = ['-created_at']
         
 class FlightPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlightPlan		
+        fields = '__all__'
         ordering = ['-created_at']
         
 class FlightOperationSerializer(serializers.ModelSerializer):
@@ -23,13 +25,15 @@ class FlightOperationSerializer(serializers.ModelSerializer):
     drone = AircraftDetailSerializer(read_only=True)
     manufacturer = FlightPlanSerializer(read_only=True)
     class Meta:
-        model = FlightOperation		
+        model = FlightOperation	
+        fields = '__all__'	
         ordering = ['-created_at']
         
 class FlightPermissionSerializer(serializers.ModelSerializer):
     operation = FlightOperationSerializer(read_only=True)
     class Meta:
-        model = FlightPermission		
+        model = FlightPermission	
+        fields = '__all__'	
         ordering = ['-created_at']
         
 class TransactionSerializer(serializers.ModelSerializer):
@@ -37,4 +41,5 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction		
+        fields = '__all__'
         ordering = ['-created_at']

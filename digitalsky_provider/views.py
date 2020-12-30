@@ -124,8 +124,6 @@ class AircraftRegisterList(mixins.ListModelMixin,
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class AircraftRegisterDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
                     generics.GenericAPIView):
 
     queryset = AircraftRegister.objects.all()
@@ -134,11 +132,6 @@ class AircraftRegisterDetail(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)        
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):

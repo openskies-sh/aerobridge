@@ -19,9 +19,7 @@ paths:
   /ping:
     get:
       summary: "Server heartbeat operation"
-
-      description: "This operation is a ping to check if the server is running "
-
+      description: "This operation is a ping to check if the server is running"
       security: []
       responses:
         "200":
@@ -34,6 +32,2485 @@ paths:
           $ref: "#/responses/Forbidden403ErrorResponse"
         "500":
           $ref: "#/responses/Standard500ErrorResponse"
+  /gcs/transaction:
+    get:
+      operationId: "Get All Transactions"
+      description: "Get a list of all transactions from Aerobridge Server"
+      parameters:
+        - name: format
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  prefix:
+                    type: string
+                    maxLength: 12
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  aircraft:
+                    type: string
+                    nullable: true
+          description: ""
+
+        "400":
+          $ref: "#/responses/BadRequest400ErrorResponse"
+        "401":
+          $ref: "#/responses/Unauthorized401ErrorResponse"
+        "403":
+          $ref: "#/responses/Forbidden403ErrorResponse"
+        "500":
+          $ref: "#/responses/Standard500ErrorResponse"
+
+  /gcs/transaction/{transaction_id}:
+    get:
+      operationId: "Get Single Transaction Record"
+      description: "See details of a single transaction from Aerobridge Server"
+      parameters:
+        - name: transaction_id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+        - name: format
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  prefix:
+                    type: string
+                    maxLength: 12
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  aircraft:
+                    type: string
+                    nullable: true
+          description: "Aerobridge server saves a transaction log and responses from the Digital Sky System, use this endpoint to review logs and responses"
+
+        "400":
+          $ref: "#/responses/BadRequest400ErrorResponse"
+        "401":
+          $ref: "#/responses/Unauthorized401ErrorResponse"
+        "403":
+          $ref: "#/responses/Forbidden403ErrorResponse"
+        "500":
+          $ref: "#/responses/Standard500ErrorResponse"
+
+  /digitalsky/aircraft_roster/:
+    get:
+      operationId: "List of all aircraft in Aerobridge"
+      description: "Get a list of all Aircrafts for the operator"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  drone:
+                    properties:
+                      droneTypeId:
+                        type: string
+                        readOnly: true
+                      version:
+                        type: string
+                        readOnly: true
+                      deviceId:
+                        type: string
+                        readOnly: true
+                      deviceModelId:
+                        type: string
+                        readOnly: true
+                      txn:
+                        type: string
+                        readOnly: true
+                      operatorBusinessIdentifier:
+                        type: string
+                        readOnly: true
+                    type: object
+                    readOnly: true
+                  is_signed:
+                    type: boolean
+                  signature:
+                    type: string
+                  certificate:
+                    type: string
+                required:
+                  - signature
+                  - certificate
+          description: ""
+    post:
+      operationId: Register a new aircraft
+      description: "Create a new drone to register with Digital Sky"
+      parameters:
+        - name: format
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id006
+              properties:
+                is_signed:
+                  type: boolean
+                signature:
+                  type: string
+                certificate:
+                  type: string
+              required:
+                - signature
+                - certificate
+          application/x-www-form-urlencoded:
+            schema: *id006
+          multipart/form-data:
+            schema: *id006
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  drone:
+                    properties:
+                      droneTypeId:
+                        type: string
+                        readOnly: true
+                      version:
+                        type: string
+                        readOnly: true
+                      deviceId:
+                        type: string
+                        readOnly: true
+                      deviceModelId:
+                        type: string
+                        readOnly: true
+                      txn:
+                        type: string
+                        readOnly: true
+                      operatorBusinessIdentifier:
+                        type: string
+                        readOnly: true
+                    type: object
+                    readOnly: true
+                  is_signed:
+                    type: boolean
+                  signature:
+                    type: string
+                  certificate:
+                    type: string
+                required:
+                  - signature
+                  - certificate
+          description: ""
+
+  /digitalsky/aircraft_roster/{id}:
+    get:
+      operationId: Get details of a single aircraft
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UUID string identifying this aircraft register.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  drone:
+                    properties:
+                      droneTypeId:
+                        type: string
+                        readOnly: true
+                      version:
+                        type: string
+                        readOnly: true
+                      deviceId:
+                        type: string
+                        readOnly: true
+                      deviceModelId:
+                        type: string
+                        readOnly: true
+                      txn:
+                        type: string
+                        readOnly: true
+                      operatorBusinessIdentifier:
+                        type: string
+                        readOnly: true
+                    type: object
+                    readOnly: true
+                  is_signed:
+                    type: boolean
+                  signature:
+                    type: string
+                  certificate:
+                    type: string
+                required:
+                  - is_signed
+                  - signature
+                  - certificate
+          description: ""
+
+  /digitalsky/register_aircraft/{id}:
+    post:
+      operationId: CreateDigitalSkyLog
+      description: Execute Drone registration with Digital Sky
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+        - name: format
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id010
+              properties:
+                response_code:
+                  type: string
+                  maxLength: 256
+                response:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+                txn:
+                  type: string
+              required:
+                - response_code
+                - timestamp
+                - txn
+          application/x-www-form-urlencoded:
+            schema: *id010
+          multipart/form-data:
+            schema: *id010
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  response_code:
+                    type: string
+                    maxLength: 256
+                  response:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  txn:
+                    type: string
+                required:
+                  - response_code
+                  - timestamp
+                  - txn
+          description: ""
+
+  /digitalsky/all_permissions/:
+    get:
+      operationId: List all permission artefacts stored in Aerobridge Server
+      description: ""
+      parameters:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  operation:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      drone:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          operator:
+                            type: string
+                          mass:
+                            type: integer
+                          manufacturer:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              full_name:
+                                type: string
+                                maxLength: 140
+                              common_name:
+                                type: string
+                                maxLength: 140
+                              address:
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    readOnly: true
+                                  address_line_1:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_2:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_3:
+                                    type: string
+                                    maxLength: 140
+                                  postcode:
+                                    type: string
+                                    maxLength: 10
+                                  city:
+                                    type: string
+                                    maxLength: 140
+                                  country:
+                                    enum:
+                                      - IN
+                                  created_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                  updated_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                required:
+                                  - address_line_1
+                                  - address_line_2
+                                  - address_line_3
+                                  - city
+                                type: object
+                                readOnly: true
+                              role:
+                                type: string
+                                maxLength: 140
+                            type: object
+                            readOnly: true
+                          model:
+                            type: string
+                            maxLength: 280
+                          esn:
+                            type: string
+                            maxLength: 48
+                          maci_number:
+                            type: string
+                            maxLength: 280
+                          status:
+                            enum:
+                              - 0
+                              - 1
+                          registration_mark:
+                            type: string
+                            nullable: true
+                            maxLength: 10
+                          category:
+                            type: string
+                            readOnly: true
+                          type_certificate:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              type_certificate_id:
+                                type: string
+                                maxLength: 280
+                              type_certificate_issuing_country:
+                                type: string
+                                maxLength: 280
+                              type_certificate_holder:
+                                type: string
+                                maxLength: 140
+                              type_certificate_holder_country:
+                                type: string
+                                maxLength: 140
+                            required:
+                              - type_certificate_id
+                              - type_certificate_issuing_country
+                              - type_certificate_holder
+                              - type_certificate_holder_country
+                            type: object
+                            readOnly: true
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          master_series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          popular_name:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          sub_category:
+                            type: string
+                            readOnly: true
+                          photo:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          photo_small:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          icao_aircraft_type_designator:
+                            type: string
+                            maxLength: 4
+                          max_certified_takeoff_weight:
+                            type: number
+                            multipleOf: 0.001
+                            maximum: 10000000
+                            minimum: -10000000
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - operator
+                          - mass
+                          - model
+                          - maci_number
+                        type: object
+                        readOnly: true
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          name:
+                            type: string
+                            maxLength: 30
+                          details:
+                            type: string
+                            nullable: true
+                          start_datetime:
+                            type: string
+                            format: date-time
+                          end_datetime:
+                            type: string
+                            format: date-time
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - start_datetime
+                          - end_datetime
+                        type: object
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 30
+                      type_of_operation:
+                        enum:
+                          - 0
+                          - 1
+                        description:
+                          At the moment, only VLOS and BVLOS operations
+                          are supported, for other types of operations, please issue
+                          a pull-request
+                      flight_termination_or_return_home_capability:
+                        type: boolean
+                      geo_fencing_capability:
+                        type: boolean
+                      detect_and_avoid_capability:
+                        type: boolean
+                      recurring_time_expression:
+                        type: string
+                        maxLength: 50
+                      recurring_time_duration:
+                        type: integer
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      flight_plan:
+                        type: string
+                      purpose:
+                        type: string
+                        description:
+                          To add additional categories, please add entries
+                          to the Activities table
+                    required:
+                      - flight_plan
+                    type: object
+                    readOnly: true
+                  is_successful:
+                    type: boolean
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  artefact:
+                    type: string
+          description: ""
+
+  /digitalsky/all_permissions/{id}:
+    get:
+      operationId: Get details of a single permission artefact
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UUID string identifying this flight permission.
+          schema:
+            type: string
+
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  operation:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      drone:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          operator:
+                            type: string
+                          mass:
+                            type: integer
+                          manufacturer:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              full_name:
+                                type: string
+                                maxLength: 140
+                              common_name:
+                                type: string
+                                maxLength: 140
+                              address:
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    readOnly: true
+                                  address_line_1:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_2:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_3:
+                                    type: string
+                                    maxLength: 140
+                                  postcode:
+                                    type: string
+                                    maxLength: 10
+                                  city:
+                                    type: string
+                                    maxLength: 140
+                                  country:
+                                    enum:
+                                      - IN
+                                  created_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                  updated_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                required:
+                                  - address_line_1
+                                  - address_line_2
+                                  - address_line_3
+                                  - city
+                                type: object
+                                readOnly: true
+                              role:
+                                type: string
+                                maxLength: 140
+                            type: object
+                            readOnly: true
+                          model:
+                            type: string
+                            maxLength: 280
+                          esn:
+                            type: string
+                            maxLength: 48
+                          maci_number:
+                            type: string
+                            maxLength: 280
+                          status:
+                            enum:
+                              - 0
+                              - 1
+                          registration_mark:
+                            type: string
+                            nullable: true
+                            maxLength: 10
+                          category:
+                            type: string
+                            readOnly: true
+                          type_certificate:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              type_certificate_id:
+                                type: string
+                                maxLength: 280
+                              type_certificate_issuing_country:
+                                type: string
+                                maxLength: 280
+                              type_certificate_holder:
+                                type: string
+                                maxLength: 140
+                              type_certificate_holder_country:
+                                type: string
+                                maxLength: 140
+                            required:
+                              - type_certificate_id
+                              - type_certificate_issuing_country
+                              - type_certificate_holder
+                              - type_certificate_holder_country
+                            type: object
+                            readOnly: true
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          master_series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          popular_name:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          sub_category:
+                            type: string
+                            readOnly: true
+                          photo:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          photo_small:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          icao_aircraft_type_designator:
+                            type: string
+                            maxLength: 4
+                          max_certified_takeoff_weight:
+                            type: number
+                            multipleOf: 0.001
+                            maximum: 10000000
+                            minimum: -10000000
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - operator
+                          - mass
+                          - model
+                          - maci_number
+                        type: object
+                        readOnly: true
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          name:
+                            type: string
+                            maxLength: 30
+                          details:
+                            type: string
+                            nullable: true
+                          start_datetime:
+                            type: string
+                            format: date-time
+                          end_datetime:
+                            type: string
+                            format: date-time
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - start_datetime
+                          - end_datetime
+                        type: object
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 30
+                      type_of_operation:
+                        enum:
+                          - 0
+                          - 1
+                        description:
+                          At the moment, only VLOS and BVLOS operations
+                          are supported, for other types of operations, please issue
+                          a pull-request
+                      flight_termination_or_return_home_capability:
+                        type: boolean
+                      geo_fencing_capability:
+                        type: boolean
+                      detect_and_avoid_capability:
+                        type: boolean
+                      recurring_time_expression:
+                        type: string
+                        maxLength: 50
+                      recurring_time_duration:
+                        type: integer
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      flight_plan:
+                        type: string
+                      purpose:
+                        type: string
+                        description:
+                          To add additional categories, please add entries
+                          to the Activities table
+                    required:
+                      - flight_plan
+                    type: object
+                    readOnly: true
+                  is_successful:
+                    type: boolean
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  artefact:
+                    type: string
+          description: ""
+
+  /digitalsky/apply_permission/{id}:
+    post:
+      operationId: Create Flight Permission
+      description: "Submit a request to generate a Flight Permission from Digital Sky API"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UUID string identifying this flight permission.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id012
+              properties:
+                is_successful:
+                  type: boolean
+                artefact:
+                  type: string
+          application/x-www-form-urlencoded:
+            schema: *id012
+          multipart/form-data:
+            schema: *id012
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  operation:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      drone:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          operator:
+                            type: string
+                          mass:
+                            type: integer
+                          manufacturer:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              full_name:
+                                type: string
+                                maxLength: 140
+                              common_name:
+                                type: string
+                                maxLength: 140
+                              address:
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    readOnly: true
+                                  address_line_1:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_2:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_3:
+                                    type: string
+                                    maxLength: 140
+                                  postcode:
+                                    type: string
+                                    maxLength: 10
+                                  city:
+                                    type: string
+                                    maxLength: 140
+                                  country:
+                                    enum:
+                                      - IN
+                                  created_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                  updated_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                required:
+                                  - address_line_1
+                                  - address_line_2
+                                  - address_line_3
+                                  - city
+                                type: object
+                                readOnly: true
+                              role:
+                                type: string
+                                maxLength: 140
+                            type: object
+                            readOnly: true
+                          model:
+                            type: string
+                            maxLength: 280
+                          esn:
+                            type: string
+                            maxLength: 48
+                          maci_number:
+                            type: string
+                            maxLength: 280
+                          status:
+                            enum:
+                              - 0
+                              - 1
+                          registration_mark:
+                            type: string
+                            nullable: true
+                            maxLength: 10
+                          category:
+                            type: string
+                            readOnly: true
+                          type_certificate:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              type_certificate_id:
+                                type: string
+                                maxLength: 280
+                              type_certificate_issuing_country:
+                                type: string
+                                maxLength: 280
+                              type_certificate_holder:
+                                type: string
+                                maxLength: 140
+                              type_certificate_holder_country:
+                                type: string
+                                maxLength: 140
+                            required:
+                              - type_certificate_id
+                              - type_certificate_issuing_country
+                              - type_certificate_holder
+                              - type_certificate_holder_country
+                            type: object
+                            readOnly: true
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          master_series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          popular_name:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          sub_category:
+                            type: string
+                            readOnly: true
+                          photo:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          photo_small:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          icao_aircraft_type_designator:
+                            type: string
+                            maxLength: 4
+                          max_certified_takeoff_weight:
+                            type: number
+                            multipleOf: 0.001
+                            maximum: 10000000
+                            minimum: -10000000
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - operator
+                          - mass
+                          - model
+                          - maci_number
+                        type: object
+                        readOnly: true
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          name:
+                            type: string
+                            maxLength: 30
+                          details:
+                            type: string
+                            nullable: true
+                          start_datetime:
+                            type: string
+                            format: date-time
+                          end_datetime:
+                            type: string
+                            format: date-time
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - start_datetime
+                          - end_datetime
+                        type: object
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 30
+                      type_of_operation:
+                        enum:
+                          - 0
+                          - 1
+                        description:
+                          At the moment, only VLOS and BVLOS operations
+                          are supported, for other types of operations, please issue
+                          a pull-request
+                      flight_termination_or_return_home_capability:
+                        type: boolean
+                      geo_fencing_capability:
+                        type: boolean
+                      detect_and_avoid_capability:
+                        type: boolean
+                      recurring_time_expression:
+                        type: string
+                        maxLength: 50
+                      recurring_time_duration:
+                        type: integer
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      flight_plan:
+                        type: string
+                      purpose:
+                        type: string
+                        description:
+                          To add additional categories, please add entries
+                          to the Activities table
+                    required:
+                      - flight_plan
+                    type: object
+                    readOnly: true
+                  is_successful:
+                    type: boolean
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  artefact:
+                    type: string
+          description: ""
+
+  /digitalsky/uin_applications/:
+    get:
+      operationId: Get all UIN Applications
+      description: ""
+      parameters:
+
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  drone:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      operator:
+                        type: string
+                      mass:
+                        type: integer
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          full_name:
+                            type: string
+                            maxLength: 140
+                          common_name:
+                            type: string
+                            maxLength: 140
+                          address:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              address_line_1:
+                                type: string
+                                maxLength: 140
+                              address_line_2:
+                                type: string
+                                maxLength: 140
+                              address_line_3:
+                                type: string
+                                maxLength: 140
+                              postcode:
+                                type: string
+                                maxLength: 10
+                              city:
+                                type: string
+                                maxLength: 140
+                              country:
+                                enum:
+                                  - IN
+                              created_at:
+                                type: string
+                                format: date-time
+                                readOnly: true
+                              updated_at:
+                                type: string
+                                format: date-time
+                                readOnly: true
+                            required:
+                              - address_line_1
+                              - address_line_2
+                              - address_line_3
+                              - city
+                            type: object
+                            readOnly: true
+                          role:
+                            type: string
+                            maxLength: 140
+                        type: object
+                        readOnly: true
+                      model:
+                        type: string
+                        maxLength: 280
+                      esn:
+                        type: string
+                        maxLength: 48
+                      maci_number:
+                        type: string
+                        maxLength: 280
+                      status:
+                        enum:
+                          - 0
+                          - 1
+                      registration_mark:
+                        type: string
+                        nullable: true
+                        maxLength: 10
+                      category:
+                        type: string
+                        readOnly: true
+                      type_certificate:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          type_certificate_id:
+                            type: string
+                            maxLength: 280
+                          type_certificate_issuing_country:
+                            type: string
+                            maxLength: 280
+                          type_certificate_holder:
+                            type: string
+                            maxLength: 140
+                          type_certificate_holder_country:
+                            type: string
+                            maxLength: 140
+                        required:
+                          - type_certificate_id
+                          - type_certificate_issuing_country
+                          - type_certificate_holder
+                          - type_certificate_holder_country
+                        type: object
+                        readOnly: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      master_series:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      series:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      popular_name:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      sub_category:
+                        type: string
+                        readOnly: true
+                      photo:
+                        type: string
+                        format: uri
+                        nullable: true
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      photo_small:
+                        type: string
+                        format: uri
+                        nullable: true
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      icao_aircraft_type_designator:
+                        type: string
+                        maxLength: 4
+                      max_certified_takeoff_weight:
+                        type: number
+                        multipleOf: 0.001
+                        maximum: 10000000
+                        minimum: -10000000
+                      updated_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                    required:
+                      - operator
+                      - mass
+                      - model
+                      - maci_number
+                    type: object
+                    readOnly: true
+                  operator:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      company_name:
+                        type: string
+                        maxLength: 280
+                      country:
+                        enum:
+                          - IN
+                      website:
+                        type: string
+                        format: uri
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      operator_type:
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                      address:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          address_line_1:
+                            type: string
+                            maxLength: 140
+                          address_line_2:
+                            type: string
+                            maxLength: 140
+                          address_line_3:
+                            type: string
+                            maxLength: 140
+                          postcode:
+                            type: string
+                            maxLength: 10
+                          city:
+                            type: string
+                            maxLength: 140
+                          country:
+                            enum:
+                              - IN
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - address_line_1
+                          - address_line_2
+                          - address_line_3
+                          - city
+                        type: object
+                        readOnly: true
+                      operational_authorizations:
+                        type: string
+                        readOnly: true
+                      authorized_activities:
+                        type: string
+                        readOnly: true
+                      contacts:
+                        type: string
+                        readOnly: true
+                      phone_number:
+                        type: string
+                        pattern: ^\+?1?\d{9,15}$
+                        maxLength: 17
+                      company_number:
+                        type: string
+                        nullable: true
+                        maxLength: 25
+                      pilots:
+                        type: string
+                        readOnly: true
+                      aircrafts:
+                        type: string
+                        readOnly: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      updated_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                    required:
+                      - company_name
+                      - website
+                      - email
+                    type: object
+                    readOnly: true
+                  fee_details:
+                    type: string
+                    maxLength: 140
+                  import_permission:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  cin:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  gst_in:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  pan_card:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  dot_permission:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  security_clearance:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  eta:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  op_manual:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  maintainence_guidelines:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  counter:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                  - fee_details
+                  - import_permission
+                  - cin
+                  - gst_in
+                  - pan_card
+                  - dot_permission
+                  - security_clearance
+                  - eta
+                  - op_manual
+                  - maintainence_guidelines
+          description: ""
+
+  /digitalsky/uin_applications/{id}:
+    post:
+      operationId: Get a sing
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UUID string identifying this flight permission.
+          schema:
+            type: string
+        - name: format
+          in: path
+          required: true
+          description: ""
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id014
+              properties:
+                is_successful:
+                  type: boolean
+                artefact:
+                  type: string
+          application/x-www-form-urlencoded:
+            schema: *id014
+          multipart/form-data:
+            schema: *id014
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  operation:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      drone:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          operator:
+                            type: string
+                          mass:
+                            type: integer
+                          manufacturer:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              full_name:
+                                type: string
+                                maxLength: 140
+                              common_name:
+                                type: string
+                                maxLength: 140
+                              address:
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    readOnly: true
+                                  address_line_1:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_2:
+                                    type: string
+                                    maxLength: 140
+                                  address_line_3:
+                                    type: string
+                                    maxLength: 140
+                                  postcode:
+                                    type: string
+                                    maxLength: 10
+                                  city:
+                                    type: string
+                                    maxLength: 140
+                                  country:
+                                    enum:
+                                      - IN
+                                  created_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                  updated_at:
+                                    type: string
+                                    format: date-time
+                                    readOnly: true
+                                required:
+                                  - address_line_1
+                                  - address_line_2
+                                  - address_line_3
+                                  - city
+                                type: object
+                                readOnly: true
+                              role:
+                                type: string
+                                maxLength: 140
+                            type: object
+                            readOnly: true
+                          model:
+                            type: string
+                            maxLength: 280
+                          esn:
+                            type: string
+                            maxLength: 48
+                          maci_number:
+                            type: string
+                            maxLength: 280
+                          status:
+                            enum:
+                              - 0
+                              - 1
+                          registration_mark:
+                            type: string
+                            nullable: true
+                            maxLength: 10
+                          category:
+                            type: string
+                            readOnly: true
+                          type_certificate:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              type_certificate_id:
+                                type: string
+                                maxLength: 280
+                              type_certificate_issuing_country:
+                                type: string
+                                maxLength: 280
+                              type_certificate_holder:
+                                type: string
+                                maxLength: 140
+                              type_certificate_holder_country:
+                                type: string
+                                maxLength: 140
+                            required:
+                              - type_certificate_id
+                              - type_certificate_issuing_country
+                              - type_certificate_holder
+                              - type_certificate_holder_country
+                            type: object
+                            readOnly: true
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          master_series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          series:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          popular_name:
+                            type: string
+                            nullable: true
+                            maxLength: 280
+                          sub_category:
+                            type: string
+                            readOnly: true
+                          photo:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          photo_small:
+                            type: string
+                            format: uri
+                            nullable: true
+                            maxLength: 200
+                            pattern:
+                              "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                              d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\\
+                              d?\\d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                              -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                              -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF\
+                              -]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                              d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                          icao_aircraft_type_designator:
+                            type: string
+                            maxLength: 4
+                          max_certified_takeoff_weight:
+                            type: number
+                            multipleOf: 0.001
+                            maximum: 10000000
+                            minimum: -10000000
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - operator
+                          - mass
+                          - model
+                          - maci_number
+                        type: object
+                        readOnly: true
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          name:
+                            type: string
+                            maxLength: 30
+                          details:
+                            type: string
+                            nullable: true
+                          start_datetime:
+                            type: string
+                            format: date-time
+                          end_datetime:
+                            type: string
+                            format: date-time
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - start_datetime
+                          - end_datetime
+                        type: object
+                        readOnly: true
+                      name:
+                        type: string
+                        maxLength: 30
+                      type_of_operation:
+                        enum:
+                          - 0
+                          - 1
+                        description:
+                          At the moment, only VLOS and BVLOS operations
+                          are supported, for other types of operations, please issue
+                          a pull-request
+                      flight_termination_or_return_home_capability:
+                        type: boolean
+                      geo_fencing_capability:
+                        type: boolean
+                      detect_and_avoid_capability:
+                        type: boolean
+                      recurring_time_expression:
+                        type: string
+                        maxLength: 50
+                      recurring_time_duration:
+                        type: integer
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      flight_plan:
+                        type: string
+                      purpose:
+                        type: string
+                        description:
+                          To add additional categories, please add entries
+                          to the Activities table
+                    required:
+                      - flight_plan
+                    type: object
+                    readOnly: true
+                  is_successful:
+                    type: boolean
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  artefact:
+                    type: string
+          description: ""
+
+  /digitalsky/submit_uin_application/{id}:
+    post:
+      operationId: Send a UIN Application request to Digital Sky
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A UUID string identifying this uin application.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id015
+              properties:
+                fee_details:
+                  type: string
+                  maxLength: 140
+                import_permission:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                cin:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                gst_in:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                pan_card:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                dot_permission:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                security_clearance:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                eta:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                op_manual:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                maintainence_guidelines:
+                  type: string
+                  format: uri
+                  maxLength: 200
+                  pattern:
+                    "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                counter:
+                  type: integer
+              required:
+                - fee_details
+                - import_permission
+                - cin
+                - gst_in
+                - pan_card
+                - dot_permission
+                - security_clearance
+                - eta
+                - op_manual
+                - maintainence_guidelines
+          application/x-www-form-urlencoded:
+            schema: *id015
+          multipart/form-data:
+            schema: *id015
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  drone:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      operator:
+                        type: string
+                      mass:
+                        type: integer
+                      manufacturer:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          full_name:
+                            type: string
+                            maxLength: 140
+                          common_name:
+                            type: string
+                            maxLength: 140
+                          address:
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                readOnly: true
+                              address_line_1:
+                                type: string
+                                maxLength: 140
+                              address_line_2:
+                                type: string
+                                maxLength: 140
+                              address_line_3:
+                                type: string
+                                maxLength: 140
+                              postcode:
+                                type: string
+                                maxLength: 10
+                              city:
+                                type: string
+                                maxLength: 140
+                              country:
+                                enum:
+                                  - IN
+                              created_at:
+                                type: string
+                                format: date-time
+                                readOnly: true
+                              updated_at:
+                                type: string
+                                format: date-time
+                                readOnly: true
+                            required:
+                              - address_line_1
+                              - address_line_2
+                              - address_line_3
+                              - city
+                            type: object
+                            readOnly: true
+                          role:
+                            type: string
+                            maxLength: 140
+                        type: object
+                        readOnly: true
+                      model:
+                        type: string
+                        maxLength: 280
+                      esn:
+                        type: string
+                        maxLength: 48
+                      maci_number:
+                        type: string
+                        maxLength: 280
+                      status:
+                        enum:
+                          - 0
+                          - 1
+                      registration_mark:
+                        type: string
+                        nullable: true
+                        maxLength: 10
+                      category:
+                        type: string
+                        readOnly: true
+                      type_certificate:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          type_certificate_id:
+                            type: string
+                            maxLength: 280
+                          type_certificate_issuing_country:
+                            type: string
+                            maxLength: 280
+                          type_certificate_holder:
+                            type: string
+                            maxLength: 140
+                          type_certificate_holder_country:
+                            type: string
+                            maxLength: 140
+                        required:
+                          - type_certificate_id
+                          - type_certificate_issuing_country
+                          - type_certificate_holder
+                          - type_certificate_holder_country
+                        type: object
+                        readOnly: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      master_series:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      series:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      popular_name:
+                        type: string
+                        nullable: true
+                        maxLength: 280
+                      sub_category:
+                        type: string
+                        readOnly: true
+                      photo:
+                        type: string
+                        format: uri
+                        nullable: true
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      photo_small:
+                        type: string
+                        format: uri
+                        nullable: true
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      icao_aircraft_type_designator:
+                        type: string
+                        maxLength: 4
+                      max_certified_takeoff_weight:
+                        type: number
+                        multipleOf: 0.001
+                        maximum: 10000000
+                        minimum: -10000000
+                      updated_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                    required:
+                      - operator
+                      - mass
+                      - model
+                      - maci_number
+                    type: object
+                    readOnly: true
+                  operator:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        readOnly: true
+                      company_name:
+                        type: string
+                        maxLength: 280
+                      country:
+                        enum:
+                          - IN
+                      website:
+                        type: string
+                        format: uri
+                        maxLength: 200
+                        pattern:
+                          "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                          d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\\
+                          d)){3}|\\[[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1\
+                          -\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1\
+                          -\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                          .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      operator_type:
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                      address:
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            readOnly: true
+                          address_line_1:
+                            type: string
+                            maxLength: 140
+                          address_line_2:
+                            type: string
+                            maxLength: 140
+                          address_line_3:
+                            type: string
+                            maxLength: 140
+                          postcode:
+                            type: string
+                            maxLength: 10
+                          city:
+                            type: string
+                            maxLength: 140
+                          country:
+                            enum:
+                              - IN
+                          created_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                          updated_at:
+                            type: string
+                            format: date-time
+                            readOnly: true
+                        required:
+                          - address_line_1
+                          - address_line_2
+                          - address_line_3
+                          - city
+                        type: object
+                        readOnly: true
+                      operational_authorizations:
+                        type: string
+                        readOnly: true
+                      authorized_activities:
+                        type: string
+                        readOnly: true
+                      contacts:
+                        type: string
+                        readOnly: true
+                      phone_number:
+                        type: string
+                        pattern: ^\+?1?\d{9,15}$
+                        maxLength: 17
+                      company_number:
+                        type: string
+                        nullable: true
+                        maxLength: 25
+                      pilots:
+                        type: string
+                        readOnly: true
+                      aircrafts:
+                        type: string
+                        readOnly: true
+                      created_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      updated_at:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                    required:
+                      - company_name
+                      - website
+                      - email
+                    type: object
+                    readOnly: true
+                  fee_details:
+                    type: string
+                    maxLength: 140
+                  import_permission:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  cin:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  gst_in:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  pan_card:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  dot_permission:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  security_clearance:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  eta:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  op_manual:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  maintainence_guidelines:
+                    type: string
+                    format: uri
+                    maxLength: 200
+                    pattern:
+                      "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  counter:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_at:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                  - fee_details
+                  - import_permission
+                  - cin
+                  - gst_in
+                  - pan_card
+                  - dot_permission
+                  - security_clearance
+                  - eta
+                  - op_manual
+                  - maintainence_guidelines
+          description: ""
 
 components:
   securitySchemes:
@@ -43,8 +2520,8 @@ components:
         clientCredentials:
           tokenUrl: "http://id.openskies.sh/oauth/token"
           scopes:
-            aerobridge.write: "Write data into Flight Blender"
-            aerobridge.read: "Read data into Flight Blender"
+            aerobridge.write: "Write data into Aerobridge server"
+            aerobridge.read: "Read data into Aerobridge server"
 
   definitions:
     Error:
