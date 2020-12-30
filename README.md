@@ -38,7 +38,7 @@ As of November 2020, once you connect / point your GCS software to an instance a
 
 ## Test drive
 
-- You can see the API using the API explorer: Link TBC
+- You can see the API using the API explorer: [Aerobridge API ReDoc renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 - To load the database with dummy data for your test-drive you can run the following Python / Django command: `python manage.py loaddata registry/defaultregistrydata.json`, this will populate the database with sample drone operator data.
 
 ## Logo source / Credit
