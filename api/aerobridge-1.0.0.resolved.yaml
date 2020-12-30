@@ -37,13 +37,6 @@ paths:
     get:
       operationId: "Get All Transactions"
       description: "Get a list of all transactions from Aerobridge Server"
-      parameters:
-        - name: format
-          in: path
-          required: true
-          description: ""
-          schema:
-            type: string
       responses:
         "200":
           content:
@@ -85,12 +78,6 @@ paths:
       description: "See details of a single transaction from Aerobridge Server"
       parameters:
         - name: transaction_id
-          in: path
-          required: true
-          description: ""
-          schema:
-            type: string
-        - name: format
           in: path
           required: true
           description: ""
@@ -308,12 +295,6 @@ paths:
       description: Execute Drone registration with Digital Sky
       parameters:
         - name: id
-          in: path
-          required: true
-          description: ""
-          schema:
-            type: string
-        - name: format
           in: path
           required: true
           description: ""
