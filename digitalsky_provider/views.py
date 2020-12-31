@@ -280,5 +280,26 @@ class DownloadFlyDronePermissionArtefact(mixins.ListModelMixin, generics.Generic
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class LogList(mixins.ListModelMixin,
+                  generics.GenericAPIView):
+    queryset = DigitalSkyLog.objects.all()
+    serializer_class = DigitalSkyLogSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class LogDetail(mixins.RetrieveModelMixin,
+                    generics.GenericAPIView):
+    queryset = DigitalSkyLog.objects.all()
+    serializer_class = DigitalSkyLogSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+
     # Process and submit 
 

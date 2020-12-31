@@ -1,5 +1,5 @@
 ---
-openapi: "3.0.0"
+openapi: "3.0.2"
 info:
   title: "Aerobrige Server API specification"
   description: |-
@@ -33,82 +33,43 @@ paths:
         "500":
           $ref: "#/responses/Standard500ErrorResponse"
 
-  /gcs/transaction:
+  /digitalsky/logs:
     get:
-      operationId: "Get All Transactions"
-      description: "Get a list of all transactions from Aerobridge Server"
+      operationId: "Get All DigitalSky Logs"
+      description: ''
+      parameters: []
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    readOnly: true
-                  prefix:
-                    type: string
-                    maxLength: 12
-                  created_at:
-                    type: string
-                    format: date-time
-                    readOnly: true
-                  updated_at:
-                    type: string
-                    format: date-time
-                    readOnly: true
-                  aircraft:
-                    type: string
-                    nullable: true
-          description: ""
-
-        "400":
-          $ref: "#/responses/BadRequest400ErrorResponse"
-        "401":
-          $ref: "#/responses/Unauthorized401ErrorResponse"
-        "403":
-          $ref: "#/responses/Forbidden403ErrorResponse"
-        "500":
-          $ref: "#/responses/Standard500ErrorResponse"
-
-  /gcs/transaction/{transaction_id}:
+                type: array
+                items:
+                  $ref: '#/components/definitions/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+      
+  /digitalsky/logs/{log_id}:
     get:
-      operationId: "Get Single Transaction Record"
-      description: "See details of a single transaction from Aerobridge Server"
+      operationId: "Get Single Log"
+      description: "See details of a single DigitalSky Log from Aerobridge Server"
       parameters:
-        - name: transaction_id
-          in: path
-          required: true
-          description: ""
-          schema:
-            type: string
+      - name: log_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    readOnly: true
-                  prefix:
-                    type: string
-                    maxLength: 12
-                  created_at:
-                    type: string
-                    format: date-time
-                    readOnly: true
-                  updated_at:
-                    type: string
-                    format: date-time
-                    readOnly: true
-                  aircraft:
-                    type: string
-                    nullable: true
+                $ref: '#/components/definitions/DigitalSkyLog'
+          
           description: "Aerobridge server saves a transaction log and responses from the Digital Sky System, use this endpoint to review logs and responses"
-
+  
         "400":
           $ref: "#/responses/BadRequest400ErrorResponse"
         "401":
@@ -117,10 +78,13 @@ paths:
           $ref: "#/responses/Forbidden403ErrorResponse"
         "500":
           $ref: "#/responses/Standard500ErrorResponse"
+
+      tags:
+      - digitalsky
 
   /digitalsky/aircraft_roster:
     get:
-      operationId: "List of all aircraft in Aerobridge"
+      operationId: "List all aircraft in Aerobridge"
       description: "Get a list of all Aircrafts for the operator"
       responses:
         "200":
@@ -164,6 +128,8 @@ paths:
                   - signature
                   - certificate
           description: ""
+      tags:
+      - aircraft
     post:
       operationId: Register a new aircraft
       description: "Create a new drone to register with Digital Sky"
@@ -234,6 +200,11 @@ paths:
                   - signature
                   - certificate
           description: ""
+      tags:
+      - aircraft
+
+
+
 
   /digitalsky/aircraft_roster/{id}:
     get:
@@ -289,6 +260,8 @@ paths:
                   - signature
                   - certificate
           description: ""
+      tags:
+      - aircraft
 
   /digitalsky/register_aircraft/{id}:
     post:
@@ -352,6 +325,8 @@ paths:
                   - timestamp
                   - txn
           description: ""
+      tags:
+      - aircraft
 
   /digitalsky/all_permissions:
     get:
@@ -629,6 +604,9 @@ paths:
                   artefact:
                     type: string
           description: ""
+         
+      tags:
+      - permissions
 
   /digitalsky/all_permissions/{id}:
     get:
@@ -914,6 +892,9 @@ paths:
                   artefact:
                     type: string
           description: ""
+        
+      tags:
+      - permissions
 
   /digitalsky/apply_permission/{id}:
     post:
@@ -1211,6 +1192,9 @@ paths:
                   artefact:
                     type: string
           description: ""
+      tags:
+      - permissions
+
 
 components:
   securitySchemes:
@@ -1221,7 +1205,7 @@ components:
           tokenUrl: "http://id.openskies.sh/oauth/token"
           scopes:
             aerobridge.write: "Write data into Aerobridge server"
-            aerobridge.read: "Read data into Aerobridge server"
+            aerobridge.read: "Read data from Aerobridge server"
 
   definitions:
     Error:
@@ -1233,6 +1217,33 @@ components:
           type: string
         message:
           type: string
+
+
+    DigitalSkyLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        response_code:
+          type: string
+          maxLength: 256
+        response:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        txn:
+          type: string
+      required:
+      - response_code
+      - timestamp
+      - txn
 
 responses:
   Standard500ErrorResponse:
