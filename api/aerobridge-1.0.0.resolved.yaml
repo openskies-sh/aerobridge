@@ -91,55 +91,15 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    readOnly: true
-                  drone:
-                    properties:
-                      droneTypeId:
-                        type: string
-                        readOnly: true
-                      version:
-                        type: string
-                        readOnly: true
-                      deviceId:
-                        type: string
-                        readOnly: true
-                      deviceModelId:
-                        type: string
-                        readOnly: true
-                      txn:
-                        type: string
-                        readOnly: true
-                      operatorBusinessIdentifier:
-                        type: string
-                        readOnly: true
-                    type: object
-                    readOnly: true
-                  is_signed:
-                    type: boolean
-                  signature:
-                    type: string
-                  certificate:
-                    type: string
-                required:
-                  - signature
-                  - certificate
+                type: array
+                items:
+                  $ref: '#/components/definitions/AircraftRoster'
           description: ""
       tags:
       - aircraft
     post:
       operationId: Register a new aircraft
       description: "Create a new drone to register with Digital Sky"
-      parameters:
-        - name: format
-          in: path
-          required: true
-          description: ""
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
@@ -273,58 +233,36 @@ paths:
           description: ""
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema: &id010
-              properties:
-                response_code:
-                  type: string
-                  maxLength: 256
-                response:
-                  type: string
-                timestamp:
-                  type: string
-                  format: date-time
-                txn:
-                  type: string
-              required:
-                - response_code
-                - timestamp
-                - txn
-          application/x-www-form-urlencoded:
-            schema: *id010
-          multipart/form-data:
-            schema: *id010
+            
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
                 properties:
-                  id:
+                  message:
+                    type: string
+                    example: success
+                    readOnly: true
+                  digital_sky_log_id:
                     type: string
                     format: uuid
                     readOnly: true
-                  response_code:
+          description: "A Digital Sky Log object is returned"
+        "400":
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
                     type: string
-                    maxLength: 256
-                  response:
-                    type: string
-                  timestamp:
-                    type: string
-                    format: date-time
-                  updated_at:
-                    type: string
-                    format: date-time
+                    example: error
                     readOnly: true
-                  txn:
+                  digital_sky_log_id:
                     type: string
-                required:
-                  - response_code
-                  - timestamp
-                  - txn
-          description: ""
+                    format: uuid
+                    readOnly: true
+          description: "A Digital Sky Log object is returned if there is a error"
       tags:
       - aircraft
 
@@ -1218,7 +1156,43 @@ components:
         message:
           type: string
 
-
+    AircraftRoster: 
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        drone:
+          properties:
+            droneTypeId:
+              type: string
+              readOnly: true
+            version:
+              type: string
+              readOnly: true
+            deviceId:
+              type: string
+              readOnly: true
+            deviceModelId:
+              type: string
+              readOnly: true
+            txn:
+              type: string
+              readOnly: true
+            operatorBusinessIdentifier:
+              type: string
+              readOnly: true
+          type: object
+          readOnly: true
+        is_signed:
+          type: boolean
+        signature:
+          type: string
+        certificate:
+          type: string
+          
+        
     DigitalSkyLog:
       type: object
       properties:
