@@ -6,8 +6,8 @@ from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
-from .serializers import TransactionSerializer
-from .models import Transaction
+from .serializers import TransactionSerializer, FlightPlanSerializer, FlightOperationSerializer
+from .models import Transaction, FlightOperation, FlightPlan
 from rest_framework import status
 from django.utils.decorators import method_decorator
 
@@ -38,3 +38,96 @@ class TransactionDetail(mixins.RetrieveModelMixin,
         return self.retrieve(request, *args, **kwargs)
 
 
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightOperationList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = FlightOperation.objects.all()
+    serializer_class = FlightOperationSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightOperationDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = FlightOperation.objects.all()
+    serializer_class = FlightOperationSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightPlanList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = FlightPlan.objects.all()
+    serializer_class = FlightPlanSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightPlanDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = FlightPlan.objects.all()
+    serializer_class = FlightPlanSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightOperationList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = FlightOperation.objects.all()
+    serializer_class = FlightOperationSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightOperationDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    
+    queryset = FlightOperation.objects.all()
+    serializer_class = FlightOperationSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

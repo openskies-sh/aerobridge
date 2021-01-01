@@ -141,6 +141,7 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
 
     """
     serializer_class = DigitalSkyLogSerializer
+    
     def post(self, request, drone_id,format=None):	
         aircraft_register = get_object_or_404(AircraftRegister, drone=drone_id)
         drone = aircraft_register.drone
@@ -159,17 +160,17 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
             r = requests.post(securl, data= json.dumps(payload), headers=headers)
             now = datetime.datetime.now()
             registration_response = json.loads(r.text)
-            if r.status_code == 201:
+            if (r.status_code == 201):
                 # create a entry 
                 ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
                 ds_log.save()
                 drone.is_registered = True
                 drone.save()
-                return Response(json.dumps({'message':'success', digital_sky_log_id:str(ds_log.id)}, (status=status.HTTP_201_CREATED)
+                return Response(json.dumps({'message':'success', digital_sky_log_id:str(ds_log.id)}), status=status.HTTP_201_CREATED)
             else:
                 ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
                 ds_log.save()
-                return Response(json.dumps({'message':'error', digital_sky_log_id:str(ds_log.id)}status=status.HTTP_400_BAD_REQUEST)
+                return Response(json.dumps({'message':'error', digital_sky_log_id:str(ds_log.id)}),status=status.HTTP_400_BAD_REQUEST)
         
         else: 
             message = {"message": "Please sign the drone details first using a DSC token."}
