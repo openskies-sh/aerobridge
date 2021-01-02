@@ -17,8 +17,6 @@ from pki_framework.utils import requires_scopes
 
 # Create your views here.
 
-
-
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class TransactionList(mixins.ListModelMixin,
                   generics.GenericAPIView):
@@ -36,7 +34,6 @@ class TransactionDetail(mixins.RetrieveModelMixin,
     
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
@@ -68,7 +65,6 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
@@ -111,7 +107,7 @@ class FlightOperationList(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
@@ -131,3 +127,4 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+    

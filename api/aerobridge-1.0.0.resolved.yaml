@@ -97,7 +97,7 @@ paths:
           description: ""
       tags:
       - aircraft
-    post:
+    put:
       operationId: Register a new aircraft
       description: "Create a new drone to register with Digital Sky"
       requestBody:

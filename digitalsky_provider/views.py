@@ -82,7 +82,6 @@ class SubmitUINApplication(mixins.CreateModelMixin, generics.GenericAPIView):
 
         securl = os.environ.get('DIGITAL_SKY_URL')  + '/api/applicationForm/uinApplication'
         
-        
         payload = {"feeDetails":"bank transfer","droneTypeId":drone.sub_category,"operatorDroneId":str(drone.id),"manufacturer":drone.manufacturer.common_name,"manufacturerAddress":drone.manufacturer.address,"manufacturerDesignation":drone.manufacturer.role,"manufacturerNationality":drone.manufacturer.country,"modelName":drone.model,"modelNo":drone.master_series,"serialNo":drone.esn,"dateOfManufacture":drone.manufactured_at,"wingType":drone.sub_category,"maxTakeOffWeight":drone.max_certified_takeoff_weight,"maxHeightAttainable":drone.max_height_attainable,"compatiblePayload":"","droneCategoryType":drone.category,"purposeOfOperation":operation.name,"engineType":drone.engine.type,"enginePower":drone.engine.power,"engineCount":drone.engine.count,"fuelCapacity":drone.fuel_capacity,"propellerDetails":drone.engine.propellor,"maxEndurance":drone.max_endurance,"maxRange":drone.max_range,"maxSpeed":drone.max_speed,"maxHeightOfOperation":"[max height property of selected drone as float]","dimensions":{"length":drone.dimension_length,"breadth":drone.dimension_breadth,"height":dronedimension_height},"ownerName":drone.operator.name,"ownerPhone":drone.operator.phone_number,"ownerEmail":drone.operator.email,"ownerAddress":drone.operator.get_address,"uinNumber":"TBC"}
         r = requests.post(securl, data= json.dumps(payload), headers=headers)
 
@@ -118,9 +117,8 @@ class AircraftRegisterList(mixins.ListModelMixin,
         serializer = AircraftRegisterSerializer(aircraftregister, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class AircraftRegisterDetail(mixins.RetrieveModelMixin,
@@ -177,7 +175,6 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
             return Response(json.dumps(message), status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):
     
@@ -225,7 +222,6 @@ class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.Gene
             ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = permission_response['code'], timestamp = now)
             ds_log.save()
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class FlyDronePermissionApplicationFlightLog(mixins.CreateModelMixin, generics.GenericAPIView):
@@ -280,7 +276,6 @@ class DownloadFlyDronePermissionArtefact(mixins.ListModelMixin, generics.Generic
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class LogList(mixins.ListModelMixin,
                   generics.GenericAPIView):
@@ -298,8 +293,4 @@ class LogDetail(mixins.RetrieveModelMixin,
     
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-
-
-
-    # Process and submit 
 

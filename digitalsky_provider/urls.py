@@ -1,7 +1,6 @@
 from django.urls import path, re_path
 from . import views as ds_views
 
-
 urlpatterns = [
     path("aircraft_roster/", ds_views.AircraftRegisterList.as_view(), name="sign_drone_list"),    
     path("aircraft_roster/<uuid:pk>", ds_views.AircraftRegisterDetail.as_view(), name="sign_drone"),    
