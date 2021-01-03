@@ -4,6 +4,21 @@
 
 The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-portal/) in India has unveiled a policy of "No permission - No takeoff" for drone flights. This means that public and private companies intending to fly drones in India need to interface with DGCA's infrastructure for flight permissions and other authorizations. These APIs are called India's [Digital Sky](https://digitalsky.dgca.gov.in/) eco-system. Aerobridge is a server that helps you interface with the APIs in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
 
+## How can Aerobridge help you?
+
+If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack: 
+
+- Standard way to communicate with Digital Sky APIs
+- Integration with PX4 / ArduControl
+- Manage permissions and flight logs
+- RFM integration
+- Easily manage compliance with NPNT
+
+## Join our pilot program
+
+We work with drone manufacturers to help the become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our monthly [webinar](http://webinar.aerobridge.in)
+
+
 ## Get Involved
 
 Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Weather you are a drone enthusiast or a expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
@@ -17,11 +32,6 @@ Aerobridge is fully open source and you can get involved by participating in our
 
 This is a open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing).
 
-## Why Aerobridge?
-
-- India's DGCA have released a set of APIs as part of the DigitalSky Initiative, these APIs manage permissions and interactions as a part of "No permission No take-off" policy. However, there is no standard way to interact with these APIs, Aerobridge server aims to standardize interactions by developing a open source layer to interact with DigitalSky.
-- We hope to enable broad compliance with NPNT and easy on-boarding into the DigitalSky eco-system by open sourcing this important bridge.
-- Finally we hope to develop a community within the Indian UTM stakeholders and standardize different unique aspects of the Indian UTM eco-system.
 
 ## Features
 
