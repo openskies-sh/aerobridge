@@ -6,7 +6,7 @@ The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-p
 
 ## How can Aerobridge help you?
 
-If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack: 
+If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack:
 
 - Standard way to communicate with Digital Sky APIs
 - Integration with PX4 / ArduControl
@@ -17,7 +17,6 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 ## Join our pilot program
 
 We work with drone manufacturers to help the become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our monthly [webinar](http://webinar.aerobridge.in)
-
 
 ## Get Involved
 
@@ -32,14 +31,20 @@ Aerobridge is fully open source and you can get involved by participating in our
 
 This is a open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing).
 
+## Aerobridge Stack
 
-## Features
+As of January 2021, Aerobridge provides the following toolset:
 
-As of November 2020, once you connect / point your GCS software to an instance and can do the following using Aerobridge API:
+- **Management Server**
+  - __Drone Registration__: Submit details of a drone and get a UIN number 
+  - __Flight log management__: Upload Bundled Logs to the DGCA API and store logs on the server
+  - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
 
-- __Drone Registration__: Submit details of a drone and get a UIN number 
-- __Flight log management__: Upload Bundled Logs to the DGCA API and store logs on the server
-- __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
+- **GCS Module**
+  - [Mavlink Aerobridge](https://github.com/openskies-sh/mavlink-aerobridge) Integration with RFM
+
+- **RFM Module**
+  - A customized Flight Controller coming soon
 
 ## References
 
