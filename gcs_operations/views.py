@@ -6,7 +6,7 @@ from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
-from .serializers import TransactionSerializer, FlightPlanSerializer, FlightOperationSerializer
+from .serializers import TransactionSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer
 from .models import Transaction, FlightOperation, FlightPlan
 from rest_framework import status
 from django.utils.decorators import method_decorator
@@ -102,7 +102,7 @@ class FlightOperationList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
     queryset = FlightOperation.objects.all()
-    serializer_class = FlightOperationSerializer
+    serializer_class = FlightOperationListSerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

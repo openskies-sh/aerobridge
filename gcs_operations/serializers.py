@@ -19,7 +19,16 @@ class FlightPlanSerializer(serializers.ModelSerializer):
         model = FlightPlan		
         fields = '__all__'
         ordering = ['-created_at']
-        
+
+class FlightOperationListSerializer(serializers.ModelSerializer):
+    ''' A serializer for Flight Operations '''
+    class Meta:
+        model = FlightOperation	
+        fields = ['id', 'name']
+        ordering = ['-created_at']
+    
+
+ 
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     drone = AircraftDetailSerializer(read_only=True)
