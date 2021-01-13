@@ -16,7 +16,7 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 
 ## Webinar and pilot program ✨
 
-We work with drone manufacturers to help the become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](http://webinar.aerobridge.in).
+We work with drone manufacturers to enable them to become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](http://webinar.aerobridge.in).
 
 ## Get Involved
 
