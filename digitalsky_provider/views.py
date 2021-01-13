@@ -28,10 +28,18 @@ from registry.models import Aircraft
 
 from pki_framework.utils import requires_scopes, BearerAuth
 from .serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
-
+import json
 from gcs_operations.serializers import FlightPermissionSerializer, UINApplicationSerializer
-
+from rest_framework.response import Response
 # Create your views here.
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class PingView(generics.GenericAPIView):
+    
+    def get(self, request, *args, **kwargs):
+        return Response(json.dumps({"message":"pong"}), status=status.HTTP_200_OK)
+
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
