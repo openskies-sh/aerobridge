@@ -41,7 +41,7 @@ class FlightOperation(models.Model):
     ''' A flight operation object for NPNT permission ''' 
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default= make_random_plan_common_name('Flight Operation ' , 6))
     drone = models.ForeignKey(Aircraft, models.CASCADE)
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
