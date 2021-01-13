@@ -14,9 +14,9 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 - RFM integration
 - Easily manage compliance with NPNT
 
-## Join our pilot program
+## Webinar and pilot program ✨
 
-We work with drone manufacturers to help the become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our monthly [webinar](http://webinar.aerobridge.in)
+We work with drone manufacturers to help the become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](http://webinar.aerobridge.in).
 
 ## Get Involved
 
