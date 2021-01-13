@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FlightOperation',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('purpose', models.CharField(max_length=140)),
                 ('type_of_operation', models.CharField(max_length=140)),
                 ('flight_termination_or_return_home_capability', models.BooleanField(default=1)),
