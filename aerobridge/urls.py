@@ -23,7 +23,10 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 import jetway.views as jetwayviews
 
+
 urlpatterns = [
+    
+    path('ping/', jetwayviews.PingView.as_view()),
     path('', jetwayviews.HomeView.as_view()),
     path('admin/', admin.site.urls),
     path('registry/', include('registry.urls')),
