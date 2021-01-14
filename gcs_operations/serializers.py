@@ -13,6 +13,14 @@ class UINApplicationSerializer(serializers.ModelSerializer):
         fields = '__all__'		
         ordering = ['-created_at']
         
+class FlightPlanListSerializer(serializers.ModelSerializer):
+    ''' A serializer for Flight Operations '''
+    class Meta:
+        model = FlightPlan	
+        fields = ['id', 'name','start_datetime','end_datetime']
+        ordering = ['-created_at']
+    
+
 class FlightPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -24,7 +32,7 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightOperation	
-        fields = ['id', 'name']
+        fields = ['id', 'name','created_at']
         ordering = ['-created_at']
     
 
