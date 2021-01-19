@@ -62,7 +62,7 @@ Aerobrigde is licenced as a BSL licence popularized by other products such as [C
 - You cannot offer a commercial version of Aerobridge's service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 36 months, the code becomes Apache-2.0 licensed (the conversion period)
 
-If you want to host / run Aerobridge inside your company for your own assets and compliance, you are free to do so without any restrictions. This will ensure that we are protected from our work being used in an anti-competitive fashion. 
+If you want to host / run Aerobridge inside your company for your own assets and compliance, you are free to do so without any concerns or restrictions. This will ensure that we are protected from our work being used in an anti-competitive fashion. 
 
 
 ## Logo source / Credit
