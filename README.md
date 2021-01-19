@@ -58,7 +58,7 @@ As of January 2021, Aerobridge provides the following toolset:
 
 ## LICENCE
 
-Aerobrigde is licenced as a BSL licence popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically it means the following: 
+Aerobridge is licenced as a BSL licence popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically it means the following: 
 - You cannot offer a commercial version of Aerobridge's service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 36 months, the code becomes Apache-2.0 licensed (the conversion period)
 
