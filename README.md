@@ -56,14 +56,14 @@ As of January 2021, Aerobridge provides the following toolset:
 - You can see the API using the API explorer: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 - To load the database with dummy data for your test-drive you can run the following Python / Django command: `python manage.py loaddata registry/defaultregistrydata.json`, this will populate the database with sample drone operator data.
 
-## LICENCE
+## LICENSE
 
 Aerobridge is licensed under a BSL license popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
 
 - You cannot offer a commercial version of Aerobridge that third parties can access, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 36 months, the code becomes Apache-2.0 licensed (the conversion period)
 
-If you want to host / run Aerobridge inside your company, you are free to do so without any concerns or restrictions. As is said in the Sentry FAQ, this comes down to “if third parties cannot access your infrastructure that uses Aerobridge the open-source project, you’re good.” If you want to do this, you will need an agreement from Openskies.
+If you want to host / run Aerobridge inside your company, you are free to do so without any concerns or restrictions. As is said in the Sentry FAQ, this comes down to “if you are not providing a competing service to Aerobridge.in while using Aerobridge the open-source project, you’re good.” If you want to do this, you will need an agreement from Openskies.
 
 ## Logo source / Credit
 
