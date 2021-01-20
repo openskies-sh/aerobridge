@@ -58,12 +58,12 @@ As of January 2021, Aerobridge provides the following toolset:
 
 ## LICENCE
 
-Aerobridge is licenced as a BSL licence popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following: 
-- You cannot offer a commercial version of Aerobridge's service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
+Aerobridge is licensed under a BSL license popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
+
+- You cannot offer a commercial version of Aerobridge that third parties can access, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 36 months, the code becomes Apache-2.0 licensed (the conversion period)
 
-If you want to host / run Aerobridge inside your company for your own assets and compliance, you are free to do so without any concerns or restrictions. As is said in the Sentry FAQ, this comes down to “if you are not providing a competing service to Aerobridge while using Aerobridge the open-source project, you’re good.” If you want to do this, you will need an agreement from Openskies. 
-
+If you want to host / run Aerobridge inside your company, you are free to do so without any concerns or restrictions. As is said in the Sentry FAQ, this comes down to “if third parties cannot access your infrastructure that uses Aerobridge the open-source project, you’re good.” If you want to do this, you will need an agreement from Openskies.
 
 ## Logo source / Credit
 
