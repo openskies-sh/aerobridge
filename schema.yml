@@ -1,0 +1,5729 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /registry/operators:
+    get:
+      operationId: listOperators
+      description: List all operators, or create a new operator.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Operator'
+          description: ''
+      tags:
+      - registry
+  /registry/operators{format}:
+    get:
+      operationId: retrieveOperator
+      description: List all operators, or create a new operator.
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+          description: ''
+      tags:
+      - registry
+  /registry/operators/{id}:
+    get:
+      operationId: retrieveOperator
+      description: Retrieve, update or delete a Operator instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedOperator'
+          description: ''
+      tags:
+      - registry
+    post:
+      operationId: createOperator
+      description: Retrieve, update or delete a Operator instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedOperator'
+          description: ''
+      tags:
+      - registry
+  /registry/operators/{id}{format}:
+    get:
+      operationId: retrieveOperator
+      description: Retrieve, update or delete a Operator instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedOperator'
+          description: ''
+      tags:
+      - registry
+    post:
+      operationId: createOperator
+      description: Retrieve, update or delete a Operator instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrivilegedOperator'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedOperator'
+          description: ''
+      tags:
+      - registry
+  /registry/aircrafts:
+    get:
+      operationId: listAircrafts
+      description: List all aircrafts in the database
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aircraft'
+          description: ''
+      tags:
+      - registry
+  /registry/aircrafts{format}:
+    get:
+      operationId: retrieveAircraft
+      description: List all aircrafts in the database
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aircraft'
+          description: ''
+      tags:
+      - registry
+  /registry/aircrafts/{id}:
+    get:
+      operationId: retrieveAircraft
+      description: Retrieve, update or delete a Aircraft instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+      - registry
+    post:
+      operationId: createAircraft
+      description: Retrieve, update or delete a Aircraft instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+      - registry
+  /registry/aircrafts/{id}{format}:
+    get:
+      operationId: retrieveAircraft
+      description: Retrieve, update or delete a Aircraft instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+      - registry
+    post:
+      operationId: createAircraft
+      description: Retrieve, update or delete a Aircraft instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AircraftDetail'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+      - registry
+  /registry/pilots:
+    get:
+      operationId: listPilots
+      description: List all pilots in the database
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pilot'
+          description: ''
+      tags:
+      - registry
+  /registry/pilots{format}:
+    get:
+      operationId: retrievePilot
+      description: List all pilots in the database
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pilot'
+          description: ''
+      tags:
+      - registry
+  /registry/pilots/{id}:
+    get:
+      operationId: retrievePilot
+      description: Retrieve, update or delete a Pilot instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedPilotDetail'
+          description: ''
+      tags:
+      - registry
+  /registry/pilots/{id}{format}:
+    get:
+      operationId: retrievePilot
+      description: Retrieve, update or delete a Pilot instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivilegedPilotDetail'
+          description: ''
+      tags:
+      - registry
+  /gcs/transaction:
+    get:
+      operationId: listTransactions
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+          description: ''
+      tags:
+      - gcs
+  /gcs/transaction{format}:
+    get:
+      operationId: retrieveTransaction
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+      tags:
+      - gcs
+  /gcs/transaction/{transaction_id}:
+    get:
+      operationId: retrieveTransaction
+      description: ''
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+      tags:
+      - gcs
+  /gcs/transaction/{transaction_id}{format}:
+    get:
+      operationId: retrieveTransaction
+      description: ''
+      parameters:
+      - name: transaction_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-plans:
+    get:
+      operationId: listFlightPlans
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - gcs
+    post:
+      operationId: createFlightPlan
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-plans{format}:
+    get:
+      operationId: retrieveFlightPlan
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - gcs
+    post:
+      operationId: createFlightPlan
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-plans/{flightplan_id}:
+    get:
+      operationId: retrieveFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-plans/{flightplan_id}{format}:
+    get:
+      operationId: retrieveFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightPlan
+      description: ''
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-operations:
+    get:
+      operationId: listFlightOperations
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightOperationList'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightOperation
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperationList'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-operations{format}:
+    get:
+      operationId: retrieveFlightOperation
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperationList'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightOperation
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperationList'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperationList'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-operations/{flightoperation_id}:
+    get:
+      operationId: retrieveFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-operations/{flightoperation_id}{format}:
+    get:
+      operationId: retrieveFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightOperation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-logs:
+    get:
+      operationId: listFlightLogs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    post:
+      operationId: createFlightLog
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-logs{format}:
+    get:
+      operationId: retrieveFlightLog
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    post:
+      operationId: createFlightLog
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-logs/{flightlog_id}:
+    get:
+      operationId: retrieveFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /gcs/flight-logs/{flightlog_id}{format}:
+    get:
+      operationId: retrieveFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - gcs
+    delete:
+      operationId: destroyFlightLog
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - gcs
+  /digitalsky/aircraft_roster/:
+    get:
+      operationId: listAircraftRegisters
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+    put:
+      operationId: updateAircraftRegister
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/aircraft_roster{format}:
+    get:
+      operationId: retrieveAircraftRegister
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+    put:
+      operationId: updateAircraftRegister
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AircraftRegister'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/aircraft_roster/{id}:
+    get:
+      operationId: retrieveAircraftRegister
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft register.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/aircraft_roster/{id}{format}:
+    get:
+      operationId: retrieveAircraftRegister
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft register.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftRegister'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/all_permissions/:
+    get:
+      operationId: listFlightPermissions
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/all_permissions{format}:
+    get:
+      operationId: retrieveFlightPermission
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/all_permissions/{id}:
+    get:
+      operationId: retrieveFlightPermission
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this flight permission.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/all_permissions/{id}{format}:
+    get:
+      operationId: retrieveFlightPermission
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this flight permission.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/uin_applications/:
+    get:
+      operationId: listUINApplications
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/uin_applications{format}:
+    get:
+      operationId: retrieveUINApplication
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/uin_applications/{id}:
+    get:
+      operationId: retrieveUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+    put:
+      operationId: updateUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+    delete:
+      operationId: destroyUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/uin_applications/{id}{format}:
+    get:
+      operationId: retrieveUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+    put:
+      operationId: updateUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+    delete:
+      operationId: destroyUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/logs:
+    get:
+      operationId: listDigitalSkyLogs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/logs{format}:
+    get:
+      operationId: retrieveDigitalSkyLog
+      description: ''
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/logs/{log_id}:
+    get:
+      operationId: retrieveDigitalSkyLog
+      description: ''
+      parameters:
+      - name: log_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/logs/{log_id}{format}:
+    get:
+      operationId: retrieveDigitalSkyLog
+      description: ''
+      parameters:
+      - name: log_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/register_aircraft/{id}:
+    post:
+      operationId: createDigitalSkyLog
+      description: Execute Drone registration
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/register_aircraft/{id}{format}:
+    post:
+      operationId: createDigitalSkyLog
+      description: Execute Drone registration
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DigitalSkyLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalSkyLog'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/apply_permission/{id}:
+    post:
+      operationId: createFlightPermission
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this flight permission.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/apply_permission/{id}{format}:
+    post:
+      operationId: createFlightPermission
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this flight permission.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightPermission'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/submit_uin_application/{id}:
+    post:
+      operationId: createUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/submit_uin_application/{id}{format}:
+    post:
+      operationId: createUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/submit_log/{id}:
+    post:
+      operationId: createUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+  /digitalsky/submit_log/{id}{format}:
+    post:
+      operationId: createUINApplication
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this uin application.
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UINApplication'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UINApplication'
+          description: ''
+      tags:
+      - digitalsky
+components:
+  schemas:
+    Operator:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_name:
+          type: string
+          maxLength: 280
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          pattern: ^\+?1?\d{9,15}$
+          maxLength: 17
+      required:
+      - company_name
+      - website
+      - email
+    PrivilegedOperator:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_name:
+          type: string
+          maxLength: 280
+        country:
+          enum:
+          - AF
+          - AX
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AO
+          - AI
+          - AQ
+          - AG
+          - AR
+          - AM
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BQ
+          - BA
+          - BW
+          - BV
+          - BR
+          - IO
+          - BN
+          - BG
+          - BF
+          - BI
+          - KH
+          - CM
+          - CA
+          - CV
+          - KY
+          - CF
+          - TD
+          - CL
+          - CN
+          - CX
+          - CC
+          - CO
+          - KM
+          - CG
+          - CD
+          - CK
+          - CR
+          - CI
+          - HR
+          - CU
+          - CW
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FK
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - TF
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GG
+          - GN
+          - GW
+          - GY
+          - HT
+          - HM
+          - VA
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IR
+          - IQ
+          - IE
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JE
+          - JO
+          - KZ
+          - KE
+          - KI
+          - KP
+          - KR
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MK
+          - MG
+          - MW
+          - MY
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - YT
+          - MX
+          - FM
+          - MD
+          - MC
+          - MN
+          - ME
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NR
+          - NP
+          - NL
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NU
+          - NF
+          - MP
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PN
+          - PL
+          - PT
+          - PR
+          - QA
+          - RE
+          - RO
+          - RU
+          - RW
+          - BL
+          - SH
+          - KN
+          - LC
+          - MF
+          - PM
+          - VC
+          - WS
+          - SM
+          - ST
+          - SA
+          - SN
+          - RS
+          - SC
+          - SL
+          - SG
+          - SX
+          - SK
+          - SI
+          - SB
+          - SO
+          - ZA
+          - GS
+          - SS
+          - ES
+          - LK
+          - SD
+          - SR
+          - SJ
+          - SZ
+          - SE
+          - CH
+          - SY
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TL
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TM
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - GB
+          - US
+          - UM
+          - UY
+          - UZ
+          - VU
+          - VE
+          - VN
+          - VG
+          - VI
+          - WF
+          - EH
+          - YE
+          - ZM
+          - ZW
+          type: string
+        website:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        operator_type:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          type: integer
+        address:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            address_line_1:
+              type: string
+              maxLength: 140
+            address_line_2:
+              type: string
+              maxLength: 140
+            address_line_3:
+              type: string
+              maxLength: 140
+            postcode:
+              type: string
+              maxLength: 10
+            city:
+              type: string
+              maxLength: 140
+            country:
+              enum:
+              - AF
+              - AX
+              - AL
+              - DZ
+              - AS
+              - AD
+              - AO
+              - AI
+              - AQ
+              - AG
+              - AR
+              - AM
+              - AW
+              - AU
+              - AT
+              - AZ
+              - BS
+              - BH
+              - BD
+              - BB
+              - BY
+              - BE
+              - BZ
+              - BJ
+              - BM
+              - BT
+              - BO
+              - BQ
+              - BA
+              - BW
+              - BV
+              - BR
+              - IO
+              - BN
+              - BG
+              - BF
+              - BI
+              - KH
+              - CM
+              - CA
+              - CV
+              - KY
+              - CF
+              - TD
+              - CL
+              - CN
+              - CX
+              - CC
+              - CO
+              - KM
+              - CG
+              - CD
+              - CK
+              - CR
+              - CI
+              - HR
+              - CU
+              - CW
+              - CY
+              - CZ
+              - DK
+              - DJ
+              - DM
+              - DO
+              - EC
+              - EG
+              - SV
+              - GQ
+              - ER
+              - EE
+              - ET
+              - FK
+              - FO
+              - FJ
+              - FI
+              - FR
+              - GF
+              - PF
+              - TF
+              - GA
+              - GM
+              - GE
+              - DE
+              - GH
+              - GI
+              - GR
+              - GL
+              - GD
+              - GP
+              - GU
+              - GT
+              - GG
+              - GN
+              - GW
+              - GY
+              - HT
+              - HM
+              - VA
+              - HN
+              - HK
+              - HU
+              - IS
+              - IN
+              - ID
+              - IR
+              - IQ
+              - IE
+              - IM
+              - IL
+              - IT
+              - JM
+              - JP
+              - JE
+              - JO
+              - KZ
+              - KE
+              - KI
+              - KP
+              - KR
+              - KW
+              - KG
+              - LA
+              - LV
+              - LB
+              - LS
+              - LR
+              - LY
+              - LI
+              - LT
+              - LU
+              - MO
+              - MK
+              - MG
+              - MW
+              - MY
+              - MV
+              - ML
+              - MT
+              - MH
+              - MQ
+              - MR
+              - MU
+              - YT
+              - MX
+              - FM
+              - MD
+              - MC
+              - MN
+              - ME
+              - MS
+              - MA
+              - MZ
+              - MM
+              - NA
+              - NR
+              - NP
+              - NL
+              - NC
+              - NZ
+              - NI
+              - NE
+              - NG
+              - NU
+              - NF
+              - MP
+              - 'NO'
+              - OM
+              - PK
+              - PW
+              - PS
+              - PA
+              - PG
+              - PY
+              - PE
+              - PH
+              - PN
+              - PL
+              - PT
+              - PR
+              - QA
+              - RE
+              - RO
+              - RU
+              - RW
+              - BL
+              - SH
+              - KN
+              - LC
+              - MF
+              - PM
+              - VC
+              - WS
+              - SM
+              - ST
+              - SA
+              - SN
+              - RS
+              - SC
+              - SL
+              - SG
+              - SX
+              - SK
+              - SI
+              - SB
+              - SO
+              - ZA
+              - GS
+              - SS
+              - ES
+              - LK
+              - SD
+              - SR
+              - SJ
+              - SZ
+              - SE
+              - CH
+              - SY
+              - TW
+              - TJ
+              - TZ
+              - TH
+              - TL
+              - TG
+              - TK
+              - TO
+              - TT
+              - TN
+              - TR
+              - TM
+              - TC
+              - TV
+              - UG
+              - UA
+              - AE
+              - GB
+              - US
+              - UM
+              - UY
+              - UZ
+              - VU
+              - VE
+              - VN
+              - VG
+              - VI
+              - WF
+              - EH
+              - YE
+              - ZM
+              - ZW
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - address_line_1
+          - address_line_2
+          - address_line_3
+          - city
+          readOnly: true
+        operational_authorizations:
+          type: string
+          readOnly: true
+        authorized_activities:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - company_name
+      - website
+      - email
+    Aircraft:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operator:
+          type: string
+        registration_mark:
+          type: string
+          nullable: true
+          maxLength: 10
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        mass:
+          type: integer
+        maci_number:
+          type: string
+          maxLength: 280
+        manufacturer:
+          type: string
+        model:
+          type: string
+          maxLength: 280
+        status:
+          enum:
+          - 0
+          - 1
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - operator
+      - mass
+      - maci_number
+      - manufacturer
+      - model
+    AircraftDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operator:
+          type: string
+        mass:
+          type: integer
+        manufacturer:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            full_name:
+              type: string
+              maxLength: 140
+            common_name:
+              type: string
+              maxLength: 140
+            address:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                address_line_1:
+                  type: string
+                  maxLength: 140
+                address_line_2:
+                  type: string
+                  maxLength: 140
+                address_line_3:
+                  type: string
+                  maxLength: 140
+                postcode:
+                  type: string
+                  maxLength: 10
+                city:
+                  type: string
+                  maxLength: 140
+                country:
+                  enum:
+                  - AF
+                  - AX
+                  - AL
+                  - DZ
+                  - AS
+                  - AD
+                  - AO
+                  - AI
+                  - AQ
+                  - AG
+                  - AR
+                  - AM
+                  - AW
+                  - AU
+                  - AT
+                  - AZ
+                  - BS
+                  - BH
+                  - BD
+                  - BB
+                  - BY
+                  - BE
+                  - BZ
+                  - BJ
+                  - BM
+                  - BT
+                  - BO
+                  - BQ
+                  - BA
+                  - BW
+                  - BV
+                  - BR
+                  - IO
+                  - BN
+                  - BG
+                  - BF
+                  - BI
+                  - KH
+                  - CM
+                  - CA
+                  - CV
+                  - KY
+                  - CF
+                  - TD
+                  - CL
+                  - CN
+                  - CX
+                  - CC
+                  - CO
+                  - KM
+                  - CG
+                  - CD
+                  - CK
+                  - CR
+                  - CI
+                  - HR
+                  - CU
+                  - CW
+                  - CY
+                  - CZ
+                  - DK
+                  - DJ
+                  - DM
+                  - DO
+                  - EC
+                  - EG
+                  - SV
+                  - GQ
+                  - ER
+                  - EE
+                  - ET
+                  - FK
+                  - FO
+                  - FJ
+                  - FI
+                  - FR
+                  - GF
+                  - PF
+                  - TF
+                  - GA
+                  - GM
+                  - GE
+                  - DE
+                  - GH
+                  - GI
+                  - GR
+                  - GL
+                  - GD
+                  - GP
+                  - GU
+                  - GT
+                  - GG
+                  - GN
+                  - GW
+                  - GY
+                  - HT
+                  - HM
+                  - VA
+                  - HN
+                  - HK
+                  - HU
+                  - IS
+                  - IN
+                  - ID
+                  - IR
+                  - IQ
+                  - IE
+                  - IM
+                  - IL
+                  - IT
+                  - JM
+                  - JP
+                  - JE
+                  - JO
+                  - KZ
+                  - KE
+                  - KI
+                  - KP
+                  - KR
+                  - KW
+                  - KG
+                  - LA
+                  - LV
+                  - LB
+                  - LS
+                  - LR
+                  - LY
+                  - LI
+                  - LT
+                  - LU
+                  - MO
+                  - MK
+                  - MG
+                  - MW
+                  - MY
+                  - MV
+                  - ML
+                  - MT
+                  - MH
+                  - MQ
+                  - MR
+                  - MU
+                  - YT
+                  - MX
+                  - FM
+                  - MD
+                  - MC
+                  - MN
+                  - ME
+                  - MS
+                  - MA
+                  - MZ
+                  - MM
+                  - NA
+                  - NR
+                  - NP
+                  - NL
+                  - NC
+                  - NZ
+                  - NI
+                  - NE
+                  - NG
+                  - NU
+                  - NF
+                  - MP
+                  - 'NO'
+                  - OM
+                  - PK
+                  - PW
+                  - PS
+                  - PA
+                  - PG
+                  - PY
+                  - PE
+                  - PH
+                  - PN
+                  - PL
+                  - PT
+                  - PR
+                  - QA
+                  - RE
+                  - RO
+                  - RU
+                  - RW
+                  - BL
+                  - SH
+                  - KN
+                  - LC
+                  - MF
+                  - PM
+                  - VC
+                  - WS
+                  - SM
+                  - ST
+                  - SA
+                  - SN
+                  - RS
+                  - SC
+                  - SL
+                  - SG
+                  - SX
+                  - SK
+                  - SI
+                  - SB
+                  - SO
+                  - ZA
+                  - GS
+                  - SS
+                  - ES
+                  - LK
+                  - SD
+                  - SR
+                  - SJ
+                  - SZ
+                  - SE
+                  - CH
+                  - SY
+                  - TW
+                  - TJ
+                  - TZ
+                  - TH
+                  - TL
+                  - TG
+                  - TK
+                  - TO
+                  - TT
+                  - TN
+                  - TR
+                  - TM
+                  - TC
+                  - TV
+                  - UG
+                  - UA
+                  - AE
+                  - GB
+                  - US
+                  - UM
+                  - UY
+                  - UZ
+                  - VU
+                  - VE
+                  - VN
+                  - VG
+                  - VI
+                  - WF
+                  - EH
+                  - YE
+                  - ZM
+                  - ZW
+                  type: string
+                created_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                updated_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - address_line_1
+              - address_line_2
+              - address_line_3
+              - city
+              readOnly: true
+            role:
+              type: string
+              maxLength: 140
+          readOnly: true
+        model:
+          type: string
+          maxLength: 280
+        esn:
+          type: string
+          maxLength: 48
+        maci_number:
+          type: string
+          maxLength: 280
+        status:
+          enum:
+          - 0
+          - 1
+          type: integer
+        registration_mark:
+          type: string
+          nullable: true
+          maxLength: 10
+        category:
+          type: string
+          readOnly: true
+        type_certificate:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            type_certificate_id:
+              type: string
+              maxLength: 280
+            type_certificate_issuing_country:
+              type: string
+              maxLength: 280
+            type_certificate_holder:
+              type: string
+              maxLength: 140
+            type_certificate_holder_country:
+              type: string
+              maxLength: 140
+          required:
+          - type_certificate_id
+          - type_certificate_issuing_country
+          - type_certificate_holder
+          - type_certificate_holder_country
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        master_series:
+          type: string
+          nullable: true
+          maxLength: 280
+        series:
+          type: string
+          nullable: true
+          maxLength: 280
+        popular_name:
+          type: string
+          nullable: true
+          maxLength: 280
+        sub_category:
+          type: string
+          readOnly: true
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        photo_small:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        icao_aircraft_type_designator:
+          type: string
+          maxLength: 4
+        max_certified_takeoff_weight:
+          type: string
+          format: decimal
+          multipleOf: 0.001
+          maximum: 10000000
+          minimum: -10000000
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - operator
+      - mass
+      - model
+      - maci_number
+    Pilot:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PrivilegedPilotDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operator:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            company_name:
+              type: string
+              maxLength: 280
+            website:
+              type: string
+              format: uri
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            email:
+              type: string
+              format: email
+              maxLength: 254
+            phone_number:
+              type: string
+              pattern: ^\+?1?\d{9,15}$
+              maxLength: 17
+          required:
+          - company_name
+          - website
+          - email
+          readOnly: true
+        is_active:
+          type: boolean
+        tests:
+          type: string
+          readOnly: true
+        address:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            address_line_1:
+              type: string
+              maxLength: 140
+            address_line_2:
+              type: string
+              maxLength: 140
+            address_line_3:
+              type: string
+              maxLength: 140
+            postcode:
+              type: string
+              maxLength: 10
+            city:
+              type: string
+              maxLength: 140
+            country:
+              enum:
+              - AF
+              - AX
+              - AL
+              - DZ
+              - AS
+              - AD
+              - AO
+              - AI
+              - AQ
+              - AG
+              - AR
+              - AM
+              - AW
+              - AU
+              - AT
+              - AZ
+              - BS
+              - BH
+              - BD
+              - BB
+              - BY
+              - BE
+              - BZ
+              - BJ
+              - BM
+              - BT
+              - BO
+              - BQ
+              - BA
+              - BW
+              - BV
+              - BR
+              - IO
+              - BN
+              - BG
+              - BF
+              - BI
+              - KH
+              - CM
+              - CA
+              - CV
+              - KY
+              - CF
+              - TD
+              - CL
+              - CN
+              - CX
+              - CC
+              - CO
+              - KM
+              - CG
+              - CD
+              - CK
+              - CR
+              - CI
+              - HR
+              - CU
+              - CW
+              - CY
+              - CZ
+              - DK
+              - DJ
+              - DM
+              - DO
+              - EC
+              - EG
+              - SV
+              - GQ
+              - ER
+              - EE
+              - ET
+              - FK
+              - FO
+              - FJ
+              - FI
+              - FR
+              - GF
+              - PF
+              - TF
+              - GA
+              - GM
+              - GE
+              - DE
+              - GH
+              - GI
+              - GR
+              - GL
+              - GD
+              - GP
+              - GU
+              - GT
+              - GG
+              - GN
+              - GW
+              - GY
+              - HT
+              - HM
+              - VA
+              - HN
+              - HK
+              - HU
+              - IS
+              - IN
+              - ID
+              - IR
+              - IQ
+              - IE
+              - IM
+              - IL
+              - IT
+              - JM
+              - JP
+              - JE
+              - JO
+              - KZ
+              - KE
+              - KI
+              - KP
+              - KR
+              - KW
+              - KG
+              - LA
+              - LV
+              - LB
+              - LS
+              - LR
+              - LY
+              - LI
+              - LT
+              - LU
+              - MO
+              - MK
+              - MG
+              - MW
+              - MY
+              - MV
+              - ML
+              - MT
+              - MH
+              - MQ
+              - MR
+              - MU
+              - YT
+              - MX
+              - FM
+              - MD
+              - MC
+              - MN
+              - ME
+              - MS
+              - MA
+              - MZ
+              - MM
+              - NA
+              - NR
+              - NP
+              - NL
+              - NC
+              - NZ
+              - NI
+              - NE
+              - NG
+              - NU
+              - NF
+              - MP
+              - 'NO'
+              - OM
+              - PK
+              - PW
+              - PS
+              - PA
+              - PG
+              - PY
+              - PE
+              - PH
+              - PN
+              - PL
+              - PT
+              - PR
+              - QA
+              - RE
+              - RO
+              - RU
+              - RW
+              - BL
+              - SH
+              - KN
+              - LC
+              - MF
+              - PM
+              - VC
+              - WS
+              - SM
+              - ST
+              - SA
+              - SN
+              - RS
+              - SC
+              - SL
+              - SG
+              - SX
+              - SK
+              - SI
+              - SB
+              - SO
+              - ZA
+              - GS
+              - SS
+              - ES
+              - LK
+              - SD
+              - SR
+              - SJ
+              - SZ
+              - SE
+              - CH
+              - SY
+              - TW
+              - TJ
+              - TZ
+              - TH
+              - TL
+              - TG
+              - TK
+              - TO
+              - TT
+              - TN
+              - TR
+              - TM
+              - TC
+              - TV
+              - UG
+              - UA
+              - AE
+              - GB
+              - US
+              - UM
+              - UY
+              - UZ
+              - VU
+              - VE
+              - VN
+              - VG
+              - VI
+              - WF
+              - EH
+              - YE
+              - ZM
+              - ZW
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - address_line_1
+          - address_line_2
+          - address_line_3
+          - city
+          readOnly: true
+        person:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            first_name:
+              type: string
+              maxLength: 30
+            middle_name:
+              type: string
+              nullable: true
+              maxLength: 30
+            last_name:
+              type: string
+              maxLength: 30
+            email:
+              type: string
+              format: email
+              maxLength: 254
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - first_name
+          - last_name
+          - email
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        photo_small:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        prefix:
+          type: string
+          maxLength: 12
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        aircraft:
+          type: string
+          nullable: true
+    FlightPlanList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+      required:
+      - start_datetime
+      - end_datetime
+    FlightPlan:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        details:
+          type: string
+          nullable: true
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - start_datetime
+      - end_datetime
+    FlightOperationList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    FlightOperation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        drone:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            operator:
+              type: string
+            mass:
+              type: integer
+            manufacturer:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                full_name:
+                  type: string
+                  maxLength: 140
+                common_name:
+                  type: string
+                  maxLength: 140
+                address:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    address_line_1:
+                      type: string
+                      maxLength: 140
+                    address_line_2:
+                      type: string
+                      maxLength: 140
+                    address_line_3:
+                      type: string
+                      maxLength: 140
+                    postcode:
+                      type: string
+                      maxLength: 10
+                    city:
+                      type: string
+                      maxLength: 140
+                    country:
+                      enum:
+                      - AF
+                      - AX
+                      - AL
+                      - DZ
+                      - AS
+                      - AD
+                      - AO
+                      - AI
+                      - AQ
+                      - AG
+                      - AR
+                      - AM
+                      - AW
+                      - AU
+                      - AT
+                      - AZ
+                      - BS
+                      - BH
+                      - BD
+                      - BB
+                      - BY
+                      - BE
+                      - BZ
+                      - BJ
+                      - BM
+                      - BT
+                      - BO
+                      - BQ
+                      - BA
+                      - BW
+                      - BV
+                      - BR
+                      - IO
+                      - BN
+                      - BG
+                      - BF
+                      - BI
+                      - KH
+                      - CM
+                      - CA
+                      - CV
+                      - KY
+                      - CF
+                      - TD
+                      - CL
+                      - CN
+                      - CX
+                      - CC
+                      - CO
+                      - KM
+                      - CG
+                      - CD
+                      - CK
+                      - CR
+                      - CI
+                      - HR
+                      - CU
+                      - CW
+                      - CY
+                      - CZ
+                      - DK
+                      - DJ
+                      - DM
+                      - DO
+                      - EC
+                      - EG
+                      - SV
+                      - GQ
+                      - ER
+                      - EE
+                      - ET
+                      - FK
+                      - FO
+                      - FJ
+                      - FI
+                      - FR
+                      - GF
+                      - PF
+                      - TF
+                      - GA
+                      - GM
+                      - GE
+                      - DE
+                      - GH
+                      - GI
+                      - GR
+                      - GL
+                      - GD
+                      - GP
+                      - GU
+                      - GT
+                      - GG
+                      - GN
+                      - GW
+                      - GY
+                      - HT
+                      - HM
+                      - VA
+                      - HN
+                      - HK
+                      - HU
+                      - IS
+                      - IN
+                      - ID
+                      - IR
+                      - IQ
+                      - IE
+                      - IM
+                      - IL
+                      - IT
+                      - JM
+                      - JP
+                      - JE
+                      - JO
+                      - KZ
+                      - KE
+                      - KI
+                      - KP
+                      - KR
+                      - KW
+                      - KG
+                      - LA
+                      - LV
+                      - LB
+                      - LS
+                      - LR
+                      - LY
+                      - LI
+                      - LT
+                      - LU
+                      - MO
+                      - MK
+                      - MG
+                      - MW
+                      - MY
+                      - MV
+                      - ML
+                      - MT
+                      - MH
+                      - MQ
+                      - MR
+                      - MU
+                      - YT
+                      - MX
+                      - FM
+                      - MD
+                      - MC
+                      - MN
+                      - ME
+                      - MS
+                      - MA
+                      - MZ
+                      - MM
+                      - NA
+                      - NR
+                      - NP
+                      - NL
+                      - NC
+                      - NZ
+                      - NI
+                      - NE
+                      - NG
+                      - NU
+                      - NF
+                      - MP
+                      - 'NO'
+                      - OM
+                      - PK
+                      - PW
+                      - PS
+                      - PA
+                      - PG
+                      - PY
+                      - PE
+                      - PH
+                      - PN
+                      - PL
+                      - PT
+                      - PR
+                      - QA
+                      - RE
+                      - RO
+                      - RU
+                      - RW
+                      - BL
+                      - SH
+                      - KN
+                      - LC
+                      - MF
+                      - PM
+                      - VC
+                      - WS
+                      - SM
+                      - ST
+                      - SA
+                      - SN
+                      - RS
+                      - SC
+                      - SL
+                      - SG
+                      - SX
+                      - SK
+                      - SI
+                      - SB
+                      - SO
+                      - ZA
+                      - GS
+                      - SS
+                      - ES
+                      - LK
+                      - SD
+                      - SR
+                      - SJ
+                      - SZ
+                      - SE
+                      - CH
+                      - SY
+                      - TW
+                      - TJ
+                      - TZ
+                      - TH
+                      - TL
+                      - TG
+                      - TK
+                      - TO
+                      - TT
+                      - TN
+                      - TR
+                      - TM
+                      - TC
+                      - TV
+                      - UG
+                      - UA
+                      - AE
+                      - GB
+                      - US
+                      - UM
+                      - UY
+                      - UZ
+                      - VU
+                      - VE
+                      - VN
+                      - VG
+                      - VI
+                      - WF
+                      - EH
+                      - YE
+                      - ZM
+                      - ZW
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    updated_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                  required:
+                  - address_line_1
+                  - address_line_2
+                  - address_line_3
+                  - city
+                  readOnly: true
+                role:
+                  type: string
+                  maxLength: 140
+              readOnly: true
+            model:
+              type: string
+              maxLength: 280
+            esn:
+              type: string
+              maxLength: 48
+            maci_number:
+              type: string
+              maxLength: 280
+            status:
+              enum:
+              - 0
+              - 1
+              type: integer
+            registration_mark:
+              type: string
+              nullable: true
+              maxLength: 10
+            category:
+              type: string
+              readOnly: true
+            type_certificate:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                type_certificate_id:
+                  type: string
+                  maxLength: 280
+                type_certificate_issuing_country:
+                  type: string
+                  maxLength: 280
+                type_certificate_holder:
+                  type: string
+                  maxLength: 140
+                type_certificate_holder_country:
+                  type: string
+                  maxLength: 140
+              required:
+              - type_certificate_id
+              - type_certificate_issuing_country
+              - type_certificate_holder
+              - type_certificate_holder_country
+              readOnly: true
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            master_series:
+              type: string
+              nullable: true
+              maxLength: 280
+            series:
+              type: string
+              nullable: true
+              maxLength: 280
+            popular_name:
+              type: string
+              nullable: true
+              maxLength: 280
+            sub_category:
+              type: string
+              readOnly: true
+            photo:
+              type: string
+              format: uri
+              nullable: true
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            photo_small:
+              type: string
+              format: uri
+              nullable: true
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            icao_aircraft_type_designator:
+              type: string
+              maxLength: 4
+            max_certified_takeoff_weight:
+              type: string
+              format: decimal
+              multipleOf: 0.001
+              maximum: 10000000
+              minimum: -10000000
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - operator
+          - mass
+          - model
+          - maci_number
+          readOnly: true
+        flight_plan:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            name:
+              type: string
+              maxLength: 30
+            details:
+              type: string
+              nullable: true
+            start_datetime:
+              type: string
+              format: date-time
+            end_datetime:
+              type: string
+              format: date-time
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - start_datetime
+          - end_datetime
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        type_of_operation:
+          enum:
+          - 0
+          - 1
+          type: integer
+          description: At the moment, only VLOS and BVLOS operations are supported,
+            for other types of operations, please issue a pull-request
+        flight_termination_or_return_home_capability:
+          type: boolean
+        geo_fencing_capability:
+          type: boolean
+        detect_and_avoid_capability:
+          type: boolean
+        recurring_time_expression:
+          type: string
+          maxLength: 50
+        recurring_time_duration:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        purpose:
+          type: string
+          description: To add additional categories, please add entries to the Activities
+            table
+    FlightLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operation:
+          type: string
+        signed_log:
+          type: string
+      required:
+      - operation
+      - signed_log
+    AircraftRegister:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        drone:
+          type: object
+          properties:
+            droneTypeId:
+              type: string
+              readOnly: true
+            version:
+              type: string
+              readOnly: true
+            deviceId:
+              type: string
+              readOnly: true
+            deviceModelId:
+              type: string
+              readOnly: true
+            txn:
+              type: string
+              readOnly: true
+            operatorBusinessIdentifier:
+              type: string
+              readOnly: true
+          readOnly: true
+        is_signed:
+          type: boolean
+        signature:
+          type: string
+        certificate:
+          type: string
+      required:
+      - signature
+      - certificate
+    FlightPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operation:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            drone:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                operator:
+                  type: string
+                mass:
+                  type: integer
+                manufacturer:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    full_name:
+                      type: string
+                      maxLength: 140
+                    common_name:
+                      type: string
+                      maxLength: 140
+                    address:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          readOnly: true
+                        address_line_1:
+                          type: string
+                          maxLength: 140
+                        address_line_2:
+                          type: string
+                          maxLength: 140
+                        address_line_3:
+                          type: string
+                          maxLength: 140
+                        postcode:
+                          type: string
+                          maxLength: 10
+                        city:
+                          type: string
+                          maxLength: 140
+                        country:
+                          enum:
+                          - AF
+                          - AX
+                          - AL
+                          - DZ
+                          - AS
+                          - AD
+                          - AO
+                          - AI
+                          - AQ
+                          - AG
+                          - AR
+                          - AM
+                          - AW
+                          - AU
+                          - AT
+                          - AZ
+                          - BS
+                          - BH
+                          - BD
+                          - BB
+                          - BY
+                          - BE
+                          - BZ
+                          - BJ
+                          - BM
+                          - BT
+                          - BO
+                          - BQ
+                          - BA
+                          - BW
+                          - BV
+                          - BR
+                          - IO
+                          - BN
+                          - BG
+                          - BF
+                          - BI
+                          - KH
+                          - CM
+                          - CA
+                          - CV
+                          - KY
+                          - CF
+                          - TD
+                          - CL
+                          - CN
+                          - CX
+                          - CC
+                          - CO
+                          - KM
+                          - CG
+                          - CD
+                          - CK
+                          - CR
+                          - CI
+                          - HR
+                          - CU
+                          - CW
+                          - CY
+                          - CZ
+                          - DK
+                          - DJ
+                          - DM
+                          - DO
+                          - EC
+                          - EG
+                          - SV
+                          - GQ
+                          - ER
+                          - EE
+                          - ET
+                          - FK
+                          - FO
+                          - FJ
+                          - FI
+                          - FR
+                          - GF
+                          - PF
+                          - TF
+                          - GA
+                          - GM
+                          - GE
+                          - DE
+                          - GH
+                          - GI
+                          - GR
+                          - GL
+                          - GD
+                          - GP
+                          - GU
+                          - GT
+                          - GG
+                          - GN
+                          - GW
+                          - GY
+                          - HT
+                          - HM
+                          - VA
+                          - HN
+                          - HK
+                          - HU
+                          - IS
+                          - IN
+                          - ID
+                          - IR
+                          - IQ
+                          - IE
+                          - IM
+                          - IL
+                          - IT
+                          - JM
+                          - JP
+                          - JE
+                          - JO
+                          - KZ
+                          - KE
+                          - KI
+                          - KP
+                          - KR
+                          - KW
+                          - KG
+                          - LA
+                          - LV
+                          - LB
+                          - LS
+                          - LR
+                          - LY
+                          - LI
+                          - LT
+                          - LU
+                          - MO
+                          - MK
+                          - MG
+                          - MW
+                          - MY
+                          - MV
+                          - ML
+                          - MT
+                          - MH
+                          - MQ
+                          - MR
+                          - MU
+                          - YT
+                          - MX
+                          - FM
+                          - MD
+                          - MC
+                          - MN
+                          - ME
+                          - MS
+                          - MA
+                          - MZ
+                          - MM
+                          - NA
+                          - NR
+                          - NP
+                          - NL
+                          - NC
+                          - NZ
+                          - NI
+                          - NE
+                          - NG
+                          - NU
+                          - NF
+                          - MP
+                          - 'NO'
+                          - OM
+                          - PK
+                          - PW
+                          - PS
+                          - PA
+                          - PG
+                          - PY
+                          - PE
+                          - PH
+                          - PN
+                          - PL
+                          - PT
+                          - PR
+                          - QA
+                          - RE
+                          - RO
+                          - RU
+                          - RW
+                          - BL
+                          - SH
+                          - KN
+                          - LC
+                          - MF
+                          - PM
+                          - VC
+                          - WS
+                          - SM
+                          - ST
+                          - SA
+                          - SN
+                          - RS
+                          - SC
+                          - SL
+                          - SG
+                          - SX
+                          - SK
+                          - SI
+                          - SB
+                          - SO
+                          - ZA
+                          - GS
+                          - SS
+                          - ES
+                          - LK
+                          - SD
+                          - SR
+                          - SJ
+                          - SZ
+                          - SE
+                          - CH
+                          - SY
+                          - TW
+                          - TJ
+                          - TZ
+                          - TH
+                          - TL
+                          - TG
+                          - TK
+                          - TO
+                          - TT
+                          - TN
+                          - TR
+                          - TM
+                          - TC
+                          - TV
+                          - UG
+                          - UA
+                          - AE
+                          - GB
+                          - US
+                          - UM
+                          - UY
+                          - UZ
+                          - VU
+                          - VE
+                          - VN
+                          - VG
+                          - VI
+                          - WF
+                          - EH
+                          - YE
+                          - ZM
+                          - ZW
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        updated_at:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - address_line_1
+                      - address_line_2
+                      - address_line_3
+                      - city
+                      readOnly: true
+                    role:
+                      type: string
+                      maxLength: 140
+                  readOnly: true
+                model:
+                  type: string
+                  maxLength: 280
+                esn:
+                  type: string
+                  maxLength: 48
+                maci_number:
+                  type: string
+                  maxLength: 280
+                status:
+                  enum:
+                  - 0
+                  - 1
+                  type: integer
+                registration_mark:
+                  type: string
+                  nullable: true
+                  maxLength: 10
+                category:
+                  type: string
+                  readOnly: true
+                type_certificate:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    type_certificate_id:
+                      type: string
+                      maxLength: 280
+                    type_certificate_issuing_country:
+                      type: string
+                      maxLength: 280
+                    type_certificate_holder:
+                      type: string
+                      maxLength: 140
+                    type_certificate_holder_country:
+                      type: string
+                      maxLength: 140
+                  required:
+                  - type_certificate_id
+                  - type_certificate_issuing_country
+                  - type_certificate_holder
+                  - type_certificate_holder_country
+                  readOnly: true
+                created_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                master_series:
+                  type: string
+                  nullable: true
+                  maxLength: 280
+                series:
+                  type: string
+                  nullable: true
+                  maxLength: 280
+                popular_name:
+                  type: string
+                  nullable: true
+                  maxLength: 280
+                sub_category:
+                  type: string
+                  readOnly: true
+                photo:
+                  type: string
+                  format: uri
+                  nullable: true
+                  maxLength: 200
+                  pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\z"
+                photo_small:
+                  type: string
+                  format: uri
+                  nullable: true
+                  maxLength: 200
+                  pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                    d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                    [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                    -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                    -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
+                    d{2,5})?(?:[/?#][^\\s]*)?\\z"
+                icao_aircraft_type_designator:
+                  type: string
+                  maxLength: 4
+                max_certified_takeoff_weight:
+                  type: string
+                  format: decimal
+                  multipleOf: 0.001
+                  maximum: 10000000
+                  minimum: -10000000
+                updated_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - operator
+              - mass
+              - model
+              - maci_number
+              readOnly: true
+            flight_plan:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                name:
+                  type: string
+                  maxLength: 30
+                details:
+                  type: string
+                  nullable: true
+                start_datetime:
+                  type: string
+                  format: date-time
+                end_datetime:
+                  type: string
+                  format: date-time
+                created_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                updated_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - start_datetime
+              - end_datetime
+              readOnly: true
+            name:
+              type: string
+              maxLength: 30
+            type_of_operation:
+              enum:
+              - 0
+              - 1
+              type: integer
+              description: At the moment, only VLOS and BVLOS operations are supported,
+                for other types of operations, please issue a pull-request
+            flight_termination_or_return_home_capability:
+              type: boolean
+            geo_fencing_capability:
+              type: boolean
+            detect_and_avoid_capability:
+              type: boolean
+            recurring_time_expression:
+              type: string
+              maxLength: 50
+            recurring_time_duration:
+              type: integer
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            purpose:
+              type: string
+              description: To add additional categories, please add entries to the
+                Activities table
+          readOnly: true
+        is_successful:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        artefact:
+          type: string
+    UINApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        drone:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            operator:
+              type: string
+            mass:
+              type: integer
+            manufacturer:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                full_name:
+                  type: string
+                  maxLength: 140
+                common_name:
+                  type: string
+                  maxLength: 140
+                address:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    address_line_1:
+                      type: string
+                      maxLength: 140
+                    address_line_2:
+                      type: string
+                      maxLength: 140
+                    address_line_3:
+                      type: string
+                      maxLength: 140
+                    postcode:
+                      type: string
+                      maxLength: 10
+                    city:
+                      type: string
+                      maxLength: 140
+                    country:
+                      enum:
+                      - AF
+                      - AX
+                      - AL
+                      - DZ
+                      - AS
+                      - AD
+                      - AO
+                      - AI
+                      - AQ
+                      - AG
+                      - AR
+                      - AM
+                      - AW
+                      - AU
+                      - AT
+                      - AZ
+                      - BS
+                      - BH
+                      - BD
+                      - BB
+                      - BY
+                      - BE
+                      - BZ
+                      - BJ
+                      - BM
+                      - BT
+                      - BO
+                      - BQ
+                      - BA
+                      - BW
+                      - BV
+                      - BR
+                      - IO
+                      - BN
+                      - BG
+                      - BF
+                      - BI
+                      - KH
+                      - CM
+                      - CA
+                      - CV
+                      - KY
+                      - CF
+                      - TD
+                      - CL
+                      - CN
+                      - CX
+                      - CC
+                      - CO
+                      - KM
+                      - CG
+                      - CD
+                      - CK
+                      - CR
+                      - CI
+                      - HR
+                      - CU
+                      - CW
+                      - CY
+                      - CZ
+                      - DK
+                      - DJ
+                      - DM
+                      - DO
+                      - EC
+                      - EG
+                      - SV
+                      - GQ
+                      - ER
+                      - EE
+                      - ET
+                      - FK
+                      - FO
+                      - FJ
+                      - FI
+                      - FR
+                      - GF
+                      - PF
+                      - TF
+                      - GA
+                      - GM
+                      - GE
+                      - DE
+                      - GH
+                      - GI
+                      - GR
+                      - GL
+                      - GD
+                      - GP
+                      - GU
+                      - GT
+                      - GG
+                      - GN
+                      - GW
+                      - GY
+                      - HT
+                      - HM
+                      - VA
+                      - HN
+                      - HK
+                      - HU
+                      - IS
+                      - IN
+                      - ID
+                      - IR
+                      - IQ
+                      - IE
+                      - IM
+                      - IL
+                      - IT
+                      - JM
+                      - JP
+                      - JE
+                      - JO
+                      - KZ
+                      - KE
+                      - KI
+                      - KP
+                      - KR
+                      - KW
+                      - KG
+                      - LA
+                      - LV
+                      - LB
+                      - LS
+                      - LR
+                      - LY
+                      - LI
+                      - LT
+                      - LU
+                      - MO
+                      - MK
+                      - MG
+                      - MW
+                      - MY
+                      - MV
+                      - ML
+                      - MT
+                      - MH
+                      - MQ
+                      - MR
+                      - MU
+                      - YT
+                      - MX
+                      - FM
+                      - MD
+                      - MC
+                      - MN
+                      - ME
+                      - MS
+                      - MA
+                      - MZ
+                      - MM
+                      - NA
+                      - NR
+                      - NP
+                      - NL
+                      - NC
+                      - NZ
+                      - NI
+                      - NE
+                      - NG
+                      - NU
+                      - NF
+                      - MP
+                      - 'NO'
+                      - OM
+                      - PK
+                      - PW
+                      - PS
+                      - PA
+                      - PG
+                      - PY
+                      - PE
+                      - PH
+                      - PN
+                      - PL
+                      - PT
+                      - PR
+                      - QA
+                      - RE
+                      - RO
+                      - RU
+                      - RW
+                      - BL
+                      - SH
+                      - KN
+                      - LC
+                      - MF
+                      - PM
+                      - VC
+                      - WS
+                      - SM
+                      - ST
+                      - SA
+                      - SN
+                      - RS
+                      - SC
+                      - SL
+                      - SG
+                      - SX
+                      - SK
+                      - SI
+                      - SB
+                      - SO
+                      - ZA
+                      - GS
+                      - SS
+                      - ES
+                      - LK
+                      - SD
+                      - SR
+                      - SJ
+                      - SZ
+                      - SE
+                      - CH
+                      - SY
+                      - TW
+                      - TJ
+                      - TZ
+                      - TH
+                      - TL
+                      - TG
+                      - TK
+                      - TO
+                      - TT
+                      - TN
+                      - TR
+                      - TM
+                      - TC
+                      - TV
+                      - UG
+                      - UA
+                      - AE
+                      - GB
+                      - US
+                      - UM
+                      - UY
+                      - UZ
+                      - VU
+                      - VE
+                      - VN
+                      - VG
+                      - VI
+                      - WF
+                      - EH
+                      - YE
+                      - ZM
+                      - ZW
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    updated_at:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                  required:
+                  - address_line_1
+                  - address_line_2
+                  - address_line_3
+                  - city
+                  readOnly: true
+                role:
+                  type: string
+                  maxLength: 140
+              readOnly: true
+            model:
+              type: string
+              maxLength: 280
+            esn:
+              type: string
+              maxLength: 48
+            maci_number:
+              type: string
+              maxLength: 280
+            status:
+              enum:
+              - 0
+              - 1
+              type: integer
+            registration_mark:
+              type: string
+              nullable: true
+              maxLength: 10
+            category:
+              type: string
+              readOnly: true
+            type_certificate:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                type_certificate_id:
+                  type: string
+                  maxLength: 280
+                type_certificate_issuing_country:
+                  type: string
+                  maxLength: 280
+                type_certificate_holder:
+                  type: string
+                  maxLength: 140
+                type_certificate_holder_country:
+                  type: string
+                  maxLength: 140
+              required:
+              - type_certificate_id
+              - type_certificate_issuing_country
+              - type_certificate_holder
+              - type_certificate_holder_country
+              readOnly: true
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            master_series:
+              type: string
+              nullable: true
+              maxLength: 280
+            series:
+              type: string
+              nullable: true
+              maxLength: 280
+            popular_name:
+              type: string
+              nullable: true
+              maxLength: 280
+            sub_category:
+              type: string
+              readOnly: true
+            photo:
+              type: string
+              format: uri
+              nullable: true
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            photo_small:
+              type: string
+              format: uri
+              nullable: true
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            icao_aircraft_type_designator:
+              type: string
+              maxLength: 4
+            max_certified_takeoff_weight:
+              type: string
+              format: decimal
+              multipleOf: 0.001
+              maximum: 10000000
+              minimum: -10000000
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - operator
+          - mass
+          - model
+          - maci_number
+          readOnly: true
+        operator:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            company_name:
+              type: string
+              maxLength: 280
+            country:
+              enum:
+              - AF
+              - AX
+              - AL
+              - DZ
+              - AS
+              - AD
+              - AO
+              - AI
+              - AQ
+              - AG
+              - AR
+              - AM
+              - AW
+              - AU
+              - AT
+              - AZ
+              - BS
+              - BH
+              - BD
+              - BB
+              - BY
+              - BE
+              - BZ
+              - BJ
+              - BM
+              - BT
+              - BO
+              - BQ
+              - BA
+              - BW
+              - BV
+              - BR
+              - IO
+              - BN
+              - BG
+              - BF
+              - BI
+              - KH
+              - CM
+              - CA
+              - CV
+              - KY
+              - CF
+              - TD
+              - CL
+              - CN
+              - CX
+              - CC
+              - CO
+              - KM
+              - CG
+              - CD
+              - CK
+              - CR
+              - CI
+              - HR
+              - CU
+              - CW
+              - CY
+              - CZ
+              - DK
+              - DJ
+              - DM
+              - DO
+              - EC
+              - EG
+              - SV
+              - GQ
+              - ER
+              - EE
+              - ET
+              - FK
+              - FO
+              - FJ
+              - FI
+              - FR
+              - GF
+              - PF
+              - TF
+              - GA
+              - GM
+              - GE
+              - DE
+              - GH
+              - GI
+              - GR
+              - GL
+              - GD
+              - GP
+              - GU
+              - GT
+              - GG
+              - GN
+              - GW
+              - GY
+              - HT
+              - HM
+              - VA
+              - HN
+              - HK
+              - HU
+              - IS
+              - IN
+              - ID
+              - IR
+              - IQ
+              - IE
+              - IM
+              - IL
+              - IT
+              - JM
+              - JP
+              - JE
+              - JO
+              - KZ
+              - KE
+              - KI
+              - KP
+              - KR
+              - KW
+              - KG
+              - LA
+              - LV
+              - LB
+              - LS
+              - LR
+              - LY
+              - LI
+              - LT
+              - LU
+              - MO
+              - MK
+              - MG
+              - MW
+              - MY
+              - MV
+              - ML
+              - MT
+              - MH
+              - MQ
+              - MR
+              - MU
+              - YT
+              - MX
+              - FM
+              - MD
+              - MC
+              - MN
+              - ME
+              - MS
+              - MA
+              - MZ
+              - MM
+              - NA
+              - NR
+              - NP
+              - NL
+              - NC
+              - NZ
+              - NI
+              - NE
+              - NG
+              - NU
+              - NF
+              - MP
+              - 'NO'
+              - OM
+              - PK
+              - PW
+              - PS
+              - PA
+              - PG
+              - PY
+              - PE
+              - PH
+              - PN
+              - PL
+              - PT
+              - PR
+              - QA
+              - RE
+              - RO
+              - RU
+              - RW
+              - BL
+              - SH
+              - KN
+              - LC
+              - MF
+              - PM
+              - VC
+              - WS
+              - SM
+              - ST
+              - SA
+              - SN
+              - RS
+              - SC
+              - SL
+              - SG
+              - SX
+              - SK
+              - SI
+              - SB
+              - SO
+              - ZA
+              - GS
+              - SS
+              - ES
+              - LK
+              - SD
+              - SR
+              - SJ
+              - SZ
+              - SE
+              - CH
+              - SY
+              - TW
+              - TJ
+              - TZ
+              - TH
+              - TL
+              - TG
+              - TK
+              - TO
+              - TT
+              - TN
+              - TR
+              - TM
+              - TC
+              - TV
+              - UG
+              - UA
+              - AE
+              - GB
+              - US
+              - UM
+              - UY
+              - UZ
+              - VU
+              - VE
+              - VN
+              - VG
+              - VI
+              - WF
+              - EH
+              - YE
+              - ZM
+              - ZW
+              type: string
+            website:
+              type: string
+              format: uri
+              maxLength: 200
+              pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+                ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF\
+                0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+                -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+                s]*)?\\z"
+            email:
+              type: string
+              format: email
+              maxLength: 254
+            operator_type:
+              enum:
+              - 0
+              - 1
+              - 2
+              - 3
+              - 4
+              type: integer
+            address:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  readOnly: true
+                address_line_1:
+                  type: string
+                  maxLength: 140
+                address_line_2:
+                  type: string
+                  maxLength: 140
+                address_line_3:
+                  type: string
+                  maxLength: 140
+                postcode:
+                  type: string
+                  maxLength: 10
+                city:
+                  type: string
+                  maxLength: 140
+                country:
+                  enum:
+                  - AF
+                  - AX
+                  - AL
+                  - DZ
+                  - AS
+                  - AD
+                  - AO
+                  - AI
+                  - AQ
+                  - AG
+                  - AR
+                  - AM
+                  - AW
+                  - AU
+                  - AT
+                  - AZ
+                  - BS
+                  - BH
+                  - BD
+                  - BB
+                  - BY
+                  - BE
+                  - BZ
+                  - BJ
+                  - BM
+                  - BT
+                  - BO
+                  - BQ
+                  - BA
+                  - BW
+                  - BV
+                  - BR
+                  - IO
+                  - BN
+                  - BG
+                  - BF
+                  - BI
+                  - KH
+                  - CM
+                  - CA
+                  - CV
+                  - KY
+                  - CF
+                  - TD
+                  - CL
+                  - CN
+                  - CX
+                  - CC
+                  - CO
+                  - KM
+                  - CG
+                  - CD
+                  - CK
+                  - CR
+                  - CI
+                  - HR
+                  - CU
+                  - CW
+                  - CY
+                  - CZ
+                  - DK
+                  - DJ
+                  - DM
+                  - DO
+                  - EC
+                  - EG
+                  - SV
+                  - GQ
+                  - ER
+                  - EE
+                  - ET
+                  - FK
+                  - FO
+                  - FJ
+                  - FI
+                  - FR
+                  - GF
+                  - PF
+                  - TF
+                  - GA
+                  - GM
+                  - GE
+                  - DE
+                  - GH
+                  - GI
+                  - GR
+                  - GL
+                  - GD
+                  - GP
+                  - GU
+                  - GT
+                  - GG
+                  - GN
+                  - GW
+                  - GY
+                  - HT
+                  - HM
+                  - VA
+                  - HN
+                  - HK
+                  - HU
+                  - IS
+                  - IN
+                  - ID
+                  - IR
+                  - IQ
+                  - IE
+                  - IM
+                  - IL
+                  - IT
+                  - JM
+                  - JP
+                  - JE
+                  - JO
+                  - KZ
+                  - KE
+                  - KI
+                  - KP
+                  - KR
+                  - KW
+                  - KG
+                  - LA
+                  - LV
+                  - LB
+                  - LS
+                  - LR
+                  - LY
+                  - LI
+                  - LT
+                  - LU
+                  - MO
+                  - MK
+                  - MG
+                  - MW
+                  - MY
+                  - MV
+                  - ML
+                  - MT
+                  - MH
+                  - MQ
+                  - MR
+                  - MU
+                  - YT
+                  - MX
+                  - FM
+                  - MD
+                  - MC
+                  - MN
+                  - ME
+                  - MS
+                  - MA
+                  - MZ
+                  - MM
+                  - NA
+                  - NR
+                  - NP
+                  - NL
+                  - NC
+                  - NZ
+                  - NI
+                  - NE
+                  - NG
+                  - NU
+                  - NF
+                  - MP
+                  - 'NO'
+                  - OM
+                  - PK
+                  - PW
+                  - PS
+                  - PA
+                  - PG
+                  - PY
+                  - PE
+                  - PH
+                  - PN
+                  - PL
+                  - PT
+                  - PR
+                  - QA
+                  - RE
+                  - RO
+                  - RU
+                  - RW
+                  - BL
+                  - SH
+                  - KN
+                  - LC
+                  - MF
+                  - PM
+                  - VC
+                  - WS
+                  - SM
+                  - ST
+                  - SA
+                  - SN
+                  - RS
+                  - SC
+                  - SL
+                  - SG
+                  - SX
+                  - SK
+                  - SI
+                  - SB
+                  - SO
+                  - ZA
+                  - GS
+                  - SS
+                  - ES
+                  - LK
+                  - SD
+                  - SR
+                  - SJ
+                  - SZ
+                  - SE
+                  - CH
+                  - SY
+                  - TW
+                  - TJ
+                  - TZ
+                  - TH
+                  - TL
+                  - TG
+                  - TK
+                  - TO
+                  - TT
+                  - TN
+                  - TR
+                  - TM
+                  - TC
+                  - TV
+                  - UG
+                  - UA
+                  - AE
+                  - GB
+                  - US
+                  - UM
+                  - UY
+                  - UZ
+                  - VU
+                  - VE
+                  - VN
+                  - VG
+                  - VI
+                  - WF
+                  - EH
+                  - YE
+                  - ZM
+                  - ZW
+                  type: string
+                created_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                updated_at:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - address_line_1
+              - address_line_2
+              - address_line_3
+              - city
+              readOnly: true
+            operational_authorizations:
+              type: string
+              readOnly: true
+            authorized_activities:
+              type: string
+              readOnly: true
+            contacts:
+              type: string
+              readOnly: true
+            phone_number:
+              type: string
+              pattern: ^\+?1?\d{9,15}$
+              maxLength: 17
+            company_number:
+              type: string
+              nullable: true
+              maxLength: 25
+            pilots:
+              type: string
+              readOnly: true
+            aircrafts:
+              type: string
+              readOnly: true
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - company_name
+          - website
+          - email
+          readOnly: true
+        fee_details:
+          type: string
+          maxLength: 140
+        import_permission:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        cin:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        gst_in:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        pan_card:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        dot_permission:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        security_clearance:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        eta:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        op_manual:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        maintainence_guidelines:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        counter:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - fee_details
+      - import_permission
+      - cin
+      - gst_in
+      - pan_card
+      - dot_permission
+      - security_clearance
+      - eta
+      - op_manual
+      - maintainence_guidelines
+    DigitalSkyLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        response_code:
+          type: string
+          maxLength: 256
+        response:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        txn:
+          type: string
+      required:
+      - response_code
+      - timestamp
+      - txn

@@ -6,8 +6,8 @@ from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
-from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer
-from .models import Transaction, FlightOperation, FlightPlan
+from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer, FlightLogSerializer
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog
 from rest_framework import status
 from django.utils.decorators import method_decorator
 
@@ -65,6 +65,38 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightLogList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = FlightLog.objects.all()
+    serializer_class = FlightLogSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightLogDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = FlightLog.objects.all()
+    serializer_class = FlightLogSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')

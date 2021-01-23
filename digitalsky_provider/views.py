@@ -16,20 +16,18 @@ from rest_framework.permissions import AllowAny
 import jwt
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
-from gcs_operations.models import Transaction, FlightPermission
 from .models import DigitalSkyLog, AircraftRegister
-from gcs_operations.models import FlightOperation, UINApplication
+from gcs_operations.models import FlightOperation, UINApplication, FlightLog, Transaction, FlightPermission
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.backends import default_backend
 from base64 import b64encode, b64decode
 from registry.models import Aircraft
-
 from pki_framework.utils import requires_scopes, BearerAuth
 from .serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 import json
-from gcs_operations.serializers import FlightPermissionSerializer, UINApplicationSerializer
+from gcs_operations.serializers import FlightPermissionSerializer, UINApplicationSerializer, FlightLogSerializer
 from rest_framework.response import Response
 # Create your views here.
 
@@ -125,8 +123,13 @@ class AircraftRegisterList(mixins.ListModelMixin,
         serializer = AircraftRegisterSerializer(aircraftregister, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    def put(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+
+    def put(self, request, format=None):
+        serializer = AircraftRegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class AircraftRegisterDetail(mixins.RetrieveModelMixin,
@@ -302,3 +305,52 @@ class LogDetail(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class SubmitSignedFlightLog(mixins.CreateModelMixin, generics.GenericAPIView):
+
+    queryset = FlightLog.objects.all()
+    serializer_class = FlightLogSerializer
+
+    queryset = UINApplication.objects.all()
+    serializer_class = UINApplicationSerializer
+
+    def post(self, request, operation_id, format=None):
+        operation = get_object_or_404(FlightOperation, pk=operation_id)
+        permission = get_object_or_404(FlightPermission, operation= operation)
+        flight_log = FlightLog.objects.get_object_or_404(operation = operation)
+        
+        drone = operation.aircraft
+               
+        t = Transaction(drone = drone, prefix="flight_log_submission")
+        t.save()
+        
+        log_json = {"PermissionArtefact":{"type":"string","title":"Permission Artefact ID","description":str(permission.id)},"previous_log_hash":flight_log.signed_log,"LogEntries":flight_log.raw_log}
+        
+        headers = {'content-type': 'application/json'}
+
+        try:
+            assert flight_log.is_submitted == False
+        except AssertionError as ae: 
+            message ={"status":0, "message":"Flight log already submitte"}
+            return Response(json.dumps(message), status=status.HTTP_400_BAD_REQUEST)
+    
+        headers = {'content-type': 'application/json'}
+        securl = os.environ.get('DIGITAL_SKY_URL')+ '/api/applicationForm/flyDronePermissionApplication/'+str(permission.id)+'/document/flightLog'
+        
+        
+        auth = BearerAuth(os.environ.get('BEARER_TOKEN', ""))
+        r = requests.get(securl,auth = auth,  headers=headers)
+        now = datetime.datetime.now()
+        
+        if r.status_code == 200:
+        
+            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = permission_response['code'], timestamp = now)
+            permission.arefact = r.text()
+            permission.save()
+            msg = {"status":1, "flight_log_submission": r.text()}
+            return Response(json.dumps(msg), status=status.HTTP_200_OK)
+        else:
+            ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = permission_response['code'], timestamp = now)
+            ds_log.save()
+            return Response(status=status.HTTP_400_BAD_REQUEST)

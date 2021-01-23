@@ -90,7 +90,21 @@ class FlightPermission(models.Model):
     def __str__(self):
         return self.operation.name
 
+class FlightLog(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    operation = models.ForeignKey(FlightOperation, on_delete=models.CASCADE)
+    signed_log = models.TextField()
+    raw_log = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_submitted = models.BooleanField(default=False)
+    def __unicode__(self):
+       return self.operation.name
 
+    def __str__(self):
+        return self.operation.name
+    
+    
     
 class UINApplication(models.Model):
     ''' This is the UIN application object '''

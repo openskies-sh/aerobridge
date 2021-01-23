@@ -1368,7 +1368,50 @@ paths:
       tags:
       - flights
         - plan
-        
+
+  /gcs/flight-logs:
+    get:
+      operationId: listFlightLogs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - flights
+        - logs
+    post:
+      operationId: createFlightLog
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - flights
+        - logs    
+
   /gcs/flight-operations:
     get:
       operationId: List all Flight Operations
@@ -2242,8 +2285,6 @@ paths:
         - operation
 
 
-
-
 components:
   securitySchemes:
     AuthFromPassport:
@@ -2265,6 +2306,23 @@ components:
           type: string
         message:
           type: string
+    FlightLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operation:
+          type: string
+        signed_log:
+          type: string
+        raw_log:
+          type: string
+      required:
+      - operation
+      - signed_log
+      - raw_log
 
     AircraftRoster: 
       type: object

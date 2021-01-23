@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightPermission, UINApplication
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication
 from registry.serializers import AircraftDetailSerializer, OperatorSelectRelatedSerializer
 
 
@@ -35,7 +35,6 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name','created_at']
         ordering = ['-created_at']
     
-
  
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
@@ -59,4 +58,11 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction		
         fields = '__all__'
+        ordering = ['-created_at']
+        
+class FlightLogSerializer(serializers.ModelSerializer):
+    ''' A serializer for Flight Logs '''
+    class Meta:
+        model = FlightLog	
+        fields = ['id', 'operation','signed_log']
         ordering = ['-created_at']
