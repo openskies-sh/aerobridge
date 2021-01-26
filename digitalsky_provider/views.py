@@ -115,24 +115,31 @@ class AircraftRegisterList(mixins.ListModelMixin,
     serializer_class = AircraftRegisterSerializer
 
     def get(self, request, *args, **kwargs):
-        aircrafts = Aircraft.objects.all()
-        for aircraft in aircrafts:
-            ar, created = AircraftRegister.objects.get_or_create(drone = aircraft)
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    # def get(self, request, *args, **kwargs):
+    #     aircrafts = Aircraft.objects.all()
+    #     for aircraft in aircrafts:
+    #         ar, created = AircraftRegister.objects.get_or_create(drone = aircraft)
         
-        aircraftregister = AircraftRegister.objects.all()
-        serializer = AircraftRegisterSerializer(aircraftregister, many=True)
-        return JsonResponse(serializer.data, safe=False)
+    #     aircraftregister = AircraftRegister.objects.all()
+    #     serializer = AircraftRegisterSerializer(aircraftregister, many=True)
+    #     return JsonResponse(serializer.data, safe=False)
 
 
-    def put(self, request, format=None):
-        serializer = AircraftRegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def put(self, request, format=None):
+    #     serializer = AircraftRegisterSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class AircraftRegisterDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
                     generics.GenericAPIView):
 
     queryset = AircraftRegister.objects.all()
@@ -141,6 +148,8 @@ class AircraftRegisterDetail(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
+    def put(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 @method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
 class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):

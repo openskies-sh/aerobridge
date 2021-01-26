@@ -155,7 +155,7 @@ class Test(models.Model):
 class Pilot(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE)    
-    person = models.ForeignKey(Person, models.CASCADE)
+    person = models.OneToOneField(Person, models.CASCADE)
     photo = models.URLField(blank=True, null=True)
     photo_small = models.URLField(blank=True, null=True)
     address = models.ForeignKey(Address, models.CASCADE)

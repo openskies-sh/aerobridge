@@ -17,7 +17,7 @@ from rest_framework.views import APIView
 
 from .models import Activity, Authorization, Contact, Operator, Aircraft, Pilot, Test, TestValidity
 from .serializers import (ContactSerializer, ContactDetailSerializer, OperatorSerializer,               PilotSerializer, PilotDetailSerializer,
-                                  PrivilegedPilotDetailSerializer, 
+                                  
                                   PrivilegedOperatorSerializer, AircraftSerializer, AircraftDetailSerializer)
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -36,6 +36,7 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class OperatorList(mixins.ListModelMixin,
+                    mixins.CreateModelMixin,
                    generics.GenericAPIView):
     """
     List all operators, or create a new operator.
@@ -48,6 +49,9 @@ class OperatorList(mixins.ListModelMixin,
         return self.list(request, *args, **kwargs)
 
 
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class OperatorDetail(mixins.RetrieveModelMixin,
@@ -58,18 +62,19 @@ class OperatorDetail(mixins.RetrieveModelMixin,
     """
 
     queryset = Operator.objects.all()
-    serializer_class = PrivilegedOperatorSerializer
+    serializer_class = OperatorSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class AircraftList(mixins.ListModelMixin,
+                mixins.CreateModelMixin,
                   generics.GenericAPIView):
     """
     List all aircrafts in the database
@@ -80,6 +85,10 @@ class AircraftList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 
@@ -110,13 +119,14 @@ class AircraftDetail(mixins.RetrieveModelMixin,
         return Response(serializer.data)
 
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class PilotList(mixins.ListModelMixin,
+                mixins.CreateModelMixin,
                 generics.GenericAPIView):
     """
     List all pilots in the database
@@ -126,18 +136,25 @@ class PilotList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class PilotDetail(mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
                             generics.GenericAPIView):
     """
     Retrieve, update or delete a Pilot instance.
     """
 
     queryset = Pilot.objects.all()
-    serializer_class = PrivilegedPilotDetailSerializer
+    serializer_class = PilotDetailSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+
+    def put(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 

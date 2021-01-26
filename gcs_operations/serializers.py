@@ -17,7 +17,7 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightPlan	
-        fields = ['id', 'name','start_datetime','end_datetime']
+        fields = '__all__'
         ordering = ['-created_at']
     
 
@@ -32,7 +32,8 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightOperation	
-        fields = ['id', 'name','created_at']
+        exclude = ('recurring_time_expression', 'recurring_time_duration')
+        
         ordering = ['-created_at']
     
  
@@ -64,5 +65,5 @@ class FlightLogSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Logs '''
     class Meta:
         model = FlightLog	
-        fields = ['id', 'operation','signed_log']
+        exclude = ('is_submitted',)
         ordering = ['-created_at']

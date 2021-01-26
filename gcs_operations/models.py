@@ -21,7 +21,7 @@ class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default=  make_random_plan_common_name('Flight Plan ',6))
-    details = models.TextField(null=True)
+    details = models.TextField(null=True, help_text="Paste flight plan geometry")
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     

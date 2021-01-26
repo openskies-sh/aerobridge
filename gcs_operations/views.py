@@ -139,7 +139,7 @@ class FlightOperationList(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')

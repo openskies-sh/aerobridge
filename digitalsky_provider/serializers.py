@@ -12,10 +12,8 @@ class DigitalSkyLogSerializer(serializers.ModelSerializer):
 
 class AircraftRegisterSerializer(serializers.ModelSerializer):
 
-    drone = AircraftSigningSerializer(read_only=True)
-    def get_drone(self, obj):
-        return obj.get_drone()
     class Meta:
         model = AircraftRegister
         ordering = ['-created_at']
-        fields = '__all__' 
+        exclude = ('is_signed',)
+        

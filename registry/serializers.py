@@ -70,10 +70,10 @@ class TestsValiditySerializer(serializers.ModelSerializer):
 
 class OperatorSerializer(serializers.ModelSerializer):
     ''' This is the default serializer for Operator '''
+    
     class Meta:
         model = Operator
-        fields = ('id', 'company_name', 'website', 'email',
-                  'phone_number', )
+        fields = '__all__'
 
 
 class PrivilegedOperatorSerializer(serializers.ModelSerializer):
@@ -192,9 +192,18 @@ class ContactDetailSerializer(serializers.ModelSerializer):
 
 class PilotSerializer(serializers.ModelSerializer):
     ''' This is the default serializer for Operator '''
+    tests = serializers.SerializerMethodField()
+    def get_tests(self, response):
+        p = Pilot.objects.get(id=response.id)
+        tests_validity = TestValidity.objects.filter(pilot=p)
+        all_tests = []
+        for cur_test_validity in tests_validity:
+            test_serializer = TestsSerializer(cur_test_validity.test)
+            all_tests.append({'expiration': cur_test_validity.expiration, 'test_details': test_serializer.data})
+        return all_tests
     class Meta:
         model = Pilot
-        fields = ('id','created_at', 'updated_at')
+        fields = ('id', 'operator', 'person','photo','photo_small','address', 'identification_photo', 'identification_photo_small','tests')
 
 
 class PilotDetailSerializer(serializers.ModelSerializer):
@@ -211,36 +220,16 @@ class PilotDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pilot
-        fields = ('id','is_active','tests','updated_at','created_at','person')
+        fields = ('id', 'operator', 'person','photo','photo_small','address', 'person','is_active','identification_photo', 'identification_photo_small','tests')
 
 
 
-class PrivilegedPilotDetailSerializer(serializers.ModelSerializer):
-    ''' This is the privileged serializer for Pilot specially for law enforcement and other privileged interested parties '''
-    person = PersonSerializer(read_only=True)
-    address = AddressSerializer(read_only=True)
-    operator = OperatorSerializer(read_only=True)
-    tests = serializers.SerializerMethodField()
-    def get_tests(self, response):
-        p = Pilot.objects.get(id=response.id)
-        tests_validity = TestValidity.objects.filter(pilot=p)
-        all_tests = []
-        for cur_test_validity in tests_validity:
-            test_serializer = TestsSerializer(cur_test_validity.test)
-            all_tests.append({'expiration': cur_test_validity.expiration, 'test_details': test_serializer.data})
-        return all_tests
-
-    class Meta:
-        model = Pilot
-        fields = ('id', 'operator','is_active','tests', 'address', 'person','updated_at','created_at','photo_small','photo')
-
- 
 
 class AircraftSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Aircraft
-        fields = ('id', 'operator','registration_mark','updated_at','mass', 'maci_number','manufacturer', 'model','status','created_at', 'updated_at')
+        fields = ('id', 'operator','mass', 'manufacturer', 'model','manufacturer','status','registration_mark', 'category', 'created_at','popular_name','manufacturer','registration_mark','sub_category',"flight_controller_number","photo", "photo_small", 'max_certified_takeoff_weight','updated_at','photo_small','photo')
      
 
 class AircraftSigningSerializer(serializers.ModelSerializer):
@@ -281,17 +270,8 @@ class AircraftSigningSerializer(serializers.ModelSerializer):
         fields = ('droneTypeId','version','deviceId','deviceModelId','txn','operatorBusinessIdentifier')
      
 class AircraftDetailSerializer(serializers.ModelSerializer):
-    type_certificate = TypeCertificateSerializer(read_only= True)
-    manufacturer = ManufacturerSerializer(read_only=True)
-    category = serializers.SerializerMethodField()    
-    sub_category = serializers.SerializerMethodField()
-    def get_category(self, obj):
-        return obj.get_category_display()
-
-    def get_sub_category(self, obj):
-        return obj.get_sub_category_display()
 
     class Meta:
         model = Aircraft
-        fields = ('id', 'operator','mass', 'manufacturer', 'model','esn','maci_number','status','registration_mark', 'category','type_certificate', 'created_at','master_series', 'series','popular_name','manufacturer','registration_mark','sub_category',"photo", "photo_small",'icao_aircraft_type_designator', 'max_certified_takeoff_weight','updated_at','photo_small','photo')
+        exclude = ('is_registered',)
            
