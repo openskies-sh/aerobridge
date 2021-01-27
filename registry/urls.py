@@ -25,13 +25,13 @@ from django.conf import settings
 
 urlpatterns = [
     
-    path('operators', registryviews.OperatorList.as_view()),
+    path('operators/', registryviews.OperatorList.as_view()),
     path('operators/<uuid:pk>', registryviews.OperatorDetail.as_view()),    
     
-    path('aircrafts', registryviews.AircraftList.as_view()),        
-    path('aircrafts/<uuid:pk>', registryviews.AircraftDetail.as_view()),
+    path('aircraft/', registryviews.AircraftList.as_view()),        
+    path('aircraft/<uuid:pk>', registryviews.AircraftDetail.as_view()),
     
-    path('pilots', registryviews.PilotList.as_view()),
+    path('pilots/', registryviews.PilotList.as_view()),
     path('pilots/<uuid:pk>', registryviews.PilotDetail.as_view()),
     
 ]

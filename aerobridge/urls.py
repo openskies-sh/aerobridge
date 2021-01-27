@@ -22,7 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 import jetway.views as jetwayviews
-
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     
@@ -32,6 +32,7 @@ urlpatterns = [
     path('registry/', include('registry.urls')),
     path('gcs/', include('gcs_operations.urls')),
     path('digitalsky/', include('digitalsky_provider.urls')),
+    # YOUR PATTERNS
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+# urlpatterns = format_suffix_patterns(urlpatterns)
