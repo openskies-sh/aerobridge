@@ -11,7 +11,7 @@ import os, random, string
 from django.utils import timezone as tz
 from registry.models import Aircraft, Operator,Activity
 
-def make_random_plan_common_name(prefix, length):
+def make_random_plan_common_name(prefix='Flight', length=6):
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
     return  prefix + result_str
@@ -20,7 +20,7 @@ def make_random_plan_common_name(prefix, length):
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default=  make_random_plan_common_name('Flight Plan ',6))
+    name = models.CharField(max_length=30, default=  make_random_plan_common_name())
     details = models.TextField(null=True, help_text="Paste flight plan geometry")
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
@@ -42,7 +42,7 @@ class FlightOperation(models.Model):
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default= make_random_plan_common_name('Flight Operation ' , 6))
+    name = models.CharField(max_length=30, default= make_random_plan_common_name())
     drone = models.ForeignKey(Aircraft, models.CASCADE)
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
