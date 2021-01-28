@@ -743,10 +743,13 @@ paths:
                   $ref: '#/components/schemas/Firmware'
           description: ''
       tags:
-      - gcs
+      - Firmware
     post:
+      summary: "Add a new firmware release"
+      security:
+        - AuthFromPassport: [read]    
       operationId: createFirmware
-      description: ''
+      description: 'Update the server with a new Firmware version'
       parameters: []
       requestBody:
         content:
@@ -770,8 +773,11 @@ paths:
       - Firmware
   /gcs/firmware/{firmware_id}:
     get:
+      summary: "Get a single firmware download details"
+      security:
+        - AuthFromPassport: [read]    
       operationId: retrieveFirmware
-      description: ''
+      description: 'Get a specific firmware by id'
       parameters:
       - name: firmware_id
         in: path
@@ -787,10 +793,13 @@ paths:
                 $ref: '#/components/schemas/Firmware'
           description: ''
       tags:
-      - gcs
+      - Firmware
     put:
+      summary: "Updated a existing Firmwware"
+      security:
+        - AuthFromPassport: [write]    
       operationId: updateFirmware
-      description: ''
+      description: 'Update existing firmware with a new version / updated one'
       parameters:
       - name: firmware_id
         in: path
