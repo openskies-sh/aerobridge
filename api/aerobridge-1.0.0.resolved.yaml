@@ -730,8 +730,11 @@ paths:
       - Flight Plans and Operations
   /digitalsky/aircraft_roster/:
     get:
+      summary: "Show a list aircraft signatures"
+      security:
+        - AuthFromPassport: [read]    
       operationId: listAircraftRegisters
-      description: ''
+      description: 'A company may have number of aircraft, but not everyone might be registred, this end point is for all the aircraft that you have are ready to be sent to Digital Sky. Digital Sky requires that you sign the drone details, use this endpoint to upload the signature and certificate.'
       parameters: []
       responses:
         '200':
@@ -745,8 +748,11 @@ paths:
       tags:
       - Digital Sky
     post:
+      summary: "Create a aircraft signature"
+      security:
+        - AuthFromPassport: [write]    
       operationId: createAircraftRegister
-      description: ''
+      description: 'Digital Sky requires you to sign a JSON with aircraft details and submit the registration details, use this endpoint to upload the signed JSON and the public key. Once you have this, then you can execute a registration with Digital Sky'
       parameters: []
       requestBody:
         content:
@@ -770,12 +776,12 @@ paths:
       - Digital Sky
   /digitalsky/aircraft_roster/{id}:
     get:
-      summary: "Get all Aircraft"
+      summary: "Get details of a single Aircraft signature"
       security:
         - AuthFromPassport: [read]    
-
+      description: 'If you have uploaded signed drone information you can retrieve them here'
       operationId: retrieveAircraftRegister
-      description: ''
+
       parameters:
       - name: id
         in: path
@@ -793,12 +799,11 @@ paths:
       tags:
       - Digital Sky
     put:
-      summary: "Create a new aircraft to register"
+      summary: "Update details of a single Aircraft signature"
+      description: 'If you have uploaded signed drone information you can retrieve them here and update it.'
       security:
         - AuthFromPassport: [write]    
-
       operationId: updateAircraftRegister
-      description: ''
       parameters:
       - name: id
         in: path
@@ -828,12 +833,11 @@ paths:
       - Digital Sky
   /digitalsky/all_permissions:
     get:
-      summary: "Get all past permissions"
+      summary: "Get all flight permissions"
+      description: 'Use this endpoint to retrieve all flight permissions'
       security:
         - AuthFromPassport: [read]    
-
       operationId: listFlightPermissions
-      description: ''
       parameters: []
       responses:
         '200':
@@ -851,9 +855,9 @@ paths:
       summary: "Get a single permission"
       security:
         - AuthFromPassport: [read]    
+      description: 'Use this endpoint to retrieve details of a single flight permission'
 
       operationId: retrieveFlightPermission
-      description: ''
       parameters:
       - name: id
         in: path
@@ -890,6 +894,7 @@ paths:
           description: ''
       tags:
       - Digital Sky
+        - Logs
   /digitalsky/logs/{log_id}:
     get:
       summary: "Get details of a single transaction log"
@@ -914,6 +919,7 @@ paths:
           description: ''
       tags:
       - Digital Sky
+        - Logs
   /digitalsky/register_aircraft/{id}:
     post:
       summary: "Register a single aircraft with Digital Sky"
@@ -921,12 +927,12 @@ paths:
         - AuthFromPassport: [write]    
 
       operationId: executeDroneRegistration
-      description: Execute Drone registration
+      description: 'Execute Drone registration with Digital Sky. Use this endpoint to send a request to Digital Sky with details of a drone. You must create a "Aircraft Signature" first and then send that to Digital Sky.' 
       parameters:
-      - name: id
+      - name: aircraftsignature_id
         in: path
         required: true
-        description: ''
+        description: 'This should be the id of the aircraft signature. '
         schema:
           type: string
       requestBody:
@@ -951,17 +957,16 @@ paths:
       - Digital Sky
   /digitalsky/apply_permission/{id}:
     post:
-      summary: "Create a new Flight Permission request"
+      summary: "Create a new Flight Permission request for a Flight Operation"
+      description: "Use this endpoint and pass the 'Flight Operation' ID to link fligth details with a permission request"
       security:
         - AuthFromPassport: [write]    
-
       operationId: createFlightPermission
-      description: ''
       parameters:
-      - name: id
+      - name: flightoperation_id
         in: path
         required: true
-        description: A UUID string identifying this flight permission.
+        description: A UUID string identifying a Flight Operation.
         schema:
           type: string
       requestBody:
@@ -991,7 +996,7 @@ paths:
         - AuthFromPassport: [write]    
 
       operationId: uploadSignedLog
-      description: ''
+      description: 'Upload the '
       parameters:
       - name: operation_id
         in: path
@@ -999,24 +1004,22 @@ paths:
         description: ''
         schema:
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UINApplication'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UINApplication'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UINApplication'
+          
       responses:
-        '201':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UINApplication'
+                type: object
+                properties:
+                  status: 
+                    type: integer
+                  flight_log_submission: 
+                    type: string
+                
+                
           description: ''
+          
       tags:
       - Digital Sky
 components:

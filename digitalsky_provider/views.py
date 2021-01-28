@@ -321,8 +321,6 @@ class SubmitSignedFlightLog(mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = FlightLog.objects.all()
     serializer_class = FlightLogSerializer
 
-    queryset = UINApplication.objects.all()
-    serializer_class = UINApplicationSerializer
 
     def post(self, request, operation_id, format=None):
         operation = get_object_or_404(FlightOperation, pk=operation_id)
