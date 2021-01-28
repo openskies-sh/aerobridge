@@ -17,6 +17,22 @@ def make_random_plan_common_name():
     result_str = ''.join(random.choice(letters) for i in range(length))
     return  "Flight " + result_str
 
+class Firmware(models.Model):
+    ''' A model for custom firmware '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    binary_file_url= models.URLField()
+    public_key = models.TextField()
+    version = models.CharField(max_length=25)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __unicode__(self):
+       return self.version
+
+    def __str__(self):
+        return self.version 
+    
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
@@ -28,7 +44,6 @@ class FlightPlan(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     def __unicode__(self):
        return self.name

@@ -728,6 +728,97 @@ paths:
           description: ''
       tags:
       - Flight Plans and Operations
+  /gcs/firmware:
+    get:
+      operationId: listFirmwares
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Firmware'
+          description: ''
+      tags:
+      - gcs
+    post:
+      operationId: createFirmware
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Firmware'
+          description: ''
+      tags:
+      - Firmware
+  /gcs/firmware/{firmware_id}:
+    get:
+      operationId: retrieveFirmware
+      description: ''
+      parameters:
+      - name: firmware_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Firmware'
+          description: ''
+      tags:
+      - gcs
+    put:
+      operationId: updateFirmware
+      description: ''
+      parameters:
+      - name: firmware_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Firmware'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Firmware'
+          description: ''
+      tags:
+      - Firmware
+
   /digitalsky/aircraft_roster/:
     get:
       summary: "Show a list aircraft signatures"
@@ -1023,6 +1114,17 @@ paths:
       tags:
       - Digital Sky
 components:
+
+  securitySchemes:
+    AuthFromPassport:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: "http://id.openskies.sh/oauth/token"
+          scopes:
+            aerobridge.write: "Write data into Aerobridge"
+            aerobridge.read: "Read data from Aerobridge"
+
   schemas:
     Operator:
       type: object
@@ -1583,6 +1685,39 @@ components:
         aircraft:
           type: string
           nullable: true
+    Firmware:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        binary_file_url:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        public_key:
+          type: string
+        version:
+          type: string
+          maxLength: 25
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - binary_file_url
+      - public_key
+      - version
     FlightPlanList:
       type: object
       properties:

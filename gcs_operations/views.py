@@ -6,8 +6,8 @@ from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
-from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer, FlightLogSerializer
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog
+from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, Firmware
 from rest_framework import status
 from django.utils.decorators import method_decorator
 
@@ -16,6 +16,33 @@ from django.http import JsonResponse
 from pki_framework.utils import requires_scopes
 
 # Create your views here.
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class FirmwareList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = Firmware.objects.all()
+    serializer_class = FirmwareSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class FirmwareDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    generics.GenericAPIView):
+    queryset = Firmware.objects.all()
+    serializer_class = FirmwareSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class TransactionList(mixins.ListModelMixin,

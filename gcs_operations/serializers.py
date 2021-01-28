@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication, Firmware
 from registry.serializers import AircraftDetailSerializer, OperatorSelectRelatedSerializer
 
-
+class FirmwareSerializer(serializers.ModelSerializer):
+    ''' A serializer for saving Firmware ''' 
+    class Meta: 
+        model = Firmware
+        fields = '__all__'
+        ordering = ['-created_at']
 
 class UINApplicationSerializer(serializers.ModelSerializer):
     ''' A serializer forUIN '''
