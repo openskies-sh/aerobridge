@@ -1126,6 +1126,18 @@ components:
 
   securitySchemes:
     AuthFromPassport:
+      description: |-
+          Access is controlled via access tokens that are JSON Web Tokens as defined in RFC 7519, using the `RS256` algorithm for the signature, publish to all providers the public key for verifying that signature, and implement standard OAuth server discovery mechanisms as described in RFC 8414.
+
+          The following fields shall be included in the JWT claim for access tokens issued by this authority:
+              * `iss`, with the URL at which the token generation request was received.
+              * `exp`, with a time no further than 1 hour in the future.
+              * `sub`, with unique ID of the client requesting the access token.
+              * `scope`, with a list of space-separated strings (per RFC 6749) indicating the scopes granted.
+              * `jti`, according to RFC 7519.
+
+          Clients shall provide these access tokens in an `Authorization` header in the form `Bearer <token>` in accordance with RFC 6750.
+
       type: oauth2
       flows:
         clientCredentials:
