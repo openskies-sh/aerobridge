@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Addresses</h2>
+    <p>A list of all addresses in the system, you can assign them to people, operators, manufacturers</p>
+    <ul>
+        {% for address in addresses %}
+        <li><a href="/launchpad/address/{{address.id}}">{{ address.address_line_1 }}, {{ address.city }}, {{ address.state }}, </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ address.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/address/new"><b>&#43; Add a address</b></a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Profile - {{ person.first_name }} {{ person.last_name }}</h1>
+
+<form action="{% url 'person-detail' person_id=person.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit" value="Save">Save</button>
+</form>
+</div>
+{% endblock %}

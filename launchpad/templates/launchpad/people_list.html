@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>People</h2>
+    <p>A list of everyone (Pilots / Contacts) on the server, click to see / change details of an individual person</p>
+    <ul>
+        {% for person in people %}
+        <li><a href="/launchpad/people/{{person.id}}">{{ person.first_name }} {{ person.last_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ person.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/people/new"><b>&#43; Add a person</b></a></p>
+</div>
+{% endblock %}

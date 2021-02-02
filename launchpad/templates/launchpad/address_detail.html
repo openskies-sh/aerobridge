@@ -1,0 +1,13 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Address - {{ address.address_line_1 }} {{ address.city }}</h1>
+
+<form action="{% url 'address-detail' address_id=address.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit" value="Save">Save</button>
+</form>
+</div>
+{% endblock %}

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'gcs_operations',    
     'digitalsky_provider',
     'jetway',
+    'launchpad',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'aerobridge.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'jetway', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'jetway', 'templates'),os.path.join(BASE_DIR, 'launchpad', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

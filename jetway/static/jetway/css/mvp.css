@@ -125,6 +125,9 @@ section header {
     padding-top: 0;
     width: 100%;
 }
+.help-block {
+    color: orange;
+}
 
 /* Nav */
 nav {
@@ -132,7 +135,7 @@ nav {
     display: flex;
     font-weight: bold;
     justify-content: space-between;
-    margin-bottom: 7rem;
+    margin-bottom: 2rem;
 }
 
 nav ul {

@@ -1,0 +1,44 @@
+<!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
+<!DOCTYPE html>
+{% load static %}{% load i18n %}
+<html lang="en">
+
+<head>
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="{% static "jetway/css/mvp.css" %}">
+
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aerobridge.in</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/">Openskies Aerial Technology Ltd. (Management Server)</a>
+            <ul>
+                <li><a href="#">Menu</a>
+                    <ul>
+                        <li><a href="/launchpad/people">People</a></li>
+                        <li><a href="/launchpad/addresses">Address</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <hr>
+        <p>
+            This project is maintained by <a href="https://github.com/openskies-sh/aerobridge">Openskies</a>
+        </p>
+    </footer>
+</body>
+
+</html>
