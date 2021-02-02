@@ -23,7 +23,6 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 import jetway.views as jetwayviews
 
-
 urlpatterns = [
     
     path('ping/', jetwayviews.PingView.as_view()),
