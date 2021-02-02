@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from . import views as launchpad_views
 
 urlpatterns = [
-    
+     path('', launchpad_views.HomeView.as_view()),
     path('addresses', launchpad_views.AddressList.as_view(), name='addresses-list'),
     path('address/<uuid:address_id>', launchpad_views.AddressDetail.as_view(), name='address-detail'),
     path('address/new', launchpad_views.AddressCreateView.as_view(), name='address-create'),

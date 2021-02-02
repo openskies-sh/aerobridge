@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from registry.models import Person, Address
 from rest_framework.renderers import TemplateHTMLRenderer
+from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
@@ -9,6 +10,10 @@ from django.views.generic import CreateView
 from .forms import PersonCreateForm, AddressCreateForm
 from django.shortcuts import redirect
 
+
+
+class HomeView(TemplateView):
+    template_name = 'launchpad/basecamp.html'
 
 ### Person Views 
 class PeopleList(APIView):
