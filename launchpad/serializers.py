@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from registry.models import Activity, Authorization, Operator, Contact, Aircraft, Pilot, Address, Person, Test, TypeCertificate, Manufacturer, TestValidity
-
+from registry.models import Activity, Authorization, Operator, Contact, Aircraft, Pilot, Address, Person, Test, TypeCertificate, Manufacturer, TestValidity, Manufacturer, Firmware
 
 
 class PersonSerializer(serializers.ModelSerializer):
@@ -23,4 +22,15 @@ class OperatorSerializer(serializers.ModelSerializer):
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
+        fields = '__all__'
+
+
+class ManufacturerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Manufacturer
+        fields = '__all__'
+
+class FirmwareSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Firmware
         fields = '__all__'

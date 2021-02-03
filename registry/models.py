@@ -200,9 +200,12 @@ class Manufacturer(models.Model):
     common_name = models.CharField(max_length = 140, default = 'NA')
     address = models.ForeignKey(Address, models.CASCADE, blank= True, null=True)
     acronym = models.CharField(max_length =10, default = 'NA')
-    role = models.CharField(max_length = 140, default = 'NA')
+    role = models.CharField(max_length = 140, default = 'NA', help_text="e.g. Reseller, distributor, OEM etc.")
     country = models.CharField(max_length =3, default = 'NA')
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     def __unicode__(self):
        return self.common_name
 
@@ -222,6 +225,25 @@ class Engine(models.Model):
 
     def __str__(self):
        return self.type + ' '+ self.power
+  
+class Firmware(models.Model):
+    ''' A model for custom firmware '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    binary_file_url= models.URLField()
+    public_key = models.TextField()
+    version = models.CharField(max_length=25)  
+    manufacturer = models.ForeignKey(Manufacturer, models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __unicode__(self):
+       return self.version
+
+    def __str__(self):
+        return self.version 
+    
+  
   
 class Aircraft(models.Model):
     AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),(5, _('MICRO')),(6, _('SMALL')),(7, _('MEIDUM')),(8, _('Large')),)
@@ -250,7 +272,8 @@ class Aircraft(models.Model):
     model = models.CharField(max_length = 280)
     esn = models.CharField(max_length = 48, default='000000000000000000000000000000000000000000000000')
     maci_number = models.CharField(max_length = 200)
-    flight_controller_number = models.CharField(help_text= "This is the Drone ID",max_length=140,default=0)
+    flight_controller_number = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0)
+    controller_public_key = models.TextField(help_text= "This is the public key of the RFM used to sign log files", default=0)
     operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     status = models.IntegerField(choices=STATUS_CHOICES, default = 1)
     photo = models.URLField(blank=True, null=True)

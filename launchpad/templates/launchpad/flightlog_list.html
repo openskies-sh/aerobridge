@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Flight Logs</h2>
+    <p>See all the signed flight logs, these will be sent to Digital Sky and also be maintained for your records</p>
+    <ul>
+        {% for flightlog in flightlogs %}
+        <li><a href="/launchpad/flightlogs/{{flightlog.id}}">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/flightlogs/new"><b>&#43; Add a new flight log</b></a></p>
+</div>
+{% endblock %}

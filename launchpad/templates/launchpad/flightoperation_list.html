@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Flight Operations</h2>
+    <p>See all the flight operations </p>
+    <ul>
+        {% for flightoperation in flightoperations %}
+        <li><a href="/launchpad/flightoperations/{{flightoperation.id}}">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightoperation.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/flightoperations/new"><b>&#43; Add a new flight operation</b></a></p>
+</div>
+{% endblock %}

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication, Firmware
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication
+from registry.models import Firmware
 from registry.serializers import AircraftDetailSerializer, OperatorSelectRelatedSerializer
 
 class FirmwareSerializer(serializers.ModelSerializer):

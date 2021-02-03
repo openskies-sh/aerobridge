@@ -2,9 +2,9 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Profile - {{ person.first_name }} {{ person.last_name }}</h1>
+<h1>Flight Log Details</h1>
 
-<form action="{% url 'people-detail' person_id=person.pk %}" method="POST">
+<form action="{% url 'flightlogs-detail' flightlog_id=flightlog.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <button type="submit" value="Save">Save</button>

@@ -1,4 +1,6 @@
-from registry.models import Person, Address, Operator, Aircraft
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware
+
+from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from django import forms
 # books/forms.py
 class PersonCreateForm(forms.ModelForm):
@@ -21,3 +23,40 @@ class AircraftCreateForm(forms.ModelForm):
     class Meta:
         model = Aircraft
         exclude = ('is_registered','type_certificate','esn',)
+
+class ManufacturerCreateForm(forms.ModelForm):
+    class Meta:
+        model = Manufacturer
+        fields = '__all__'
+
+class FirmwareCreateForm(forms.ModelForm):
+    class Meta:
+        model = Firmware
+        fields = '__all__'
+
+class FlightPlanCreateForm(forms.ModelForm):
+    class Meta:
+        model = FlightPlan
+        fields = '__all__'
+
+class FlightPermissionCreateForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #    super(FlightPermissionCreateForm, self).__init__(*args, **kwargs)
+    #    self.fields['is_successful'].widget.attrs['disabled'] = True
+    #    self.fields['artefact'].widget.attrs['disabled'] = True
+
+    class Meta:
+        model = FlightPermission
+        fields = ('operation',)
+        
+
+class FlightLogCreateForm(forms.ModelForm):
+    class Meta:
+        model = FlightLog
+        fields = ('operation','raw_log', 'signed_log',)
+        
+
+class FlightOperationCreateForm(forms.ModelForm):
+    class Meta:
+        model = FlightOperation
+        fields = '__all__'

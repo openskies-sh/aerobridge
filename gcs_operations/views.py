@@ -7,7 +7,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
 from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, Firmware
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog
+from registry.models import Firmware
 from rest_framework import status
 from django.utils.decorators import method_decorator
 

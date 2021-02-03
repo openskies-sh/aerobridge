@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+
+    <h2>Add new Flight plan</h2>
+    <p>Create a new flight plan, link it to a Operation and get permission artefacts against those operations</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}

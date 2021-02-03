@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+
+    <h2>Add new Firmware</h2>
+    <p>Create a new firmware instance in the database, you can use the public key to check installed firmwares on the drone</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}
