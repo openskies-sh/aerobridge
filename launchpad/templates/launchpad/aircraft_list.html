@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Aircrafts</h2>
+    <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc. </p>
+    <ul>
+        {% for aircraft in aircrafts %}
+        <li><a href="/launchpad/aircrafts/{{aircraft.id}}">{{ aircraft.model }} </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ aircraft.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/aircrafts/new"><b>&#43; Add a aircraft</b></a></p>
+</div>
+{% endblock %}

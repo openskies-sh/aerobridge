@@ -1,0 +1,15 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+
+    <h2>Add a Drone</h2>
+    <p>Create a new drone in the database, you can add details about the drone and its Flight module. You will need to get the flight module number following <a href="https://github.com/openskies-sh/mavlink-aerobridge/tree/master/mavproxy">these instructions</a>.</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}

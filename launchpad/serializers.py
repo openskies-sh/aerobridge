@@ -13,3 +13,14 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = '__all__'
 
+
+class OperatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Operator
+        fields = '__all__'
+
+
+class AircraftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aircraft
+        fields = '__all__'

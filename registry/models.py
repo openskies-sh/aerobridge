@@ -188,10 +188,10 @@ class TypeCertificate(models.Model):
     type_certificate_holder_country = models.CharField(max_length = 140)
     
     def __unicode__(self):
-       return self.type_certificate_id
+       return self.type_certificate_holder
 
     def __str__(self):
-       return self.type_certificate_id
+       return self.type_certificate_holder
 
 
 class Manufacturer(models.Model):
