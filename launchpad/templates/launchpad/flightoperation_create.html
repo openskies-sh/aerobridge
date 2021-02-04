@@ -3,8 +3,8 @@
 {% block content %}
 <div>
 
-    <h2>Add new Flight plan</h2>
-    <p>Create a new flight plan, link it to a Operation and get permission artefacts against those operations</p>
+    <h2>Add new Flight operation</h2>
+    <p>Create a new flight operation, link to a flight plan and get permission artefacts against those operations</p>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

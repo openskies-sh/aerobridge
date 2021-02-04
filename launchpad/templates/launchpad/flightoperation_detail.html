@@ -2,9 +2,9 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Flightplan Details</h1>
+<h1>Flightoperation Details</h1>
 
-<form action="{% url 'flightplans-detail' flightplan_id=flightplan.pk %}" method="POST">
+<form action="{% url 'flightoperations-detail' flightoperation_id=flightoperation.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <button type="submit" value="Save">Save</button>
