@@ -5,7 +5,7 @@
     <p>See all the flight permission objects, these will be sent to Digital Sky to get a Permission Artefact </p>
     <ul>
         {% for flightpermission in flightpermissions %}
-        <li><a href="/launchpad/flightpermissions/{{flightpermission.id}}">{{ flightpermission.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightpermissions.created_at }} </small></li>
+        <li><a href="/launchpad/flightpermissions/{{flightpermission.id}}">Permission for {{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightpermissions.created_at }} </small></li>
         {% endfor %}
         
     </ul>

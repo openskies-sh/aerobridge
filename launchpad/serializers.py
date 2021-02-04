@@ -22,7 +22,7 @@ class OperatorSerializer(serializers.ModelSerializer):
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
-        fields = '__all__'
+        exclude=('is_registered',)
 
 
 class ManufacturerSerializer(serializers.ModelSerializer):

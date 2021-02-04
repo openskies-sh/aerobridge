@@ -2,7 +2,7 @@
 {% block content %}
 <div>
     <h2>Manufacturers</h2>
-    <p>You may choose to source drones and their firmware via different manufacturers, or manufacture it yourself, use the form here to maintain all Manufacturers. You will be able to link a Manufacturer to a Air</p>
+    <p>You may choose to source drones and their firmware via different manufacturers, or manufacture it yourself, use the form here to maintain all Manufacturers. You will be able to link a Manufacturer to a Aircraft and Firmware.</p>
     <ul>
         {% for manufacturer in manufacturers %}
         <li><a href="/launchpad/manufacturers/{{manufacturer.id}}">{{ manufacturer.common_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ manufacturer.created_at }} </small></li>
