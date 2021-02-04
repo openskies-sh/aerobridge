@@ -11,7 +11,7 @@ from django.views.generic import CreateView
 from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm
 from django.shortcuts import redirect
 
-from gcs_operations.serializers import FlightPlan, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
+from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
 
 class HomeView(TemplateView):
     template_name = 'launchpad/basecamp.html'
