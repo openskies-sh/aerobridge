@@ -5,7 +5,7 @@
     <p>See all the flight plans </p>
     <ul>
         {% for flightplan in flightplans %}
-        <li><a href="/launchpad/flightplans/{{flightplan.id}}">{{ flightplans.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightplan.created_at }} </small></li>
+        <li><a href="/launchpad/flightplans/{{flightplan.id}}">{{ flightplan.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightplan.created_at }} </small></li>
         {% endfor %}
         
     </ul>
