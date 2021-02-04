@@ -23,8 +23,8 @@ class FlightPlan(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default=  make_random_plan_common_name)
     details = models.TextField(null=True, help_text="Paste flight plan geometry")
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
+    start_datetime = models.DateTimeField(default=datetime.now)
+    end_datetime = models.DateTimeField(default=datetime.now)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,7 +83,7 @@ class FlightPermission(models.Model):
     is_successful = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    artefact = models.TextField(default="")
+    artefact = models.TextField(default="", help_text="If the text above is empty, permission artefact for this operation has not been received")
     def __unicode__(self):
        return self.operation.name
 

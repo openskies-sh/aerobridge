@@ -368,13 +368,6 @@ class FlightPermissionsDetail(APIView):
         serializer = FlightPermissionSerializer(flightpermission)
         return Response({'serializer': serializer, 'flightpermission': flightpermission})
 
-    def post(self, request, flightpermission_id):
-        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
-        serializer = FlightPermissionSerializer(flightpermission, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightpermission': flightpermission})
-        serializer.save()
-        return redirect('flightpermissions-list')
 
 class FlightPermissionCreateView(CreateView):
     def get(self, request, *args, **kwargs):

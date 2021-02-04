@@ -2,12 +2,15 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Flight Permission Details</h1>
+<h1>Permission Details</h1>
+    <p>Applied Successfully: {{ flightpermission.is_successful }}</p>
+    {% if flightpermission.is_successful %}
+    <p>Arefact</p><br>
+    <code>{{ flightpermission.artefact }}</code>
+    {% else %}
+    <p>Please apply for a flight permission first using the Digital Sky commands.</p>
+    {% endif %}
 
-<form action="{% url 'flightpermissions-detail' flightpermission_id=flightpermission.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <button type="submit" value="Save">Save</button>
-</form>
+
 </div>
 {% endblock %}

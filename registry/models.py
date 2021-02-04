@@ -82,7 +82,7 @@ class Authorization(models.Model):
     operation_area_type = models.IntegerField(choices=AREATYPE_CHOICES, default = 0)
     risk_type = models.IntegerField(choices= RISKCLASS_CHOICES, default =0)
     authorization_type = models.IntegerField(choices= AUTHTYPE_CHOICES, default =0)
-    end_date = models.DateField(default = two_year_expiration)
+    end_date = models.DateTimeField(default = two_year_expiration)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -100,7 +100,7 @@ class Operator(models.Model):
     email = models.EmailField()
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #        
-    expiration = models.DateField(default = two_year_expiration)
+    expiration = models.DateTimeField(default = two_year_expiration)
     operator_type = models.IntegerField(choices=OPTYPE_CHOICES, default = 0)
     address = models.ForeignKey(Address, models.CASCADE)
     operational_authorizations = models.ManyToManyField(Authorization, related_name = 'operational_authorizations')
@@ -269,7 +269,7 @@ class Aircraft(models.Model):
     max_certified_takeoff_weight = models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00)
     max_height_attainable =  models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00)
     compatible_payload = models.CharField(max_length=20, blank=True, null=True) 
-    commission_date = models.DateField(blank= True, null= True)
+    commission_date = models.DateTimeField(blank= True, null= True)
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True)
     model = models.CharField(max_length = 280)
     esn = models.CharField(max_length = 48, default='000000000000000000000000000000000000000000000000')
