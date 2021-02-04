@@ -272,7 +272,7 @@ class FlightPlansList(APIView):
     template_name = 'launchpad/flightplan_list.html'
 
     def get(self, request):
-        queryset = FlightPlans.objects.all()
+        queryset = FlightPlan.objects.all()
         return Response({'flightplans': queryset})
     
 class FlightPlansDetail(APIView):
