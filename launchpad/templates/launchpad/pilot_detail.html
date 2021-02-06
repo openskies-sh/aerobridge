@@ -2,9 +2,9 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Address - {{ address.address_line_1 }} {{ address.city }}</h1>
+<h1>Contact Details</h1>
 
-<form action="{% url 'addresses-detail' address_id=address.pk %}" method="POST">
+<form action="{% url 'contacts-detail' contact_id=contact.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <button type="submit" value="Update">Update</button>

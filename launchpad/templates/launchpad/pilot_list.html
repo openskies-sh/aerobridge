@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Pilots list</h2>
+    <p>See all the pilots for your operators as a list below</p>
+    <ul>
+        {% for contact in contacts %}
+        <li><a href="/launchpad/pilots/{{pilot.id}}">{{ pilot.person.first_name }} {{ pilot.person.last_name }} {{ pilot.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ pilot.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/pilots/new"><b>&#43; Add a new pilot</b></a></p>
+</div>
+{% endblock %}

@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, ContactCreateForm, PilotCreateForm
 from django.shortcuts import redirect
 
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
@@ -139,6 +139,75 @@ class OperatorCreateView(CreateView):
             
         return redirect('operators-list')
     
+
+### Flight Permission Views
+    
+class ContactsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/contact_list.html'
+
+    def get(self, request):
+        queryset = Contact.objects.all()
+        return Response({'contacts': queryset})
+    
+class ContactsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/contact_detail.html'
+
+    def get(self, request, contact_id):
+        contact = get_object_or_404(Contact, pk=contact_id)
+        serializer = ContactSerializer(contact)
+        return Response({'serializer': serializer, 'contact': contact})
+
+
+class ContactsCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': ContactCreateForm()}
+        return render(request, 'launchpad/contact_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = ContactCreateForm(request.POST)
+        if form.is_valid():
+            contact = form.save()
+            contact.save()
+            
+        return redirect('contacts-list')
+    
+
+### Flight Permission Views
+    
+class PilotsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/pilot_list.html'
+
+    def get(self, request):
+        queryset = Pilot.objects.all()
+        return Response({'pilots': queryset})
+    
+class PilotsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/pilot_detail.html'
+
+    def get(self, request, pilot_id):
+        pilot = get_object_or_404(Pilot, pk=pilot_id)
+        serializer = PilotSerializer(Pilot)
+        return Response({'serializer': serializer, 'pilot': pilot})
+
+
+class PilotsCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': PilotCreateForm()}
+        return render(request, 'launchpad/pilot_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = PilotCreateForm(request.POST)
+        if form.is_valid():
+            pilot = form.save()
+            pilot.save()
+            
+        return redirect('pilots-list')
+    
+
 
 
 ### Aircraft Views

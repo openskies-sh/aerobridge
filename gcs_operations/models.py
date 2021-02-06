@@ -17,6 +17,7 @@ def make_random_plan_common_name():
     result_str = ''.join(random.choice(letters) for i in range(length))
     return  "Flight " + result_str
 
+
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''

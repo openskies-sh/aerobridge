@@ -3,12 +3,13 @@
 {% block content %}
 <div>
 <h1>Permission Details</h1>
-    <p>Applied Successfully: {{ flightpermission.is_successful }}</p>
+    <p>Applied Successfully: <code>{{ flightpermission.is_successful }}</code></p>
+    <br>
+    <h3>Artefact</h3>
     {% if flightpermission.is_successful %}
-    <p>Arefact</p><br>
     <code>{{ flightpermission.artefact }}</code>
     {% else %}
-    <p>Please apply for a flight permission first using the Digital Sky commands.</p>
+    <p>Please apply for a flight permission first via the Digital Sky menu.</p>
     {% endif %}
 
 

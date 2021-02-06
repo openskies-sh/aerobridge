@@ -11,10 +11,19 @@ urlpatterns = [
     path('people/<uuid:person_id>', launchpad_views.PersonDetail.as_view(), name='people-detail'),
     path('people/new', launchpad_views.PersonCreateView.as_view(), name='people-create'),
  
-    
     path('operators', launchpad_views.OperatorList.as_view(), name='operators-list'),
     path('operators/<uuid:operator_id>', launchpad_views.OperatorDetail.as_view(), name='operators-detail'),
     path('operators/new', launchpad_views.OperatorCreateView.as_view(), name='operators-create'),
+    
+
+    path('contacts', launchpad_views.ContactsList.as_view(), name='contacts-list'),
+    path('contacts/<uuid:contact_id>', launchpad_views.ContactsDetail.as_view(), name='contacts-detail'),
+    path('contacts/new', launchpad_views.ContactsCreateView.as_view(), name='contacts-create'),
+ 
+    path('pilots', launchpad_views.PilotsList.as_view(), name='pilots-list'),
+    path('pilots/<uuid:pilot_id>', launchpad_views.PilotsDetail.as_view(), name='pilots-detail'),
+    path('pilots/new', launchpad_views.PilotsCreateView.as_view(), name='pilots-create'),
+     
  
     path('aircrafts', launchpad_views.AircraftList.as_view(), name='aircrafts-list'),
     path('aircrafts/<uuid:aircraft_id>', launchpad_views.AircraftDetail.as_view(), name='aircrafts-detail'),

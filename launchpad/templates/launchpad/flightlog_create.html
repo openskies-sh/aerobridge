@@ -3,8 +3,8 @@
 {% block content %}
 <div>
 
-    <h2>Add new Flight log</h2>
-    <p>Create a new flight log object that will be sent to Digital Sky, use the GCS to extract signed flight logs from the drone.</p>
+    <h2>Add new flight log</h2>
+    <p>Create a new flight log object that will be sent to Digital Sky, use the GCS to extract signed flight logs from the drone and upload it here. Then use the Digital Sky menu to send the signed flight log to Digital Sky.</p>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}

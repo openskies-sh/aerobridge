@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+
+    <h2>Add new contact</h2>
+    <p>A Contact is the legal point of contact with a operators, normally it is the operator's company director or other legal persons. Use the form below to update / assign contacts for your operators.</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}

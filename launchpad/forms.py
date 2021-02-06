@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
 
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from django import forms
@@ -59,4 +59,16 @@ class FlightLogCreateForm(forms.ModelForm):
 class FlightOperationCreateForm(forms.ModelForm):
     class Meta:
         model = FlightOperation
+        fields = '__all__'
+
+
+class ContactCreateForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+
+class PilotCreateForm(forms.ModelForm):
+    class Meta:
+        model = Pilot
         fields = '__all__'
