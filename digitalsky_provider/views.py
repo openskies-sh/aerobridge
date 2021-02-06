@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from .models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, UINApplication, FlightLog, Transaction, FlightPermission
+
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.x509 import load_pem_x509_certificate

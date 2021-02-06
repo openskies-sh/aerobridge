@@ -1,0 +1,15 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Transaction Details</h1>
+
+<code>ID {{ digitalskytransaction.id }}</code>
+<small> Created at {{ digitalskytransaction.created_at }} </small>
+<p>Aircraft: {{ digitalskytransaction.aircraft.model }}</p>
+
+<h4>Prefix</h4>
+<p><mark>{{ digitalskytransaction.prefix }}</mark></p>
+
+</div>
+{% endblock %}

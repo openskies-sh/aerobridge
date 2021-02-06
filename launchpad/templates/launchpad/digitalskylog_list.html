@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Digital Sky Logs list</h2>
+    <p>See the logs of all Digital Sky interactions, the newest is at the top.</p>
+    <ul>
+        {% for digitalskylog in digitalskylogs %}
+        <li><a href="/launchpad/digitalskylogs/{{digitalskylog.id}}">{{ digitalskylog.txn.aircraft.model }} {{ digitalskylog.txn.aircraft.operator.company_name }}</a> ({{digitalskylog.txn.prefix }})&nbsp;&nbsp;<small>&mdash; Last updated at {{ digitalskylog.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    
+</div>
+{% endblock %}

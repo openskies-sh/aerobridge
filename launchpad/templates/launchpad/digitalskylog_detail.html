@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Log Details</h1>
+<code>ID {{ digitalskylog.id }}</code><small> Created at {{ digitalskylog.created_at }} </small>
+<br>
+<h4>Digital Sky Response Code: <code>HTTP {{ digitalskylog.response_code }}</code></h4>
+
+<h4>Digital Sky Response Details</h4>
+<p><code>{{ digitalskylog.response }}</code></p>
+
+</div>
+{% endblock %}

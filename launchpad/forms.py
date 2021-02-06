@@ -1,6 +1,6 @@
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
-
-from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
+from digitalsky_provider.models import DigitalSkyLog
+from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from django import forms
 # books/forms.py
 class PersonCreateForm(forms.ModelForm):
@@ -71,4 +71,14 @@ class ContactCreateForm(forms.ModelForm):
 class PilotCreateForm(forms.ModelForm):
     class Meta:
         model = Pilot
+        fields = '__all__'
+
+class DigitalSkyLogCreateForm(forms.ModelForm):
+    class Meta:
+        model = DigitalSkyLog
+        fields = '__all__'
+
+class DigitalSkyTransactionCreateForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
         fields = '__all__'

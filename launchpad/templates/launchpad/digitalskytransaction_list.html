@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Digital Sky Transactions list</h2>
+    <p>See the transaction objects for Digital Sky interactions, the newest is at the top.</p>
+    <ul>
+        {% for digitalskytransaction in digitalskytransactions %}
+        <li><a href="/launchpad/digitalskytransactions/{{digitalskytransaction.id}}">{{ digitalskytransaction.aircraft.model}} {{ digitalskytransaction.aircraft.operator.company_name }}  {{ digitalskytransaction.prefix}} </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ digitalskytransaction.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    
+</div>
+{% endblock %}

@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
-from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
+from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer
+from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
+from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, ContactCreateForm, PilotCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm
 from django.shortcuts import redirect
 
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
@@ -140,7 +142,7 @@ class OperatorCreateView(CreateView):
         return redirect('operators-list')
     
 
-### Flight Permission Views
+### Contact Views
     
 class ContactsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -174,7 +176,7 @@ class ContactsCreateView(CreateView):
         return redirect('contacts-list')
     
 
-### Flight Permission Views
+### Flight Pilot Views
     
 class PilotsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -514,4 +516,73 @@ class FlightLogCreateView(CreateView):
             
         return redirect('flightlogs-list')
     
+    
+    
+    
+        
+### DigitalSky Log Views
+    
+class DigitalSkyLogsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/digitalskylog_list.html'
+
+    def get(self, request):
+        queryset = DigitalSkyLog.objects.all()
+        return Response({'digitalskylogs': queryset})
+    
+class DigitalSkyLogsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/digitalskylog_detail.html'
+
+    def get(self, request, digitalskylog_id):
+        digitalskylog = get_object_or_404(DigitalSkyLog, pk=digitalskylog_id)
+        serializer = DigitalSkyLogSerializer(digitalskylog)
+        return Response({'serializer': serializer, 'digitalskylog': digitalskylog})
+
+
+class DigitalSkyLogCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': DigitalSkyLogCreateForm()}
+        return render(request, 'launchpad/digitalskylog_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = DigitalSkyLogCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save()
+            address.save()
+            
+        return redirect('digitalskylogs-list')
+    
+ # Digital Sky Transactionss   
+    
+class DigitalSkyTransactionsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/digitalskytransaction_list.html'
+
+    def get(self, request):
+        queryset = Transaction.objects.all()
+        return Response({'digitalskytransactions': queryset})
+    
+class DigitalSkyTransactionDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/digitalskytransaction_detail.html'
+
+    def get(self, request, transaction_id):
+        digitalskytransaction = get_object_or_404(Transaction, pk=transaction_id)
+        serializer = TransactionSerializer(digitalskytransaction)
+        return Response({'serializer': serializer, 'digitalskytransaction': digitalskytransaction})
+
+
+class DigitalSkyTransactionCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': DigitalSkyTransactionCreateForm()}
+        return render(request, 'launchpad/digitalskytransaction_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = DigitalSkyTransactionCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save()
+            address.save()
+            
+        return redirect('digitalskytransactions-list')
     

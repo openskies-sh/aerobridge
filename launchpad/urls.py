@@ -56,6 +56,15 @@ urlpatterns = [
     path('flightlogs/<uuid:flightpermission_id>', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
     path('flightlogs/new', launchpad_views.FlightLogCreateView.as_view(), name='flightlogs-create'),
  
+    path('digitalskylogs', launchpad_views.DigitalSkyLogsList.as_view(), name='digitalskylogs-list'),
+    path('digitalskylogs/<uuid:digitalskylog_id>', launchpad_views.DigitalSkyLogsDetail.as_view(), name='digitalskylogs-detail'),
+    
+ 
+ 
+    path('digitalskytransactions', launchpad_views.DigitalSkyTransactionsList.as_view(), name='digitalskytransactions-list'),
+    path('digitalskytransactions/<uuid:transaction_id>', launchpad_views.DigitalSkyTransactionDetail.as_view(), name='digitalskytransactions-detail'),
+    
+ 
  
     
 ]

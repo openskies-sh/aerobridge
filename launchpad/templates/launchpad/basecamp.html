@@ -1,4 +1,4 @@
-{% extends "launchpad/layout.html" %} 
+{% extends "launchpad/layout.html" %} {% load static %}
 {% block content %}
 <section>
     <p>Welcome to <b>Aerobridge Launchpad</b>, use the menus above to get started.</p>
@@ -7,7 +7,7 @@
    
     
     <blockquote>
-        <img alt="Quote" src="https://planetary.s3.amazonaws.com/web/assets/pictures/_453x614_crop_center-center_line/20140801_PIA00452.jpg.webp" height="450"><br><br>
+        <img alt="Quote" src="{% static "jetway/images/20140801_PIA00452.jpg" %}" height="450"><br><br>
         <footer>Image source: <a href="https://www.planetary.org/worlds/pale-blue-dot">Planetary Society</a></footer>
       
     </blockquote>
