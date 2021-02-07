@@ -1,0 +1,15 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Signed Aircraft Roster</h2>
+    <p>See the logs of all Digital Sky interactions, the newest is at the top.</p>
+    <ul>
+        {% for aircraftroster in aircraftrosters %}
+        <li><a href="/launchpad/aircraftrosters/{{aircraftroster.id}}">{{ aircraftroster.drone.model }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ aircraftroster.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    
+    <p><a href="/launchpad/aircraftrosters/new"><b>&#43; Add a signing request</b></a></p>
+</div>
+{% endblock %}

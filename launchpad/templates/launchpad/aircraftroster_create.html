@@ -1,0 +1,15 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Digital Sky Transactions list</h2>
+    <p>See the transaction objects for Digital Sky interactions, the newest is at the top.</p>
+
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form> 
+    
+</div>
+{% endblock %}

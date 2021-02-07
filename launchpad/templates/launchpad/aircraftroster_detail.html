@@ -1,0 +1,24 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Aircraft Register Details</h1>
+<br>
+<p>Use the Emsigner Toolbox to sign the JSON below using your Company's DSC Token and paste the signed json and the public key of your organization below.</p><br>
+<code>
+    
+{"droneTypeId": {{aircraftroster.drone.type_id}}, "version": {{aircraftroster.drone.version}}, "txn":t.get_txn_id(), "deviceID":{{aircraftroster.drone.device_id}}, "deviceModelId": {{aircraftroster.drone.device_model_id}}, "operatorBusinessIdentifier": {{operator_business_id}}}
+
+</code>
+
+<br>
+<br>
+
+<form action="{% url 'aircraftrosters-detail' aircraftroster_id=aircraftroster.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit" value="Update">Update</button>
+</form>
+
+</div>
+{% endblock %}

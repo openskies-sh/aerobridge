@@ -10,7 +10,7 @@ from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm
 from django.shortcuts import redirect
 
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
@@ -585,4 +585,49 @@ class DigitalSkyTransactionCreateView(CreateView):
             address.save()
             
         return redirect('digitalskytransactions-list')
+    
+
+
+### Flight Permission Views
+    
+class AircraftRosterList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraftroster_list.html'
+
+    def get(self, request):
+        queryset = AircraftRegister.objects.all()
+        return Response({'aircraftrosters': queryset})
+    
+class AircraftRosterDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraftroster_detail.html'
+
+    def get(self, request, aircraftroster_id):
+        aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)
+        serializer = AircraftRegisterSerializer(aircraftroster)
+        return Response({'serializer': serializer, 'aircraftroster': aircraftroster})
+
+    def post(self, request, aircraftroster_id):
+        aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)
+        serializer = AircraftRegisterSerializer(aircraftroster, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraftroster': aircraftroster})
+        serializer.save()
+        return redirect('aircraftrosters-list')
+
+class AircraftRosterCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AircraftRosterCreateForm()}
+        return render(request, 'launchpad/aircraftroster_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AircraftRosterCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save()
+            address.save()
+            
+        return redirect('aircraftrosters-list')
+    
+    
+    
     

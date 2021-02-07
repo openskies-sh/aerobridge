@@ -1,5 +1,5 @@
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
-from digitalsky_provider.models import DigitalSkyLog
+from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from django import forms
 # books/forms.py
@@ -82,3 +82,8 @@ class DigitalSkyTransactionCreateForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = '__all__'
+
+class AircraftRosterCreateForm(forms.ModelForm):
+    class Meta:
+        model = AircraftRegister
+        exclude = ('is_signed','drone',)

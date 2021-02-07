@@ -59,11 +59,14 @@ urlpatterns = [
     path('digitalskylogs', launchpad_views.DigitalSkyLogsList.as_view(), name='digitalskylogs-list'),
     path('digitalskylogs/<uuid:digitalskylog_id>', launchpad_views.DigitalSkyLogsDetail.as_view(), name='digitalskylogs-detail'),
     
- 
- 
+
     path('digitalskytransactions', launchpad_views.DigitalSkyTransactionsList.as_view(), name='digitalskytransactions-list'),
     path('digitalskytransactions/<uuid:transaction_id>', launchpad_views.DigitalSkyTransactionDetail.as_view(), name='digitalskytransactions-detail'),
     
+ 
+    path('aircraftrosters', launchpad_views.AircraftRosterList.as_view(), name='aircraftrosters-list'),
+    path('aircraftrosters/<uuid:aircraftroster_id>', launchpad_views.AircraftRosterDetail.as_view(), name='aircraftrosters-detail'),
+    path('aircraftrosters/new', launchpad_views.AircraftRosterCreateView.as_view(), name='aircraftrosters-create'),
  
  
     
