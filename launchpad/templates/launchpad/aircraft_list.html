@@ -5,7 +5,7 @@
     <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc. </p>
     <ul>
         {% for aircraft in aircrafts %}
-        <li><img src="{{aircraft.photo_small}}" height="50"><br><a href="/launchpad/aircrafts/{{aircraft.id}}">{{ aircraft.model }} </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ aircraft.created_at }} </small><br><br></li>
+        <li><img src="{{aircraft.photo_small}}" height="50"><br><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }} </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ aircraft.created_at }} </small><br><br></li>
         {% endfor %}
         
     </ul>

@@ -74,7 +74,7 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def get_txn_id(self):
-        transaction_prefix = self.prefix if (self.prefix.length > 0 ) else "default_txn"
+        transaction_prefix = self.prefix if (len(self.prefix) > 0 ) else "default_txn"
         txn_id = transaction_prefix +"_" +str(self.id) 
         return txn_id
     

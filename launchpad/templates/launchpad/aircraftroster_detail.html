@@ -6,8 +6,8 @@
 <br>
 <p>Use the Emsigner Toolbox to sign the JSON below using your Company's DSC Token and paste the signed json and the public key of your organization below.</p><br>
 <code>
-    
-{"droneTypeId": {{aircraftroster.drone.type_id}}, "version": {{aircraftroster.drone.version}}, "txn":t.get_txn_id(), "deviceID":{{aircraftroster.drone.device_id}}, "deviceModelId": {{aircraftroster.drone.device_model_id}}, "operatorBusinessIdentifier": {{operator_business_id}}}
+
+    {"droneTypeId": {{aircraftroster.drone.icao_aircraft_type_designator}}, "version": "1", "txn":{{ txn_details }}, "deviceID":{{aircraftroster.drone.flight_controller_number}}, "deviceModelId": {{aircraftroster.drone.flight_controller_number}}, "operatorBusinessIdentifier": {{operator.company_number}}}
 
 </code>
 

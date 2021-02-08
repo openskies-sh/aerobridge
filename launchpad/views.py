@@ -231,6 +231,17 @@ class AircraftDetail(APIView):
         serializer = AircraftSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
 
+
+
+class AircraftUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_update.html'
+
+    def get(self, request, aircraft_id):
+        aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
+        serializer = AircraftSerializer(aircraft)
+        return Response({'serializer': serializer, 'aircraft': aircraft})
+
     def post(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         serializer = AircraftSerializer(aircraft, data=request.data)
@@ -238,6 +249,7 @@ class AircraftDetail(APIView):
             return Response({'serializer': serializer, 'aircraft': aircraft})
         serializer.save()
         return redirect('aircrafts-list')
+
 
 class AircraftCreateView(CreateView):
     def get(self, request, *args, **kwargs):
@@ -602,10 +614,17 @@ class AircraftRosterDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraftroster_detail.html'
 
+            
     def get(self, request, aircraftroster_id):
         aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)
         serializer = AircraftRegisterSerializer(aircraftroster)
-        return Response({'serializer': serializer, 'aircraftroster': aircraftroster})
+        drone = aircraftroster.drone
+        operator = get_object_or_404(Operator, aircraft = drone)
+        txn, created = Transaction.objects.get_or_create(aircraft = drone, prefix='registration')
+        txn_details = txn.get_txn_id()
+        
+
+        return Response({'serializer': serializer, 'aircraftroster': aircraftroster,'operator':operator, 'txn_details':txn_details})
 
     def post(self, request, aircraftroster_id):
         aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)

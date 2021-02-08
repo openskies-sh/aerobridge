@@ -3,11 +3,44 @@
 {% block content %}
 <div>
 <h1>Aircraft - {{ aircraft.model }}</h1>
+<br>
+<p><img src="{{aircraft.photo_small}}"></p>
+<br>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Operator</td>
+        <td>{{ aircraft.operator.company_name }}</td>
+    </tr>
+    <tr>
+        <td>Model</td>
+        <td>{{ aircraft.model}}</td>    
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>{{ aircraft.sub_category}}</td>
+    </tr>
+    <tr>
+        <td>Flight Controller Number (Drone ID)</td>
+        <td><b>{{airfact.flight_controller_number}}</b></td>
+    </tr>
+    <tr>
+        <td>Manufacturer</td>
+        <td>{{aircraft.manufacturer.full_name}}</td>
+    </tr>
+    <tr>
+        <td>ID Plate photo</td>
+        <td><img src="{{aircaraft.identification_photo_small}}"></td>
+    </tr>
 
-<form action="{% url 'aircrafts-detail' aircraft_id=aircraft.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <button type="submit" value="Update">Update</button>
-</form>
+</table>
+
+<p><a href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
+
 </div>
 {% endblock %}

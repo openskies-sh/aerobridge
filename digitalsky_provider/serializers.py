@@ -16,4 +16,5 @@ class AircraftRegisterSerializer(serializers.ModelSerializer):
         model = AircraftRegister
         ordering = ['-created_at']
         exclude = ('is_signed',)
+        read_only_fields = ('drone',)
         

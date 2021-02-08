@@ -86,4 +86,4 @@ class DigitalSkyTransactionCreateForm(forms.ModelForm):
 class AircraftRosterCreateForm(forms.ModelForm):
     class Meta:
         model = AircraftRegister
-        exclude = ('is_signed','drone',)
+        exclude = ('is_signed','signature', 'certificate',)

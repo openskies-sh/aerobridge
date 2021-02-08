@@ -109,7 +109,7 @@ class Operator(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     vat_number = models.CharField(max_length=25, blank=True, null=True)
     insurance_number = models.CharField(max_length=25, blank=True, null=True)
-    company_number = models.CharField(max_length=25, blank=True, null=True)
+    company_number = models.CharField(max_length=25, default='CO-212')
     country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'NA')
     
     def get_address(self):
