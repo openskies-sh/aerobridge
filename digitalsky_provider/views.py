@@ -163,7 +163,8 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
     
     def post(self, request, drone_id,format=None):	
         aircraft_register = get_object_or_404(AircraftRegister, drone=drone_id)
-        drone = aircraft_register.drone
+        drone = aircraft_register.drone        
+        operator = get_object_or_404(Operator, aircraft=drone)
         t = Transaction(drone = drone, prefix="registration")
         t.save()
         
@@ -172,7 +173,7 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
             securl = os.environ.get('DIGITAL_SKY_URL') + '/api/droneDevice/register/<manufacturerBusinessIdentifier>'
             headers = {'content-type': 'application/json'}
 
-            drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": operator_business_id}
+            drone_details ={"droneTypeId": drone.type_id, "version": drone.version, "txn":t.get_txn_id(), "deviceID":drone.device_id, "deviceModelId": drone.device_model_id, "operatorBusinessIdentifier": operator.company_number}
 
             payload = {"drone": json.dumps(drone_details), "signature":aircraft_register.signature, "digitalCertificate":aircraft_register.certificate}
 
@@ -185,11 +186,11 @@ class RegisterDrone(mixins.CreateModelMixin, generics.GenericAPIView):
                 ds_log.save()
                 drone.is_registered = True
                 drone.save()
-                return Response(json.dumps({'message':'success', digital_sky_log_id:str(ds_log.id)}), status=status.HTTP_201_CREATED)
+                return Response(json.dumps({'message':'success', 'digital_sky_log_id':str(ds_log.id)}), status=status.HTTP_201_CREATED)
             else:
                 ds_log = DigitalSkyLog(txn = t, response = r.text, response_code = registration_response['code'], timestamp = now)
                 ds_log.save()
-                return Response(json.dumps({'message':'error', digital_sky_log_id:str(ds_log.id)}),status=status.HTTP_400_BAD_REQUEST)
+                return Response(json.dumps({'message':'error',' digital_sky_log_id':str(ds_log.id)}),status=status.HTTP_400_BAD_REQUEST)
         
         else: 
             message = {"message": "Please sign the drone details first using a DSC token."}
