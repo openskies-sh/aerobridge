@@ -205,6 +205,12 @@ class Manufacturer(models.Model):
     role = models.CharField(max_length = 140, default = 'NA', help_text="e.g. Reseller, distributor, OEM etc.")
     country = models.CharField(max_length =3, default = 'NA')
 
+    cin_document = models.URLField(help_text ='Link to certificate of Incorporation issued by ROC, MCA', blank= True, null=True)
+    gst_document = models.URLField(help_text='Link to GST certification document', blank= True, null=True)
+    pan_card_document = models.URLField(help_text='URL of Manufacturers PAN Card scan', blank= True, null=True)
+    security_clearance_document = models.URLField(help_text='Link to Security Clearance from Ministry of Home Affairs', blank= True, null=True)
+    eta_document = models.URLField(help_text='Link to Equipment Type Approval (ETA) from WPC Wing', blank= True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -293,7 +299,10 @@ class Aircraft(models.Model):
     dimension_height = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    manufactured_at = models.DateTimeField(null=True)
+    manufactured_at = models.DateTimeField(null=True)    
+    dot_permission_document = models.URLField(help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", blank= True, null=True)
+    operataions_manual_document = models.URLField(help_text="Link to Operation Manual Document", blank= True, null=True)
+
     def __unicode__(self):
         return self.operator.company_name +' ' + self.model
 

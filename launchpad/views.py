@@ -1,16 +1,16 @@
 from django.shortcuts import render
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm
 from django.shortcuts import redirect
 
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
@@ -648,5 +648,46 @@ class AircraftRosterCreateView(CreateView):
         return redirect('aircraftrosters-list')
     
     
+    
+    
+### Manufacturer Views
+    
+class EnginesList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/engine_list.html'
+
+    def get(self, request):
+        queryset = Engine.objects.all()
+        return Response({'engines': queryset})
+    
+class EnginesDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/engine_detail.html'
+
+    def get(self, request, manufacturer_id):
+        engine = get_object_or_404(Engine, pk=manufacturer_id)
+        serializer = EngineSerializer(engine)
+        return Response({'serializer': serializer, 'engine': engine})
+
+    def post(self, request, engine_id):
+        engine = get_object_or_404(Manufacturer, pk=engine_id)
+        serializer = EngineSerializer(engine, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'engine': engine})
+        serializer.save()
+        return redirect('engines-list')
+
+class EngineCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': EngineCreateForm()}
+        return render(request, 'launchpad/engine_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = EngineCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save()
+            address.save()
+            
+        return redirect('engines-list')
     
     

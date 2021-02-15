@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Engines</h2>
+    <p>You may choose to have a set of engines for drones, engine registration has to be linked to a drone.</p>
+    <ul>
+        {% for engine in engines %}
+        <li><a href="/launchpad/engines/{{engine.id}}">{{ engine.type }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ engine.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/engines/new"><b>&#43; Add a Engine</b></a></p>
+</div>
+{% endblock %}

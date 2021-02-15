@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from . import views as launchpad_views
 
 urlpatterns = [
-     path('', launchpad_views.HomeView.as_view()),
+    path('', launchpad_views.HomeView.as_view()),
     path('addresses', launchpad_views.AddressList.as_view(), name='addresses-list'),
     path('addresses/<uuid:address_id>', launchpad_views.AddressDetail.as_view(), name='addresses-detail'),
     path('addresses/new', launchpad_views.AddressCreateView.as_view(), name='addresses-create'),
@@ -24,7 +24,6 @@ urlpatterns = [
     path('pilots/<uuid:pilot_id>', launchpad_views.PilotsDetail.as_view(), name='pilots-detail'),
     path('pilots/new', launchpad_views.PilotsCreateView.as_view(), name='pilots-create'),
      
- 
     path('aircrafts', launchpad_views.AircraftList.as_view(), name='aircrafts-list'),
     path('aircrafts/<uuid:aircraft_id>/detail', launchpad_views.AircraftDetail.as_view(), name='aircrafts-detail'),
     path('aircrafts/<uuid:aircraft_id>', launchpad_views.AircraftUpdate.as_view(), name='aircrafts-update'),
@@ -34,6 +33,10 @@ urlpatterns = [
     path('manufacturers/<uuid:manufacturer_id>', launchpad_views.ManufacturersDetail.as_view(), name='manufacturers-detail'),
     path('manufacturers/new', launchpad_views.ManufacturerCreateView.as_view(), name='manufacturers-create'),
     
+    path('engines', launchpad_views.EnginesList.as_view(), name='engines-list'),
+    path('engines/<uuid:engine_id>', launchpad_views.EnginesDetail.as_view(), name='engines-detail'),
+    path('engines/new', launchpad_views.EngineCreateView.as_view(), name='engines-create'),
+
     path('firmwares', launchpad_views.FirmwaresList.as_view(), name='firmwares-list'),
     path('firmwares/<uuid:manufacturer_id>', launchpad_views.FirmwaresDetail.as_view(), name='firmwares-detail'),
     path('firmwares/new', launchpad_views.FirmwareCreateView.as_view(), name='firmwares-create'),

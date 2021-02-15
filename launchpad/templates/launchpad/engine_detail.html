@@ -1,0 +1,13 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Engine Profile - {{ engine.type }}</h1>
+
+<form action="{% url 'engines-detail' engine_id=engine.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit" value="Update">Update</button>
+</form>
+</div>
+{% endblock %}
