@@ -1,374 +1,1882 @@
-[{
-   "model": "registry.activity",
-   "pk": "7a875ff9-79ee-460e-816f-30360e0ac645",
-   "fields": {
-      "name": "photographing"
-
-   }
-},
-{
-   "model": "registry.activity",
-   "pk": "26b6a66d-5e77-4a43-94e9-630e141a1087",
-   "fields": {
-      "name": "videotaping"
-   }
-},
-{
-   "model": "registry.authorization",
-   "pk": "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da",
-   "fields": {
-      "title": "SORA",
-      "airspace_type": 1,
-      "permit_to_fly_above_crowd": 1,
-      "risk_type": 1,
-      "authorization_type": 1,
-      "operation_max_height": 100,
-      "operation_area_type": 1,
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.authorization",
-   "pk": "6be25abc-a43d-44d2-9c16-b8dee47bb64d",
-   "fields": {
-      "title": "SORA V2",
-      "airspace_type": 2,
-      "permit_to_fly_above_crowd": 0,
-      "risk_type": 6,
-      "authorization_type": 1,
-      "operation_max_height": 200,
-      "operation_area_type": 1,
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.address",
-   "pk": "8ddda026-2995-44ef-9eab-55e396eaef0d",
-   "fields": {
-      "address_line_1": "185-186/1, Narendra Singh Marg",
-      "address_line_2": "",
-      "address_line_3": "",
-      "postcode": "595974",
-      "city": "Simla",
-      "country": "IN",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-
-   }
-},
-{
-   "model": "registry.address",
-
-   "pk": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
-   "fields": {
-      "address_line_1": "81, Madhavi Society,",
-      "address_line_2": "",
-      "address_line_3": "Jamnagar",
-      "postcode": "260699",
-      "city": "Prabhapur",
-      "country": "IN",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.address",
-   "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-   "fields": {
-      "address_line_1": "85, Vijay Apartments",
-      "address_line_2": "",
-      "address_line_3": "",
-      "postcode": "290580",
-      "city": "Gurgaon",
-      "country": "IN",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.address",
-   "pk": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
-   "fields": {
-      "address_line_1": "36, Aarif Society, Jagrutipur",
-      "address_line_2": "",
-      "address_line_3": "",
-      "postcode": "570171",
-      "city": "Pondicherry",
-      "country": "IN",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.address",
-   "pk": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
-   "fields": {
-      "address_line_1": "11, Teena Society",
-      "address_line_2": "Ganesh Chowk",
-      "address_line_3": "",
-      "postcode": "175575",
-      "city": "Ajmer",
-      "country": "IN",      
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-
-{
-   "model": "registry.operator",
-   "pk": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
-   "fields": {
-      "company_name": "A.J. August Photography",
-      "website": "august.com",
-      "phone_number":"+497221816880",
-      "email": "aj@august.com",
-      "operator_type": "0",
-      "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
-      "vat_number": "IE5895475T",
-      "company_number": "489434",
-      "operational_authorizations": [
+[
+   {
+     "model": "auth.permission",
+     "pk": 1,
+     "fields": {
+       "name": "Can add log entry",
+       "content_type": 1,
+       "codename": "add_logentry"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 2,
+     "fields": {
+       "name": "Can change log entry",
+       "content_type": 1,
+       "codename": "change_logentry"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 3,
+     "fields": {
+       "name": "Can delete log entry",
+       "content_type": 1,
+       "codename": "delete_logentry"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 4,
+     "fields": {
+       "name": "Can view log entry",
+       "content_type": 1,
+       "codename": "view_logentry"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 5,
+     "fields": {
+       "name": "Can add permission",
+       "content_type": 2,
+       "codename": "add_permission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 6,
+     "fields": {
+       "name": "Can change permission",
+       "content_type": 2,
+       "codename": "change_permission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 7,
+     "fields": {
+       "name": "Can delete permission",
+       "content_type": 2,
+       "codename": "delete_permission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 8,
+     "fields": {
+       "name": "Can view permission",
+       "content_type": 2,
+       "codename": "view_permission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 9,
+     "fields": {
+       "name": "Can add group",
+       "content_type": 3,
+       "codename": "add_group"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 10,
+     "fields": {
+       "name": "Can change group",
+       "content_type": 3,
+       "codename": "change_group"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 11,
+     "fields": {
+       "name": "Can delete group",
+       "content_type": 3,
+       "codename": "delete_group"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 12,
+     "fields": {
+       "name": "Can view group",
+       "content_type": 3,
+       "codename": "view_group"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 13,
+     "fields": {
+       "name": "Can add user",
+       "content_type": 4,
+       "codename": "add_user"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 14,
+     "fields": {
+       "name": "Can change user",
+       "content_type": 4,
+       "codename": "change_user"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 15,
+     "fields": {
+       "name": "Can delete user",
+       "content_type": 4,
+       "codename": "delete_user"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 16,
+     "fields": {
+       "name": "Can view user",
+       "content_type": 4,
+       "codename": "view_user"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 17,
+     "fields": {
+       "name": "Can add content type",
+       "content_type": 5,
+       "codename": "add_contenttype"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 18,
+     "fields": {
+       "name": "Can change content type",
+       "content_type": 5,
+       "codename": "change_contenttype"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 19,
+     "fields": {
+       "name": "Can delete content type",
+       "content_type": 5,
+       "codename": "delete_contenttype"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 20,
+     "fields": {
+       "name": "Can view content type",
+       "content_type": 5,
+       "codename": "view_contenttype"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 21,
+     "fields": {
+       "name": "Can add session",
+       "content_type": 6,
+       "codename": "add_session"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 22,
+     "fields": {
+       "name": "Can change session",
+       "content_type": 6,
+       "codename": "change_session"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 23,
+     "fields": {
+       "name": "Can delete session",
+       "content_type": 6,
+       "codename": "delete_session"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 24,
+     "fields": {
+       "name": "Can view session",
+       "content_type": 6,
+       "codename": "view_session"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 25,
+     "fields": {
+       "name": "Can add drone",
+       "content_type": 7,
+       "codename": "add_drone"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 26,
+     "fields": {
+       "name": "Can change drone",
+       "content_type": 7,
+       "codename": "change_drone"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 27,
+     "fields": {
+       "name": "Can delete drone",
+       "content_type": 7,
+       "codename": "delete_drone"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 28,
+     "fields": {
+       "name": "Can view drone",
+       "content_type": 7,
+       "codename": "view_drone"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 29,
+     "fields": {
+       "name": "Can add transaction",
+       "content_type": 8,
+       "codename": "add_transaction"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 30,
+     "fields": {
+       "name": "Can change transaction",
+       "content_type": 8,
+       "codename": "change_transaction"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 31,
+     "fields": {
+       "name": "Can delete transaction",
+       "content_type": 8,
+       "codename": "delete_transaction"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 32,
+     "fields": {
+       "name": "Can view transaction",
+       "content_type": 8,
+       "codename": "view_transaction"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 33,
+     "fields": {
+       "name": "Can add activity",
+       "content_type": 9,
+       "codename": "add_activity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 34,
+     "fields": {
+       "name": "Can change activity",
+       "content_type": 9,
+       "codename": "change_activity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 35,
+     "fields": {
+       "name": "Can delete activity",
+       "content_type": 9,
+       "codename": "delete_activity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 36,
+     "fields": {
+       "name": "Can view activity",
+       "content_type": 9,
+       "codename": "view_activity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 37,
+     "fields": {
+       "name": "Can add authorization",
+       "content_type": 10,
+       "codename": "add_authorization"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 38,
+     "fields": {
+       "name": "Can change authorization",
+       "content_type": 10,
+       "codename": "change_authorization"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 39,
+     "fields": {
+       "name": "Can delete authorization",
+       "content_type": 10,
+       "codename": "delete_authorization"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 40,
+     "fields": {
+       "name": "Can view authorization",
+       "content_type": 10,
+       "codename": "view_authorization"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 41,
+     "fields": {
+       "name": "Can add contact",
+       "content_type": 11,
+       "codename": "add_contact"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 42,
+     "fields": {
+       "name": "Can change contact",
+       "content_type": 11,
+       "codename": "change_contact"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 43,
+     "fields": {
+       "name": "Can delete contact",
+       "content_type": 11,
+       "codename": "delete_contact"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 44,
+     "fields": {
+       "name": "Can view contact",
+       "content_type": 11,
+       "codename": "view_contact"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 45,
+     "fields": {
+       "name": "Can add operator",
+       "content_type": 12,
+       "codename": "add_operator"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 46,
+     "fields": {
+       "name": "Can change operator",
+       "content_type": 12,
+       "codename": "change_operator"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 47,
+     "fields": {
+       "name": "Can delete operator",
+       "content_type": 12,
+       "codename": "delete_operator"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 48,
+     "fields": {
+       "name": "Can view operator",
+       "content_type": 12,
+       "codename": "view_operator"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 49,
+     "fields": {
+       "name": "Can add pilot",
+       "content_type": 13,
+       "codename": "add_pilot"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 50,
+     "fields": {
+       "name": "Can change pilot",
+       "content_type": 13,
+       "codename": "change_pilot"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 51,
+     "fields": {
+       "name": "Can delete pilot",
+       "content_type": 13,
+       "codename": "delete_pilot"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 52,
+     "fields": {
+       "name": "Can view pilot",
+       "content_type": 13,
+       "codename": "view_pilot"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 53,
+     "fields": {
+       "name": "Can add manufacturer",
+       "content_type": 14,
+       "codename": "add_manufacturer"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 54,
+     "fields": {
+       "name": "Can change manufacturer",
+       "content_type": 14,
+       "codename": "change_manufacturer"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 55,
+     "fields": {
+       "name": "Can delete manufacturer",
+       "content_type": 14,
+       "codename": "delete_manufacturer"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 56,
+     "fields": {
+       "name": "Can view manufacturer",
+       "content_type": 14,
+       "codename": "view_manufacturer"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 57,
+     "fields": {
+       "name": "Can add aircraft",
+       "content_type": 15,
+       "codename": "add_aircraft"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 58,
+     "fields": {
+       "name": "Can change aircraft",
+       "content_type": 15,
+       "codename": "change_aircraft"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 59,
+     "fields": {
+       "name": "Can delete aircraft",
+       "content_type": 15,
+       "codename": "delete_aircraft"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 60,
+     "fields": {
+       "name": "Can view aircraft",
+       "content_type": 15,
+       "codename": "view_aircraft"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 61,
+     "fields": {
+       "name": "Can add test",
+       "content_type": 16,
+       "codename": "add_test"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 62,
+     "fields": {
+       "name": "Can change test",
+       "content_type": 16,
+       "codename": "change_test"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 63,
+     "fields": {
+       "name": "Can delete test",
+       "content_type": 16,
+       "codename": "delete_test"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 64,
+     "fields": {
+       "name": "Can view test",
+       "content_type": 16,
+       "codename": "view_test"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 65,
+     "fields": {
+       "name": "Can add test validity",
+       "content_type": 17,
+       "codename": "add_testvalidity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 66,
+     "fields": {
+       "name": "Can change test validity",
+       "content_type": 17,
+       "codename": "change_testvalidity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 67,
+     "fields": {
+       "name": "Can delete test validity",
+       "content_type": 17,
+       "codename": "delete_testvalidity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 68,
+     "fields": {
+       "name": "Can view test validity",
+       "content_type": 17,
+       "codename": "view_testvalidity"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 69,
+     "fields": {
+       "name": "Can add type certificate",
+       "content_type": 18,
+       "codename": "add_typecertificate"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 70,
+     "fields": {
+       "name": "Can change type certificate",
+       "content_type": 18,
+       "codename": "change_typecertificate"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 71,
+     "fields": {
+       "name": "Can delete type certificate",
+       "content_type": 18,
+       "codename": "delete_typecertificate"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 72,
+     "fields": {
+       "name": "Can view type certificate",
+       "content_type": 18,
+       "codename": "view_typecertificate"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 73,
+     "fields": {
+       "name": "Can add address",
+       "content_type": 19,
+       "codename": "add_address"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 74,
+     "fields": {
+       "name": "Can change address",
+       "content_type": 19,
+       "codename": "change_address"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 75,
+     "fields": {
+       "name": "Can delete address",
+       "content_type": 19,
+       "codename": "delete_address"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 76,
+     "fields": {
+       "name": "Can view address",
+       "content_type": 19,
+       "codename": "view_address"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 77,
+     "fields": {
+       "name": "Can add person",
+       "content_type": 20,
+       "codename": "add_person"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 78,
+     "fields": {
+       "name": "Can change person",
+       "content_type": 20,
+       "codename": "change_person"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 79,
+     "fields": {
+       "name": "Can delete person",
+       "content_type": 20,
+       "codename": "delete_person"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 80,
+     "fields": {
+       "name": "Can view person",
+       "content_type": 20,
+       "codename": "view_person"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 81,
+     "fields": {
+       "name": "Can add engine",
+       "content_type": 21,
+       "codename": "add_engine"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 82,
+     "fields": {
+       "name": "Can change engine",
+       "content_type": 21,
+       "codename": "change_engine"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 83,
+     "fields": {
+       "name": "Can delete engine",
+       "content_type": 21,
+       "codename": "delete_engine"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 84,
+     "fields": {
+       "name": "Can view engine",
+       "content_type": 21,
+       "codename": "view_engine"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 85,
+     "fields": {
+       "name": "Can add flight operation",
+       "content_type": 22,
+       "codename": "add_flightoperation"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 86,
+     "fields": {
+       "name": "Can change flight operation",
+       "content_type": 22,
+       "codename": "change_flightoperation"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 87,
+     "fields": {
+       "name": "Can delete flight operation",
+       "content_type": 22,
+       "codename": "delete_flightoperation"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 88,
+     "fields": {
+       "name": "Can view flight operation",
+       "content_type": 22,
+       "codename": "view_flightoperation"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 89,
+     "fields": {
+       "name": "Can add flight plan",
+       "content_type": 23,
+       "codename": "add_flightplan"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 90,
+     "fields": {
+       "name": "Can change flight plan",
+       "content_type": 23,
+       "codename": "change_flightplan"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 91,
+     "fields": {
+       "name": "Can delete flight plan",
+       "content_type": 23,
+       "codename": "delete_flightplan"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 92,
+     "fields": {
+       "name": "Can view flight plan",
+       "content_type": 23,
+       "codename": "view_flightplan"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 93,
+     "fields": {
+       "name": "Can add uin application",
+       "content_type": 24,
+       "codename": "add_uinapplication"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 94,
+     "fields": {
+       "name": "Can change uin application",
+       "content_type": 24,
+       "codename": "change_uinapplication"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 95,
+     "fields": {
+       "name": "Can delete uin application",
+       "content_type": 24,
+       "codename": "delete_uinapplication"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 96,
+     "fields": {
+       "name": "Can view uin application",
+       "content_type": 24,
+       "codename": "view_uinapplication"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 97,
+     "fields": {
+       "name": "Can add flight permission",
+       "content_type": 25,
+       "codename": "add_flightpermission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 98,
+     "fields": {
+       "name": "Can change flight permission",
+       "content_type": 25,
+       "codename": "change_flightpermission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 99,
+     "fields": {
+       "name": "Can delete flight permission",
+       "content_type": 25,
+       "codename": "delete_flightpermission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 100,
+     "fields": {
+       "name": "Can view flight permission",
+       "content_type": 25,
+       "codename": "view_flightpermission"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 101,
+     "fields": {
+       "name": "Can add digital sky log",
+       "content_type": 26,
+       "codename": "add_digitalskylog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 102,
+     "fields": {
+       "name": "Can change digital sky log",
+       "content_type": 26,
+       "codename": "change_digitalskylog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 103,
+     "fields": {
+       "name": "Can delete digital sky log",
+       "content_type": 26,
+       "codename": "delete_digitalskylog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 104,
+     "fields": {
+       "name": "Can view digital sky log",
+       "content_type": 26,
+       "codename": "view_digitalskylog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 105,
+     "fields": {
+       "name": "Can add aircraft register",
+       "content_type": 27,
+       "codename": "add_aircraftregister"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 106,
+     "fields": {
+       "name": "Can change aircraft register",
+       "content_type": 27,
+       "codename": "change_aircraftregister"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 107,
+     "fields": {
+       "name": "Can delete aircraft register",
+       "content_type": 27,
+       "codename": "delete_aircraftregister"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 108,
+     "fields": {
+       "name": "Can view aircraft register",
+       "content_type": 27,
+       "codename": "view_aircraftregister"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 109,
+     "fields": {
+       "name": "Can add flight log",
+       "content_type": 28,
+       "codename": "add_flightlog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 110,
+     "fields": {
+       "name": "Can change flight log",
+       "content_type": 28,
+       "codename": "change_flightlog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 111,
+     "fields": {
+       "name": "Can delete flight log",
+       "content_type": 28,
+       "codename": "delete_flightlog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 112,
+     "fields": {
+       "name": "Can view flight log",
+       "content_type": 28,
+       "codename": "view_flightlog"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 113,
+     "fields": {
+       "name": "Can add firmware",
+       "content_type": 29,
+       "codename": "add_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 114,
+     "fields": {
+       "name": "Can change firmware",
+       "content_type": 29,
+       "codename": "change_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 115,
+     "fields": {
+       "name": "Can delete firmware",
+       "content_type": 29,
+       "codename": "delete_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 116,
+     "fields": {
+       "name": "Can view firmware",
+       "content_type": 29,
+       "codename": "view_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 117,
+     "fields": {
+       "name": "Can add firmware",
+       "content_type": 30,
+       "codename": "add_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 118,
+     "fields": {
+       "name": "Can change firmware",
+       "content_type": 30,
+       "codename": "change_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 119,
+     "fields": {
+       "name": "Can delete firmware",
+       "content_type": 30,
+       "codename": "delete_firmware"
+     }
+   },
+   {
+     "model": "auth.permission",
+     "pk": 120,
+     "fields": {
+       "name": "Can view firmware",
+       "content_type": 30,
+       "codename": "view_firmware"
+     }
+   },
+   {
+     "model": "auth.user",
+     "pk": 1,
+     "fields": {
+       "password": "",
+       "last_login": null,
+       "is_superuser": false,
+       "username": "VWRZ3Yo0nheU9BZv0Fw7tTm4MAPr2dFB5lPQMmJt@clients",
+       "first_name": "",
+       "last_name": "",
+       "email": "",
+       "is_staff": false,
+       "is_active": true,
+       "date_joined": "2020-11-24T11:20:17.404Z",
+       "groups": [],
+       "user_permissions": []
+     }
+   },
+   {
+     "model": "auth.user",
+     "pk": 2,
+     "fields": {
+       "password": "pbkdf2_sha256$216000$P75Dyr4vidOD$GzEsMktcSomqLJ2E44g6iMpUi1cfEg4KB//8wi8YAlI=",
+       "last_login": "2021-02-04T09:36:23.675Z",
+       "is_superuser": true,
+       "username": "cygnus2936",
+       "first_name": "",
+       "last_name": "",
+       "email": "cygnus2936@yahoo.com",
+       "is_staff": true,
+       "is_active": true,
+       "date_joined": "2020-11-30T12:05:19.282Z",
+       "groups": [],
+       "user_permissions": []
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 1,
+     "fields": {
+       "app_label": "admin",
+       "model": "logentry"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 2,
+     "fields": {
+       "app_label": "auth",
+       "model": "permission"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 3,
+     "fields": {
+       "app_label": "auth",
+       "model": "group"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 4,
+     "fields": {
+       "app_label": "auth",
+       "model": "user"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 5,
+     "fields": {
+       "app_label": "contenttypes",
+       "model": "contenttype"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 6,
+     "fields": {
+       "app_label": "sessions",
+       "model": "session"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 7,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "drone"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 8,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "transaction"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 9,
+     "fields": {
+       "app_label": "registry",
+       "model": "activity"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 10,
+     "fields": {
+       "app_label": "registry",
+       "model": "authorization"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 11,
+     "fields": {
+       "app_label": "registry",
+       "model": "contact"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 12,
+     "fields": {
+       "app_label": "registry",
+       "model": "operator"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 13,
+     "fields": {
+       "app_label": "registry",
+       "model": "pilot"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 14,
+     "fields": {
+       "app_label": "registry",
+       "model": "manufacturer"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 15,
+     "fields": {
+       "app_label": "registry",
+       "model": "aircraft"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 16,
+     "fields": {
+       "app_label": "registry",
+       "model": "test"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 17,
+     "fields": {
+       "app_label": "registry",
+       "model": "testvalidity"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 18,
+     "fields": {
+       "app_label": "registry",
+       "model": "typecertificate"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 19,
+     "fields": {
+       "app_label": "registry",
+       "model": "address"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 20,
+     "fields": {
+       "app_label": "registry",
+       "model": "person"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 21,
+     "fields": {
+       "app_label": "registry",
+       "model": "engine"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 22,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "flightoperation"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 23,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "flightplan"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 24,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "uinapplication"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 25,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "flightpermission"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 26,
+     "fields": {
+       "app_label": "digitalsky_provider",
+       "model": "digitalskylog"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 27,
+     "fields": {
+       "app_label": "digitalsky_provider",
+       "model": "aircraftregister"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 28,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "flightlog"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 29,
+     "fields": {
+       "app_label": "gcs_operations",
+       "model": "firmware"
+     }
+   },
+   {
+     "model": "contenttypes.contenttype",
+     "pk": 30,
+     "fields": {
+       "app_label": "registry",
+       "model": "firmware"
+     }
+   },
+   {
+     "model": "registry.person",
+     "pk": "32153c3b-663b-41e4-afc2-47127a713704",
+     "fields": {
+       "first_name": "Niteesh",
+       "middle_name": "Taral",
+       "last_name": "Pavani",
+       "email": "niteesh@teleworm.us",
+       "phone_number": "+9141112232",
+       "identification_number": null,
+       "social_security_number": null,
+       "date_of_birth": null,
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.person",
+     "pk": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+     "fields": {
+       "first_name": "Rakesh",
+       "middle_name": "Kirtikumar",
+       "last_name": "Kankipati",
+       "email": "Rakeshk@posterous.com",
+       "phone_number": "+919122992107",
+       "identification_number": null,
+       "social_security_number": null,
+       "date_of_birth": null,
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.person",
+     "pk": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+     "fields": {
+       "first_name": "Rachana",
+       "middle_name": "S",
+       "last_name": "Dhatri",
+       "email": "rachna@hotmail.com",
+       "phone_number": "+917037380857",
+       "identification_number": null,
+       "social_security_number": null,
+       "date_of_birth": null,
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.person",
+     "pk": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+     "fields": {
+       "first_name": "Shreyas",
+       "middle_name": null,
+       "last_name": "More",
+       "email": "shreyasm@gmail.com",
+       "phone_number": "+91416852181",
+       "identification_number": null,
+       "social_security_number": "79464412258",
+       "date_of_birth": "1979-09-12",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.address",
+     "pk": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+     "fields": {
+       "address_line_1": "11, Teena Society",
+       "address_line_2": "Ganesh Chowk",
+       "address_line_3": "",
+       "postcode": "175575",
+       "city": "Ajmer",
+       "state": null,
+       "country": "IN",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.address",
+     "pk": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+     "fields": {
+       "address_line_1": "36, Aarif Society, Jagrutipur",
+       "address_line_2": "",
+       "address_line_3": "",
+       "postcode": "570171",
+       "city": "Pondicherry",
+       "state": null,
+       "country": "IN",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.address",
+     "pk": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+     "fields": {
+       "address_line_1": "81, Madhavi Society,",
+       "address_line_2": "",
+       "address_line_3": "Jamnagar",
+       "postcode": "260699",
+       "city": "Prabhapur",
+       "state": null,
+       "country": "IN",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.address",
+     "pk": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+     "fields": {
+       "address_line_1": "185-186/1, Narendra Singh Marg",
+       "address_line_2": "",
+       "address_line_3": "",
+       "postcode": "595974",
+       "city": "Simla",
+       "state": null,
+       "country": "IN",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.address",
+     "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+     "fields": {
+       "address_line_1": "85, Vijay Apartments",
+       "address_line_2": "",
+       "address_line_3": "",
+       "postcode": "290580",
+       "city": "Gurgaon",
+       "state": null,
+       "country": "IN",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.activity",
+     "pk": "26b6a66d-5e77-4a43-94e9-630e141a1087",
+     "fields": {
+       "name": "videotaping",
+       "activity_type": 0
+     }
+   },
+   {
+     "model": "registry.activity",
+     "pk": "7a875ff9-79ee-460e-816f-30360e0ac645",
+     "fields": {
+       "name": "photographing",
+       "activity_type": 0
+     }
+   },
+   {
+     "model": "registry.authorization",
+     "pk": "6be25abc-a43d-44d2-9c16-b8dee47bb64d",
+     "fields": {
+       "title": "SORA V2",
+       "operation_max_height": 200,
+       "operation_altitude_system": 0,
+       "airspace_type": 2,
+       "permit_to_fly_above_crowd": false,
+       "operation_area_type": 1,
+       "risk_type": 6,
+       "authorization_type": 1,
+       "end_date": "2022-11-30T00:00:00Z",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.authorization",
+     "pk": "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da",
+     "fields": {
+       "title": "SORA",
+       "operation_max_height": 100,
+       "operation_altitude_system": 0,
+       "airspace_type": 1,
+       "permit_to_fly_above_crowd": true,
+       "operation_area_type": 1,
+       "risk_type": 1,
+       "authorization_type": 1,
+       "end_date": "2022-11-30T00:00:00Z",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.operator",
+     "pk": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+     "fields": {
+       "company_name": "A.J. August Photography",
+       "website": "august.com",
+       "email": "aj@august.com",
+       "phone_number": "+497221816880",
+       "expiration": "2022-11-30T00:00:00Z",
+       "operator_type": 0,
+       "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "vat_number": "IE5895475T",
+       "insurance_number": null,
+       "company_number": "489434",
+       "country": "NA",
+       "operational_authorizations": [
          "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
-      ],
-      "authorized_activities": [
+       ],
+       "authorized_activities": [
          "26b6a66d-5e77-4a43-94e9-630e141a1087",
          "7a875ff9-79ee-460e-816f-30360e0ac645"
-      ],
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{  
-   "model": "registry.operator",
-   "pk": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
-   "fields": {
-      "company_name": "Electric Inspection",
-      "website": "electricinspection.com",
-      "email": "contact@electricinspection.com",
-      "phone_number":"+9130292487",
-      "operator_type": "0",
-      "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
-      "company_number": "895884",
-      "insurance_number": "985049991",
-      "operational_authorizations": [
+       ]
+     }
+   },
+   {
+     "model": "registry.operator",
+     "pk": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+     "fields": {
+       "company_name": "Electric Inspection",
+       "website": "electricinspection.com",
+       "email": "contact@electricinspection.com",
+       "phone_number": "+9130292487",
+       "expiration": "2022-11-30T00:00:00Z",
+       "operator_type": 0,
+       "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "vat_number": null,
+       "insurance_number": "985049991",
+       "company_number": "895884",
+       "country": "NA",
+       "operational_authorizations": [
          "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
-      ],
-      "authorized_activities": [
+       ],
+       "authorized_activities": [
          "7a875ff9-79ee-460e-816f-30360e0ac645"
-      ],
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
+       ]
+     }
+   },
+   {
+     "model": "registry.contact",
+     "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+     "fields": {
+       "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+       "person": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+       "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+       "role_type": 0,
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.contact",
+     "pk": "c3ae2bb0-19f6-4738-a53b-cdb0acbaf5b1",
+     "fields": {
+       "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+       "person": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+       "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+       "role_type": 1,
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.test",
+     "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
+     "fields": {
+       "test_type": 1,
+       "taken_at": 0,
+       "name": "Advanced RPAS flying in Urban Environments",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.test",
+     "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
+     "fields": {
+       "test_type": 1,
+       "taken_at": 0,
+       "name": "RPAS Safety Basics",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z"
+     }
+   },
+   {
+     "model": "registry.pilot",
+     "pk": "2f15a395-65a3-4a73-a492-57c7c470d527",
+     "fields": {
+       "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+       "person": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+       "photo": "https://i.imgur.com/3j5jWDt.png",
+       "photo_small": "https://i.imgur.com/p9wrHKC.png",
+       "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+       "identification_photo": "https://i.imgur.com/iyabToB.jpg",
+       "identification_photo_small": "https://i.imgur.com/3UAP5w1.jpg",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "is_active": true
+     }
+   },
+   {
+     "model": "registry.pilot",
+     "pk": "d4b8aa2c-0a52-4adc-806a-f363deb6a1e0",
+     "fields": {
+       "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+       "person": "32153c3b-663b-41e4-afc2-47127a713704",
+       "photo": "https://i.imgur.com/3j5jWDt.png",
+       "photo_small": "https://i.imgur.com/p9wrHKC.png",
+       "address": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+       "identification_photo": "https://i.imgur.com/YYc4obB.png",
+       "identification_photo_small": "https://i.imgur.com/Lr4JP7H.png",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "is_active": true
+     }
+   },
+   {
+     "model": "registry.typecertificate",
+     "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+     "fields": {
+       "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
+       "type_certificate_issuing_country": "IRE",
+       "type_certificate_holder": "Agro Products Inc.",
+       "type_certificate_holder_country": "IRE"
+     }
+   },
+   {
+     "model": "registry.manufacturer",
+     "pk": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+     "fields": {
+       "full_name": "Sensefly Drones Inc",
+       "common_name": "Sensefly",
+       "address": null,
+       "acronym": "SF",
+       "role": "Manufacturer",
+       "country": "IRE",
+       "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "created_at": "2021-02-04T09:18:00.473Z",
+       "updated_at": "2021-02-04T09:18:00.493Z"
+     }
+   },
+   {
+     "model": "registry.manufacturer",
+     "pk": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+     "fields": {
+       "full_name": "DJI Holdings Inc",
+       "common_name": "DJI",
+       "address": null,
+       "acronym": "DJI",
+       "role": "Manufacturer",
+       "country": "IRE",
+       "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "created_at": "2021-02-04T09:18:00.473Z",
+       "updated_at": "2021-02-04T09:18:00.493Z"
+     }
+   },
+   {
+     "model": "registry.aircraft",
+     "pk": "0450852f-856e-4ecb-beb6-01ccded8529d",
+     "fields": {
+       "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+       "mass": 700,
+       "is_airworthy": true,
+       "make": "Series 1",
+       "master_series": null,
+       "series": null,
+       "popular_name": null,
+       "manufacturer": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+       "category": 1,
+       "registration_mark": null,
+       "sub_category": 7,
+       "icao_aircraft_type_designator": "STRM",
+       "max_certified_takeoff_weight": "0.000",
+       "max_height_attainable": "0.000",
+       "compatible_payload": null,
+       "commission_date": null,
+       "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+       "model": "eBee",
+       "esn": "5G6532640000000000000000823050083171098833641055",
+       "maci_number": "eb30-4fb4-b12d",
+       "flight_controller_number": "0",
+       "controller_public_key": "0",
+       "operating_frequency": "0.00",
+       "status": 1,
+       "photo": "https://i.imgur.com/d8QP0Ay.png",
+       "photo_small": "https://i.imgur.com/gwV04ms.png",
+       "identification_photo": null,
+       "identification_photo_small": null,
+       "engine": null,
+       "is_registered": false,
+       "fuel_capacity": "0.00",
+       "max_endurance": "0.00",
+       "max_range": "0.00",
+       "max_speed": "0.00",
+       "dimension_length": "0.00",
+       "dimension_breadth": "0.00",
+       "dimension_height": "0.00",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "manufactured_at": null,
+       "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+     }
+   },
+   {
+     "model": "registry.aircraft",
+     "pk": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+     "fields": {
+       "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+       "mass": 300,
+       "is_airworthy": true,
+       "make": "Series 2",
+       "master_series": null,
+       "series": null,
+       "popular_name": "Parrot 2",
+       "manufacturer": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+       "category": 1,
+       "registration_mark": null,
+       "sub_category": 7,
+       "icao_aircraft_type_designator": "HS20",
+       "max_certified_takeoff_weight": "0.000",
+       "max_height_attainable": "0.000",
+       "compatible_payload": null,
+       "commission_date": null,
+       "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+       "model": "Parrot",
+       "esn": "4D4652310000000000000000313233343436373839414243",
+       "maci_number": "86ac-42dc-8d19",
+       "flight_controller_number": "0",
+       "controller_public_key": "0",
+       "operating_frequency": "0.00",
+       "status": 1,
+       "photo": "https://i.imgur.com/qbHNXdQ.jpg",
+       "photo_small": "https://i.imgur.com/DXHpWtK.jpg",
+       "identification_photo": null,
+       "identification_photo_small": null,
+       "engine": null,
+       "is_registered": false,
+       "fuel_capacity": "0.00",
+       "max_endurance": "0.00",
+       "max_range": "0.00",
+       "max_speed": "0.00",
+       "dimension_length": "0.00",
+       "dimension_breadth": "0.00",
+       "dimension_height": "0.00",
+       "created_at": "2018-09-04T12:20:30Z",
+       "updated_at": "2018-09-04T12:20:30Z",
+       "manufactured_at": null,
+       "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+       "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+     }
+   },
+   {
+     "model": "gcs_operations.flightplan",
+     "pk": "f1adc799-6c38-4ebd-a096-254a0539dbef",
+     "fields": {
+       "name": "Flight xbezqg",
+       "details": "test",
+       "start_datetime": "2021-02-04T09:44:51Z",
+       "end_datetime": "2021-02-04T09:44:51Z",
+       "created_at": "2021-02-04T09:44:56.242Z",
+       "updated_at": "2021-02-04T09:44:56.285Z"
+     }
+   },
+   {
+     "model": "gcs_operations.flightoperation",
+     "pk": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+     "fields": {
+       "name": "Flight izxnsg",
+       "drone": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+       "flight_plan": "f1adc799-6c38-4ebd-a096-254a0539dbef",
+       "purpose": "26b6a66d-5e77-4a43-94e9-630e141a1087",
+       "type_of_operation": 0,
+       "flight_termination_or_return_home_capability": true,
+       "geo_fencing_capability": true,
+       "detect_and_avoid_capability": true,
+       "recurring_time_expression": "0 0 0 ? * 1#1 *",
+       "recurring_time_duration": 60,
+       "created_at": "2021-02-04T09:45:22.646Z"
+     }
+   },
+   {
+     "model": "gcs_operations.transaction",
+     "pk": "64d19e27-97f8-4afa-81d8-87c7b4fb7b7f",
+     "fields": {
+       "prefix": "registration",
+       "aircraft": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+       "created_at": "2021-02-08T14:29:34.902Z",
+       "updated_at": "2021-02-08T14:29:34.902Z"
+     }
+   },
+   {
+     "model": "gcs_operations.flightpermission",
+     "pk": "4b994e1e-c737-4135-aeeb-326a95c52cfe",
+     "fields": {
+       "operation": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+       "is_successful": false,
+       "created_at": "2021-02-04T09:45:34.744Z",
+       "updated_at": "2021-02-04T09:45:34.786Z",
+       "artefact": ""
+     }
+   },
+   {
+     "model": "digitalsky_provider.aircraftregister",
+     "pk": "bca026a3-9389-42b7-b452-6f29700cbadd",
+     "fields": {
+       "is_signed": false,
+       "drone": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+       "signature": "",
+       "certificate": "",
+       "created_at": "2021-02-08T13:53:56.135Z",
+       "updated_at": "2021-02-08T13:53:56.160Z"
+     }
    }
-},
-{
-   "model": "registry.person",
-   "pk": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
-   "fields": {
-      "first_name": "Shreyas",
-      "last_name": "More",
-      "email": "shreyasm@gmail.com",
-      "phone_number": "+91416852181",
-      "date_of_birth": "1979-09-12",
-      "social_security_number": "79464412258",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-
-},
-{
-   "model": "registry.person",
-   "pk": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
-   "fields": {
-      "first_name": "Rachana",
-      "middle_name": "S",
-      "last_name": "Dhatri",
-      "email": "rachna@hotmail.com",
-      "phone_number": "+917037380857",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-
-},
-{
-   "model": "registry.person",
-   "pk": "32153c3b-663b-41e4-afc2-47127a713704",
-   "fields": {
-      "email": "niteesh@teleworm.us",
-      "first_name": "Niteesh",
-      "middle_name": "Taral",
-      "last_name": "Pavani",
-      "phone_number": "+9141112232",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-
-{
-   "model": "registry.person",
-   "pk": "5434e29a-d7e6-4462-ab30-73c7a074915c",
-   "fields": {
-      "first_name": "Rakesh",
-      "middle_name": "Kirtikumar",
-      "last_name": "Kankipati",
-      "email": "Rakeshk@posterous.com",
-      "phone_number": "+919122992107",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.contact",
-   "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-   "fields": {
-      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
-      "person": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
-      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-      "role_type": "0",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-
-   }
-},
-{
-   "model": "registry.contact",
-   "pk": "c3ae2bb0-19f6-4738-a53b-cdb0acbaf5b1",
-   "fields": {
-      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
-      "person": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
-      "role_type": "1",
-      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.typecertificate",
-   "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
-   "fields": {
-      "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
-      "type_certificate_issuing_country": "IRE",
-      "type_certificate_holder": "Agro Products Inc.",
-      "type_certificate_holder_country": "IRE"
-   }
-},
-{
-   "model": "registry.manufacturer",
-   "pk": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
-   "fields": {
-      "full_name": "DJI Holdings Inc",
-      "common_name": "DJI",
-      "acronym": "DJI",
-      "role": "Manufacturer",
-      "country": "IRE"
-   }
-},
-{
-   "model": "registry.manufacturer",
-   "pk": "4effcea2-e9d4-4696-891f-52d350d68a9f",
-   "fields": {
-      "full_name": "Sensefly Drones Inc",
-      "common_name": "Sensefly",
-      "acronym": "SF",
-      "role": "Manufacturer",
-      "country": "IRE"
-   }
-},
-{
-   "model": "registry.aircraft",
-   "pk": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
-   "fields": {
-      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
-      "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
-      "mass": "300",
-      "manufacturer": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
-      "make": "Series 2",
-      "popular_name": "Parrot 2",
-      "model": "Parrot",
-      "category": 1,
-      "sub_category": 7,
-      "photo_small":"https://i.imgur.com/DXHpWtK.jpg",
-      "photo":"https://i.imgur.com/qbHNXdQ.jpg",
-      "is_airworthy": 1,
-      "icao_aircraft_type_designator": "HS20",
-      "esn": "4D4652310000000000000000313233343436373839414243",
-      "maci_number": "86ac-42dc-8d19",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.aircraft",
-   "pk": "0450852f-856e-4ecb-beb6-01ccded8529d",
-   "fields": {
-      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
-      "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
-      "mass": "700",
-      "make": "Series 1",
-      "manufacturer": "4effcea2-e9d4-4696-891f-52d350d68a9f",
-      "model": "eBee",
-      "category": 1,
-      "sub_category": 7,
-      "photo_small":"https://i.imgur.com/gwV04ms.png",
-      "photo":"https://i.imgur.com/d8QP0Ay.png",
-      "is_airworthy": 1,
-      "icao_aircraft_type_designator": "STRM",
-      "esn": "5G6532640000000000000000823050083171098833641055",
-      "maci_number": "eb30-4fb4-b12d",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.test",
-   "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
-   "fields": {
-      "test_type": 1,
-      "name": "RPAS Safety Basics",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.test",
-   "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
-   "fields": {
-      "test_type": 1,
-      "name": "Advanced RPAS flying in Urban Environments",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.pilot",
-   "pk": "d4b8aa2c-0a52-4adc-806a-f363deb6a1e0",
-   "fields": {
-      "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
-      "is_active": 1,
-      "person": "32153c3b-663b-41e4-afc2-47127a713704",
-      "photo_small":"https://i.imgur.com/p9wrHKC.png",
-      "photo":"https://i.imgur.com/3j5jWDt.png",
-      "address": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
-      "identification_photo":"https://i.imgur.com/YYc4obB.png",
-      "identification_photo_small":"https://i.imgur.com/Lr4JP7H.png", 
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-},
-{
-   "model": "registry.pilot",
-   "pk": "2f15a395-65a3-4a73-a492-57c7c470d527",
-   "fields": {
-      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
-      "person": "5434e29a-d7e6-4462-ab30-73c7a074915c",
-      "photo_small":"https://i.imgur.com/p9wrHKC.png",
-      "photo":"https://i.imgur.com/3j5jWDt.png",
-      "identification_photo":"https://i.imgur.com/iyabToB.jpg",
-      "identification_photo_small":"https://i.imgur.com/3UAP5w1.jpg", 
-      "is_active": 1,
-      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
-      "created_at": "2018-09-04T13:20:30+01:00",
-      "updated_at": "2018-09-04T13:20:30+01:00"
-   }
-}
-]
+ ]
