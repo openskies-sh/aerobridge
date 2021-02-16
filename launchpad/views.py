@@ -649,7 +649,6 @@ class AircraftRosterCreateView(CreateView):
     
     
     
-    
 ### Manufacturer Views
     
 class EnginesList(APIView):
