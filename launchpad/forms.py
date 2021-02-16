@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from django import forms
@@ -93,3 +93,11 @@ class EngineCreateForm(forms.ModelForm):
         model = Engine
         fields = '__all__'
         
+
+class ActivityCreateForm(forms.ModelForm):
+    class Meta:
+        model = Activity
+        # exclude = ('is_created',)
+        fields = '__all__'
+        
+

@@ -61,6 +61,9 @@ class Activity(models.Model):
     name = models.CharField(max_length=140)
     activity_type = models.IntegerField(choices=ACTIVITYTYPE_CHOICES, default = 0)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
        return self.name
 
@@ -204,6 +207,7 @@ class Manufacturer(models.Model):
     acronym = models.CharField(max_length =10, default = 'NA')
     role = models.CharField(max_length = 140, default = 'NA', help_text="e.g. Reseller, distributor, OEM etc.")
     country = models.CharField(max_length =3, default = 'NA')
+    digital_sky_id = models.CharField(max_length=140, help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
 
     cin_document = models.URLField(help_text ='Link to certificate of Incorporation issued by ROC, MCA', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
     gst_document = models.URLField(help_text='Link to GST certification document', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
@@ -279,6 +283,7 @@ class Aircraft(models.Model):
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True)
     model = models.CharField(max_length = 280)
     esn = models.CharField(max_length = 48, default='000000000000000000000000000000000000000000000000')
+    digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal")
     maci_number = models.CharField(max_length = 200)
     flight_controller_number = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0)
     controller_public_key = models.TextField(help_text= "This is the public key of the RFM used to sign log files", default=0)

@@ -1,0 +1,13 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% load static %}
+{% block content %}
+<h2>Get started with Digital Sky</h2>
+<p>Before you begin with making Digital Sky Commands, you need to have the followng, for more information, see the <a href="https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf">RPAS Guidance Manual</a>:</p>
+<ul>
+    <li>Get a Unique Indentification Number (UIN) for your aircraft, see the <a href="{% static "jetway/images/uin-application.jpg" %}">application flow</a></li>
+    <li>Get a Unmanned Aircraft Renewal permit (UAOP), <a href="{% static "jetway/images/uuaop-application.jpg" %}">application flow</a></li>
+    
+</ul>
+
+{% endblock %}

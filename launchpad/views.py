@@ -1,22 +1,25 @@
 from django.shortcuts import render
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm
 from django.shortcuts import redirect
 
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
 
 class HomeView(TemplateView):
     template_name = 'launchpad/basecamp.html'
+
+class DigitalSkyReadFirst(TemplateView):
+    template_name = 'launchpad/digitalsky_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
@@ -136,8 +139,8 @@ class OperatorCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = OperatorCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            operator = form.save()
+            operator.save()
             
         return redirect('operators-list')
     
@@ -211,6 +214,39 @@ class PilotsCreateView(CreateView):
     
 
 
+### Activites Views
+    
+class ActivitiesList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/activity_list.html'
+
+    def get(self, request):
+        queryset = Activity.objects.all()
+        return Response({'activities': queryset})
+    
+class ActivitiesDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/activity_detail.html'
+
+    def get(self, request, activity_id):
+        activity = get_object_or_404(Activity, pk=activity_id)
+        serializer = ActivitySerializer(activity)
+        return Response({'serializer': serializer, 'activity': activity})
+
+
+class ActivitiesCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': ActivityCreateForm()}
+        return render(request, 'launchpad/activity_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = ActivityCreateForm(request.POST)
+        if form.is_valid():
+            activity = form.save()
+            activity.save()
+            
+        return redirect('activities-list')
+    
 
 ### Aircraft Views
     
@@ -259,8 +295,8 @@ class AircraftCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = OperatorCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            aircraft = form.save()
+            aircraft.save()
             
         return redirect('aircrafts-list')
     
@@ -301,8 +337,8 @@ class ManufacturerCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = ManufacturerCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            manufacturer = form.save()
+            manufacturer.save()
             
         return redirect('manufacturers-list')
     
@@ -342,8 +378,8 @@ class FirmwareCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = FirmwareCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            firmware = form.save()
+            firmware.save()
             
         return redirect('firmwares-list')
     
@@ -383,8 +419,8 @@ class FlightPlanCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = FlightPlanCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            flightplan = form.save()
+            flightplan.save()
             
         return redirect('flightplans-list')
     
@@ -425,8 +461,8 @@ class FlightOperationCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = FlightOperationCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            flightoperation = form.save()
+            flightoperation.save()
             
         return redirect('flightoperations-list')
     
@@ -460,8 +496,8 @@ class FlightPermissionCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = FlightPermissionCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            flightpermission = form.save()
+            flightpermission.save()
             
         return redirect('flightpermissions-list')
     
@@ -523,8 +559,8 @@ class FlightLogCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = FlightLogCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            flightlog = form.save()
+            flightlog.save()
             
         return redirect('flightlogs-list')
     
@@ -560,8 +596,8 @@ class DigitalSkyLogCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = DigitalSkyLogCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            digitskylog = form.save()
+            digitskylog.save()
             
         return redirect('digitalskylogs-list')
     
@@ -593,8 +629,8 @@ class DigitalSkyTransactionCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = DigitalSkyTransactionCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            digitalskytransaction = form.save()
+            digitalskytransaction.save()
             
         return redirect('digitalskytransactions-list')
     
@@ -642,8 +678,8 @@ class AircraftRosterCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = AircraftRosterCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            aircraftroster = form.save()
+            aircraftroster.save()
             
         return redirect('aircraftrosters-list')
     
@@ -684,8 +720,8 @@ class EngineCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         form = EngineCreateForm(request.POST)
         if form.is_valid():
-            address = form.save()
-            address.save()
+            engine = form.save()
+            engine.save()
             
         return redirect('engines-list')
     

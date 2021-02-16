@@ -1,0 +1,14 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+<div>
+    <h2>Activities</h2>
+    <p>A list of all activities in the system, you can assign them to operators</p>
+    <ul>
+        {% for activity in activities %}
+        <li><a href="/launchpad/activities/{{activity.id}}">{{ activity.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ activity.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    <p><a href="/launchpad/activities/new"><b>&#43; Add a activity</b></a></p>
+</div>
+{% endblock %}

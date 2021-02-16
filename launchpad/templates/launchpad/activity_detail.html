@@ -1,0 +1,13 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Activity - {{ activity.name }}</h1>
+
+<form action="{% url 'activities-detail' activity_id=activity.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button type="submit" value="Update">Update</button>
+</form>
+</div>
+{% endblock %}
