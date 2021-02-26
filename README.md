@@ -53,8 +53,8 @@ As of January 2021, Aerobridge provides the following toolset:
 
 ## Test drive
 
-- You can see the API using the API explorer: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
-- To load the database with dummy data for your test-drive you can run the following Python / Django command: `python manage.py loaddata registry/defaultregistrydata.json`, this will populate the database with sample drone operator data.
+- You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
+- Take a look at the backend API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 
 ## LICENSE
 
