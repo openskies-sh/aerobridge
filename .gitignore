@@ -144,3 +144,7 @@ aerobridge.sqlite3
 
 # Pycharm
 .idea/
+
+# Graphviz
+*.dot
+*.png

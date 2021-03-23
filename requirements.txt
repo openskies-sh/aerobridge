@@ -16,3 +16,5 @@ psycopg2-binary
 gunicorn
 python-jose
 django-cors-headers
+django-extensions
+pydot
