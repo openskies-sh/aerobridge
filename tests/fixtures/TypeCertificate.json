@@ -1,0 +1,12 @@
+[
+{
+    "model": "registry.typecertificate",
+    "pk": "01e851f5-43a6-4b27-ac97-4245e16ab834",
+    "fields": {
+        "type_certificate_id": "6253357484755267323927297955655543436522201414397209916821898188338213879379252227085420300836162958",
+        "type_certificate_issuing_country": "Italy",
+        "type_certificate_holder": "Donald Contreras",
+        "type_certificate_holder_country": "Portugal"
+    }
+}
+]

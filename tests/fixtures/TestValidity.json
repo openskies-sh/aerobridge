@@ -1,0 +1,12 @@
+[
+{
+    "model": "registry.testvalidity",
+    "pk": "63335e62-11bb-4690-8991-bd2b6a6f0dc9",
+    "fields": {
+        "test": "da6cdfb5-0672-40e7-af51-7d2211df3e94",
+        "pilot": "bc50da23-a38f-4ac7-b7cf-bff1d056d237",
+        "taken_at": null,
+        "expiration": null
+    }
+}
+]

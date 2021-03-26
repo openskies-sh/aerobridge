@@ -1,0 +1,27 @@
+[
+{
+    "model": "registry.operator",
+    "pk": "712b0506-8b1d-4381-b9bc-a476aea0425f",
+    "fields": {
+        "company_name": "Lynch-Drake",
+        "website": "http://www.robinson-robinson.org/",
+        "email": "<bound method Provider.company_email of <faker.providers.internet.en_US.Provider object at 0x7efc5771b4c0>>",
+        "phone_number": "+568030917",
+        "expiration": "2023-03-26T00:00:00Z",
+        "operator_type": 3,
+        "address": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
+        "created_at": "2021-03-26T20:50:45.140Z",
+        "updated_at": "2021-03-26T20:50:45.140Z",
+        "vat_number": "+5258101919102304167739463",
+        "insurance_number": "+8661924052477284283509625",
+        "company_number": "CO-212",
+        "country": "VA",
+        "operational_authorizations": [
+            "431934c5-7817-412f-b630-e026b7135a99"
+        ],
+        "authorized_activities": [
+            "c93134c8-123f-4ede-ada5-db8fe083fad5"
+        ]
+    }
+}
+]

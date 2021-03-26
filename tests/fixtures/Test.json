@@ -1,0 +1,13 @@
+[
+{
+    "model": "registry.test",
+    "pk": "da6cdfb5-0672-40e7-af51-7d2211df3e94",
+    "fields": {
+        "test_type": 2,
+        "taken_at": 1,
+        "name": "Laura Hanson",
+        "created_at": "2021-03-26T20:50:45.153Z",
+        "updated_at": "2021-03-26T20:50:45.153Z"
+    }
+}
+]
