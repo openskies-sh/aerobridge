@@ -159,7 +159,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__"
+CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
