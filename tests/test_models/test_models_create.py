@@ -1,5 +1,6 @@
 from django.utils import timezone
 
+from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog, UINApplication
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
@@ -8,13 +9,23 @@ from .test_setup import TestModels
 
 class TestModelsCreate(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
-                'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft']
+                'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction']
 
-    def notest_digitalsky_provider_digitalsky_log_create(self):
-        pass
+    def test_digitalsky_provider_digitalsky_log_create(self):
+        digitalsky_log = DigitalSkyLog(txn=Transaction.objects.first(), response_code=self.faker.numerify('###'),
+                                       response=self.faker.sentence(), timestamp=timezone.now())
+        self.assertNotIn(digitalsky_log, DigitalSkyLog.objects.all())
+        digitalsky_log.save()
+        self.assertIn(digitalsky_log, DigitalSkyLog.objects.all())
+        self.assertEqual(digitalsky_log.txn, Transaction.objects.first())
 
-    def notest_digitalsky_provider_aircraft_register_create(self):
-        pass
+    def test_digitalsky_provider_aircraft_register_create(self):
+        aircraft_register = AircraftRegister(is_signed=True, drone=Aircraft.objects.first(),
+                                             signature=self.faker.text(), certificate=self.faker.text())
+        self.assertNotIn(aircraft_register, AircraftRegister.objects.all())
+        aircraft_register.save()
+        self.assertIn(aircraft_register, AircraftRegister.objects.all())
+        self.assertEqual(aircraft_register.drone, Aircraft.objects.first())
 
     def test_gcs_operations_flight_plan_create(self):
         flight_plan = FlightPlan(name=self.faker.word(), details=self.faker.sentence(), start_datetime=timezone.now(),
