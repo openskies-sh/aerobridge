@@ -1,5 +1,6 @@
-from datetime import datetime
+from django.utils import timezone
 
+from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog, UINApplication
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
 from .test_setup import TestModels
@@ -7,7 +8,7 @@ from .test_setup import TestModels
 
 class TestModelsCreate(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
-                'TypeCertificate', 'Pilot']
+                'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft']
 
     def notest_digitalsky_provider_digitalsky_log_create(self):
         pass
@@ -15,23 +16,63 @@ class TestModelsCreate(TestModels):
     def notest_digitalsky_provider_aircraft_register_create(self):
         pass
 
-    def notest_gcs_operations_flight_plan_create(self):
-        pass
+    def test_gcs_operations_flight_plan_create(self):
+        flight_plan = FlightPlan(name=self.faker.word(), details=self.faker.sentence(), start_datetime=timezone.now(),
+                                 end_datetime=timezone.now() + timezone.timedelta(minutes=30))
+        self.assertNotIn(flight_plan, FlightPlan.objects.all())
+        flight_plan.save()
+        self.assertIn(flight_plan, FlightPlan.objects.all())
 
-    def notest_gcs_operations_flight_operation_create(self):
-        pass
+    def test_gcs_operations_flight_operation_create(self):
+        flight_operation = FlightOperation(name=self.faker.word(), drone=Aircraft.objects.first(),
+                                           flight_plan=FlightPlan.objects.first(), purpose=Activity.objects.first(),
+                                           type_of_operation=self.faker.pyint(min_value=0, max_value=len(
+                                               FlightOperation.OPERATION_TYPES) - 1),
+                                           flight_termination_or_return_home_capability=True,
+                                           geo_fencing_capability=True, detect_and_avoid_capability=True)
+        self.assertNotIn(flight_operation, FlightOperation.objects.all())
+        flight_operation.save()
+        self.assertIn(flight_operation, FlightOperation.objects.all())
+        self.assertEqual(flight_operation.drone, Aircraft.objects.first())
+        self.assertEqual(flight_operation.flight_plan, FlightPlan.objects.first())
+        self.assertEqual(flight_operation.purpose, Activity.objects.first())
 
-    def notest_gcs_operations_transaction_create(self):
-        pass
+    def test_gcs_operations_transaction_create(self):
+        transaction = Transaction(prefix=self.faker.word(), aircraft=Aircraft.objects.first())
+        self.assertNotIn(transaction, Transaction.objects.all())
+        transaction.save()
+        self.assertIn(transaction, Transaction.objects.all())
+        self.assertEqual(transaction.aircraft, Aircraft.objects.first())
 
-    def notest_gcs_operations_flight_permission_create(self):
-        pass
+    def test_gcs_operations_flight_permission_create(self):
+        flight_permission = FlightPermission(operation=FlightOperation.objects.first(), is_successful=True,
+                                             artefact=self.faker.text())
+        self.assertNotIn(flight_permission, FlightPermission.objects.all())
+        flight_permission.save()
+        self.assertIn(flight_permission, FlightPermission.objects.all())
+        self.assertEqual(flight_permission.operation, FlightOperation.objects.first())
 
-    def notest_gcs_operations_flight_log_create(self):
-        pass
+    def test_gcs_operations_flight_log_create(self):
+        flight_log = FlightLog(operation=FlightOperation.objects.first(), signed_log=self.faker.uri_path(),
+                               raw_log=self.faker.uri_path(), is_submitted=True)
+        self.assertNotIn(flight_log, FlightLog.objects.all())
+        flight_log.save()
+        self.assertIn(flight_log, FlightLog.objects.all())
+        self.assertEqual(flight_log.operation, FlightOperation.objects.first())
 
-    def notest_gcs_operations_uin_application_create(self):
-        pass
+    def test_gcs_operations_uin_application_create(self):
+        uin_application = UINApplication(fee_details=self.faker.word(), drone=Aircraft.objects.first(),
+                                         operator=Operator.objects.first(), import_permission=self.faker.uri(),
+                                         cin=self.faker.uri(), gst_in=self.faker.uri(), pan_card=self.faker.uri(),
+                                         dot_permission=self.faker.uri(), security_clearance=self.faker.uri(),
+                                         eta=self.faker.uri(), op_manual=self.faker.uri(),
+                                         maintainence_guidelines=self.faker.uri(),
+                                         counter=self.faker.pyint(min_value=0, max_value=50))
+        self.assertNotIn(uin_application, UINApplication.objects.all())
+        uin_application.save()
+        self.assertIn(uin_application, UINApplication.objects.all())
+        self.assertEqual(uin_application.operator, Operator.objects.first())
+        self.assertEqual(uin_application.drone, Aircraft.objects.first())
 
     def test_registry_person_create(self):
         person = Person(first_name=self.faker.first_name(), last_name=self.faker.last_name(), email=self.faker.email(),
@@ -181,7 +222,7 @@ class TestModelsCreate(TestModels):
                             max_certified_takeoff_weight=self.faker.pyfloat(min_value=0, max_value=50.00,
                                                                             right_digits=2),
                             max_height_attainable=self.faker.pyfloat(min_value=0, max_value=160.00, right_digits=2),
-                            compatible_payload=self.faker.text(max_nb_chars=20), commission_date=datetime.utcnow(),
+                            compatible_payload=self.faker.text(max_nb_chars=20), commission_date=timezone.now(),
                             type_certificate=TypeCertificate.objects.first(), model=self.faker.text(),
                             esn=self.faker.numerify('#' * 20), digital_sky_uin_number=self.faker.numerify('#' * 30),
                             maci_number=self.faker.mac_address(),
@@ -199,7 +240,7 @@ class TestModelsCreate(TestModels):
                             dimension_length=self.faker.pyfloat(min_value=0, max_value=200.00, right_digits=2),
                             dimension_breadth=self.faker.pyfloat(min_value=0, max_value=200.00, right_digits=2),
                             dimension_height=self.faker.pyfloat(min_value=0, max_value=20.00, right_digits=2),
-                            manufactured_at=datetime.utcnow(), dot_permission_document=self.faker.uri(),
+                            manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
                             operataions_manual_document=self.faker.uri()
                             )
         self.assertNotIn(aircraft, Aircraft.objects.all())
