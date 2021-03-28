@@ -5,8 +5,8 @@
     "fields": {
         "test": "da6cdfb5-0672-40e7-af51-7d2211df3e94",
         "pilot": "bc50da23-a38f-4ac7-b7cf-bff1d056d237",
-        "taken_at": null,
-        "expiration": null
+        "taken_at": "2021-03-26T20:50:46.960Z",
+        "expiration": "2026-03-25T20:50:46.960Z"
     }
 }
 ]

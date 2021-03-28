@@ -132,8 +132,8 @@ class TestModelsCreate(TestModels):
                             phone_number=self.faker.numerify('+' + '#' * 9),
                             operator_type=self.faker.pyint(min_value=0, max_value=len(
                                 Operator.OPTYPE_CHOICES) - 1), address=Address.objects.first(),
-                            vat_number=self.faker.numerify('+' + '#' * 25),
-                            insurance_number=self.faker.numerify('+' + '#' * 25), country='IN')
+                            vat_number=self.faker.numerify('+' + '#' * 24),
+                            insurance_number=self.faker.numerify('+' + '#' * 24), country='IN')
         self.assertNotIn(operator, Operator.objects.all())
         operator.save()
         self.assertIn(operator, Operator.objects.all())
@@ -148,7 +148,7 @@ class TestModelsCreate(TestModels):
     def test_registry_contact_create(self):
         contact = Contact(operator=Operator.objects.first(), person=Person.objects.first(),
                           address=Address.objects.first(),
-                          role_type=self.faker.pyint(min_value=0, max_value=len(Operator.OPTYPE_CHOICES) - 1))
+                          role_type=self.faker.pyint(min_value=0, max_value=len(Contact.ROLE_CHOICES) - 1))
         self.assertNotIn(contact, Contact.objects.all())
         contact.save()
         self.assertIn(contact, Contact.objects.all())
@@ -179,7 +179,9 @@ class TestModelsCreate(TestModels):
         self.assertIn(Test.objects.first(), pilot.tests.all())
 
     def test_registry_testValidity_create(self):
-        test_validity = TestValidity(test=Test.objects.first(), pilot=Pilot.objects.first())
+        test_validity = TestValidity(test=Test.objects.first(), pilot=Pilot.objects.first(), taken_at=timezone.now(),
+                                     expiration=timezone.now() + timezone.timedelta(days=365 * 5))
+
         self.assertNotIn(test_validity, TestValidity.objects.all())
         test_validity.save()
         self.assertIn(test_validity, TestValidity.objects.all())
