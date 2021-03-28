@@ -1,6 +1,7 @@
 import json
 import os
 
+from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 from gcs_operations.serializers import FirmwareSerializer, UINApplicationSerializer, FlightPlanSerializer, \
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
@@ -8,14 +9,14 @@ from launchpad.serializers import ActivitySerializer, EngineSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
     TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
-    AircraftSigningSerializer
+    AircraftSigningSerializer, PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftDetailSerializer
 from .test_setup import TestModels
 
 
 class TestModelSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
-                'FlightPlan', 'Engine', 'TypeCertificate', 'FlightOperation']
+                'FlightPlan', 'Engine', 'TypeCertificate', 'FlightOperation', 'Transaction']
 
     def _get_data_for_model(self, model_name):
         filepath = '%s%s.json' % (self.data_path, model_name)
@@ -25,11 +26,19 @@ class TestModelSerializers(TestModels):
         else:
             raise AssertionError("File %s.json does not exists in fixtures" % model_name)
 
-    def notest_digitalsky_provider_digitalsky_log_serializer(self):
-        pass
+    def test_digitalsky_provider_digitalsky_log_serializer(self):
+        data = self._get_data_for_model('DigitalSkyLog')
+        digitalsky_log_serializer = DigitalSkyLogSerializer(data=data)
+        self.assertTrue(digitalsky_log_serializer.is_valid())
+        self.assertNotEqual(digitalsky_log_serializer.validated_data, dict)
+        self.assertEqual(digitalsky_log_serializer.errors, dict())
 
-    def notest_digitalsky_provider_aircraft_register_serializer(self):
-        pass
+    def test_digitalsky_provider_aircraft_register_serializer(self):
+        data = self._get_data_for_model('AircraftRegister')
+        aircraft_register_serializer = AircraftRegisterSerializer(data=data)
+        self.assertTrue(aircraft_register_serializer.is_valid())
+        self.assertNotEqual(aircraft_register_serializer.validated_data, dict)
+        self.assertEqual(aircraft_register_serializer.errors, dict())
 
     def test_gcs_operations_flight_plan_serializer(self):
         data = self._get_data_for_model('FlightPlan')
@@ -122,6 +131,20 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(operator_serializer.validated_data, dict)
         self.assertEqual(operator_serializer.errors, dict())
 
+    def test_registry_privileged_operator_serializer(self):
+        data = self._get_data_for_model('Operator')
+        privileged_operator_serializer = PrivilegedOperatorSerializer(data=data)
+        self.assertTrue(privileged_operator_serializer.is_valid())
+        self.assertNotEqual(privileged_operator_serializer.validated_data, dict)
+        self.assertEqual(privileged_operator_serializer.errors, dict())
+
+    def test_registry_operator_select_related_serializer(self):
+        data = self._get_data_for_model('Operator')
+        operator_select_related_serializer = OperatorSelectRelatedSerializer(data=data)
+        self.assertTrue(operator_select_related_serializer.is_valid())
+        self.assertNotEqual(operator_select_related_serializer.validated_data, dict)
+        self.assertEqual(operator_select_related_serializer.errors, dict())
+
     def test_registry_contact_serializer(self):
         data = self._get_data_for_model('Contact')
         contact_serializer = ContactSerializer(data=data)
@@ -205,3 +228,10 @@ class TestModelSerializers(TestModels):
         self.assertTrue(aircraft_signing_serializer.is_valid())
         self.assertNotEqual(aircraft_signing_serializer.validated_data, dict)
         self.assertEqual(aircraft_signing_serializer.errors, dict())
+
+    def test_registry_aircraft_detail_serializer(self):
+        data = self._get_data_for_model('Aircraft')
+        aircraft_detail_serializer = AircraftDetailSerializer(data=data)
+        self.assertTrue(aircraft_detail_serializer.is_valid())
+        self.assertNotEqual(aircraft_detail_serializer.validated_data, dict)
+        self.assertEqual(aircraft_detail_serializer.errors, dict())
