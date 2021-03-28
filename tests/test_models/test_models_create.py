@@ -98,7 +98,7 @@ class TestModelsCreate(TestModels):
         fake_address = self.faker.address().split('\n')
         address = Address(address_line_1=fake_address[0], address_line_2=fake_address[1],
                           postcode=self.faker.postcode(), city=self.faker.city(), state=self.faker.state(),
-                          country=self.faker.country_code())
+                          country='IN')
         self.assertNotIn(address, Address.objects.all())
         address.save()
         self.assertIn(address, Address.objects.all())
@@ -133,8 +133,7 @@ class TestModelsCreate(TestModels):
                             operator_type=self.faker.pyint(min_value=0, max_value=len(
                                 Operator.OPTYPE_CHOICES) - 1), address=Address.objects.first(),
                             vat_number=self.faker.numerify('+' + '#' * 25),
-                            insurance_number=self.faker.numerify('+' + '#' * 25),
-                            country=self.faker.country_code())
+                            insurance_number=self.faker.numerify('+' + '#' * 25), country='IN')
         self.assertNotIn(operator, Operator.objects.all())
         operator.save()
         self.assertIn(operator, Operator.objects.all())
