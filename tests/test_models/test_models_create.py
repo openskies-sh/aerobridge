@@ -28,7 +28,7 @@ class TestModelsCreate(TestModels):
         self.assertEqual(aircraft_register.drone, Aircraft.objects.first())
 
     def test_gcs_operations_flight_plan_create(self):
-        flight_plan = FlightPlan(name=self.faker.word(), details=self.faker.sentence(), start_datetime=timezone.now(),
+        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.sentence(), start_datetime=timezone.now(),
                                  end_datetime=timezone.now() + timezone.timedelta(minutes=30))
         self.assertNotIn(flight_plan, FlightPlan.objects.all())
         flight_plan.save()
