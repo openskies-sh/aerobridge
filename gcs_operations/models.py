@@ -3,12 +3,9 @@ import uuid
 # Create your models here.
 from datetime import date
 from datetime import datetime
-from datetime import timezone
-from dateutil.relativedelta import relativedelta
 from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
-from django.utils import timezone as tz
 from registry.models import Aircraft, Operator,Activity
 
 def make_random_plan_common_name():
@@ -17,13 +14,12 @@ def make_random_plan_common_name():
     result_str = ''.join(random.choice(letters) for i in range(length))
     return  "Flight " + result_str
 
-
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default=  make_random_plan_common_name)
-    details = models.TextField(null=True, help_text="Paste flight plan geometry")
+    geo_json = models.TextField(null=True, help_text="Paste flight plan geometry")
     start_datetime = models.DateTimeField(default=datetime.now)
     end_datetime = models.DateTimeField(default=datetime.now)
     
@@ -35,7 +31,6 @@ class FlightPlan(models.Model):
 
     def __str__(self):
         return self.name 
-
 
     
 class FlightOperation(models.Model):
