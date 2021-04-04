@@ -1,71 +1,53 @@
-import datetime
-import json
 
-from datetime import datetime
-from django.core.exceptions import PermissionDenied
-from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
-from django.utils import translation
-from django.views.generic import TemplateView
-from rest_framework import generics, mixins, status, viewsets
-from rest_framework.authentication import (SessionAuthentication,
-                                           TokenAuthentication)
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import generics, mixins
 
 from .models import DigitalSkyCredentials
-from .serializers import (DigitalSkyCredentialsSerializer)
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
-
-
-
-from django.conf import settings
+from .serializers import (DigitalSkyCredentialsSerializer,DigitalSkyCredentialsGetSerializer)
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes
 from . import encrpytion_util
-
+from .forms import TokenCreateForm
 # Create your views here.
-
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class DigitalSkyCredentialsList(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                    generics.GenericAPIView):
     """
-    List all operators, or create a new operator.
+    List all tokens, or create a new token.
     """
 
     queryset = DigitalSkyCredentials.objects.all()
     serializer_class = DigitalSkyCredentialsSerializer
+    form_class = TokenCreateForm
+
+    def form_valid(self, form):
+        token = form.instance.token
+        form.instance.token = encrpytion_util.encrypt(token)
+        return super(DigitalSkyCredentialsList, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-
-
-
+        
+        
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class DigitalSkyCredentialsDetail(mixins.RetrieveModelMixin,
-                     mixins.CreateModelMixin,
-                               generics.GenericAPIView):
+                     mixins.DestroyModelMixin,
+                     generics.GenericAPIView):
     """
-    Retrieve, update or delete a Operator instance.
+    Update or delete a token instance.
     """
 
     queryset = DigitalSkyCredentials.objects.all()
-    serializer_class = DigitalSkyCredentialsSerializer
+    serializer_class = DigitalSkyCredentialsGetSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
 
-
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
