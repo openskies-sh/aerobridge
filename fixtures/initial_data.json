@@ -1,0 +1,577 @@
+[ {
+    "model": "registry.person",
+    "pk": "32153c3b-663b-41e4-afc2-47127a713704",
+    "fields": {
+        "first_name": "Niteesh",
+        "middle_name": "Taral",
+        "last_name": "Pavani",
+        "email": "niteesh@teleworm.us",
+        "phone_number": "+9141112232",
+        "identification_number": null,
+        "social_security_number": null,
+        "date_of_birth": null,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.person",
+    "pk": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+    "fields": {
+        "first_name": "Rakesh",
+        "middle_name": "Kirtikumar",
+        "last_name": "Kankipati",
+        "email": "Rakeshk@posterous.com",
+        "phone_number": "+919122992107",
+        "identification_number": null,
+        "social_security_number": null,
+        "date_of_birth": null,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.person",
+    "pk": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+    "fields": {
+        "first_name": "Rachana",
+        "middle_name": "S",
+        "last_name": "Dhatri",
+        "email": "rachna@hotmail.com",
+        "phone_number": "+917037380857",
+        "identification_number": null,
+        "social_security_number": null,
+        "date_of_birth": null,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.person",
+    "pk": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+    "fields": {
+        "first_name": "Shreyas",
+        "middle_name": null,
+        "last_name": "More",
+        "email": "shreyasm@gmail.com",
+        "phone_number": "+91416852181",
+        "identification_number": null,
+        "social_security_number": "79464412258",
+        "date_of_birth": "1979-09-12",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.address",
+    "pk": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+    "fields": {
+        "address_line_1": "11, Teena Society",
+        "address_line_2": "Ganesh Chowk",
+        "address_line_3": "",
+        "postcode": "175575",
+        "city": "Ajmer",
+        "state": null,
+        "country": "IN",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.address",
+    "pk": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+    "fields": {
+        "address_line_1": "36, Aarif Society, Jagrutipur",
+        "address_line_2": "",
+        "address_line_3": "",
+        "postcode": "570171",
+        "city": "Pondicherry",
+        "state": null,
+        "country": "IN",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.address",
+    "pk": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+    "fields": {
+        "address_line_1": "81, Madhavi Society,",
+        "address_line_2": "",
+        "address_line_3": "Jamnagar",
+        "postcode": "260699",
+        "city": "Prabhapur",
+        "state": null,
+        "country": "IN",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.address",
+    "pk": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+    "fields": {
+        "address_line_1": "185-186/1, Narendra Singh Marg",
+        "address_line_2": "",
+        "address_line_3": "",
+        "postcode": "595974",
+        "city": "Simla",
+        "state": null,
+        "country": "IN",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.address",
+    "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+    "fields": {
+        "address_line_1": "85, Vijay Apartments",
+        "address_line_2": "",
+        "address_line_3": "",
+        "postcode": "290580",
+        "city": "Gurgaon",
+        "state": null,
+        "country": "IN",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.activity",
+    "pk": "26b6a66d-5e77-4a43-94e9-630e141a1087",
+    "fields": {
+        "name": "videotaping",
+        "activity_type": 0,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.activity",
+    "pk": "7a875ff9-79ee-460e-816f-30360e0ac645",
+    "fields": {
+        "name": "photographing",
+        "activity_type": 0,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.authorization",
+    "pk": "6be25abc-a43d-44d2-9c16-b8dee47bb64d",
+    "fields": {
+        "title": "SORA V2",
+        "operation_max_height": 200,
+        "operation_altitude_system": 0,
+        "airspace_type": 2,
+        "permit_to_fly_above_crowd": false,
+        "operation_area_type": 1,
+        "risk_type": 6,
+        "authorization_type": 1,
+        "end_date": "2022-11-30T00:00:00Z",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.authorization",
+    "pk": "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da",
+    "fields": {
+        "title": "SORA",
+        "operation_max_height": 100,
+        "operation_altitude_system": 0,
+        "airspace_type": 1,
+        "permit_to_fly_above_crowd": true,
+        "operation_area_type": 1,
+        "risk_type": 1,
+        "authorization_type": 1,
+        "end_date": "2022-11-30T00:00:00Z",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.operator",
+    "pk": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+    "fields": {
+        "company_name": "A.J. August Photography",
+        "website": "august.com",
+        "email": "aj@august.com",
+        "phone_number": "+497221816880",
+        "expiration": "2022-11-30T00:00:00Z",
+        "operator_type": 0,
+        "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "vat_number": "IE5895475T",
+        "insurance_number": null,
+        "company_number": "489434",
+        "country": "NA",
+        "operational_authorizations": ["e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"],
+        "authorized_activities": ["26b6a66d-5e77-4a43-94e9-630e141a1087", "7a875ff9-79ee-460e-816f-30360e0ac645"]
+    }
+}, {
+    "model": "registry.operator",
+    "pk": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+    "fields": {
+        "company_name": "Electric Inspection",
+        "website": "electricinspection.com",
+        "email": "contact@electricinspection.com",
+        "phone_number": "+9130292487",
+        "expiration": "2022-11-30T00:00:00Z",
+        "operator_type": 0,
+        "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "vat_number": null,
+        "insurance_number": "985049991",
+        "company_number": "895884",
+        "country": "NA",
+        "operational_authorizations": ["6be25abc-a43d-44d2-9c16-b8dee47bb64d"],
+        "authorized_activities": ["7a875ff9-79ee-460e-816f-30360e0ac645"]
+    }
+}, {
+    "model": "registry.contact",
+    "pk": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+    "fields": {
+        "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+        "person": "e61a74c8-7aa4-4dd3-82ba-11b174a44870",
+        "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+        "role_type": 0,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.contact",
+    "pk": "c3ae2bb0-19f6-4738-a53b-cdb0acbaf5b1",
+    "fields": {
+        "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+        "person": "a2f3b8b2-183d-44df-9254-83aca26d01c0",
+        "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+        "role_type": 1,
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.test",
+    "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
+    "fields": {
+        "test_type": 1,
+        "taken_at": 0,
+        "name": "Advanced RPAS flying in Urban Environments",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.test",
+    "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
+    "fields": {
+        "test_type": 1,
+        "taken_at": 0,
+        "name": "RPAS Safety Basics",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z"
+    }
+}, {
+    "model": "registry.pilot",
+    "pk": "2f15a395-65a3-4a73-a492-57c7c470d527",
+    "fields": {
+        "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+        "person": "5434e29a-d7e6-4462-ab30-73c7a074915c",
+        "photo": "https://i.imgur.com/3j5jWDt.png",
+        "photo_small": "https://i.imgur.com/p9wrHKC.png",
+        "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
+        "identification_photo": "https://i.imgur.com/iyabToB.jpg",
+        "identification_photo_small": "https://i.imgur.com/3UAP5w1.jpg",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "is_active": true
+    }
+}, {
+    "model": "registry.pilot",
+    "pk": "d4b8aa2c-0a52-4adc-806a-f363deb6a1e0",
+    "fields": {
+        "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+        "person": "32153c3b-663b-41e4-afc2-47127a713704",
+        "photo": "https://i.imgur.com/3j5jWDt.png",
+        "photo_small": "https://i.imgur.com/p9wrHKC.png",
+        "address": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
+        "identification_photo": "https://i.imgur.com/YYc4obB.png",
+        "identification_photo_small": "https://i.imgur.com/Lr4JP7H.png",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "is_active": true
+    }
+}, {
+    "model": "registry.typecertificate",
+    "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+    "fields": {
+        "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
+        "type_certificate_issuing_country": "IRE",
+        "type_certificate_holder": "Agro Products Inc.",
+        "type_certificate_holder_country": "IRE"
+    }
+}, {
+    "model": "registry.manufacturer",
+    "pk": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+    "fields": {
+        "full_name": "Sensefly Drones Inc",
+        "common_name": "Sensefly",
+        "address": null,
+        "acronym": "SF",
+        "role": "Manufacturer",
+        "country": "IRE",
+        "digital_sky_id": "",
+        "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "created_at": "2021-02-04T09:18:00.473Z",
+        "updated_at": "2021-02-04T09:18:00.493Z"
+    }
+}, {
+    "model": "registry.manufacturer",
+    "pk": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+    "fields": {
+        "full_name": "DJI Holdings Inc",
+        "common_name": "DJI",
+        "address": null,
+        "acronym": "DJI",
+        "role": "Manufacturer",
+        "country": "IRE",
+        "digital_sky_id": "",
+        "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "created_at": "2021-02-04T09:18:00.473Z",
+        "updated_at": "2021-02-04T09:18:00.493Z"
+    }
+}, {
+    "model": "registry.aircraft",
+    "pk": "0450852f-856e-4ecb-beb6-01ccded8529d",
+    "fields": {
+        "operator": "566d63bb-cb1c-42dc-9a51-baef0d0a8d04",
+        "mass": 700,
+        "is_airworthy": true,
+        "make": "Series 1",
+        "master_series": null,
+        "series": null,
+        "popular_name": null,
+        "manufacturer": "4effcea2-e9d4-4696-891f-52d350d68a9f",
+        "category": 1,
+        "registration_mark": null,
+        "sub_category": 7,
+        "icao_aircraft_type_designator": "STRM",
+        "max_certified_takeoff_weight": "0.000",
+        "max_height_attainable": "0.000",
+        "compatible_payload": null,
+        "commission_date": null,
+        "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+        "model": "eBee",
+        "esn": "5G6532640000000000000000823050083171098833641055",
+        "digital_sky_uin_number": "",
+        "maci_number": "eb30-4fb4-b12d",
+        "flight_controller_number": "0",
+        "controller_public_key": "0",
+        "operating_frequency": "0.00",
+        "status": 1,
+        "photo": "https://i.imgur.com/d8QP0Ay.png",
+        "photo_small": "https://i.imgur.com/gwV04ms.png",
+        "identification_photo": null,
+        "identification_photo_small": null,
+        "engine": null,
+        "is_registered": false,
+        "fuel_capacity": "0.00",
+        "max_endurance": "0.00",
+        "max_range": "0.00",
+        "max_speed": "0.00",
+        "dimension_length": "0.00",
+        "dimension_breadth": "0.00",
+        "dimension_height": "0.00",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "manufactured_at": null,
+        "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+    }
+}, {
+    "model": "registry.aircraft",
+    "pk": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+    "fields": {
+        "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+        "mass": 300,
+        "is_airworthy": true,
+        "make": "Series 2",
+        "master_series": null,
+        "series": null,
+        "popular_name": "Parrot 2",
+        "manufacturer": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
+        "category": 1,
+        "registration_mark": null,
+        "sub_category": 7,
+        "icao_aircraft_type_designator": "HS20",
+        "max_certified_takeoff_weight": "0.000",
+        "max_height_attainable": "0.000",
+        "compatible_payload": null,
+        "commission_date": null,
+        "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+        "model": "Parrot",
+        "esn": "4D4652310000000000000000313233343436373839414243",
+        "digital_sky_uin_number": "",
+        "maci_number": "86ac-42dc-8d19",
+        "flight_controller_number": "0",
+        "controller_public_key": "0",
+        "operating_frequency": "0.00",
+        "status": 1,
+        "photo": "https://i.imgur.com/qbHNXdQ.jpg",
+        "photo_small": "https://i.imgur.com/DXHpWtK.jpg",
+        "identification_photo": null,
+        "identification_photo_small": null,
+        "engine": null,
+        "is_registered": false,
+        "fuel_capacity": "0.00",
+        "max_endurance": "0.00",
+        "max_range": "0.00",
+        "max_speed": "0.00",
+        "dimension_length": "0.00",
+        "dimension_breadth": "0.00",
+        "dimension_height": "0.00",
+        "created_at": "2018-09-04T12:20:30Z",
+        "updated_at": "2018-09-04T12:20:30Z",
+        "manufactured_at": null,
+        "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+        "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+    }
+}, {
+    "model": "gcs_operations.flightplan",
+    "pk": "12818e87-4c96-4e4c-8c63-82b8e12c3b73",
+    "fields": {
+        "name": "Flight uqjscr",
+        "details": "sdfsfsdf",
+        "start_datetime": "2021-04-07T06:38:44Z",
+        "end_datetime": "2021-04-07T06:38:44Z",
+        "created_at": "2021-04-07T06:38:47.418Z",
+        "updated_at": "2021-04-07T06:38:47.429Z"
+    }
+}, {
+    "model": "gcs_operations.flightplan",
+    "pk": "b4951f06-5ef2-44bc-85e4-6a5722b789b3",
+    "fields": {
+        "name": "Flight uqjscr",
+        "details": "sdfsfsdf",
+        "start_datetime": "2021-04-07T06:38:44Z",
+        "end_datetime": "2021-04-07T06:38:44Z",
+        "created_at": "2021-04-07T06:38:47.913Z",
+        "updated_at": "2021-04-07T06:38:47.916Z"
+    }
+}, {
+    "model": "gcs_operations.flightplan",
+    "pk": "f1adc799-6c38-4ebd-a096-254a0539dbef",
+    "fields": {
+        "name": "Flight xbezqg",
+        "details": "test",
+        "start_datetime": "2021-02-04T09:44:51Z",
+        "end_datetime": "2021-02-04T09:44:51Z",
+        "created_at": "2021-02-04T09:44:56.242Z",
+        "updated_at": "2021-03-15T05:30:35.281Z"
+    }
+}, {
+    "model": "gcs_operations.flightoperation",
+    "pk": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+    "fields": {
+        "name": "Flight izxnsg",
+        "drone": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+        "flight_plan": "f1adc799-6c38-4ebd-a096-254a0539dbef",
+        "purpose": "26b6a66d-5e77-4a43-94e9-630e141a1087",
+        "type_of_operation": 0,
+        "flight_termination_or_return_home_capability": true,
+        "geo_fencing_capability": true,
+        "detect_and_avoid_capability": true,
+        "recurring_time_expression": "0 0 0 ? * 1#1 *",
+        "recurring_time_duration": 60,
+        "created_at": "2021-02-04T09:45:22.646Z"
+    }
+}, {
+    "model": "gcs_operations.transaction",
+    "pk": "5cf9e532-5b18-4dc6-934d-a53173504597",
+    "fields": {
+        "prefix": "registration",
+        "aircraft": "0450852f-856e-4ecb-beb6-01ccded8529d",
+        "created_at": "2021-02-16T14:18:01.054Z",
+        "updated_at": "2021-02-16T14:18:01.054Z"
+    }
+}, {
+    "model": "gcs_operations.transaction",
+    "pk": "64d19e27-97f8-4afa-81d8-87c7b4fb7b7f",
+    "fields": {
+        "prefix": "registration",
+        "aircraft": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+        "created_at": "2021-02-08T14:29:34.902Z",
+        "updated_at": "2021-02-08T14:29:34.902Z"
+    }
+}, {
+    "model": "gcs_operations.flightpermission",
+    "pk": "24e507ad-b653-4777-acaf-e0f773db04e4",
+    "fields": {
+        "operation": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+        "is_successful": false,
+        "created_at": "2021-03-11T05:18:58.761Z",
+        "updated_at": "2021-03-11T05:18:58.765Z",
+        "artefact": ""
+    }
+}, {
+    "model": "gcs_operations.flightpermission",
+    "pk": "275ebec6-3311-4a53-8169-09a6b063e498",
+    "fields": {
+        "operation": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+        "is_successful": false,
+        "created_at": "2021-03-08T04:31:07.345Z",
+        "updated_at": "2021-03-08T04:31:07.350Z",
+        "artefact": ""
+    }
+}, {
+    "model": "gcs_operations.flightpermission",
+    "pk": "4b994e1e-c737-4135-aeeb-326a95c52cfe",
+    "fields": {
+        "operation": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+        "is_successful": false,
+        "created_at": "2021-02-04T09:45:34.744Z",
+        "updated_at": "2021-02-04T09:45:34.786Z",
+        "artefact": ""
+    }
+}, {
+    "model": "gcs_operations.flightlog",
+    "pk": "af58a9dc-6474-41b9-a64c-ece932aff6ef",
+    "fields": {
+        "operation": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
+        "signed_log": "safsadfasdf",
+        "raw_log": "afdsafdas",
+        "created_at": "2021-03-08T04:31:26.222Z",
+        "updated_at": "2021-03-08T04:31:26.225Z",
+        "is_submitted": false
+    }
+}, {
+    "model": "digitalsky_provider.aircraftregister",
+    "pk": "0be1d3ef-2e1b-48f4-b474-54f746b03a52",
+    "fields": {
+        "is_signed": false,
+        "drone": "0450852f-856e-4ecb-beb6-01ccded8529d",
+        "signature": "",
+        "certificate": "",
+        "created_at": "2021-02-16T14:18:00.095Z",
+        "updated_at": "2021-02-16T14:18:00.097Z"
+    }
+}, {
+    "model": "digitalsky_provider.aircraftregister",
+    "pk": "9df471c0-4699-44b6-be89-2b91c7224c7f",
+    "fields": {
+        "is_signed": false,
+        "drone": "0450852f-856e-4ecb-beb6-01ccded8529d",
+        "signature": "",
+        "certificate": "",
+        "created_at": "2021-02-26T22:20:25.212Z",
+        "updated_at": "2021-02-26T22:20:25.216Z"
+    }
+}, {
+    "model": "digitalsky_provider.aircraftregister",
+    "pk": "bca026a3-9389-42b7-b452-6f29700cbadd",
+    "fields": {
+        "is_signed": false,
+        "drone": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
+        "signature": "",
+        "certificate": "",
+        "created_at": "2021-02-08T13:53:56.135Z",
+        "updated_at": "2021-02-08T13:53:56.160Z"
+    }
+}]
