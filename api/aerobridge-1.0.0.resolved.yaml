@@ -1328,7 +1328,7 @@ components:
       - operational_authorizations
       - authorized_activities
 
-    Credentials:
+    Credential:
       type: object
       properties:
         token:
