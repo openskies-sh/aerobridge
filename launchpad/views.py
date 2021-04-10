@@ -1,6 +1,9 @@
+from pki_framework.models import DigitalSkyCredentials
 from django.shortcuts import render
+
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
+from pki_framework.models import DigitalSkyCredentials
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView
 from rest_framework.response import Response
@@ -8,6 +11,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
+from pki_framework.serializers import DigitalSkyCredentialsSerializer, DigitalSkyCredentialsGetSerializer
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
 from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm
@@ -699,8 +703,8 @@ class EnginesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/engine_detail.html'
 
-    def get(self, request, manufacturer_id):
-        engine = get_object_or_404(Engine, pk=manufacturer_id)
+    def get(self, request, engine_id):
+        engine = get_object_or_404(Engine, pk=engine_id)
         serializer = EngineSerializer(engine)
         return Response({'serializer': serializer, 'engine': engine})
 
@@ -726,3 +730,27 @@ class EngineCreateView(CreateView):
         return redirect('engines-list')
     
     
+class CredentialsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credential_list.html'
+    serializers = DigitalSkyCredentialsGetSerializer
+    def get(self, request):
+        queryset = DigitalSkyCredentials.objects.all()
+        return Response({'credentials': queryset})
+    
+class CredentialsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credential_detail.html'
+
+    def get(self, request, credential_id):
+        credential = get_object_or_404(DigitalSkyCredentials, pk=credential_id)
+        serializer = DigitalSkyCredentialsGetSerializer(credential)
+        return Response({'serializer': serializer, 'credential': credential})
+
+    def post(self, request, credential_id):
+        credential = get_object_or_404(DigitalSkyCredentials, pk=credential_id)
+        serializer = DigitalSkyCredentialsGetSerializer(credential, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'credential': credential})
+        serializer.save()
+        return redirect('credentials-list')

@@ -47,7 +47,6 @@ class DigitalSkyCredentialsDetail(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 

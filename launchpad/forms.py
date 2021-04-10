@@ -1,6 +1,7 @@
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
+from pki_framework.models import DigitalSkyCredentials
 from django import forms
 # books/forms.py
 class PersonCreateForm(forms.ModelForm):
@@ -101,3 +102,9 @@ class ActivityCreateForm(forms.ModelForm):
         fields = '__all__'
         
 
+
+class TokenCreateForm(forms.ModelForm):
+    class Meta:
+        model = DigitalSkyCredentials
+        fields = '__all__'
+        

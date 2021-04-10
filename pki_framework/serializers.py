@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from pki_framework.models import DigitalSkyCredentials
 from . import encrpytion_util
-from djano.conf import settings
+from django.conf import settings
 
 class DigitalSkyCredentialsSerializer(serializers.ModelSerializer):
-    token = SerializerMethodField()
+    token = serializers.SerializerMethodField()
 
     def get_token(self, digital_sky_credentials):
         token = digital_sky_credentials.token

@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.utils.translation import ugettext_lazy as _
 
 class DigitalSkyCredentials(models.Model):
     ''' A class to store tokens from Digital Sky '''

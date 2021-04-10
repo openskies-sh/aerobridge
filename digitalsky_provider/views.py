@@ -1,30 +1,15 @@
-from django.shortcuts import render
 import requests
 import os, json
 from rest_framework import mixins
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from rest_framework import permissions
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
-from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
 import datetime
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-import jwt
-from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from .models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightOperation, UINApplication, FlightLog, Transaction, FlightPermission
 
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.x509 import load_pem_x509_certificate
-from cryptography.hazmat.backends import default_backend
-from base64 import b64encode, b64decode
-from registry.models import Aircraft
 from pki_framework.utils import requires_scopes, BearerAuth
 from .serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
 import json

@@ -352,6 +352,107 @@ paths:
       tags:
         - Pilots and Aircraft
 
+  /pki/credentials/:
+    get:
+      summary: "List all credentials stored"
+      security:
+        - AuthFromPassport: [read]    
+
+      operationId: listCredentials
+      description: List all credentials 
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Credential'
+          description: ''
+      tags:
+        - Credentials
+    post:
+      summary: "Create a new crecentials"
+      security:
+        - AuthFromPassport: [write]    
+
+      operationId: createCredentials
+      description: Upload details to create a new credentials object and store encrypted token
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Credential'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+          description: ''
+      tags:
+        - Credentials
+
+  /pki/credentials/{id}:
+    get:
+      summary: "Get details of a single pilot"
+      security:
+        - AuthFromPassport: [read]    
+
+      operationId: retrieveCredentials
+      description: Retrieve or delete a Pilot instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+          description: ''
+      tags:
+        - Credentials
+    delete:
+      summary: "Delete pilot details"
+      security:
+        - AuthFromPassport: [write]    
+
+      operationId: deleteCredentials
+      description: Delete a Credentials instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          type: string
+
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: id not found
+        '401':
+          description: Unauthorized
+          
+      tags:
+        - Credentials
+
+  
+
         
   /gcs/flight-plans:
     get:
@@ -1226,6 +1327,30 @@ components:
       - address
       - operational_authorizations
       - authorized_activities
+
+    Credentials:
+      type: object
+      properties:
+        token:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        token_type:
+          enum:
+          - 0
+          - 1
+          - 2
+          type: integer
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - name
+      - token_type
+
     Aircraft:
       type: object
       properties:

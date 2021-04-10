@@ -1,19 +1,10 @@
-from django.shortcuts import render
 from rest_framework import mixins
-from django.http import Http404
 from rest_framework import generics
-from rest_framework import permissions
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.response import Response
-from rest_framework.permissions import BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly, SAFE_METHODS
 from .serializers import TransactionSerializer, FlightPlanListSerializer, FlightPlanSerializer, FlightOperationListSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog
 from registry.models import Firmware
-from rest_framework import status
 from django.utils.decorators import method_decorator
 
-from functools import wraps
-from django.http import JsonResponse
 from pki_framework.utils import requires_scopes
 
 # Create your views here.
