@@ -166,6 +166,8 @@ CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Directory path to look for data fixture to load data into database before running tests
 FIXTURE_DIRS = [os.getcwd() + '/tests/fixtures/']
 
 django_heroku.settings(locals())

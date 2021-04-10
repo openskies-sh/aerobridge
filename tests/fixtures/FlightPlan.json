@@ -3,7 +3,7 @@
     "model": "gcs_operations.flightplan",
     "pk": "6b24b125-5bbe-4cb7-998f-24ec31cd05d2",
     "fields": {
-        "name": "them",
+        "name": "Flight first",
         "geo_json": "Create inside seek human skin sort support.",
         "start_datetime": "2021-03-27T13:51:29.738Z",
         "end_datetime": "2021-03-27T14:21:29.738Z",

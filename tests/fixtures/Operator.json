@@ -12,9 +12,9 @@
         "address": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
         "created_at": "2021-03-26T20:50:45.140Z",
         "updated_at": "2021-03-26T20:50:45.140Z",
-        "vat_number": "+525810191910230416773946",
-        "insurance_number": "+866192405247728428350962",
-        "company_number": "CO-212",
+        "vat_number": "IE5895475T",
+        "insurance_number": null,
+        "company_number": "489434",
         "country": "IN",
         "operational_authorizations": [
             "431934c5-7817-412f-b630-e026b7135a99"
