@@ -14,9 +14,10 @@ from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftReg
 from pki_framework.serializers import DigitalSkyCredentialsSerializer, DigitalSkyCredentialsGetSerializer
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from django.views.generic import CreateView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm, CutsomTokenCreateForm
 from django.shortcuts import redirect
-
+from django.http import Http404
+from rest_framework import status
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
 
 class HomeView(TemplateView):
@@ -754,3 +755,33 @@ class CredentialsDetail(APIView):
             return Response({'serializer': serializer, 'credential': credential})
         serializer.save()
         return redirect('credentials-list')
+
+
+class CredentialsCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': CutsomTokenCreateForm()}
+        return render(request, 'launchpad/credentials_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = CutsomTokenCreateForm(request.POST)
+        if form.is_valid():
+            credential = form.save()
+            credential.save()
+            
+        return redirect('credentials-list')
+    
+
+class CredentialsDeleteView(CreateView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credential_delete.html'
+
+    def get_credential(self, pk):
+        try:
+            return DigitalSkyCredentials.objects.get(pk=pk)
+        except DigitalSkyCredentials.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        credential = self.get_credential(pk)
+        credential.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

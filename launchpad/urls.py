@@ -67,7 +67,6 @@ urlpatterns = [
     path('digitalskylogs', launchpad_views.DigitalSkyLogsList.as_view(), name='digitalskylogs-list'),
     path('digitalskylogs/<uuid:digitalskylog_id>', launchpad_views.DigitalSkyLogsDetail.as_view(), name='digitalskylogs-detail'),
     
-
     path('digitalskytransactions', launchpad_views.DigitalSkyTransactionsList.as_view(), name='digitalskytransactions-list'),
     path('digitalskytransactions/<uuid:transaction_id>', launchpad_views.DigitalSkyTransactionDetail.as_view(), name='digitalskytransactions-detail'),
     
@@ -77,6 +76,9 @@ urlpatterns = [
     path('aircraftrosters/new', launchpad_views.AircraftRosterCreateView.as_view(), name='aircraftrosters-create'),
  
     path('digitalsky-read-first', launchpad_views.DigitalSkyReadFirst.as_view(), name='digitalsky-read-first'),
- 
+
+    path('credentials', launchpad_views.CredentialsList.as_view(), name='credentials-list'),
+    path('credentials/<uuid:credentials_id>', launchpad_views.CredentialsDetail.as_view(), name='credentials-detail'),
+    path('credentials/new', launchpad_views.CredentialsCreateView.as_view(), name='credentials-create'),
     
 ]
