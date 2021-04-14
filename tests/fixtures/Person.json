@@ -1,0 +1,34 @@
+[
+{
+    "model": "registry.person",
+    "pk": "04ba287f-e20b-48f3-9e00-f5c3ed796064",
+    "fields": {
+        "first_name": "Rose",
+        "middle_name": null,
+        "last_name": "Porter",
+        "email": "floresnicholas@hotmail.com",
+        "phone_number": "+592756027",
+        "identification_number": "997315754011312",
+        "social_security_number": "354-04-5435",
+        "date_of_birth": "1989-03-28",
+        "created_at": "2021-03-26T20:52:59.236Z",
+        "updated_at": "2021-03-26T20:52:59.236Z"
+    }
+},
+{
+    "model": "registry.person",
+    "pk": "ceb52659-977e-4b67-82b7-809c7090b120",
+    "fields": {
+        "first_name": "Maria",
+        "middle_name": null,
+        "last_name": "Sloan",
+        "email": "crystaloconnor@gilbert.com",
+        "phone_number": "+606026143",
+        "identification_number": "852236511350235",
+        "social_security_number": "083-17-4478",
+        "date_of_birth": "1995-05-14",
+        "created_at": "2021-03-26T20:50:45.151Z",
+        "updated_at": "2021-03-26T20:50:45.151Z"
+    }
+}
+]

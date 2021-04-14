@@ -1,0 +1,18 @@
+[
+{
+    "model": "registry.pilot",
+    "pk": "bc50da23-a38f-4ac7-b7cf-bff1d056d237",
+    "fields": {
+        "operator": "712b0506-8b1d-4381-b9bc-a476aea0425f",
+        "person": "ceb52659-977e-4b67-82b7-809c7090b120",
+        "photo": "https://i.imgur.com/3j5jWDt.png",
+        "photo_small": "https://i.imgur.com/p9wrHKC.png",
+        "address": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
+        "identification_photo": "https://i.imgur.com/iyabToB.jpg",
+        "identification_photo_small": "https://i.imgur.com/3UAP5w1.jpg",
+        "created_at": "2021-03-26T20:52:48.768Z",
+        "updated_at": "2021-03-26T20:52:48.768Z",
+        "is_active": true
+    }
+}
+]
