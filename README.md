@@ -32,9 +32,8 @@ Aerobridge is fully open source and you can get involved by participating in our
 This is an open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For a more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing).
 
 ## Dependencies
-
-```
-sudo apt install libpq-dev          # Postgre SQL Database
+``` 
+sudo apt install sqlite3          # SQLite3 Database
 sudo apt install python3-pygraphviz # Graphviz for automatically generating database ER diagram
 ```
 
