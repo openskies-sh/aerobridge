@@ -2,6 +2,7 @@ from django.utils import timezone
 
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog, UINApplication
+from pki_framework.models import DigitalSkyCredentials
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
 from .test_setup import TestModels
@@ -262,3 +263,12 @@ class TestModelsCreate(TestModels):
         self.assertEqual(aircraft.manufacturer, Manufacturer.objects.first())
         self.assertEqual(aircraft.type_certificate, TypeCertificate.objects.first())
         self.assertEqual(aircraft.engine, Engine.objects.first())
+
+    def test_pki_framework_digitalsky_credentials_create(self):
+        digitalsky_credentials = DigitalSkyCredentials(name=self.faker.name(),
+                                                       token_type=self.faker.pyint(min_value=0, max_value=len(
+                                                           DigitalSkyCredentials.TOKEN_TYPE) - 1),
+                                                       token=self.faker.binary(length=1024))
+        self.assertNotIn(digitalsky_credentials, DigitalSkyCredentials.objects.all())
+        digitalsky_credentials.save()
+        self.assertIn(digitalsky_credentials, DigitalSkyCredentials.objects.all())
