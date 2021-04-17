@@ -37,13 +37,19 @@ sudo apt install sqlite3          # SQLite3 Database
 sudo apt install python3-pygraphviz # Graphviz for automatically generating database ER diagram
 ```
 
-## Database snapshot
-
-To execute automated tests for the Aerobridge Management Server run following command
-
-```
-DJANGO_SECRET=<YOUR_SECRET_KEY> python manage.py test
-```
+## Usage commands
+1. Run the server locally 
+   ```
+   DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py runserver
+   ```
+2. Create database ER diagram
+   ```
+   DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py graph_models -a -g -o test.png
+   ```
+3. Run automated tests
+    ```
+    DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py test
+    ```
 
 ## Aerobridge Stack
 
