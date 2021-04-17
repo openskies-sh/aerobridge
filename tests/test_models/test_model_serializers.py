@@ -6,6 +6,7 @@ from gcs_operations.serializers import FirmwareSerializer, UINApplicationSeriali
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
 from launchpad.serializers import ActivitySerializer, EngineSerializer
+from pki_framework.serializers import DigitalSkyCredentialsSerializer, DigitalSkyCredentialsGetSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
     TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
@@ -235,3 +236,17 @@ class TestModelSerializers(TestModels):
         self.assertTrue(aircraft_detail_serializer.is_valid())
         self.assertNotEqual(aircraft_detail_serializer.validated_data, dict)
         self.assertEqual(aircraft_detail_serializer.errors, dict())
+
+    def test_pki_framework_digitalsky_credentials_serializer(self):
+        data = self._get_data_for_model('DigitalSkyCredentials')
+        digitalsky_credentials_serializer = DigitalSkyCredentialsSerializer(data=data)
+        self.assertTrue(digitalsky_credentials_serializer.is_valid())
+        self.assertNotEqual(digitalsky_credentials_serializer.validated_data, dict)
+        self.assertEqual(digitalsky_credentials_serializer.errors, dict())
+
+    def test_pki_framweork_digitalsky_get_credentials_serializer(self):
+        data = self._get_data_for_model('DigitalSkyCredentials')
+        digitalsky_credentials_get_serializer = DigitalSkyCredentialsGetSerializer(data=data)
+        self.assertTrue(digitalsky_credentials_get_serializer.is_valid())
+        self.assertNotEqual(digitalsky_credentials_get_serializer.validated_data, dict)
+        self.assertEqual(digitalsky_credentials_get_serializer.errors, dict())
