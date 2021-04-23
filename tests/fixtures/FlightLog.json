@@ -1,0 +1,14 @@
+[
+{
+    "model": "gcs_operations.flightlog",
+    "pk": "3ee346a4-32ca-457d-90d7-cc4f9a3acd61",
+    "fields": {
+        "operation": "628cf2ae-d03e-4a83-85ac-6e140836780b",
+        "signed_log": "app/explore/explore",
+        "raw_log": "wp-content/main/list",
+        "created_at": "2021-03-27T13:55:01.689Z",
+        "updated_at": "2021-03-27T13:55:01.689Z",
+        "is_submitted": true
+    }
+}
+]

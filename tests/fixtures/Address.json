@@ -1,0 +1,17 @@
+[
+{
+    "model": "registry.address",
+    "pk": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
+    "fields": {
+        "address_line_1": "11, Teena Society",
+        "address_line_2": "Ganesh Chowk",
+        "address_line_3": "",
+        "postcode": "175575",
+        "city": "Ajmer",
+        "state": "Rajasthan",
+        "country": "IN",
+        "created_at": "2021-03-26T20:50:45.128Z",
+        "updated_at": "2021-03-26T20:50:45.128Z"
+    }
+}
+]

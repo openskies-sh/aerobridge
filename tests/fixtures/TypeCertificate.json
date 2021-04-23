@@ -1,0 +1,12 @@
+[
+{
+    "model": "registry.typecertificate",
+    "pk": "01e851f5-43a6-4b27-ac97-4245e16ab834",
+    "fields": {
+        "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
+        "type_certificate_issuing_country": "IRE",
+        "type_certificate_holder": "Agro Products Inc.",
+        "type_certificate_holder_country": "IRE"
+    }
+}
+]

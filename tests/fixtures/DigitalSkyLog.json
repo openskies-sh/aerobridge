@@ -1,0 +1,14 @@
+[
+{
+    "model": "digitalsky_provider.digitalskylog",
+    "pk": "e815d308-3e1d-491b-8962-b4999b57e5a2",
+    "fields": {
+        "txn": "cb87f289-2654-41e5-b871-72d7d087e3c7",
+        "response_code": "245",
+        "response": "Everyone evidence good child seek teacher leader.",
+        "timestamp": "2021-03-27T16:09:36.226Z",
+        "created_at": "2021-03-27T16:09:36.226Z",
+        "updated_at": "2021-03-27T16:09:36.226Z"
+    }
+}
+]

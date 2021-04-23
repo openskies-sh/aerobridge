@@ -15,6 +15,7 @@ from pathlib import Path
 import os
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
+
 load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'rest_framework',
     'registry',
-    'gcs_operations',    
+    'gcs_operations',
     'digitalsky_provider',
     'jetway',
     'launchpad',
@@ -72,7 +74,7 @@ ROOT_URLCONF = 'aerobridge.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'jetway', 'templates'),os.path.join(BASE_DIR, 'launchpad', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'jetway', 'templates'), os.path.join(BASE_DIR, 'launchpad', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +125,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -141,8 +143,8 @@ JWT_AUTH = {
     'JWT_DECODE_HANDLER':
         'pki_framework.utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
-    'JWT_AUDIENCE':env.get("PASSPORT_AUDIENCE"),
-    'JWT_ISSUER': env.get("PASSPORT_DOMAIN"), 
+    'JWT_AUDIENCE': env.get("PASSPORT_AUDIENCE"),
+    'JWT_ISSUER': env.get("PASSPORT_DOMAIN"),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
 
@@ -164,6 +166,8 @@ CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-  
+
+# Directory path to look for data fixture to load data into database before running tests
+FIXTURE_DIRS = [os.getcwd() + '/tests/fixtures/']
 
 django_heroku.settings(locals())
