@@ -23,5 +23,4 @@ urlpatterns = [
     path('credentials/', pki_views.DigitalSkyCredentialsList.as_view()),
     path('credentials/<uuid:pk>', pki_views.DigitalSkyCredentialsDetail.as_view()),    
     
-    
 ]

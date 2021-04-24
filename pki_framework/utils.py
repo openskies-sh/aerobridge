@@ -20,7 +20,6 @@ def jwt_get_username_from_payload_handler(payload):
     authenticate(remote_user=username)
     return username
 
-
 def jwt_decode_token(token):
     header = jwt.get_unverified_header(token)
     passport_url = 'https://{}/.well-known/jwks.json'.format(env.get('PASSPORT_DOMAIN'))
@@ -37,7 +36,6 @@ def jwt_decode_token(token):
     
     decoded = jwt.decode(token, public_key, audience=audience, issuer=issuer, algorithms=['RS256'])
     return decoded
-
 
 
 def requires_scopes(required_scopes):
@@ -120,7 +118,6 @@ def requires_scopes(required_scopes):
         return decorated
 
     return require_scope
-
 
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):

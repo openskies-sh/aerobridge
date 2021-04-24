@@ -10,7 +10,6 @@ class TokenCreateForm(ModelForm):
         model = DigitalSkyCredentials
         fields = '__all__'
         
-
 class CutsomTokenCreateForm(forms.Form):
     name = forms.CharField(max_length=100)
     token_type = forms.IntegerField(widget=forms.Select(choices=TOKEN_TYPE),
