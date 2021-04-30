@@ -14,8 +14,8 @@ class TokenCreateForm(ModelForm):
         
 class CutsomTokenCreateForm(forms.Form):
     name = forms.CharField(max_length=100)
-    token_type = forms.IntegerField(widget=forms.Select(choices=KEY_ENVIRONMENT),
+    token_type = forms.IntegerField(widget=forms.Select(choices=TOKEN_TYPE),
     )
-    environment = forms.IntegerField(widget=forms.Select(choices=TOKEN_TYPE),
+    environment = forms.IntegerField(widget=forms.Select(choices=KEY_ENVIRONMENT),
     )
     token = forms.CharField(widget = forms.TextInput())
