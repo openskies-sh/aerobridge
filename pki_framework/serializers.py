@@ -18,7 +18,7 @@ class DigitalSkyCredentialsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DigitalSkyCredentials
-        fields = ('token', 'name', 'token_type', 'id',)
+        fields = ('token', 'name', 'token_type', 'environment', 'id',)
 
 class DigitalSkyCredentialsGetSerializer(serializers.ModelSerializer):
     token_type = serializers.SerializerMethodField()
@@ -26,4 +26,4 @@ class DigitalSkyCredentialsGetSerializer(serializers.ModelSerializer):
         return obj.get_token_type_display()
     class Meta:
         model = DigitalSkyCredentials
-        fields = ('name', 'token_type', 'id',)
+        fields = ('name', 'token_type', 'environment', 'id',)
