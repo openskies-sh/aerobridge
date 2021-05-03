@@ -1,16 +1,16 @@
-from .test_setup import TestModels
-
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
 from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog, UINApplication
+from pki_framework.models import DigitalSkyCredentials
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
+from .test_setup import TestModels
 
 
 class TestModelsDelete(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
                 'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction',
                 'AircraftRegister', 'Contact', 'DigitalSkyLog', 'Firmware', 'FlightLog', 'FlightPermission',
-                'TestValidity', 'UINApplication']
+                'TestValidity', 'UINApplication', 'DigitalSkyCredentials']
 
     def test_digitalsky_provider_digitalsky_log_delete(self):
         digitalsky_log = DigitalSkyLog.objects.first()
@@ -143,3 +143,9 @@ class TestModelsDelete(TestModels):
         self.assertIsNotNone(aircraft)
         aircraft.delete()
         self.assertNotIn(aircraft, Aircraft.objects.all())
+
+    def test_pki_framework_digitalsky_credentials_delete(self):
+        digitalsky_credentials = DigitalSkyCredentials.objects.first()
+        self.assertIsNotNone(digitalsky_credentials)
+        digitalsky_credentials.delete()
+        self.assertNotIn(digitalsky_credentials, Aircraft.objects.all())
