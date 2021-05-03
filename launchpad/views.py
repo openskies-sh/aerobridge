@@ -25,6 +25,9 @@ class HomeView(TemplateView):
 
 class DigitalSkyReadFirst(TemplateView):
     template_name = 'launchpad/digitalsky_read_first.html'
+    
+class FlightPermissionsReadFirst(TemplateView):
+    template_name = 'launchpad/flight_permissions_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
