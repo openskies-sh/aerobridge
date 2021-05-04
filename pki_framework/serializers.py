@@ -12,7 +12,9 @@ class DigitalSkyCredentialsSerializer(serializers.ModelSerializer):
     
     def get_token(self, digital_sky_credentials):
         token = digital_sky_credentials.token
-        f = encrpytion_util.EncrpytionHelper(secret_key= settings.ENCRYPTION_KEY)
+        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
+        
+        f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
         digital_sky_token = f.decrypt(token)
         return digital_sky_token
 

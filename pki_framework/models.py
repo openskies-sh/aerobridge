@@ -19,3 +19,7 @@ class DigitalSkyCredentials(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    
+    def token_type_verbose(self):
+        return dict(DigitalSkyCredentials.TOKEN_TYPE)[self.token_type]

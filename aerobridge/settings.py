@@ -137,6 +137,8 @@ REST_FRAMEWORK = {
     )
 }
 
+
+
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
         'pki_framework.utils.jwt_get_username_from_payload_handler',
