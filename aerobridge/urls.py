@@ -28,8 +28,8 @@ urlpatterns = [
     path('ping/', jetwayviews.PingView.as_view()),
     path('', jetwayviews.HomeView.as_view()),
     path('admin/', admin.site.urls),
-    path('registry/', include('registry.urls')),
-    path('gcs/', include('gcs_operations.urls')),
+
+
     path('digitalsky/', include('digitalsky_provider.urls')),
     path('launchpad/', include('launchpad.urls')),
     path('pki/', include('pki_framework.urls')),

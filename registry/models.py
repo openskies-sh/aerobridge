@@ -241,8 +241,8 @@ class Engine(models.Model):
 class Firmware(models.Model):
     ''' A model for custom firmware '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    binary_file_url= models.URLField()
-    public_key = models.TextField()
+    binary_file_url= models.URLField(help_text="Enter a url from where the firmware can be downloaded")
+    public_key = models.TextField(help_text="Enter a SHA / Digest or public key to test used to secure the firmware")
     version = models.CharField(max_length=25)  
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE)
 

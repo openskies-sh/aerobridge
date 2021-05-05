@@ -10,7 +10,7 @@ from .forms import TokenCreateForm
 # Create your views here.
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
-class DigitalSkyCredentialsList(mixins.ListModelMixin,
+class CredentialsList(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                    generics.GenericAPIView):
     """
@@ -34,7 +34,7 @@ class DigitalSkyCredentialsList(mixins.ListModelMixin,
         
         
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
-class DigitalSkyCredentialsDetail(mixins.RetrieveModelMixin,
+class CredentialsDetail(mixins.RetrieveModelMixin,
                      mixins.DestroyModelMixin,
                      generics.GenericAPIView):
     """

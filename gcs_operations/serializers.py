@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, UINApplication
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from registry.serializers import AircraftDetailSerializer, OperatorSelectRelatedSerializer
 
@@ -8,15 +8,6 @@ class FirmwareSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Firmware
         fields = '__all__'
-        ordering = ['-created_at']
-
-class UINApplicationSerializer(serializers.ModelSerializer):
-    ''' A serializer forUIN '''
-    drone = AircraftDetailSerializer(read_only=True)
-    operator = OperatorSelectRelatedSerializer(read_only=True)
-    class Meta:
-        model = UINApplication
-        fields = '__all__'		
         ordering = ['-created_at']
         
 class FlightPlanListSerializer(serializers.ModelSerializer):

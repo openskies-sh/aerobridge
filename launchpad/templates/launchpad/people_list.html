@@ -2,7 +2,7 @@
 {% block content %}
 <div>
     <h2>People</h2>
-    <p>A list of everyone (Pilots / Contacts) on the server, click to see / change details of an individual person</p>
+    <p>A list of everyone (Pilots / Contacts) on the server, click to see / change details of an individual person, people can be assigned to Operators, Manufacturers, Tokens.</p>
     <ul>
         {% for person in people %}
         <li><a href="/launchpad/people/{{person.id}}">{{ person.first_name }} {{ person.last_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ person.created_at }} </small></li>

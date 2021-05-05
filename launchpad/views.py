@@ -5,7 +5,7 @@ from registry.models import Person, Address, Operator, Aircraft, Manufacturer, F
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from pki_framework.models import DigitalSkyCredentials
 from rest_framework.renderers import TemplateHTMLRenderer
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
@@ -14,7 +14,7 @@ from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftReg
 from pki_framework.serializers import DigitalSkyCredentialsSerializer, DigitalSkyCredentialsGetSerializer
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
-from django.views.generic import CreateView
+from rest_framework.generics import DestroyAPIView
 from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm, CutsomTokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
@@ -748,19 +748,6 @@ class CredentialsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/credential_detail.html'
 
-    def get_credential(self, pk):
-        try:
-            return DigitalSkyCredentials.objects.get(pk=pk)
-        except DigitalSkyCredentials.DoesNotExist:
-            raise Http404
-
-    def delete(self, request, pk, format=None):
-        credential = self.get_credential(pk)
-        credential.delete()
-        
-        return redirect('credentials-list')
-
-    
     def get(self, request, credential_id):
         credential = get_object_or_404(DigitalSkyCredentials, pk=credential_id)
         serializer = DigitalSkyCredentialsGetSerializer(credential)
@@ -774,6 +761,21 @@ class CredentialsDetail(APIView):
         serializer.save()
         return redirect('credentials-list')
 
+class CredentialsDelete(DestroyAPIView):  
+    
+    def get_credential(self, pk):
+        try:
+            return DigitalSkyCredentials.objects.get(pk=pk)
+        except DigitalSkyCredentials.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, credential_id, format=None):
+        credential = self.get_credential(credential_id)
+        credential.delete()
+        
+        return redirect('credentials-list')
+
+    
 
 class CredentialsCreateView(CreateView):
     

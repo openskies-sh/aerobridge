@@ -100,32 +100,4 @@ class FlightLog(models.Model):
     def __str__(self):
         return self.operation.name
     
-    
-    
-class UINApplication(models.Model):
-    ''' This is the UIN application object '''
-    
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    fee_details = models.CharField(max_length=140)
-    drone = models.ForeignKey(Aircraft,models.CASCADE)
-    operator = models.ForeignKey(Operator,models.CASCADE)
-    import_permission = models.URLField()
-    cin = models.URLField()
-    gst_in = models.URLField()
-    pan_card = models.URLField()
-    dot_permission = models.URLField()
-    security_clearance = models.URLField()
-    eta = models.URLField()
-    op_manual = models.URLField()
-    maintainence_guidelines = models.URLField()
-    counter = models.IntegerField(default=1)
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def __unicode__(self):
-       return self.id
-
-    def __str__(self):
-        return self.id
 

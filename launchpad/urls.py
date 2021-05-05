@@ -81,7 +81,7 @@ urlpatterns = [
 
     path('credentials', launchpad_views.CredentialsList.as_view(), name='credentials-list'),
     path('credentials/<uuid:credential_id>', launchpad_views.CredentialsDetail.as_view(), name='credentials-detail'),
-    path('credentials/<uuid:credential_id>/delete', launchpad_views.CredentialsDetail.as_view(), name='credentials-delete'),
+    path('credentials/<uuid:credential_id>/delete', launchpad_views.CredentialsDelete.as_view(), name='credentials-delete'),
     path('credentials/new', launchpad_views.CredentialsCreateView.as_view(), name='credentials-create'),
     
 ]
