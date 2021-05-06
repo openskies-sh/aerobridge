@@ -29,7 +29,6 @@ urlpatterns = [
     path('', jetwayviews.HomeView.as_view()),
     path('admin/', admin.site.urls),
 
-
     path('digitalsky/', include('digitalsky_provider.urls')),
     path('launchpad/', include('launchpad.urls')),
     path('pki/', include('pki_framework.urls')),

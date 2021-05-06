@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DigitalSkyLog, AircraftRegister
+from .models import DigitalSkyLog
 from registry.serializers import AircraftSerializer, AircraftSigningSerializer
 
 class DigitalSkyLogSerializer(serializers.ModelSerializer):
@@ -9,12 +9,3 @@ class DigitalSkyLogSerializer(serializers.ModelSerializer):
         model = DigitalSkyLog		
         ordering = ['-created_at']
         exclude = ('created_at',)
-
-class AircraftRegisterSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = AircraftRegister
-        ordering = ['-created_at']
-        exclude = ('is_signed',)
-        read_only_fields = ('drone',)
-        

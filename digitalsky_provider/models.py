@@ -18,20 +18,3 @@ class DigitalSkyLog(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     
-class AircraftRegister(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    is_signed = models.BooleanField(default = False)
-    drone = models.ForeignKey(Aircraft, models.CASCADE)
-    
-    signature = models.TextField(help_text="Use a DSC to sign the json above and paste the signed document here.")
-    certificate = models.TextField(help_text="Your Public Key will go here, this will be submitted to Digital Sky when registering a drone")
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-       return self.drone.popular_name
-
-    def __str__(self):
-        return self.self.drone.popular_name
-

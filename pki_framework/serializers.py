@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from pki_framework.models import DigitalSkyCredentials
+from pki_framework.models import AerobridgeCredential
 from . import encrpytion_util
 from django.conf import settings
 
-class DigitalSkyCredentialsSerializer(serializers.ModelSerializer):
+class AerobridgeCredentialSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     token_type = serializers.SerializerMethodField()
     
@@ -19,13 +19,13 @@ class DigitalSkyCredentialsSerializer(serializers.ModelSerializer):
         return digital_sky_token
 
     class Meta:
-        model = DigitalSkyCredentials
+        model = AerobridgeCredential
         fields = ('token', 'name', 'token_type', 'environment', 'id',)
 
-class DigitalSkyCredentialsGetSerializer(serializers.ModelSerializer):
+class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
     token_type = serializers.SerializerMethodField()
     def get_token_type(self, obj):
         return obj.get_token_type_display()
     class Meta:
-        model = DigitalSkyCredentials
+        model = AerobridgeCredential
         fields = ('name', 'token_type', 'environment', 'id',)

@@ -1,21 +1,21 @@
-from pki_framework.models import DigitalSkyCredentials
+from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
-from pki_framework.models import DigitalSkyCredentials
+
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer
-from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
-from pki_framework.serializers import DigitalSkyCredentialsSerializer, DigitalSkyCredentialsGetSerializer
+from digitalsky_provider.serializers import DigitalSkyLogSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 from pki_framework import encrpytion_util
-from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
+from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,AircraftRosterCreateForm, EngineCreateForm, ActivityCreateForm, CutsomTokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm, CutsomTokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from rest_framework import status
@@ -646,54 +646,6 @@ class DigitalSkyTransactionCreateView(CreateView):
     
 
 
-### Flight Permission Views
-    
-class AircraftRosterList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraftroster_list.html'
-
-    def get(self, request):
-        queryset = AircraftRegister.objects.all()
-        return Response({'aircraftrosters': queryset})
-    
-class AircraftRosterDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraftroster_detail.html'
-
-            
-    def get(self, request, aircraftroster_id):
-        aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)
-        serializer = AircraftRegisterSerializer(aircraftroster)
-        drone = aircraftroster.drone
-        operator = get_object_or_404(Operator, aircraft = drone)
-        txn, created = Transaction.objects.get_or_create(aircraft = drone, prefix='registration')
-        txn_details = txn.get_txn_id()
-        
-
-        return Response({'serializer': serializer, 'aircraftroster': aircraftroster,'operator':operator, 'txn_details':txn_details})
-
-    def post(self, request, aircraftroster_id):
-        aircraftroster = get_object_or_404(AircraftRegister, pk=aircraftroster_id)
-        serializer = AircraftRegisterSerializer(aircraftroster, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'aircraftroster': aircraftroster})
-        serializer.save()
-        return redirect('aircraftrosters-list')
-
-class AircraftRosterCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': AircraftRosterCreateForm()}
-        return render(request, 'launchpad/aircraftroster_create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = AircraftRosterCreateForm(request.POST)
-        if form.is_valid():
-            aircraftroster = form.save()
-            aircraftroster.save()
-            
-        return redirect('aircraftrosters-list')
-    
-    
     
 ### Manufacturer Views
     
@@ -739,9 +691,9 @@ class EngineCreateView(CreateView):
 class CredentialsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/credential_list.html'
-    serializers = DigitalSkyCredentialsGetSerializer
+    serializers = AerobridgeCredentialGetSerializer
     def get(self, request):
-        queryset = DigitalSkyCredentials.objects.all()
+        queryset = AerobridgeCredential.objects.all()
         return Response({'credentials': queryset})
     
 class CredentialsDetail(APIView):
@@ -749,13 +701,13 @@ class CredentialsDetail(APIView):
     template_name = 'launchpad/credential_detail.html'
 
     def get(self, request, credential_id):
-        credential = get_object_or_404(DigitalSkyCredentials, pk=credential_id)
-        serializer = DigitalSkyCredentialsGetSerializer(credential)
+        credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
+        serializer = AerobridgeCredentialGetSerializer(credential)
         return Response({'serializer': serializer, 'credential': credential})
 
     def post(self, request, credential_id):
-        credential = get_object_or_404(DigitalSkyCredentials, pk=credential_id)
-        serializer = DigitalSkyCredentialsGetSerializer(credential, data=request.data)
+        credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
+        serializer = AerobridgeCredentialGetSerializer(credential, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'credential': credential})
         serializer.save()
@@ -765,8 +717,8 @@ class CredentialsDelete(DestroyAPIView):
     
     def get_credential(self, pk):
         try:
-            return DigitalSkyCredentials.objects.get(pk=pk)
-        except DigitalSkyCredentials.DoesNotExist:
+            return AerobridgeCredential.objects.get(pk=pk)
+        except AerobridgeCredential.DoesNotExist:
             raise Http404
 
     def delete(self, request, credential_id, format=None):

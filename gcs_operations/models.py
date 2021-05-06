@@ -43,11 +43,7 @@ class FlightOperation(models.Model):
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")
-    flight_termination_or_return_home_capability = models.BooleanField(default =1)
-    geo_fencing_capability = models.BooleanField(default =1)
-    detect_and_avoid_capability= models.BooleanField(default =0)
-    recurring_time_expression = models.CharField(max_length=50, default = "0 0 0 ? * 1#1 *")
-    recurring_time_duration = models.IntegerField(default=60)
+
     
     created_at = models.DateTimeField(auto_now_add=True)
 

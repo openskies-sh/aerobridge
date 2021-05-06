@@ -1,7 +1,7 @@
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
-from digitalsky_provider.models import DigitalSkyLog, AircraftRegister
+from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
-from pki_framework.models import DigitalSkyCredentials
+from pki_framework.models import AerobridgeCredential
 from django import forms
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy as _
@@ -91,11 +91,6 @@ class DigitalSkyTransactionCreateForm(forms.ModelForm):
         model = Transaction
         fields = '__all__'
 
-class AircraftRosterCreateForm(forms.ModelForm):
-    class Meta:
-        model = AircraftRegister
-        exclude = ('is_signed','signature', 'certificate',)
-
 class EngineCreateForm(forms.ModelForm):
     class Meta:
         model = Engine
@@ -112,13 +107,13 @@ class ActivityCreateForm(forms.ModelForm):
 
 class TokenCreateForm(forms.ModelForm):
     class Meta:
-        model = DigitalSkyCredentials
+        model = AerobridgeCredential
         fields = '__all__'
         
 
 class TokenCreateForm(forms.ModelForm):
     class Meta:
-        model = DigitalSkyCredentials
+        model = AerobridgeCredential
         fields = '__all__'
         
 class CutsomTokenCreateForm(forms.Form):

@@ -57,9 +57,6 @@ urlpatterns = [
     path('flightpermissions/<uuid:flightpermission_id>', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissions-detail'),
     path('flightpermissions/new', launchpad_views.FlightPermissionCreateView.as_view(), name='flightpermissions-create'),
  
-    path('flightpermissionartefacts', launchpad_views.FlightPermissionsList.as_view(), name='flightpermissionartefacts-list'),
-    path('flightpermissionartefacts/<uuid:flightpermission_id>', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissionartefacts-detail'),
-    
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
     path('flightlogs/<uuid:flightpermission_id>', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
     path('flightlogs/new', launchpad_views.FlightLogCreateView.as_view(), name='flightlogs-create'),
@@ -70,11 +67,6 @@ urlpatterns = [
     path('digitalskytransactions', launchpad_views.DigitalSkyTransactionsList.as_view(), name='digitalskytransactions-list'),
     path('digitalskytransactions/<uuid:transaction_id>', launchpad_views.DigitalSkyTransactionDetail.as_view(), name='digitalskytransactions-detail'),
     
- 
-    path('aircraftrosters', launchpad_views.AircraftRosterList.as_view(), name='aircraftrosters-list'),
-    path('aircraftrosters/<uuid:aircraftroster_id>', launchpad_views.AircraftRosterDetail.as_view(), name='aircraftrosters-detail'),
-    path('aircraftrosters/new', launchpad_views.AircraftRosterCreateView.as_view(), name='aircraftrosters-create'),
- 
     path('digitalsky-read-first', launchpad_views.DigitalSkyReadFirst.as_view(), name='digitalsky-read-first'),
 
     path('flight-permissions-read-first', launchpad_views.FlightPermissionsReadFirst.as_view(), name='flight-permissions-read-first'),

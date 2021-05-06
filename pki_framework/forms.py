@@ -1,4 +1,4 @@
-from .models import DigitalSkyCredentials
+from .models import AerobridgeCredential
 from django.forms import ModelForm, widgets
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -9,7 +9,7 @@ TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TO
 
 class TokenCreateForm(ModelForm):
     class Meta:
-        model = DigitalSkyCredentials
+        model = AerobridgeCredential
         fields = '__all__'
         
 class CutsomTokenCreateForm(forms.Form):
