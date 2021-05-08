@@ -702,12 +702,12 @@ class CredentialsDetail(APIView):
 
     def get(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
-        serializer = AerobridgeCredentialGetSerializer(credential)
+        serializer = AerobridgeCredentialSerializer(credential)
         return Response({'serializer': serializer, 'credential': credential})
 
     def post(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
-        serializer = AerobridgeCredentialGetSerializer(credential, data=request.data)
+        serializer = AerobridgeCredentialSerializer(credential, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'credential': credential})
         serializer.save()
@@ -739,16 +739,16 @@ class CredentialsCreateView(CreateView):
         form = CutsomTokenCreateForm(request.POST)
 
         if form.is_valid():
-            serializer = DigitalSkyCredentialsSerializer(data=form.data)
+            serializer = AerobridgeCredentialSerializer(data=form.data)
             if serializer.is_valid():
                 secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
                 
                 f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
-                print(form.data.keys())
+                
                 enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
                 
-                serializer.save(name = form.data['name'],token=enc_token, environment = form.data['environment'],token_type = form.data['token_type'] )
-
+                serializer.save(name = form.data['name'],token=enc_token, association = form.data['association'],token_type = form.data['token_type'] )
+                print("saved")
             
         return redirect('credentials-list')
     

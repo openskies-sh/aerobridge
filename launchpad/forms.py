@@ -103,14 +103,6 @@ class ActivityCreateForm(forms.ModelForm):
         # exclude = ('is_created',)
         fields = '__all__'
         
-
-
-class TokenCreateForm(forms.ModelForm):
-    class Meta:
-        model = AerobridgeCredential
-        fields = '__all__'
-        
-
 class TokenCreateForm(forms.ModelForm):
     class Meta:
         model = AerobridgeCredential
@@ -120,6 +112,6 @@ class CutsomTokenCreateForm(forms.Form):
     name = forms.CharField(max_length=100)
     token_type = forms.IntegerField(widget=forms.Select(choices=TOKEN_TYPE),
     )
-    environment = forms.IntegerField(widget=forms.Select(choices=KEY_ENVIRONMENT),
+    association = forms.IntegerField(widget=forms.Select(choices=KEY_ENVIRONMENT),
     )
     token = forms.CharField(widget = forms.TextInput())

@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
-from registry.models import Contact
+from registry.models import Aircraft, Contact
 
 class AerobridgeCredential(models.Model):
     ''' A class to store tokens from Digital Sky '''
@@ -12,10 +12,12 @@ class AerobridgeCredential(models.Model):
     TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(4, _('OTHER')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, help_text="Enter a description for the type of credential you are storing")
     token_type = models.IntegerField(choices=TOKEN_TYPE)
-    environment = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4)
+    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4)
     token = models.BinaryField()
+    
+    is_active = models.BooleanField(default = True)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -15,12 +15,13 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
         secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
         
         f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
-        digital_sky_token = f.decrypt(token)
-        return digital_sky_token
+        t = f.decrypt(token)
+        t = t.decode('utf-8')
+        return t
 
     class Meta:
         model = AerobridgeCredential
-        fields = ('token', 'name', 'token_type', 'environment', 'id',)
+        fields = ('token', 'name', 'token_type', 'association', 'id',)
 
 class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
     token_type = serializers.SerializerMethodField()
@@ -28,4 +29,4 @@ class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
         return obj.get_token_type_display()
     class Meta:
         model = AerobridgeCredential
-        fields = ('name', 'token_type', 'environment', 'id',)
+        fields = ('name', 'token_type', 'association', 'id',)
