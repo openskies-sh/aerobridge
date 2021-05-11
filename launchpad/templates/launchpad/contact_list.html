@@ -5,7 +5,7 @@
     <p>See all the legal contacts for your operators as a list below</p>
     <ul>
         {% for contact in contacts %}
-        <li><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
+        <li><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} - {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
         {% endfor %}
         
     </ul>

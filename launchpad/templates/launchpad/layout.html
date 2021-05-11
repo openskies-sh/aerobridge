@@ -1,11 +1,37 @@
 <!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
 <!DOCTYPE html>
 {% load static %}{% load i18n %}
+
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Openskies Aerial Technology Ltd.">
+    <meta name="generator" content="Hugo 0.83.1">
     <link rel="icon" href="">
-    <link rel="stylesheet" href="{% static "jetway/css/mvp.css" %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "jetway/bootstrap/css/starter.css" %}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
 
     <meta charset="utf-8">
     <meta name="description" content="My description">
@@ -15,65 +41,90 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="/">Your Company Name Here (e.g. Bharat Drones Ltd.)</a>
-            <ul>
-                <li><a href="#">Operators</a>
-                    <ul>
-                        <li><a href="/launchpad/people">People</a></li>
-                        <li><a href="/launchpad/addresses">Addresses</a></li>
-                        <li><a href="/launchpad/operators">Company</a></li>
-                        <li><a href="/launchpad/contacts">Contacts</a></li>
-                        <li><a href="/launchpad/pilots">Pilots</a></li>
-                        <li><a href="/launchpad/activities">Activities</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Equipment</a>
-                    <ul>                        
-                        <li><a href="/launchpad/manufacturers">Manufacturers</a></li>
-                        <li><a href="/launchpad/firmwares">Firmware</a></li>
-                        <li><a href="/launchpad/engines">Engine</a></li>
-                        <li><a href="/launchpad/aircrafts">Aircraft</a></li>
-                        <li><a href="/launchpad/aircraftrosters">Sign Drone Data</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Plans and Operations</a>
-                    <ul>
-                        <li><a href="/launchpad/flight-permissions-read-first">Read first</a></li>
-                        <li><a href="/launchpad/flightplans">Plans</a></li>
-                        <li><a href="/launchpad/flightoperations">Operations</a></li>
-                        <li><a href="/launchpad/flightpermissions">All Permissions</a></li>                        
-                        <li><a href="/launchpad/flightlogs">Upload signed logs from GCS</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Digital Sky</a>
-                    <ul>
-                        <li><a href="/launchpad/digitalsky-read-first">Read first</a></li>
-                        <li><a href="/launchpad/digitalskytransactions">See Transaction History</a></li>
-                        <li><a href="/launchpad/digitalskylogs">See Digital Sky Logs</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Credentials</a>
-                    <ul>
-                        <li><a href="/launchpad/credentials">Tokens Manager</a></li>
-                        
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-    
-    <footer>
-        <hr>
-        <p>
-            Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our homepage</a>
-        </p>
+
+
+    <nav class="navbar navbar-expand" aria-label="Aerobridge.in">
+        <div class="container">
+            <a class="navbar-brand" href="#">Your Company Name Here (e.g. Bharat Drones Ltd.)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#aerobridge_navigation" aria-controls="aerobridge_navigation" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="aerobridge_navigation">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="operator_dd" href="#">Operators</a>
+                        <ul class="dropdown-menu" aria-labelledby="operator_dd">
+                            <li><a class="dropdown-item" href="/launchpad/people">People</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/addresses">Addresses</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/operators">Company</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/contacts">Contacts</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/pilots">Pilots</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/activities">Activities</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" href="#" id="equipment_dd">Equipment</a>
+                        <ul class="dropdown-menu" aria-labelledby="equipment_dd">
+                            <li><a class="dropdown-item" href="/launchpad/manufacturers">Manufacturers</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/firmwares">Firmware</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/engines">Engine</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/aircrafts">Aircraft</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/aircraftrosters">Sign Drone Data</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="plans_operations_dd" href="#">Plans and Operations</a>
+                        <ul class="dropdown-menu" aria-labelledby="plans_operations_dd">
+                            <li><a class="dropdown-item" href="/launchpad/flight-permissions-read-first">Read first</a>
+                            </li>
+                            <li><a class="dropdown-item" href="/launchpad/flightplans">Plans</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/flightoperations">Operations</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/flightpermissions">All Permissions</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/flightlogs">Upload signed logs from GCS</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" href="#" id="digitalsky_dd">Digital Sky</a>
+                        <ul class="dropdown-menu" aria-labelledby="digitalsky_dd">
+                            <li><a class="dropdown-item" href="/launchpad/digitalsky-read-first">Read first</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/digitalskytransactions">See Transaction
+                                    History</a></li>
+                            <li><a class="dropdown-item" href="/launchpad/digitalskylogs">See Digital Sky Logs</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false" href="#" id="credentials_dd">Credentials</a>
+                        <ul class="dropdown-menu" aria-labelledby="credentials_dd">
+                            <li><a class="dropdown-item" href="/launchpad/credentials">Tokens Manager</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="col-lg-12 mx-auto p-3 py-md-5">
+        <div class="bg-light p-5 rounded">
+            <div class="col-sm-8 mx-auto">
+                <main>
+                    {% block content %}
+                    {% endblock %}
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="pt-5 my-5 text-muted border-top">
+
+        <p>Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our
+                homepage</a></p>
     </footer>
 </body>
+
+<script src="{% static "jetway/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
 
 </html>

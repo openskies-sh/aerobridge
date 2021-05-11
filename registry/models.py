@@ -35,14 +35,15 @@ class Person(models.Model):
 
 
 class Address(models.Model):
-    
+    STATE_CHOICES = (("AN",_("Andaman and Nicobar Islands")),("AP",_("Andhra Pradesh")),("AR",_("Arunachal Pradesh")),("AS",_("Assam")),("BR",_("Bihar")),("CG",_("Chandigarh")),("CH",_("Chhattisgarh")),("DN",_("Dadra and Nagar Haveli")),("DD",_("Daman and Diu")),("DL",_("Delhi")),("GA",_("Goa")),("GJ",_("Gujarat")),("HR",_("Haryana")),("HP",_("Himachal Pradesh")),("JK",_("Jammu and Kashmir")),("JH",_("Jharkhand")),("KA",_("Karnataka")),("KL",_("Kerala")),("LA",_("Ladakh")),("LD",_("Lakshadweep")),("MP",_("Madhya Pradesh")),("MH",_("Maharashtra")),("MN",_("Manipur")),("ML",_("Meghalaya")),("MZ",_("Mizoram")),("NL",_("Nagaland")),("OR",_("Odisha")),("PY",_("Puducherry")),("PB",_("Punjab")),("RJ",_("Rajasthan")),("SK",_("Sikkim")),("TN",_("Tamil Nadu")),("TS",_("Telangana")),("TR",_("Tripura")),("UP",_("Uttar Pradesh")),("UK",_("Uttarakhand")),("WB",_("West Bengal")))
+                     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     address_line_1 = models.CharField(max_length=140)
     address_line_2 = models.CharField(max_length=140)
     address_line_3 = models.CharField(max_length=140,blank=True, null=True)
     postcode = models.CharField(_("post code"), max_length=10)
     city = models.CharField(max_length=140)
-    state = models.CharField(max_length=140, blank=True, null=True)
+    state = models.CharField(max_length=2, blank=True, null=True , choices=STATE_CHOICES)
     country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'NA')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
