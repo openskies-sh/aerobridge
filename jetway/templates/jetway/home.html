@@ -1,12 +1,38 @@
-<!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
 
 <!DOCTYPE html>
-{% load static %}
+{% load static %}{% load i18n %}
+
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Openskies Aerial Technology Ltd.">
+    <meta name="generator" content="Hugo 0.83.1">
     <link rel="icon" href="">
-    <link rel="stylesheet" href="{% static "jetway/css/mvp.css" %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    
+
+    
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+  
 
     <meta charset="utf-8">
     <meta name="description" content="My description">
@@ -16,98 +42,106 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="/"><img alt="Logo" src="{% static "jetway/images/logo_header_photo_1.png" %}" width="400px"></a>
-        </nav>
-        <h1>A server to connect to India's Digital Sky Infrastructure and your Drone</h1>
-        <p>Want to deploy <mark>your own</mark>?</p>
-        <br>
-        <p><a href="https://webinar.aerobridge.in"><b>Signup for our webinar &rarr;</b></a></p>
-        <br><br>
-        <p><sup>PRO TIP</sup> Take it for a testdrive:<br><br><a href="https://aerobridgetestflight.herokuapp.com/launchpad"><i>Launchpad &nearr;</i></a></p>
-    </header>
-    <main>
-        <section id="features">
-            <header>
-                <h2>Flexibility without complexity</h2>
-                <p>The Aerobridge project provides a "full-stack" NPNT compliance platform.</p>
-            </header>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Aerobridge</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td>Standard way to communicate with Digital Sky APIs</td>
-                    <td><b>&#10003;</b></td>
-                </tr>
-                <tr>
-                    <td>Integration with PX4 / ArduControl</td>
-                    <td><b>&#10003;</b></td>
-                </tr>
-                <tr>
-                    <td>Manage permissions and flight logs</td>
-                    <td><b>&#10003;</b></td>
-                </tr>
-                <tr>
-                    <td>RFM integration</td>
-                    <td><b>&#10003;</b></td>
-                </tr>
-                <tr>
-                    <td>Easily manage compliance with NPNT</td>
-                    <td><b>&#10003;</b></td>
-                </tr>
-               
-            </table>
-        </section>
-        <br><hr>
-        <section>
-            <header>
-                <h2>Simple API</h2>
-                <p>Explore the Aerobridge API endpoints across all aspects of the management server. You can connect to Digital Sky and also use the server as way to manage and store your operations. See the <a href="https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml">API Specification</a> or take it for a <a href="/launchpad">test drive</a></p>
-            </header>
-            <!-- <aside>
-                
-                <h3>Operators, Aircrafts and Pilots</h3>
-                <p>Endpoints for Aircrafts, Pilots for your drone operations</p>
-                <ul>
-                    <li><a href='/registry/aircraft'>See all aircraft, add new ones</a></li>                    
-                    <li><a href='/registry/operators'>Add information about your company</a></li>                    
-                    <li><a href='/registry/pilots'>Update certifications and other information about your pilots</a></li>
-                </ul>
-            </aside>
-            <aside>
-                <h3>GCS, RFM and Flights</h3>
-                <p>Endpoints for flight plans, flight operations and uploading flight logs</p>
-                
-                <ul>
-                    <li><a href='/gcs/flight-plans'>Upload a flight plan</a></li>                    
-                    <li><a href='/gcs/flight-operations'>Build a Operation, link plan to a drone</a></li>
-                    <li><a href='/gcs/flight-logs'>Upload flight logs from a RFM</a></li>                    
-                </ul>
-            </aside>
-            <aside>
-                <h3>Digital Sky API</h3>
-                <p>Operations to around registration and permission artefacts and log upload</p>
-                <ul>                    
-                    <li><a href='/digitalsky/register_aircraft'>Register a airfact</a></li>
-                    <li><a href='/digitalsky/all_permissions'>See all permission artefacts</a></li>
-                    <li><a href='/digitalsky/apply_permission'>Apply for a permission for a operation</a></li>
-                    <li><a href='/digitalsky/logs'>See logs of all Digital Sky transactions</a></li>
-                    
-                </ul>
-            </aside> -->
-        </section>
-    </main>    
-    <footer>
-        <hr>
-        <p>
-            This project is maintained by <a href="https://github.com/openskies-sh/aerobridge">Openskies</a>
-        </p>
-    </footer>
+   
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check" viewBox="0 0 16 16">
+      <title>Check</title>
+      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+    </symbol>
+  </svg>
+        
+<main>
+    <div class="container py-4">
+      <header class="pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <img alt="Logo" src="{% static "jetway/images/logo_header_photo_1.png" %}" width="400px">
+          <span class="fs-4">&nbsp;</span>
+        </a>
+      </header>
+  
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Drone Management Server for India</h1>
+          <p class="col-md-8 fs-4">A server for Indian NPNT compliance and drone operations, want to know more or deploy your own? </p>
+          <a class="btn btn-primary btn-lg" href="https://webinar.aerobridge.in">Signup for our webinar &rarr;</a>
+        </div>
+      </div>
+  
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Take it for a testdrive</h2>
+            <p>Explore the Aerobridge API endpoints across all aspects of the management server. You can connect to Digital Sky and also use the server as way to manage and store your operations. See the <a href="https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml">API Specification</a> or take it for a <a href="/launchpad">test drive</a></p>
+            <a class="btn btn-outline-light" type="button">Testflight Server &rarr;</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Aerobridge Community</h2>
+            <p>If you are technically oriented, and can code, join our world-class open source community building foundational technologies for the Indian Ecosystem.</p>
+            
+            <a class="btn btn-secondary btn-lg" href="https://forms.gle/qdUgjJHiFQn2Yuhg6">Join our community Slack</a>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <h2 class="display-6 text-center mb-4">Flexibility without complexity</h2>
+      <p>The Aerobridge project provides a "full-stack" NPNT compliance platform.</p>
+
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th style="width: 34%;"></th>
+              <th style="width: 22%;">Free</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Standard way to communicate with Digital Sky APIs</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Integration with ArduPilot</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+              
+            </tr>
+          </tbody>
+  
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Manage permissions and flight logs</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">RFM integration</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+              
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Easily manage compliance with NPNT</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Build world class operations</th>
+              <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+  
+    </div>
+  </main>
+  
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; Openskies Aerial Technology Ltd.</p>
+
+  </footer>
+  
+    
 </body>
 
 </html>

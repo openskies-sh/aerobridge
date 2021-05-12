@@ -1,13 +1,18 @@
-{% extends "launchpad/layout.html" %} 
+{% extends "launchpad/layout.html" %}
 {% load rest_framework %}
 {% block content %}
-<div>
-<h1>Profile - {{ person.first_name }} {{ person.last_name }}</h1>
 
-<form action="{% url 'people-detail' person_id=person.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <button type="submit" value="Update">Update</button>
-</form>
-</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+        <h2>Update Profile - {{ person.first_name }} {{ person.last_name }}</h2>
+        <br>
+
+        <form action="{% url 'people-detail' person_id=person.pk %}" method="POST">
+            {% csrf_token %}
+            {% render_form serializer %}
+            <br>
+            <button class="btn btn-primary" type="submit" value="Update">Update</button>
+        </form>
+    </div>
+    </div>
 {% endblock %}

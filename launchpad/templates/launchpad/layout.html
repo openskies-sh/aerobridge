@@ -1,4 +1,4 @@
-<!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
+
 <!DOCTYPE html>
 {% load static %}{% load i18n %}
 
@@ -13,9 +13,9 @@
     <link rel="icon" href="">
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">    
     <link href="{% static "jetway/bootstrap/css/starter.css" %}" rel="stylesheet">
+    
 
     <style>
         .bd-placeholder-img {
@@ -43,9 +43,9 @@
 <body>
 
 
-    <nav class="navbar navbar-expand" aria-label="Aerobridge.in">
-        <div class="container">
-            <a class="navbar-brand" href="#">Your Company Name Here (e.g. Bharat Drones Ltd.)</a>
+    <div class="container">
+        <nav class="navbar navbar-expand" aria-label="Aerobridge.in">
+            <a class="navbar-brand" href="#">Bharat Drones Ltd.</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#aerobridge_navigation" aria-controls="aerobridge_navigation" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="aerobridge_navigation">
-                <ul class="navbar-nav me-auto">
+                <ul class="nav nav-pills">
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false" id="operator_dd" href="#">Operators</a>
                         <ul class="dropdown-menu" aria-labelledby="operator_dd">
@@ -104,25 +104,23 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    <div class="col-lg-12 mx-auto p-3 py-md-5">
-        <div class="bg-light p-5 rounded">
-            <div class="col-sm-8 mx-auto">
-                <main>
-                    {% block content %}
-                    {% endblock %}
-                </main>
-            </div>
+        </nav>
+        <h2 class="mt-4">&nbsp;</h2>
+        <div class="row mb-3">
+           
+            {% block content %}
+            {% endblock %}
         </div>
 
-    </div>
+    
 
     <footer class="pt-5 my-5 text-muted border-top">
 
         <p>Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our
                 homepage</a></p>
     </footer>
+
+    </div>
 </body>
 
 <script src="{% static "jetway/bootstrap/js/bootstrap.bundle.min.js" %}"></script>

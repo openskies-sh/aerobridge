@@ -1,14 +1,23 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Addresses</h2>
-    <p>A list of all addresses in the system, you can assign them to people, operators, manufacturers</p>
-    <ul>
+    <p>A list of all addresses in the system, you can assign them to people, operators, manufacturers people can be assigned to Operators, Manufacturers, Tokens.</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
         {% for address in addresses %}
-        <li><a href="/launchpad/addresses/{{address.id}}">{{ address.address_line_1 }}, {{ address.city }}, {{ address.state }}, </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ address.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/addresses/{{address.id}}">{{ address.address_line_1 }}, {{ address.city }}, {{ address.state }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ address.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/addresses/new"><b>&#43; Add a address</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/addresses/new"><b>&#43; Add a address</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}

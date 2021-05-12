@@ -1,15 +1,21 @@
 {% extends "launchpad/layout.html" %} {% load static %}
 {% block content %}
-<section>
-    <p>Welcome to <b>Aerobridge Launchpad</b>, use the menus above to get started.</p>
-</section>
-<section id="">
-   
-    
-    <blockquote>
-        <img alt="Quote" src="{% static "jetway/images/20140801_PIA00452.jpg" %}" height="450"><br><br>
-        <footer>Image source: <a href="https://www.planetary.org/worlds/pale-blue-dot">Planetary Society</a></footer>
-      
-    </blockquote>
-</section>
+
+
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static "jetway/images/20140801_PIA00452.jpg" %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Aerobridge Launchpad</h1>
+        <p class="lead">Welcome to the test server deployment, use the menus to explore different aspects of the management server, this server is regularly rebuilt as the code base evolves.</p><p>Image source: <a href="https://www.planetary.org/worlds/pale-blue-dot">Planetary Society</a></p>
+    </div>
+
+    </div>
+    </div>
+  
+
+  
 {% endblock %}

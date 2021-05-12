@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'digitalsky_provider',
     'jetway',
     'launchpad',
-    'pki_framework'
+    'pki_framework',
+    'crispy_forms',    
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -89,7 +91,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aerobridge.wsgi.application'
 
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 

@@ -39,7 +39,7 @@ class Address(models.Model):
                      
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     address_line_1 = models.CharField(max_length=140)
-    address_line_2 = models.CharField(max_length=140)
+    address_line_2 = models.CharField(max_length=140,blank=True, null=True)
     address_line_3 = models.CharField(max_length=140,blank=True, null=True)
     postcode = models.CharField(_("post code"), max_length=10)
     city = models.CharField(max_length=140)
