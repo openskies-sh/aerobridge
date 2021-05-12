@@ -6,7 +6,6 @@ from datetime import datetime
 from datetime import timezone
 from dateutil.relativedelta import relativedelta
 from django.utils.translation import ugettext_lazy as _
-import string, random 
 from django.core.validators import RegexValidator
 from . import countries 
 
@@ -49,10 +48,10 @@ class Address(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-       return self.address_line_1 + ' '+ self.country
+       return self.address_line_1 + ' '+ self.state
 
     def __str__(self):
-        return self.address_line_1 + ' '+ self.country
+        return self.address_line_1 + ' '+ self.state
 
 
 # Create your models here.
