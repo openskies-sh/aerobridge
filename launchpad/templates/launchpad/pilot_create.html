@@ -1,14 +1,21 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div>
+{% load crispy_forms_tags %}
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+
+
 
     <h2>Add new pilot</h2>
     <p>A pilot can be assigned to a operator and details about the pilot are stored here.</p>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="Save" />
+        {{ form|crispy }}
+        <input type="submit" value="Save" />
     </form>
+
+</div>
+<div class="col-md-6 themed-grid-col"></div>
 </div>
 {% endblock %}

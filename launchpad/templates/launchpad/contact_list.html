@@ -1,14 +1,21 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+<div class="row mb-3">
     <h2>Contacts list</h2>
     <p>See all the legal contacts for your operators as a list below</p>
-    <ul>
+</div>
+<div class="row mb-3">      
+    <div class="col-md-8 themed-grid-col">
+
+        <ul class="list-group list-group-flush">
         {% for contact in contacts %}
-        <li><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} - {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} - {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/contacts/new"><b>&#43; Add a new Contact</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/contacts/new"><b>&#43; Add a new Contact</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}

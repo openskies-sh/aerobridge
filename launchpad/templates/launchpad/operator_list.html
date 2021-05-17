@@ -1,14 +1,21 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+<div class="row mb-3">
     <h2>Operators</h2>
     <p>A list of all Operators on the server, click to see / change details of an individual operator. Depending on your circumstance, you should only have one operator. Operator in the context of UTM / U-Space has a very specific legal definition and is normally a company who operates a drone.</p>
-    <ul>
+</div>
+<div class="row mb-3">      
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
         {% for operator in operators %}
-        <li><a href="/launchpad/operators/{{operator.id}}">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/operators/new"><b>&#43; Add a operator</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/operators/new"><b>&#43; Add a operator</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}

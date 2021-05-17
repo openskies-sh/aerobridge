@@ -1,13 +1,17 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
 <h1>Operator Profile - {{ operator.company_name }}</h1>
+<br>
 
 <form action="{% url 'operators-detail' operator_id=operator.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
-    <button type="submit" value="Update">Update</button>
-</form>
-</div>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>
+        </form>
+    </div>
+    </div>
 {% endblock %}
