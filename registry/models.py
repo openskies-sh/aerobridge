@@ -48,10 +48,10 @@ class Address(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-       return self.address_line_1 + ' '+ self.state
+       return self.address_line_1 
 
     def __str__(self):
-        return self.address_line_1 + ' '+ self.state
+        return self.address_line_1 
 
 
 # Create your models here.
@@ -245,6 +245,8 @@ class Firmware(models.Model):
     public_key = models.TextField(help_text="Enter a SHA / Digest or public key to test used to secure the firmware")
     version = models.CharField(max_length=25)  
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE)
+    friendly_name = models.CharField(max_length=140, help_text="Give it a friendly name e.g. May-2021 1.2 release")
+    is_active = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

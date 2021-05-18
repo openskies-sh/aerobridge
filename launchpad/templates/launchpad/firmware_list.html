@@ -1,14 +1,23 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Firmware</h2>
     <p>Use these pages to store or link to firmwares from manufacturers, their public keys</p>
-    <ul>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
         {% for firmware in firmwares %}
-        <li><a href="/launchpad/firmwares/{{firmware.id}}">{{ firmware.manufacturer }} - {{ firmware.version }}.</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ firmware.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/firmwares/{{firmware.id}}">{{ firmware.manufacturer }} - {{ firmware.version }}.</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ firmware.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/firmwares/new"><b>&#43; Add a new firmware</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/firmwares/new"><b>&#43; Add a firmware</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}
