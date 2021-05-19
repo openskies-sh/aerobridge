@@ -6,7 +6,7 @@
     <div class="col-md-6 themed-grid-col">
 <h2>Contact Details</h2>
 <br>
-<form action="{% url 'contacts-detail' contact_id=contact.pk %}" method="POST">
+<form action="{% url 'pilots-detail' pilot_id=pilot.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>

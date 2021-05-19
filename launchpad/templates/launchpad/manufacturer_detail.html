@@ -1,13 +1,17 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div>
-<h1>Manufacturer Profile - {{ manufacturer.common_name }}</h1>
-
+<div class="row mb-3">
+<h2>Manufacturer Profile - {{ manufacturer.common_name }}</h2>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
 <form action="{% url 'manufacturers-detail' manufacturer_id=manufacturer.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
+    <br>
     <button type="submit" value="Update">Update</button>
 </form>
+</div>
 </div>
 {% endblock %}

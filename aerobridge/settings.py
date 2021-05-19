@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'pki_framework',
     'crispy_forms',    
     "crispy_bootstrap5",
+    "simple_history"
 ]
 
 MIDDLEWARE = [
@@ -166,6 +167,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SIMPLE_HISTORY_REVERT_DISABLED=True
 
 CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__")
 # Static files (CSS, JavaScript, Images)

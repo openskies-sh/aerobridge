@@ -21,3 +21,4 @@ pydot
 django-crispy-forms
 crispy-bootstrap5
 faker
+django-simple-history

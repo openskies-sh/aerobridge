@@ -1,14 +1,22 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Engines</h2>
     <p>You may choose to have a set of engines for drones, engine registration has to be linked to a drone.</p>
-    <ul>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+        <ul class="list-group list-group-flush">
         {% for engine in engines %}
-        <li><a href="/launchpad/engines/{{engine.id}}">{{ engine.type }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ engine.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/engines/{{engine.id}}">{{ engine.engine_type }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ engine.created_at }} </small></li>
         {% endfor %}
         
-    </ul>
-    <p><a href="/launchpad/engines/new"><b>&#43; Add a Engine</b></a></p>
+    </ul> <br>
+    <p><a class="btn btn-primary" href="/launchpad/engines/new"><b>&#43; Add a Engine</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}

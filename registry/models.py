@@ -8,6 +8,8 @@ from dateutil.relativedelta import relativedelta
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from . import countries 
+from simple_history.models import HistoricalRecords
+
 
 def two_year_expiration():
     return datetime.combine( date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
@@ -226,17 +228,18 @@ class Manufacturer(models.Model):
 
 class Engine(models.Model):
     
-    type = models.CharField(max_length=15)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     count = models.IntegerField(default =1 )
-    engine_type = models.CharField(max_length=15)
-    propellor = models.CharField(max_length=140)
+    engine_type = models.CharField(max_length=15, help_text="Specify the type of engine")
+    propellor = models.CharField(max_length=140, help_text="Specify number of propellors")
     
     def __unicode__(self):
-       return self.type + ' '+ self.power
+       return self.engine_type 
 
     def __str__(self):
-       return self.type + ' '+ self.power
+       return self.engine_type 
   
 class Firmware(models.Model):
     ''' A model for custom firmware '''
@@ -309,6 +312,9 @@ class Aircraft(models.Model):
     manufactured_at = models.DateTimeField(null=True)    
     dot_permission_document = models.URLField(help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
     operataions_manual_document = models.URLField(help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
+
+    
+    history = HistoricalRecords()
 
     def __unicode__(self):
         return self.operator.company_name +' ' + self.model

@@ -1,14 +1,17 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div>
-
+{% load crispy_forms_tags %}
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
     <h2>Add new contact</h2>
     <p>A Contact is the legal point of contact with a operators, normally it is the operator's company director or other legal persons. Use the form below to update / assign contacts for your operators.</p>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <input type="submit" value="Save" />
     </form>
+</div>
+<div class="col-md-6 themed-grid-col"></div>
 </div>
 {% endblock %}
