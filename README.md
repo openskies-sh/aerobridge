@@ -20,7 +20,7 @@ We work with drone manufacturers to enable them to become compliant with NPNT by
 
 ## Get Involved
 
-Aerobridge is fully open source and you can get involved by participating in our weekly calls (details in the Slack Channel) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
+Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
 
 - You can shape the future of this software
 - Join the community of fellow professionals interested in an open flexible drone eco-system in India
@@ -29,8 +29,7 @@ Aerobridge is fully open source and you can get involved by participating in our
 
 ## Technical Details
 
-This is an open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For a more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing)
-.
+This is an open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For a more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing).
 
 ## Get Started / Self hosting / Debugging
 
@@ -44,20 +43,27 @@ Aerobridge is a Django server and is python based. To setup a local instance wit
 6. Load sample data `python manage.py loadddata registry/defaultregistrydata.json`
 7. Launch server via `python manange.py runserver`
 
-## Dependencies
+## Additional Dependencies
 
-```
-sudo apt install libpq-dev          # Postgre SQL Database
+``` 
+sudo apt install sqlite3          # SQLite3 Database
 sudo apt install python3-pygraphviz # Graphviz for automatically generating database ER diagram
 ```
 
-## Database snapshot
+## Usage commands
 
-To execute automated tests for the Aerobridge Management Server run following command
-
-```
-DJANGO_SECRET=<YOUR_SECRET_KEY> python manage.py test
-```
+1. Run the server locally 
+   ```
+   DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py runserver
+   ```
+2. Create database ER diagram
+   ```
+   DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py graph_models -a -g -o test.png
+   ```
+3. Run automated tests
+    ```
+    DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py test
+    ```
 
 ## Aerobridge Stack
 
@@ -75,23 +81,17 @@ As of May 2021, Aerobridge provides the following toolset:
 
 ## References
 
-- This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com)
-  project.
-- Further details regarding NPNT can be found in the
-  latest [RPAS Guidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf)
-  .
+- This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
+- Further details regarding NPNT can be found in the latest [RPAS Guidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf).
 
 ## Test drive
 
 - You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
-- Take a look at the backend
-  API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
+- Take a look at the backend API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 
 ## LICENSE
 
-Aerobridge is licensed under a BSL license popularized by other products such
-as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html)
-and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
+Aerobridge is licensed under a BSL license popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
 
 - You cannot offer a version of Aerobridge as a service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 24 months, the code becomes Apache-2.0 licensed (the conversion period)
