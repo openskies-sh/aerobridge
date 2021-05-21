@@ -24,7 +24,7 @@ class CredentialsList(mixins.ListModelMixin,
     def form_valid(self, form):
         token = form.instance.token
         form.instance.token = encrpytion_util.encrypt(token)
-        return super(DigitalSkyCredentialsList, self).form_valid(form)
+        return super(CredentialsList, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
