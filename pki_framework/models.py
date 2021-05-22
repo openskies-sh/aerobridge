@@ -7,7 +7,7 @@ from registry.models import Aircraft, Contact
 class AerobridgeCredential(models.Model):
     ''' A class to store tokens from Digital Sky '''
     
-    KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(3, _('DSC / eMudra Token')),)
+    KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('DSC / eMudra Token')),)
     
     TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(4, _('OTHER')),)
     

@@ -1,11 +1,12 @@
 import json
 import os
 
-from digitalsky_provider.serializers import DigitalSkyLogSerializer, AircraftRegisterSerializer
-from gcs_operations.serializers import FirmwareSerializer, UINApplicationSerializer, FlightPlanSerializer, \
+from digitalsky_provider.serializers import DigitalSkyLogSerializer
+from gcs_operations.serializers import FirmwareSerializer, FlightPlanSerializer, \
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
 from launchpad.serializers import ActivitySerializer, EngineSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
     TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
@@ -33,12 +34,12 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(digitalsky_log_serializer.validated_data, dict)
         self.assertEqual(digitalsky_log_serializer.errors, dict())
 
-    def test_digitalsky_provider_aircraft_register_serializer(self):
-        data = self._get_data_for_model('AircraftRegister')
-        aircraft_register_serializer = AircraftRegisterSerializer(data=data)
-        self.assertTrue(aircraft_register_serializer.is_valid())
-        self.assertNotEqual(aircraft_register_serializer.validated_data, dict)
-        self.assertEqual(aircraft_register_serializer.errors, dict())
+    def test_gcs_operations_firmware_serializer(self):
+        data = self._get_data_for_model('Firmware')
+        firmware_serializer = FirmwareSerializer(data=data)
+        self.assertTrue(firmware_serializer.is_valid())
+        self.assertNotEqual(firmware_serializer.validated_data, dict)
+        self.assertEqual(firmware_serializer.errors, dict())
 
     def test_gcs_operations_flight_plan_serializer(self):
         data = self._get_data_for_model('FlightPlan')
@@ -89,12 +90,19 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(flight_log_serializer.validated_data, dict)
         self.assertEqual(flight_log_serializer.errors, dict())
 
-    def test_gcs_operations_uin_application_serializer(self):
-        data = self._get_data_for_model('UINApplication')
-        uin_application_serializer = UINApplicationSerializer(data=data)
-        self.assertTrue(uin_application_serializer.is_valid())
-        self.assertNotEqual(uin_application_serializer.validated_data, dict)
-        self.assertEqual(uin_application_serializer.errors, dict())
+    def test_launchpad_activity_serializer(self):
+        data = self._get_data_for_model('Activity')
+        activity_serializer = ActivitySerializer(data=data)
+        self.assertTrue(activity_serializer.is_valid())
+        self.assertNotEqual(activity_serializer.validated_data, dict)
+        self.assertEqual(activity_serializer.errors, dict())
+
+    def test_launchpad_engine_serializer(self):
+        data = self._get_data_for_model('Engine')
+        engine_serializer = EngineSerializer(data=data)
+        self.assertTrue(engine_serializer.is_valid())
+        self.assertNotEqual(engine_serializer.validated_data, dict)
+        self.assertEqual(engine_serializer.errors, dict())
 
     def test_registry_person_serializer(self):
         data = self._get_data_for_model('Person')
@@ -109,13 +117,6 @@ class TestModelSerializers(TestModels):
         self.assertTrue(address_serializer.is_valid())
         self.assertNotEqual(address_serializer.validated_data, dict)
         self.assertEqual(address_serializer.errors, dict())
-
-    def test_registry_activity_serializer(self):
-        data = self._get_data_for_model('Activity')
-        activity_serializer = ActivitySerializer(data=data)
-        self.assertTrue(activity_serializer.is_valid())
-        self.assertNotEqual(activity_serializer.validated_data, dict)
-        self.assertEqual(activity_serializer.errors, dict())
 
     def test_registry_authorization_serializer(self):
         data = self._get_data_for_model('Authorization')
@@ -159,7 +160,7 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(contact_detail_serializer.validated_data, dict)
         self.assertEqual(contact_detail_serializer.errors, dict())
 
-    def test_registry_test_serializer(self):
+    def test_registry_tests_serializer(self):
         data = self._get_data_for_model('Test')
         test_serializer = TestsSerializer(data=data)
         self.assertTrue(test_serializer.is_valid())
@@ -201,20 +202,6 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(manufacturer_serializer.validated_data, dict)
         self.assertEqual(manufacturer_serializer.errors, dict())
 
-    def test_registry_engine_serializer(self):
-        data = self._get_data_for_model('Engine')
-        engine_serializer = EngineSerializer(data=data)
-        self.assertTrue(engine_serializer.is_valid())
-        self.assertNotEqual(engine_serializer.validated_data, dict)
-        self.assertEqual(engine_serializer.errors, dict())
-
-    def test_registry_firmware_serializer(self):
-        data = self._get_data_for_model('Firmware')
-        firmware_serializer = FirmwareSerializer(data=data)
-        self.assertTrue(firmware_serializer.is_valid())
-        self.assertNotEqual(firmware_serializer.validated_data, dict)
-        self.assertEqual(firmware_serializer.errors, dict())
-
     def test_registry_aircraft_serializer(self):
         data = self._get_data_for_model('Aircraft')
         aircraft_serializer = AircraftSerializer(data=data)
@@ -235,3 +222,17 @@ class TestModelSerializers(TestModels):
         self.assertTrue(aircraft_detail_serializer.is_valid())
         self.assertNotEqual(aircraft_detail_serializer.validated_data, dict)
         self.assertEqual(aircraft_detail_serializer.errors, dict())
+
+    def test_pki_framework_aerobridge_credentials_serializer(self):
+        data = self._get_data_for_model('AerobridgeCredential')
+        aerobridge_credentials_serializer = AerobridgeCredentialSerializer(data=data)
+        self.assertTrue(aerobridge_credentials_serializer.is_valid())
+        self.assertNotEqual(aerobridge_credentials_serializer.validated_data, dict)
+        self.assertEqual(aerobridge_credentials_serializer.errors, dict())
+
+    def test_pki_framweork_digitalsky_get_credentials_serializer(self):
+        data = self._get_data_for_model('AerobridgeCredential')
+        aerobridge_credentials_get_serializer = AerobridgeCredentialGetSerializer(data=data)
+        self.assertTrue(aerobridge_credentials_get_serializer.is_valid())
+        self.assertNotEqual(aerobridge_credentials_get_serializer.validated_data, dict)
+        self.assertEqual(aerobridge_credentials_get_serializer.errors, dict())

@@ -3,7 +3,6 @@
     "model": "registry.engine",
     "pk": 1,
     "fields": {
-        "type": "term",
         "power": "49.90",
         "count": 30,
         "engine_type": "particular",

@@ -29,8 +29,7 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightOperation	
-        exclude = ('recurring_time_expression', 'recurring_time_duration')
-        
+        fields = '__all__'
         ordering = ['-created_at']
     
  
