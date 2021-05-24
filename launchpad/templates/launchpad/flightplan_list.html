@@ -1,14 +1,24 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Flight Plan</h2>
     <p>See all the flight plans </p>
-    <ul>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+   
         {% for flightplan in flightplans %}
-        <li><a href="/launchpad/flightplans/{{flightplan.id}}">{{ flightplan.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightplan.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}">{{ flightplan.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightplan.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/flightplans/new"><b>&#43; Add a new flightplan</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/flightplans/new"><b>&#43; Add a new flightplan</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}

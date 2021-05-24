@@ -1,14 +1,24 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Flight Operations</h2>
     <p>See all the flight operations </p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
     <ul>
         {% for flightoperation in flightoperations %}
         <li><a href="/launchpad/flightoperations/{{flightoperation.id}}">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightoperation.created_at }} </small></li>
         {% endfor %}
         
     </ul>
-    <p><a href="/launchpad/flightoperations/new"><b>&#43; Add a new flight operation</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/flightoperations/new"><b>&#43; Add a new flight operation</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}
