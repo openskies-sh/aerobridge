@@ -2,16 +2,17 @@
 {% load rest_framework %}
 {% block content %}
 <div class="row mb-3">
-<h1>Flightplan Details</h1>
+<h2>Update Flight Permission - {{ flightpermission.operation.name }}</h2>
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
 
-<form action="{% url 'flightplans-detail' flightplan_id=flightplan.pk %}" method="POST">
+
+<form action="{% url 'flightpermissions-detail' flightpermission_id=flightpermission.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>
-    <button class="btn btn-primary"  type="submit" value="Update">Update</button>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>
 </form>
 </div>
 </div>

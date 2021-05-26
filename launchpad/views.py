@@ -498,6 +498,23 @@ class FlightPermissionsDetail(APIView):
         return Response({'serializer': serializer, 'flightpermission': flightpermission})
 
 
+class FlightPermissionsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightpermission_update.html'
+
+    def get(self, request, flightpermission_id):
+        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
+        serializer = FlightPermissionSerializer(flightpermission)
+        return Response({'serializer': serializer, 'flightpermission': flightpermission})
+
+    def post(self, request, flightpermission_id):
+        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
+        serializer = AircraftSerializer(flightpermission, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'flightpermission': flightpermission})
+        serializer.save()
+        return redirect('flightpermissions-list')
+
 class FlightPermissionCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': FlightPermissionCreateForm()}

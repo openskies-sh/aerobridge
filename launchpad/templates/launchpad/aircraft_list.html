@@ -11,7 +11,7 @@
 
     <ul class="list-group list-group-flush">
         {% for aircraft in aircrafts %}
-        <li><img src="{{aircraft.photo_small}}" height="50"><br><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }} </a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small><br><br></li>
+        <li class="list-group-item"><img src="{{aircraft.photo_small}}" height="50"><br><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small><br><br></li>
         {% endfor %}
         
     </ul>

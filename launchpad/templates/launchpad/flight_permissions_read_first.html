@@ -2,14 +2,15 @@
 {% load rest_framework %}
 {% load static %}
 {% block content %}
+<div class="row mb-3">
 <h2>Get started with Flight Permissions</h2>
-<p>Flight permissions must be obtained via Digital Sky, you can store them here. The following is the flow for permission artefacts:</p>
-<ul>
-    <li>Create a Flight Plan (Upload Coordinates file as GeoJSON in Aerobridge)</li>
-    <li>Create a Flight Operation: Assign a flight plan to a operation and a drone, you will have to input additional fields around the operation.</li>
-    <li>You can use the </li>
-    <li>You can then download a permission artefact or apply for one if you have done so. </li>
-    <li>After the operation is complete the signed flight logs from the drone can be uploaded to the server.</li>    
-</ul>
-
+<p>Flight permissions must be obtained via Digital Sky, you can store them here. The following is the flow for permission artefacts:</p><br><br>
+<ol class="list-group list-group-numbered">
+    <li class="list-group-item">Create a Flight Plan (Upload Coordinates file as GeoJSON in Aerobridge)</li>
+    <li class="list-group-item">Create a Flight Operation: Assign a flight plan to a operation and a drone, you will have to input additional fields around the operation.</li>
+    <li class="list-group-item">As of May 2021, at this stage you have to use the Digital Sky Application to submit the flight plan</li>
+    <li class="list-group-item">You can then download a permission artefact or apply for one if you have done so. </li>
+    <li class="list-group-item">After the operation is complete the signed flight logs from the drone can be uploaded to the server.</li>    
+</ol>
+</div>
 {% endblock %}

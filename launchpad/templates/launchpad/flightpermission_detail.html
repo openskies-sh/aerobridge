@@ -3,14 +3,21 @@
 {% block content %}
 <div>
 <h1>Permission Details</h1>
-    <p>Applied Successfully: <code>{{ flightpermission.is_successful }}</code></p>
+<p>Please find below all the flight permission artefacts downloaded from Digital Sky.</p>
+    <h5>Flight Operation: {{ flightpermission.operation.name }}</h5><br>
+
+    <h4>Applied Successfully: <code>{{ flightpermission.is_successful }}</code></h4>
     <br>
-    <h3>Artefact</h3>
+    <h4>Artefact</h4>
     {% if flightpermission.is_successful %}
     <code>{{ flightpermission.artefact }}</code>
     {% else %}
-    <p>Please apply for a flight permission first via the Digital Sky menu.</p>
+    <p>No Artefact found for this Permission</p>
+    <small class="text-muted">Please apply for a flight permission first via the Digital Sky menu and upload the permission artefact here.</small>
     {% endif %}
+    <br>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/flightpermissions/{{flightpermission.id}}"><b>Update Details</b></a></p>
 
 </div>
 {% endblock %}
