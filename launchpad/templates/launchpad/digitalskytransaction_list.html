@@ -11,9 +11,11 @@
 
     <ul class="list-group list-group-flush">
         {% for digitalskytransaction in digitalskytransactions %}
-        <li class="list-group-item"><a href="/launchpad/digitalskytransactions/{{digitalskytransaction.id}}">{{ digitalskytransaction.aircraft.model}} {{ digitalskytransaction.aircraft.operator.company_name }}  {{ digitalskytransaction.prefix}} </a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ digitalskytransaction.created_at }} </small></li>
-        {% endfor %}        
+        <li class="list-group-item"><a href="/launchpad/digitalskytransactions/{{digitalskytransaction.id}}">{{ digitalskytransaction.aircraft.model}} {{ digitalskytransaction.aircraft.operator.company_name }}  {{ digitalskytransaction.prefix}} </a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ digitalskytransaction.created_at }} </small></li>
+        {% endfor %}
+        
     </ul>
+    <br>
     
 </div>
 <div class="col-md-4 themed-grid-col"></div>

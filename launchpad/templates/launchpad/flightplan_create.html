@@ -1,14 +1,18 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div>
+{% load crispy_forms_tags %}
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
 
     <h2>Add new Flight plan</h2>
     <p>Create a new flight plan, link it to a Operation and get permission artefacts against those operations</p>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <input type="submit" value="Save" />
     </form>
+</div>
+<div class="col-md-6 themed-grid-col"></div>
 </div>
 {% endblock %}

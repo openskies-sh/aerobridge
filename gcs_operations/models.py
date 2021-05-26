@@ -12,14 +12,14 @@ def make_random_plan_common_name():
     length = 6
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
-    return  "Flight " + result_str
+    return result_str
 
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default=  make_random_plan_common_name)
-    geo_json = models.TextField(null=True, help_text="Paste flight plan geometry")
+    name = models.CharField(max_length=30, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
+    geo_json = models.TextField(help_text="Paste flight plan geometry as GeoJSON", default='{"type":"FeatureCollection","features":[]}')
     start_datetime = models.DateTimeField(default=datetime.now)
     end_datetime = models.DateTimeField(default=datetime.now)
     
@@ -38,7 +38,7 @@ class FlightOperation(models.Model):
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default= make_random_plan_common_name)
+    name = models.CharField(max_length=30, default="Medicine Delivery Operation" )
     drone = models.ForeignKey(Aircraft, models.CASCADE)
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")

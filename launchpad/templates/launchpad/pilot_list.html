@@ -2,12 +2,13 @@
 {% block content %}
 
 <div class="row mb-3">
-    
+
     <h2>Pilots list</h2>
     <p>See all the pilots for your operators as a list below</p>
+
 </div>
 <div class="row mb-3">
-    <div class="col-md-8 themed-grid-col">
+    <div class="col-md-6 themed-grid-col">
 
     <ul>
         {% for contact in contacts %}
@@ -16,8 +17,7 @@
         
     </ul>
     <p><a class="btn btn-primary" href="/launchpad/pilots/new"><b>&#43; Add a new pilot</b></a></p>
-    
 </div>
-<div class="col-md-4 themed-grid-col"></div>
+<div class="col-md-6 themed-grid-col"></div>
 </div>
 {% endblock %}
