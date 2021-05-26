@@ -228,7 +228,7 @@ class Manufacturer(models.Model):
 
 class Engine(models.Model):
     
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
 
     power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     count = models.IntegerField(default =1 )

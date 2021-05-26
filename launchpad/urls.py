@@ -38,7 +38,7 @@ urlpatterns = [
     path('manufacturers/new', launchpad_views.ManufacturerCreateView.as_view(), name='manufacturers-create'),
     
     path('engines', launchpad_views.EnginesList.as_view(), name='engines-list'),
-    path('engines/<uuid:engine_id>', launchpad_views.EnginesDetail.as_view(), name='engines-detail'),
+    path('engines/<int:engine_id>', launchpad_views.EnginesDetail.as_view(), name='engines-detail'),
     path('engines/new', launchpad_views.EngineCreateView.as_view(), name='engines-create'),
 
     path('firmwares', launchpad_views.FirmwaresList.as_view(), name='firmwares-list'),
