@@ -1,14 +1,24 @@
 {% extends "launchpad/layout.html" %} 
 {% block content %}
-<div>
+
+<div class="row mb-3">
+    
     <h2>Flight Logs</h2>
     <p>See all the signed flight logs, these will be sent to Digital Sky and also be maintained for your records</p>
-    <ul>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
         {% for flightlog in flightlogs %}
-        <li><a href="/launchpad/flightlogs/{{flightlog.id}}">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/flightlogs/{{flightlog.id}}">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
         {% endfor %}
-        
+          
     </ul>
-    <p><a href="/launchpad/flightlogs/new"><b>&#43; Add a new flight log</b></a></p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/flightlogs/new"><b>&#43; Add a new flight log</b></a></p>
+
+</div>
+<div class="col-md-4 themed-grid-col"></div>
 </div>
 {% endblock %}
