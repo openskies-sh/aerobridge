@@ -1,0 +1,731 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: DigitalSky Platform Public APIs
+  description: This API documentation is meant to be consumed by RPAS Manufacturers and Operators registered on DigitalSky Platform. If you are not yet registered, please register yourself by visiting "https://digitalsky.dgca.gov.in".
+  license:
+    name: DigitalSky
+    url: https://digitalsky.dgca.gov.in
+servers:
+  - url: 'https://digitalsky.dgca.gov.in/digital-sky'
+paths:
+  /public/manufacturers/{id}/rpa/register:
+    post:
+      summary: Register a rpa for an operator
+      description: This API is to be used by Manufacturers for registering a RPAS device to an Operator. 
+      operationId: registerRpaForOperator
+      parameters:
+        - name: X-API-VERSION
+          in: header
+          description: API version
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: x-correlation-id
+          in: header
+          required: false
+          description: >-
+            Unique identifier for each request that is being submitted to
+            server. It is an optional field, if the field is empty then server
+            will generate the identifier and will include in the response.
+            Version 1 UUID will be used for this field. Refer
+            'https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)'
+          schema:
+            type: string
+            format: uuid
+        - name: id
+          in: path
+          required: true
+          description: The id of the manufacturer
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRpaRequest'
+      tags:
+        - RPAS Registration / Deregistration
+      responses:
+        '200':
+          description: RPA successfully registered
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier.
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterRpaResponse'
+        '400':
+          description: Bad request.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterRpaResponse'
+        '500':
+          description: Internal Server Error.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /public/manufacturers/{id}/rpa/deregister:
+    post:
+      summary: Deregister a rpa for an operator
+      description: This API is to be used by Manufacturers for de-registering a RPAS device to an Operator. 
+      operationId: deregisterRpaForOperator
+      parameters:
+        - name: X-API-VERSION
+          in: header
+          description: API version
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: x-correlation-id
+          in: header
+          required: false
+          description: >-
+            Unique identifier for each request that is being submitted to
+            server. It is an optional field, if the field is empty then server
+            will generate the identifier and will include in the response.
+            Version 1 UUID will be used for this field. Refer
+            'https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)'
+          schema:
+            type: string
+            format: uuid
+        - name: id
+          in: path
+          required: true
+          description: The id of the manufacturer
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRpaRequest'
+      tags:
+        - RPAS Registration / Deregistration
+      responses:
+        '200':
+          description: RPA successfully deregistered
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier.
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeregisterRpaResponse'
+        '400':
+          description: Bad request.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeregisterRpaResponse'
+        '500':
+          description: Internal Server Error.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /public/manufacturers/{id}/rpa/certificates:
+    post:
+      summary: Add Certificate for the Rpas
+      description: This API is to be used by Manufacturers for adding Digital Certificate to a RPAS device. 
+      operationId: addCertificateForRpas
+      parameters:
+        - name: X-API-VERSION
+          in: header
+          description: API version
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: x-correlation-id
+          in: header
+          required: false
+          description: >-
+            Unique identifier for each request that is being submitted to
+            server. It is an optional field, if the field is empty then server
+            will generate the identifier and will include in the response.
+            Version 1 UUID will be used for this field. Refer
+            'https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)'
+          schema:
+            type: string
+            format: uuid
+        - name: id
+          in: path
+          required: true
+          description: The businessIdentifier of the manufacturer
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRpaCertificateRequest'
+      tags:
+        - RPAS Certificate
+      responses:
+        '201':
+          description: RPAS certificate successfully added
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        '400':
+            description: Bad request.
+            headers:
+              x-correlation-id:
+                description: >-
+                  Identifier of the request which is included while submitting the
+                  request, if not provided then server sends auto generated
+                  identifier
+                schema:
+                  type: string
+                  format: uuid
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '#/components/schemas/Error'
+                    - $ref: '#/components/schemas/ValidationError'
+        '500':
+            description: Internal Server Error.
+            headers:
+              x-correlation-id:
+                description: >-
+                  Identifier of the request which is included while submitting the
+                  request, if not provided then server sends auto generated
+                  identifier
+                schema:
+                  type: string
+                  format: uuid
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+        default:
+            description: Unspecified error.
+            headers:
+              x-correlation-id:
+                description: >-
+                  Identifier of the request which is included while submitting the
+                  request, if not provided then server sends auto generated
+                  identifier
+                schema:
+                  type: string
+                  format: uuid
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /public/rpas/flight-logs/upload:
+    post:
+      summary: Add Flight Log Zip for a flight plan based on permission artifact id and uin
+      description: This API is to be used by Operators for uploading the flight logs in a ZIP format. Even if there is a single flight log, it should be wrapped in a ZIP file.
+      operationId: addFlightLogsForFlightPlan
+      parameters:
+        - name: X-API-VERSION
+          in: header
+          description: API version
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: x-correlation-id
+          in: header
+          required: false
+          description: >-
+            Unique identifier for each request that is being submitted to
+            server. It is an optional field, if the field is empty then server
+            will generate the identifier and will include in the response.
+            Version 1 UUID will be used for this field. Refer
+            'https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)'
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - uin
+                - permissionArtifactId
+              properties:
+                uin:
+                  type: string
+                permissionArtifactId:
+                  type: string
+                flightLogFile:
+                  $ref: '#/components/schemas/CompletedFileUpload'
+      tags:
+        - Flight Log
+      responses:
+        '201':
+          description: Flight Log successfully added
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightLogDocument'
+        '500':
+          description: Internal Server Error.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unspecified error.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /public/rpa/permissionArtifact:
+    post:
+      summary: Pull the permission artifact for a flight plan
+      operationId: pullPermissionArtifact
+      parameters:
+        - name: X-API-VERSION
+          in: header
+          description: API version
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: x-correlation-id
+          in: header
+          required: false
+          description: >-
+            Unique identifier for each request that is being submitted to
+            server. It is an optional field, if the field is empty then server
+            will generate the identifier and will include in the response.
+            Version 1 UUID will be used for this field. Refer
+            'https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)'
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PullPermissionArtifactRequest'
+      tags:
+        - Permission Artefact
+      responses:
+        '200':
+          description: Permission artifact successfully retrieved
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier.
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/xml:
+              schema:
+                type: object
+        '400':
+          description: Bad request.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error.
+          headers:
+            x-correlation-id:
+              description: >-
+                Identifier of the request which is included while submitting the
+                request, if not provided then server sends auto generated
+                identifier
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+components:
+  schemas:
+    CompletedFileUpload:
+      type: object
+    FlightLogDocument:
+      type: object
+      required:
+        - flightLog
+        - signature
+      properties:
+        id:
+          type: string
+          format: uuid
+        signature:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        fileKey:
+          type: string
+          format: uuid
+        flightLogStatus:
+          $ref: '#/components/schemas/FlightLogStatus'
+        flightLog:
+          $ref: '#/components/schemas/FlightLogJSON'
+    FlightLogStatus:
+      type: string
+      enum:
+        - SUBMITTED
+        - PROCESSED
+        - BREACH
+        - UPDATED
+        - APPROVED
+        - REJECTED
+        - SUCCESS
+    FlightLogJSON:
+      required:
+        - logEntries
+        - permissionArtefact
+        - previousLogHash
+      type: object
+      properties:
+        permissionArtefact:
+          type: string
+        previousLogHash:
+          type: string
+        logEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+    LogEntry:
+      required:
+        - altitude
+        - crc
+        - entryType
+        - latitude
+        - longitude
+        - timeStamp
+      type: object
+      properties:
+        entryType:
+          $ref: '#/components/schemas/FlightLogEntryType'
+        timeStamp:
+          type: integer
+          format: int64
+        longitude:
+          type: number
+          format: double
+        latitude:
+          type: number
+          format: double
+        altitude:
+          type: number
+          format: double
+        crc:
+          type: integer
+          format: int64
+    FlightLogEntryType:
+      type: string
+      enum:
+        - TAKEOFF/ARM
+        - LOG
+        - GEOFENCE_BREACH
+        - TIME_BREACH
+        - LAND/DISARM
+    RpaRequest:
+      type: object
+      properties:
+        version:
+          type: string
+        txn:
+          type: string
+          description:  transaction  identifier  (of  max  length  50)  entered  by manufacturer,  which  is  also  returned  as  part of response as is and is useful for linking transactions full round trip across systems
+        deviceId:
+          type: string
+          description: Unique Drone’s Drone Id
+        deviceModelId:
+          type: string
+          description:  Device Model Id
+        operatorBusinessIdentifier:
+          type: string
+          description:  Operator Unique identifier to be linked to the rpa device
+        idHash:
+          type: string
+          description:  Hash of the Drone Id of the Drone
+    RpaCertificateRequest:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Unique Drone’s Drone Id
+        deviceModelId:
+          type: string
+          description:  Device Model Id
+    RegisterRpaRequest:
+      type: object
+      properties:
+        drone:
+          $ref: '#/components/schemas/RpaRequest'
+        signature:
+          type: string
+          format: byte
+          description:  Base64 Encoded Digital Signature of the rpa data
+        digitalCertificate:
+          type: string
+          format: byte
+          description:  Base64 Encoded X509 Certificate of the manufacturer
+        droneCertificate:
+          type: string
+          format: byte
+          description: Base64 encoded public key which is signed by manufacturer private key. Drone certificate is verified against manufacturer certificate which is uploaded during the Manufacturer profile creation.
+    AddRpaCertificateRequest:
+      type: object
+      required:
+        - drone
+        - signature
+        - digitalCertificate
+        - droneCertificate
+      properties:
+        drone:
+          $ref: '#/components/schemas/RpaCertificateRequest'
+        signature:
+          type: string
+          format: byte
+          description:  Base64 Encoded Digital Signature of the rpa data
+        digitalCertificate:
+          type: string
+          format: byte
+          description:  Base64 Encoded X509 Certificate of the manufacturer
+        droneCertificate:
+          type: string
+          format: byte
+          description: Base64 Encoded X509 Certificate of the Drone. Certificate must be signed by manufacturer private key. Drone public key is verified against manufacturer public key which is uploaded during the profile creation.
+    RpaRegistrationErrorCode:
+      type: string
+      enum:
+        - REGISTERED
+        - REGISTRATION_FAILED
+        - OPERATOR_BUSINESS_IDENTIFIER_INVALID
+        - OPERATOR_BUSINESS_IDENTIFIER_MISSING
+        - INVALID_SIGNATURE
+        - INVALID_DIGITAL_CERTIFICATE
+        - RPA_ALREADY_REGISTERED
+        - INVALID_MANUFACTURER
+        - MANUFACTURER_BUSINESS_IDENTIFIER_INVALID
+        - BAD_REQUEST_PAYLOAD
+    RpaDeregistrationErrorCode:
+      type: string
+      enum:
+        - DEREGISTERED
+        - DEREGISTRATION_FAILED
+        - DRONE_NOT_FOUND
+        - DRONE_NOT_REGISTERED
+        - INVALID_SIGNATURE
+        - INVALID_DIGITAL_CERTIFICATE
+        - INVALID_MANUFACTURER
+        - MANUFACTURER_BUSINESS_IDENTIFIER_INVALID
+        - BAD_REQUEST_PAYLOAD
+    RegisterRpaResponse:
+      type: object
+      required:
+        - txn
+        - responseTimeStamp
+        - code
+      properties:
+        txn:
+          type: string
+        responseTimeStamp:
+          type: string
+        code:
+          $ref: '#/components/schemas/RpaRegistrationErrorCode'
+        error:
+          type: string
+    DeregisterRpaResponse:
+      type: object
+      required:
+        - txn
+        - responseTimeStamp
+        - code
+      properties:
+        txn:
+          type: string
+        responseTimeStamp:
+          type: string
+        code:
+          $ref: '#/components/schemas/RpaDeregistrationErrorCode'
+        error:
+          type: string
+    ArtifactRequest:
+      type: object
+      properties:
+        flightPlanId:
+          type: string
+          format: uuid
+          description: Id of the flight plan
+    PullPermissionArtifactRequest:
+      type: object
+      properties:
+        artifactRequest:
+          $ref: '#/components/schemas/ArtifactRequest'          
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    ValidationError:
+      type: object
+      required:
+        - message
+        - _links
+      properties:
+        message:
+          type: string
+        _links:
+          $ref: '#/components/schemas/_links'
+        _embeded:
+          $ref: '#/components/schemas/_embeded'
+    Self:
+      type: object
+      required:
+        - href
+        - templated
+      properties:
+        href:
+          type: string
+        templated:
+          type: string
+          format: boolean
+    _links:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Self'
+    _embeded:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
