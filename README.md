@@ -83,6 +83,7 @@ As of May 2021, Aerobridge provides the following toolset:
 
 - This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
 - Further details regarding NPNT can be found in the latest [RPAS Guidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf).
+- The Digital Sky's Public APIs can be viewed at [DigitalSky Platform Public APIs (1.0.0)](https://redocly.github.io/redoc/?url=https://digitalsky.dgca.gov.in/assets/files/DigitalSky-Public-API-Swagger-Specification-v1.0.0.yml).
 
 ## Test drive
 
