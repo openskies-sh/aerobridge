@@ -1,0 +1,16 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div class="row mb-3">
+<h2>Flightoperation Details</h2>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+<form action="{% url 'flightoperations-detail' flightoperation_id=flightoperation.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>
+</form>
+</div>
+</div>
+{% endblock %}

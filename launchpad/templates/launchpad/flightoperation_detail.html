@@ -1,16 +1,47 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div class="row mb-3">
-<h2>Flightoperation Details</h2>
-</div>
-<div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-<form action="{% url 'flightoperations-detail' flightoperation_id=flightoperation.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>
-</form>
-</div>
+<div>
+<h1>Flight Operation Detail - {{ flightoperation.name }}</h1>
+<br>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Name</td>
+        <td>{{ flightoperation.drone.model }}</td>
+    </tr>
+    <tr>
+        <td>GeoJSON</td>
+        <td>{{ flightoperation.flight_plan.geo_json}}</td>    
+    </tr>
+    <tr>
+        <td>Type of Operation</td>
+        <td>{{ flightoperation.type_of_operation}}</td>
+    </tr>
+    </tr>
+    <tr>
+        <td>Purpose</td>
+        <td>{{ flightoperation.purpose}}</td>
+    </tr>
+    </tr>
+    <tr>
+        <td>Start</td>
+        <td>{{ flightoperation.flight_plan.start_datetime }}</td>
+    </tr>
+    <tr>
+        <td>End</td>
+        <td>{{ flightoperation.flight_plan.end_datetime }}</td>
+    </tr>
+
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/flightplans/{{flightplan.id}}"><b>Update Details</b></a></p>
+
 </div>
 {% endblock %}

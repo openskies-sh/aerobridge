@@ -35,8 +35,8 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
  
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
-    drone = AircraftDetailSerializer(read_only=True)
-    flight_plan = FlightPlanSerializer(read_only=True)
+    # drone = AircraftDetailSerializer(read_only=True)
+    # flight_plan = FlightPlanSerializer(read_only=True)
     class Meta:
         model = FlightOperation	
         fields = '__all__'	

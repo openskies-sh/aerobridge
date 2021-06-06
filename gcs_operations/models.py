@@ -20,6 +20,7 @@ class FlightPlan(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=30, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
     geo_json = models.TextField(help_text="Paste flight plan geometry as GeoJSON", default='{"type":"FeatureCollection","features":[]}')
+    
     start_datetime = models.DateTimeField(default=datetime.now)
     end_datetime = models.DateTimeField(default=datetime.now)
     

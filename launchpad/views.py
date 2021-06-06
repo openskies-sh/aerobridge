@@ -413,6 +413,16 @@ class FlightPlansDetail(APIView):
         serializer = FlightPlanSerializer(flightplan)
         return Response({'serializer': serializer, 'flightplan': flightplan})
 
+
+class FlightPlansUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightplan_update.html'
+
+    def get(self, request, flightplan_id):
+        flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
+        serializer = FlightPlanSerializer(flightplan)
+        return Response({'serializer': serializer, 'flightplan': flightplan})
+
     def post(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
         serializer = FlightPlanSerializer(flightplan, data=request.data)
@@ -449,6 +459,16 @@ class FlightOperationsList(APIView):
 class FlightOperationsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightoperation_detail.html'
+
+    def get(self, request, flightoperation_id):
+        flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
+        serializer = FlightPlanSerializer(flightoperation)
+        return Response({'serializer': serializer, 'flightoperation': flightoperation})
+
+
+class FlightOperationsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightoperation_update.html'
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)

@@ -12,7 +12,7 @@
     <ul class="list-group list-group-flush">
    
         {% for flightplan in flightplans %}
-        <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}">{{ flightplan.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightplan.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}/detail">{{ flightplan.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightplan.created_at }} </small></li>
         {% endfor %}
         
     </ul>

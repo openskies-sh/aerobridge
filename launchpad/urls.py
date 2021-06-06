@@ -29,8 +29,8 @@ urlpatterns = [
     path('activities/new', launchpad_views.ActivitiesCreateView.as_view(), name='activities-create'),
      
     path('aircrafts', launchpad_views.AircraftList.as_view(), name='aircrafts-list'),
-    path('aircrafts/<uuid:aircraft_id>/detail', launchpad_views.AircraftDetail.as_view(), name='aircrafts-detail'),
     path('aircrafts/<uuid:aircraft_id>', launchpad_views.AircraftUpdate.as_view(), name='aircrafts-update'),
+    path('aircrafts/<uuid:aircraft_id>/detail', launchpad_views.AircraftDetail.as_view(), name='aircrafts-detail'),
     path('aircrafts/new', launchpad_views.AircraftCreateView.as_view(), name='aircrafts-create'),
  
     path('manufacturers', launchpad_views.ManufacturersList.as_view(), name='manufacturers-list'),
@@ -46,7 +46,8 @@ urlpatterns = [
     path('firmwares/new', launchpad_views.FirmwareCreateView.as_view(), name='firmwares-create'),
  
     path('flightplans', launchpad_views.FlightPlansList.as_view(), name='flightplans-list'),
-    path('flightplans/<uuid:flightplan_id>', launchpad_views.FlightPlansDetail.as_view(), name='flightplans-detail'),
+    path('flightplans/<uuid:flightplan_id>', launchpad_views.FlightPlansUpdate.as_view(), name='flightplans-update'),
+    path('flightplans/<uuid:flightplan_id>/detail', launchpad_views.FlightPlansDetail.as_view(), name='flightplans-detail'),
     path('flightplans/new', launchpad_views.FlightPlanCreateView.as_view(), name='flightplans-create'),
   
     path('flightoperations', launchpad_views.FlightOperationsList.as_view(), name='flightoperations-list'),
