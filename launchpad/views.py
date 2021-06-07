@@ -337,9 +337,9 @@ class ManufacturersDetail(APIView):
     template_name = 'launchpad/manufacturer_detail.html'
 
     def get(self, request, manufacturer_id):
-        manufacturer = get_object_or_404(Aircraft, pk=manufacturer_id)
+        manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
         serializer = ManufacturerSerializer(manufacturer)
-        return Response({'serializer': serializer, 'aircraft': manufacturer})
+        return Response({'serializer': serializer, 'manufacturer': manufacturer})
 
 
 class ManufacturersUpdate(APIView):
