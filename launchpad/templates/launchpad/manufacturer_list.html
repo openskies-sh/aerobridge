@@ -11,7 +11,7 @@
 
         <ul class="list-group list-group-flush">
         {% for manufacturer in manufacturers %}
-        <li class="list-group-item"><a href="/launchpad/manufacturers/{{manufacturer.id}}">{{ manufacturer.common_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ manufacturer.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/manufacturers/{{manufacturer.id}}/detail">{{ manufacturer.common_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ manufacturer.created_at }} </small></li>
         {% endfor %}
         
     </ul>

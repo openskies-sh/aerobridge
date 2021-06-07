@@ -5,14 +5,52 @@
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 <h1>Operator Profile - {{ operator.company_name }}</h1>
+<p>A snapshot for this operator, a Operator is a company that flies / operates the drone</p>
 <br>
 
-<form action="{% url 'operators-detail' operator_id=operator.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <br>
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>
-        </form>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tr>
+        <td>Company Name</td>
+        <td>{{ operator.company_name}}</td>    
+    </tr>
+    <tr>
+        <td>Website</td>
+        <td>{{ operator.website}}</td>
+    </tr>
+    <tr>
+        <td>VAT Number</td>
+        <td>{{ operator.vat_number}}</td>
+    </tr>
+    <tr>
+        <td>Website</td>      
+        <td>{{ operator.vat_number}}</td>
+    </tr>
+    <tr>
+        <td>Insurance Number</td>
+        <td><b>{{operator.company_number}}</b></td>
+    </tr>
+    <tr>
+        <td>Authorizations</td>
+        <td>  {% for authorization in operator.operational_authorizations.all %} {{authorization.title}}  {% empty %}No Authorizations!{% endfor %}</td>
+    </tr>
+    
+    <tr>
+        <td>Authorized Activities</td>
+        <td>{% for activity in operator.authorized_activities.all %} {{activity.name}}  {% empty %}No Activities!{% endfor %}</td>
+    </tr>
+
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/operators/{{operator.id}}"><b>Update Details</b></a></p>
+
     </div>
     </div>
 {% endblock %}

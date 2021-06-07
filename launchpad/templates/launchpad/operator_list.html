@@ -9,7 +9,7 @@
 
     <ul class="list-group list-group-flush">
         {% for operator in operators %}
-        <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}/detail">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
         {% endfor %}
         
     </ul>

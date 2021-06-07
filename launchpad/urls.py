@@ -12,7 +12,8 @@ urlpatterns = [
     path('people/new', launchpad_views.PersonCreateView.as_view(), name='people-create'),
  
     path('operators', launchpad_views.OperatorList.as_view(), name='operators-list'),
-    path('operators/<uuid:operator_id>', launchpad_views.OperatorDetail.as_view(), name='operators-detail'),
+    path('operators/<uuid:operator_id>', launchpad_views.OperatorUpdate.as_view(), name='operators-update'),
+    path('operators/<uuid:operator_id>/detail', launchpad_views.OperatorDetail.as_view(), name='operators-detail'),
     path('operators/new', launchpad_views.OperatorCreateView.as_view(), name='operators-create'),
     
 
@@ -34,7 +35,8 @@ urlpatterns = [
     path('aircrafts/new', launchpad_views.AircraftCreateView.as_view(), name='aircrafts-create'),
  
     path('manufacturers', launchpad_views.ManufacturersList.as_view(), name='manufacturers-list'),
-    path('manufacturers/<uuid:manufacturer_id>', launchpad_views.ManufacturersDetail.as_view(), name='manufacturers-detail'),
+    path('manufacturers/<uuid:manufacturer_id>', launchpad_views.ManufacturersUpdate.as_view(), name='manufacturers-update'),
+    path('manufacturers/<uuid:manufacturer_id>/detail', launchpad_views.ManufacturersDetail.as_view(), name='manufacturers-detail'),
     path('manufacturers/new', launchpad_views.ManufacturerCreateView.as_view(), name='manufacturers-create'),
     
     path('engines', launchpad_views.EnginesList.as_view(), name='engines-list'),

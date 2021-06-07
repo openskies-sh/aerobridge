@@ -130,6 +130,16 @@ class OperatorDetail(APIView):
 
     def get(self, request, operator_id):
         operator = get_object_or_404(Operator, pk=operator_id)
+        serializer = AircraftSerializer(operator)
+        return Response({'serializer': serializer, 'operator': operator})
+
+
+class OperatorUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/operator_update.html'
+
+    def get(self, request, operator_id):
+        operator = get_object_or_404(Operator, pk=operator_id)
         serializer = OperatorSerializer(operator)
         return Response({'serializer': serializer, 'operator': operator})
 
@@ -325,6 +335,16 @@ class ManufacturersList(APIView):
 class ManufacturersDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/manufacturer_detail.html'
+
+    def get(self, request, manufacturer_id):
+        manufacturer = get_object_or_404(Aircraft, pk=manufacturer_id)
+        serializer = ManufacturerSerializer(manufacturer)
+        return Response({'serializer': serializer, 'aircraft': manufacturer})
+
+
+class ManufacturersUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/manufacturer_update.html'
 
     def get(self, request, manufacturer_id):
         manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)

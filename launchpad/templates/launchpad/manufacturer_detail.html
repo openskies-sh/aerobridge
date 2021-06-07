@@ -1,17 +1,46 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
-<div class="row mb-3">
-<h2>Manufacturer Profile - {{ manufacturer.common_name }}</h2>
-</div>
-<div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-<form action="{% url 'manufacturers-detail' manufacturer_id=manufacturer.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <br>
-    <button type="submit" value="Update">Update</button>
-</form>
-</div>
+<div>
+<h1>Aircraft - {{ manufacturer.common_name }}</h1>
+<br>
+<p></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Digital Sky ID</td>
+        <td>{{ manufacturer.digital_sky_id }}</td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td>{{ manufacturer.role}}</td>    
+    </tr>
+    <tr>
+        <td>CIN Document</td>
+        <td>{{ manufacturer.cin_document}}</td>
+    </tr>
+    <tr>
+        <td>Flight Controller Number (Drone ID)</td>
+        <td><b>{{manufacturer.flight_controller_number}}</b></td>
+    </tr>
+    <tr>
+        <td>GST Document</td>
+        <td><a href="{{manufacturer.gst_document}}" target="_blank">{{manufacturer.gst_document}}</a></td>
+    </tr>
+    <tr>
+        <td>Security Clearance Document</td>
+        <td><a href="{{manufacturer.security_clearance_document}}" target="_blank">{{manufacturer.security_clearance_document}}</a></td>
+    </tr>
+
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
+
 </div>
 {% endblock %}
