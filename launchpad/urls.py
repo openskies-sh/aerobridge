@@ -15,7 +15,6 @@ urlpatterns = [
     path('operators/<uuid:operator_id>', launchpad_views.OperatorUpdate.as_view(), name='operators-update'),
     path('operators/<uuid:operator_id>/detail', launchpad_views.OperatorDetail.as_view(), name='operators-detail'),
     path('operators/new', launchpad_views.OperatorCreateView.as_view(), name='operators-create'),
-    
 
     path('contacts', launchpad_views.ContactsList.as_view(), name='contacts-list'),
     path('contacts/<uuid:contact_id>', launchpad_views.ContactsDetail.as_view(), name='contacts-detail'),
@@ -76,7 +75,8 @@ urlpatterns = [
     path('flight-permissions-read-first', launchpad_views.FlightPermissionsReadFirst.as_view(), name='flight-permissions-read-first'),
 
     path('credentials', launchpad_views.CredentialsList.as_view(), name='credentials-list'),
-    path('credentials/<uuid:credential_id>', launchpad_views.CredentialsDetail.as_view(), name='credentials-detail'),
+    path('credentials/<uuid:credential_id>/detail', launchpad_views.CredentialsDetail.as_view(), name='credentials-detail'),
+    path('credentials/<uuid:credential_id>', launchpad_views.CredentialsUpdate.as_view(), name='credentials-update'),
     path('credentials/<uuid:credential_id>/delete', launchpad_views.CredentialsDelete.as_view(), name='credentials-delete'),
     path('credentials/new', launchpad_views.CredentialsCreateView.as_view(), name='credentials-create'),
     

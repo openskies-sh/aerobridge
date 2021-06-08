@@ -762,6 +762,18 @@ class CredentialsDetail(APIView):
         serializer = AerobridgeCredentialSerializer(credential)
         return Response({'serializer': serializer, 'credential': credential})
 
+
+
+class CredentialsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credential_update.html'
+
+    def get(self, request, credential_id):
+        credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
+        serializer = AerobridgeCredentialSerializer(credential)
+        
+        return Response({'serializer': serializer, 'credential': credential})
+
     def post(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
         serializer = AerobridgeCredentialSerializer(credential, data=request.data)
