@@ -7,7 +7,7 @@
 <h1>Operator Profile - {{ operator.company_name }}</h1>
 <br>
 
-<form action="{% url 'operators-detail' operator_id=operator.pk %}" method="POST">
+<form action="{% url 'operators-update' operator_id=operator.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>

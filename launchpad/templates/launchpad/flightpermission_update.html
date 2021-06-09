@@ -8,7 +8,7 @@
     <div class="col-md-6 themed-grid-col">
 
 
-<form action="{% url 'flightpermissions-detail' flightpermission_id=flightpermission.pk %}" method="POST">
+<form action="{% url 'flightpermissions-update' flightpermission_id=flightpermission.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>

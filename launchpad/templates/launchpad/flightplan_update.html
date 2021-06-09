@@ -7,11 +7,15 @@
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
 
-<form action="{% url 'flightplans-detail' flightplan_id=flightplan.pk %}" method="POST">
+<form action="{% url 'flightplans-update' flightplan_id=flightplan.pk %}" method="POST">
     {% csrf_token %}
-    {% render_form serializer %}
+    <div class="error-message">
+        
+    </div>
+    
+    {% render_form serializer  template_pack='rest_framework/vertical' %}
     <br>
-    <button class="btn btn-primary"  type="submit" value="Update">Update</button>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>
 </form>
 </div>
 </div>
