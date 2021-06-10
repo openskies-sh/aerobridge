@@ -8,12 +8,12 @@
     <div class="col-md-6 themed-grid-col">
 
 <form action="{% url 'flightplans-update' flightplan_id=flightplan.pk %}" method="POST">
-    {% csrf_token %}
-    <div class="error-message">
-        
-    </div>
+    {% csrf_token %}   
     
-    {% render_form serializer  template_pack='rest_framework/vertical' %}
+    {% render_field serializer.name style=style %}
+    {% render_field serializer.geo_json style=style %}
+    {% render_field serializer.start_datetime style=style %}
+    {% render_field serializer.end_datetime style=style %}
     <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>
 </form>

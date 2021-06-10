@@ -6,9 +6,10 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-<form action="{% url 'flightoperations-detail' flightoperation_id=flightoperation.pk %}" method="POST">
+<form action="{% url 'flightoperations-update' flightoperation_id=flightoperation.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
+
     <button class="btn btn-primary" type="submit" value="Update">Update</button>
 </form>
 </div>

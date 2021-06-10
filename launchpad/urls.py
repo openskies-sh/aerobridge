@@ -52,7 +52,8 @@ urlpatterns = [
     path('flightplans/new', launchpad_views.FlightPlanCreateView.as_view(), name='flightplans-create'),
   
     path('flightoperations', launchpad_views.FlightOperationsList.as_view(), name='flightoperations-list'),
-    path('flightoperations/<uuid:flightoperation_id>', launchpad_views.FlightOperationsDetail.as_view(), name='flightoperations-detail'),
+    path('flightoperations/<uuid:flightoperation_id>', launchpad_views.FlightOperationsUpdate.as_view(), name='flightoperations-update'),
+    path('flightoperations/<uuid:flightoperation_id>/detail', launchpad_views.FlightOperationsDetail.as_view(), name='flightoperations-detail'),
     path('flightoperations/new', launchpad_views.FlightOperationCreateView.as_view(), name='flightoperations-create'),
  
     path('flightpermissions', launchpad_views.FlightPermissionsList.as_view(), name='flightpermissions-list'),

@@ -5,3 +5,8 @@ body {
 .navbar {
   margin-bottom: 20px;
 }
+
+.help-block {
+  color: #6c757d!important;
+  font-size: .875em;
+}

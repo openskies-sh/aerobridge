@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td>Type of Operation</td>
-        <td>{{ flightoperation.type_of_operation}}</td>
+        <td>{{ flightoperation.get_type_of_operation_display}}</td>
     </tr>
     </tr>
     <tr>
@@ -41,7 +41,7 @@
 
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/flightplans/{{flightplan.id}}"><b>Update Details</b></a></p>
+<p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a></p>
 
 </div>
 {% endblock %}

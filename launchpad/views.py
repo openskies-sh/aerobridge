@@ -437,17 +437,18 @@ class FlightPlansDetail(APIView):
 class FlightPlansUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightplan_update.html'
-
+    style = {'template_pack': 'rest_framework/vertical/'}
+    
     def get(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
         serializer = FlightPlanSerializer(flightplan)
-        return Response({'serializer': serializer, 'flightplan': flightplan})
+        return Response({'serializer': serializer, 'flightplan': flightplan, 'style': self.style})
 
     def post(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
         serializer = FlightPlanSerializer(flightplan, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightplan': flightplan})
+        if not serializer.is_valid():            
+            return Response({'serializer': serializer, 'flightplan': flightplan, 'style': self.style})
         serializer.save()
         return redirect('flightplans-list')
 

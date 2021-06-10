@@ -19,7 +19,7 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
     
 
 class FlightPlanSerializer(serializers.ModelSerializer):
-    
+        
     def validate(self, data):
         """
         Check flight plan is  valid GeoJSON
