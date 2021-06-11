@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td>CIN Document</td>
-        <td>{{ manufacturer.cin_document}}</td>
+        <td><a href="{{manufacturer.cin_document}}" target="_blank">{{ manufacturer.cin_document}}</a></td>
     </tr>
     <tr>
         <td>Flight Controller Number (Drone ID)</td>
@@ -40,7 +40,7 @@
 
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
+<p><a class="btn btn-primary" href="/launchpad/manufacturers/{{manufacturer.id}}"><b>Update Details</b></a></p>
 
 </div>
 {% endblock %}

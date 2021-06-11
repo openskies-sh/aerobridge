@@ -36,6 +36,7 @@ class AircraftSerializer(serializers.ModelSerializer):
 
 
 class ManufacturerSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Manufacturer
         fields = '__all__'

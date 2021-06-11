@@ -6,7 +6,7 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-<form action="{% url 'manufacturers-detail' manufacturer_id=manufacturer.pk %}" method="POST">
+<form action="{% url 'manufacturers-update' manufacturer_id=manufacturer.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>

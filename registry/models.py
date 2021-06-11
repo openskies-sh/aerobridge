@@ -9,10 +9,23 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from . import countries 
 from simple_history.models import HistoricalRecords
+from django.core.exceptions import ValidationError
+from urllib.parse import urlparse
 
+# Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
+
+def validate_url(value):
+    if not value:
+        return  # Required error is done the field
+    parsed_url = urlparse(value)
+    if not bool(parsed_url.scheme):
+        raise ValidationError('Only urls from YouTube or SoundCloud allowed')
 
 def two_year_expiration():
     return datetime.combine( date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
+
+phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+
 
 class Person(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -20,7 +33,7 @@ class Person(models.Model):
     middle_name = models.CharField(max_length=30, null = True, blank = True)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #
     identification_number = models.CharField(max_length= 20, blank=True, null=True)
     social_security_number = models.CharField(max_length=25, blank=True, null=True)
@@ -103,7 +116,6 @@ class Operator(models.Model):
     company_name = models.CharField(max_length=280)
     website = models.URLField()
     email = models.EmailField()
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #        
     expiration = models.DateTimeField(default = two_year_expiration)
     operator_type = models.IntegerField(choices=OPTYPE_CHOICES, default = 0)
@@ -166,8 +178,8 @@ class Pilot(models.Model):
     photo = models.URLField(blank=True, null=True)
     photo_small = models.URLField(blank=True, null=True)
     address = models.ForeignKey(Address, models.CASCADE)
-    identification_photo = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg')
-    identification_photo_small = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg')
+    identification_photo = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg',validators=[validate_url,])
+    identification_photo_small = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg',validators=[validate_url,])
     tests = models.ManyToManyField(Test, through ='TestValidity')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -212,10 +224,10 @@ class Manufacturer(models.Model):
     digital_sky_id = models.CharField(max_length=140, help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
 
     cin_document = models.URLField(help_text ='Link to certificate of Incorporation issued by ROC, MCA', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    gst_document = models.URLField(help_text='Link to GST certification document', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    pan_card_document = models.URLField(help_text='URL of Manufacturers PAN Card scan', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    security_clearance_document = models.URLField(help_text='Link to Security Clearance from Ministry of Home Affairs', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    eta_document = models.URLField(help_text='Link to Equipment Type Approval (ETA) from WPC Wing', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
+    gst_document = models.URLField(help_text='Link to GST certification document', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    pan_card_document = models.URLField(help_text='URL of Manufacturers PAN Card scan', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    security_clearance_document = models.URLField(help_text='Link to Security Clearance from Ministry of Home Affairs', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    eta_document = models.URLField(help_text='Link to Equipment Type Approval (ETA) from WPC Wing', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -227,8 +239,6 @@ class Manufacturer(models.Model):
        return self.common_name
 
 class Engine(models.Model):
-    
-    
 
     power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     count = models.IntegerField(default =1 )
@@ -310,8 +320,8 @@ class Aircraft(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     manufactured_at = models.DateTimeField(null=True)    
-    dot_permission_document = models.URLField(help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    operataions_manual_document = models.URLField(help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
+    dot_permission_document = models.URLField(help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    operataions_manual_document = models.URLField(help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
 
     
     history = HistoricalRecords()
