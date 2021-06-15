@@ -3,6 +3,20 @@ from registry.models import Activity, Operator, Contact, Aircraft, Pilot, Addres
 
 
 class PersonSerializer(serializers.ModelSerializer):
+         
+    def validate(self, data):
+        """
+        Check flight plan is  valid GeoJSON
+        """
+        
+        id_isalnum = data['identification_number'].isalnum()
+        try:
+            assert id_isalnum
+        except AssertionError as ae:
+        
+            raise serializers.ValidationError("ID must be alpha numeric")            
+        else:
+            return data
     class Meta:
         model = Person
         fields = '__all__'

@@ -42,8 +42,7 @@ class AuthorizationSerializer(serializers.ModelSerializer):
 class TypeCertificateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeCertificate
-        fields = ('id', 'type_certificate_id', 'type_certificate_issuing_country', 'type_certificate_holder',
-                  'type_certificate_holder_country',)
+        fields = ('id', 'type_certificate_id', 'type_certificate_issuing_country', 'type_certificate_holder','type_certificate_holder_country',)
 
 
 class PersonSerializer(serializers.ModelSerializer):
@@ -169,9 +168,7 @@ class OperatorSelectRelatedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Operator
-        fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
-                  'operational_authorizations', 'authorized_activities', 'contacts', 'phone_number', 'company_number',
-                  'country', 'pilots', 'aircrafts', 'created_at', 'updated_at')
+        fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address','operational_authorizations', 'authorized_activities', 'contacts', 'phone_number', 'company_number','country', 'pilots', 'aircrafts', 'created_at', 'updated_at')
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -204,8 +201,7 @@ class PilotSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pilot
-        fields = ('id', 'operator', 'person', 'photo', 'photo_small', 'address', 'identification_photo',
-                  'identification_photo_small', 'tests')
+        fields = ('id', 'operator', 'person', 'photo', 'photo_small', 'address', 'identification_photo','identification_photo_small', 'tests')
 
 
 class TestsValiditySerializer(serializers.ModelSerializer):
