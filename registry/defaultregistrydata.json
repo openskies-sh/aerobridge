@@ -630,16 +630,4 @@
     "created_at": "2021-02-06T22:32:15.407Z",
     "updated_at": "2021-02-06T22:32:15.409Z"
   }
-}, {
-  "model": "pki_framework.aerobridgecredential",
-  "pk": "3b238ae9-b1c8-4e7b-bbdb-1d34d98fdd5a",
-  "fields": {
-    "name": "fief",
-    "token_type": 0,
-    "association": 0,
-    "token": "Z0FBQUFBQmdsdjUxQUZGVmJORzVmTEJXakNjaUYzZm1tWnpxNTE1bmJBYkNpLW0tZjBnaFI4SDc0R1R3SHRpOVlCOUc2dUhpWXdsMDNxSkJ2RFhrRmMtalo1YmhENzJPMGc9PQ==",
-    "is_active": true,
-    "created_at": "2021-05-08T21:11:17.710Z",
-    "updated_at": "2021-05-08T21:11:17.710Z"
-  }
 }]
