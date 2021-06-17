@@ -10,7 +10,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Save" />
+        <input class="btn btn-primary"  type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'manufacturers-list' %}" role="button">Cancel</a>
     </form>
 
 </div>
