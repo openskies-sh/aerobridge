@@ -9,11 +9,12 @@
 
 <form action="{% url 'flightplans-update' flightplan_id=flightplan.pk %}" method="POST">
     {% csrf_token %}   
-    
-    {% render_field serializer.name style=style %}
-    {% render_field serializer.geo_json style=style %}
-    {% render_field serializer.start_datetime style=style %}
-    {% render_field serializer.end_datetime style=style %}
+    {% if errors %}
+        {% for err in errors.non_field_errors %}
+        <p class="alert alert-danger" role="alert">{{ err }}</p>
+        {% endfor %}
+    {% endif %}
+    {% render_form serializer %}
     <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>
 </form>

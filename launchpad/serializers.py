@@ -1,19 +1,19 @@
 from rest_framework import serializers
 from registry.models import Activity, Operator, Contact, Aircraft, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
-
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
 class PersonSerializer(serializers.ModelSerializer):
          
     def validate(self, data):
         """
-        Check flight plan is  valid GeoJSON
+        Check flight plan is  valid alphanumeric
         """
         
         id_isalnum = data['identification_number'].isalnum()
         try:
             assert id_isalnum
-        except AssertionError as ae:
-        
+        except AssertionError as ae:        
             raise serializers.ValidationError("ID must be alpha numeric")            
         else:
             return data
@@ -38,6 +38,17 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class OperatorSerializer(serializers.ModelSerializer):
+
+    def validate(self, data):
+        val = URLValidator(verify_exists=False)
+        sent_url =data['website']
+        try:
+            val(sent_url)
+        except ValidationError as ve:
+            raise ValidationError("This is not a valid URL")
+        else:
+            return sent_url
+
     class Meta:
         model = Operator
         fields = '__all__'

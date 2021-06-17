@@ -1,9 +1,10 @@
+from pki_framework import serializers
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
-
+from gcs_operations.serializers import FlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
@@ -152,16 +153,13 @@ class OperatorUpdate(APIView):
         return redirect('operators-list')
 
 class OperatorCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': OperatorCreateForm()}
-        return render(request, 'launchpad/operator_create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = OperatorCreateForm(request.POST)
-        if form.is_valid():
-            operator = form.save()
-            operator.save()
-            
+    template_name = 'launchpad/operator_create.html'
+    form_class = OperatorCreateForm
+    model= Operator
+    
+    def form_valid(self, form):
+        form.save()        
+    
         return redirect('operators-list')
     
 
@@ -437,35 +435,30 @@ class FlightPlansDetail(APIView):
 class FlightPlansUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightplan_update.html'
-    style = {'template_pack': 'rest_framework/vertical/'}
-    
+    serializer_class = FlightPlanSerializer
     def get(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
         serializer = FlightPlanSerializer(flightplan)
-        return Response({'serializer': serializer, 'flightplan': flightplan, 'style': self.style})
+        return Response({'serializer': serializer, 'flightplan': flightplan})
 
     def post(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
         serializer = FlightPlanSerializer(flightplan, data=request.data)
-        if not serializer.is_valid():            
-            return Response({'serializer': serializer, 'flightplan': flightplan, 'style': self.style})
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'flightplan': flightplan,'errors':serializer.errors})
         serializer.save()
         return redirect('flightplans-list')
 
 class FlightPlanCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': FlightPlanCreateForm()}
-        return render(request, 'launchpad/flightplan_create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = FlightPlanCreateForm(request.POST)
-        if form.is_valid():
-            flightplan = form.save()
-            flightplan.save()
-            
+    model = FlightPlan
+    form_class = FlightPlanCreateForm
+    template_name = 'launchpad/flightplan_create.html'
+    
+    def form_valid(self, form):
+        form.save()        
+    
         return redirect('flightplans-list')
-    
-    
+
         
 ### Flight Operation Views
     
@@ -500,7 +493,7 @@ class FlightOperationsUpdate(APIView):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
         serializer = FlightOperationSerializer(flightoperation, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightoperation': flightoperation})
+            return Response({'serializer': serializer, 'flightoperation': flightoperation,'errors':serializer.errors})
         serializer.save()
         return redirect('flightoperations-list')
 
@@ -552,7 +545,7 @@ class FlightPermissionsUpdate(APIView):
         flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
         serializer = AircraftSerializer(flightpermission, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightpermission': flightpermission})
+            return Response({'serializer': serializer, 'flightpermission': flightpermission,'errors':serializer.errors})
         serializer.save()
         return redirect('flightpermissions-list')
 
@@ -607,15 +600,15 @@ class FlightLogsDetail(APIView):
     template_name = 'launchpad/flightpermission_detail.html'
 
     def get(self, request, flightlog_id):
-        flightlog = get_object_or_404(FlightLog, pk=flightoperation_id)
-        serializer = FlightLogsSerializer(flightlog)
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog)
         return Response({'serializer': serializer, 'flightlog': flightlog})
 
     def post(self, request, flightlog_id):
-        flightlog = get_object_or_404(FlightLog, pk=flightoperation_id)
-        serializer = FlightLogsSerializer(flightlog, data=request.data)
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightlog': flightlog})
+            return Response({'serializer': serializer, 'flightlog': flightlog,'errors':serializer.errors})
         serializer.save()
         return redirect('flightlogs-list')
 
@@ -728,7 +721,7 @@ class EnginesDetail(APIView):
         engine = get_object_or_404(Manufacturer, pk=engine_id)
         serializer = EngineSerializer(engine, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'engine': engine})
+            return Response({'serializer': serializer, 'engine': engine,'errors':serializer.errors})
         serializer.save()
         return redirect('engines-list')
 
@@ -779,7 +772,7 @@ class CredentialsUpdate(APIView):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
         serializer = AerobridgeCredentialSerializer(credential, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'credential': credential})
+            return Response({'serializer': serializer, 'credential': credential,'errors':serializer.errors})
         serializer.save()
         return redirect('credentials-list')
 

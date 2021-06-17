@@ -5,6 +5,9 @@ from pki_framework.models import AerobridgeCredential
 from django import forms
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
+import geojson
 
 KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('OTHER')),)
 
@@ -12,6 +15,8 @@ TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TO
 
 # books/forms.py
 class PersonCreateForm(forms.ModelForm):
+    
+
     class Meta:
         model = Person
         fields = '__all__'
@@ -23,6 +28,18 @@ class AddressCreateForm(forms.ModelForm):
 
 
 class OperatorCreateForm(forms.ModelForm):
+
+    def clean_website(self):
+        val = URLValidator(verify_exists=False)
+        sent_url = self.cleaned_data.get('website', False) 
+        try:
+            val(sent_url)
+        except ValidationError as ve:
+            raise ValidationError(_("This is not a valid URL"))
+        else:
+            return sent_url
+
+
     class Meta:
         model = Operator
         exclude = ('expiration',)
@@ -42,7 +59,16 @@ class FirmwareCreateForm(forms.ModelForm):
         model = Firmware
         fields = '__all__'
 
-class FlightPlanCreateForm(forms.ModelForm):
+class FlightPlanCreateForm(forms.ModelForm):    
+    
+    def clean_geo_json(self):
+        gj = self.cleaned_data.get('geo_json', False)        
+        try:
+            validated_gj = geojson.loads(gj)
+        except Exception as ve:                        
+            raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+        else:
+            return gj
     class Meta:
         model = FlightPlan
         fields = '__all__'
