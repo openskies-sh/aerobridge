@@ -4,14 +4,14 @@
 <div class="row mb-3">
     
     <h2>Digital Sky Logs list</h2>
-    <p>See the logs of all your Digital Sky interactions, the newest is at the top.</p>
+    <p>See the logs of all your Digital Sky interactions, the newest is at the top. Logs and server responses are created and automatically assigned by Aerobridge, you cannot change or edit transaction logs.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
         {% for digitalskylog in digitalskylogs %}
-        <li class="list-group-item"><a href="/launchpad/digitalskylogs/{{digitalskylog.id}}">{{ digitalskylog.txn.aircraft.model }} {{ digitalskylog.txn.aircraft.operator.company_name }}</a> ({{digitalskylog.txn.prefix }})&nbsp;&nbsp;<small>&mdash; Last updated at {{ digitalskylog.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/digitalskylogs/{{digitalskylog.id}}">{{ digitalskylog.txn.aircraft.model }} {{ digitalskylog.txn.aircraft.operator.company_name }}</a>&nbsp;&nbsp;<mark>{{digitalskylog.txn.prefix }}</mark>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ digitalskylog.created_at }} </small></li>
         {% endfor %}
             
     </ul>

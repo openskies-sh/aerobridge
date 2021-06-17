@@ -148,7 +148,8 @@ class OperatorUpdate(APIView):
         operator = get_object_or_404(Operator, pk=operator_id)
         serializer = OperatorSerializer(operator, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'operator': operator})
+            
+            return Response({'serializer': serializer, 'operator': operator, 'errors': serializer.errors})
         serializer.save()
         return redirect('operators-list')
 

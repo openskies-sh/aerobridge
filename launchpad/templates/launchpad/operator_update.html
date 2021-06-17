@@ -9,6 +9,14 @@
 
 <form action="{% url 'operators-update' operator_id=operator.pk %}" method="POST">
     {% csrf_token %}
+    {% if errors %}    
+    
+    {% for err, val in errors.items %}
+        {% for v in val %}
+            <p class="alert alert-danger" role="alert">{{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    {% endif %}
     {% render_form serializer %}
     <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'operators-list' %}" role="button">Cancel</a>

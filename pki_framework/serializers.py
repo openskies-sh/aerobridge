@@ -21,7 +21,7 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AerobridgeCredential
-        fields = ('token', 'name', 'token_type', 'association', 'id',)
+        fields = ('token', 'name', 'token_type', 'association','is_active', 'id',)
 
 class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
     token_type = serializers.SerializerMethodField()

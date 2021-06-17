@@ -11,7 +11,7 @@ class DigitalSkyLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     txn = models.ForeignKey(Transaction,  models.CASCADE)
     response_code = models.CharField(max_length=256)
-    response = models.TextField(default="Response from DGCA Server stored here")
+    response = models.TextField(default="Raw response from DGCA Digital Sky Server is stored here.")
     timestamp = models.DateTimeField()
 
     created_at = models.DateTimeField(auto_now_add=True)

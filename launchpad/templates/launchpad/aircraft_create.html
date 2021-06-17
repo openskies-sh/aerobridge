@@ -11,6 +11,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
+        <br> <br>
         <input class="btn btn-primary"  type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'aircrafts-list' %}" role="button">Cancel</a>
     </form>
 </div>

@@ -8,6 +8,11 @@
     <div class="col-md-6 themed-grid-col">
 <form action="{% url 'manufacturers-update' manufacturer_id=manufacturer.pk %}" method="POST">
     {% csrf_token %}
+    {% if errors %}
+        {% for err in errors.non_field_errors %}
+        <p class="alert alert-danger" role="alert">{{ err }}</p>
+        {% endfor %}
+    {% endif %}
     {% render_form serializer %}
     <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'manufacturers-list' %}" role="button">Cancel</a>

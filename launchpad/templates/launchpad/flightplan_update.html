@@ -9,10 +9,13 @@
 
 <form action="{% url 'flightplans-update' flightplan_id=flightplan.pk %}" method="POST">
     {% csrf_token %}   
-    {% if errors %}
-        {% for err in errors.non_field_errors %}
-        <p class="alert alert-danger" role="alert">{{ err }}</p>
+    {% if errors %}    
+    
+    {% for err, val in errors.items %}
+        {% for v in val %}
+            <p class="alert alert-danger" role="alert">{{ v }}</p><br>
         {% endfor %}
+    {% endfor %}
     {% endif %}
     {% render_form serializer %}
     <br>

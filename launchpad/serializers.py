@@ -39,15 +39,6 @@ class AddressSerializer(serializers.ModelSerializer):
 
 class OperatorSerializer(serializers.ModelSerializer):
 
-    def validate(self, data):
-        val = URLValidator(verify_exists=False)
-        sent_url =data['website']
-        try:
-            val(sent_url)
-        except ValidationError as ve:
-            raise ValidationError("This is not a valid URL")
-        else:
-            return sent_url
 
     class Meta:
         model = Operator

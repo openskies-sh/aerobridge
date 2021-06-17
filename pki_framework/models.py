@@ -12,12 +12,12 @@ class AerobridgeCredential(models.Model):
     TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('OTHER')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100, help_text="Enter a description for the type of credential you are storing")
-    token_type = models.IntegerField(choices=TOKEN_TYPE)
-    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4)
+    name = models.CharField(max_length=100, help_text="Enter a friendly name / description for the type of credential you are storing")
+    token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is")
+    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling Digital Sky and other external servers")
     token = models.BinaryField()
     
-    is_active = models.BooleanField(default = True)
+    is_active = models.BooleanField(default = True, help_text="Set whether the credential is still active")
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

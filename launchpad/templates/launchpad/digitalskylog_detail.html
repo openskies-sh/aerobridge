@@ -3,16 +3,23 @@
 {% block content %}
 
 <div class="row mb-3">
-    
-<h1>Log Details</h1>
+    <div class="col-md-6 themed-grid-col">
+<h1>Digital Sky Log Details</h1>
+<small class="text-muted"> Created at {{ digitalskylog.created_at }} </small>
+    <hr>
 <br>
-<code>ID {{ digitalskylog.id }}</code><small class="text-muted"> Created at {{ digitalskylog.created_at }} </small>
+<h5><small class="text-muted">ID</small></h5>
+<p><code>{{ digitalskylog.id }}</code></p>
 <br>
+<h5><small class="text-muted">Digital Sky Response Code</small><br>{{ digitalskylog.response_code }}</h5>
 <br>
-<h4>Digital Sky Response Code: <code>HTTP {{ digitalskylog.response_code }}</code></h4>
-<br><br>
-<h4>Digital Sky Response Details</h4>
-<p><code>{{ digitalskylog.response }}</code></p>
+<h5><small class="text-muted">Transaction Type</small><br>{{digitalskylog.txn.prefix }}</h5>
+<br>
+<h5><small class="text-muted">Aircraft</small><br>{{ digitalskylog.txn.aircraft.model }}</h5>
+<br>
+<h5><small class="text-muted">Digital Sky Response Details</small></h5>
+<br><pre>{{ digitalskylog.response }}</pre>
 
+</div>
 </div>
 {% endblock %}

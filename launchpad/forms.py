@@ -29,17 +29,6 @@ class AddressCreateForm(forms.ModelForm):
 
 class OperatorCreateForm(forms.ModelForm):
 
-    def clean_website(self):
-        val = URLValidator(verify_exists=False)
-        sent_url = self.cleaned_data.get('website', False) 
-        try:
-            val(sent_url)
-        except ValidationError as ve:
-            raise ValidationError(_("This is not a valid URL"))
-        else:
-            return sent_url
-
-
     class Meta:
         model = Operator
         exclude = ('expiration',)

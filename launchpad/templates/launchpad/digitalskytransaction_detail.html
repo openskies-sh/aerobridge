@@ -4,15 +4,16 @@
 
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-<h2>Transaction Details</h2>
-
-<code>ID {{ digitalskytransaction.id }}</code>
-<small class="text-muted"> Created at {{ digitalskytransaction.created_at }} </small>
-<br><br>
-<p>Aircraft: {{ digitalskytransaction.aircraft.model }}</p>
-
-<h6>Transaction type </h6>
-<p><mark>{{ digitalskytransaction.prefix }}</mark></p>
+    <h1>Transaction Details</h1>
+    <small class="text-muted"> Created at {{ digitalskytransaction.created_at }} </small>
+    <hr>
+    <h5><small class="text-muted">ID</small></h5>
+    <p><code>{{ digitalskytransaction.id }}</code></p>
+    
+    <br>
+    <h5><small class="text-muted">Aircraft</small><br>{{ digitalskytransaction.aircraft.model }}</h5>
+        <br>
+    <h5><small class="text-muted">Transaction type</small><br>{{ digitalskytransaction.prefix }}</h5>
 
 </div>
 </div>

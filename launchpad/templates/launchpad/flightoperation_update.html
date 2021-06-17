@@ -8,6 +8,14 @@
     <div class="col-md-6 themed-grid-col">
 <form action="{% url 'flightoperations-update' flightoperation_id=flightoperation.pk %}" method="POST">
     {% csrf_token %}
+    {% if errors %}
+
+    {% for err, val in errors.items %}
+        {% for v in val %}
+            <p class="alert alert-danger" role="alert">{{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    {% endif %}
     {% render_form serializer %}
 
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>
