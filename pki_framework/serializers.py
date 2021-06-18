@@ -12,6 +12,7 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
     
     def get_token(self, digital_sky_credentials):
         token = digital_sky_credentials.token
+        print(type(token))
         secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
         
         f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
