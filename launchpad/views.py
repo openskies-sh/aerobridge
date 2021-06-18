@@ -812,7 +812,7 @@ class CredentialsCreateView(CreateView):
                 enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
                 
                 serializer.save(name = form.data['name'],token=enc_token, association = form.data['association'],token_type = form.data['token_type'] )
-                print("saved")
+                
             
         return redirect('credentials-list')
     
