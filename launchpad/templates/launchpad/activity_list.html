@@ -11,12 +11,12 @@
 
     <ul class="list-group list-group-flush">
         {% for activity in activities %}
-        <li class="list-group-item"><a href="/launchpad/activities/{{activity.id}}">{{ activity.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ activity.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/activities/{{activity.id}}">{{ activity.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ activity.created_at }} </small></li>
         {% endfor %}
         
     </ul>
     <br>
-    <p><a class="btn btn-primary" href="/launchpad/activities/new"><b>&#43; Add an activity</a></p>
+    <p><a class="btn btn-primary" href="/launchpad/activities/new"><b>&#43; Add an activity</b></a></p>
 </div>
 <div class="col-md-4 themed-grid-col"></div>
 </div>
