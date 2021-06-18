@@ -12,7 +12,7 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
     
     def get_token(self, digital_sky_credentials):
         token = digital_sky_credentials.token
-        if isinstance(token, 'memoryview'): #for Postgres / Django
+        if isinstance(token, memoryview): #for Postgres / Django
             token = token.tobytes()
             
         secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
