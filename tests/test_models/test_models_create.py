@@ -21,7 +21,7 @@ class TestModelsCreate(TestModels):
         self.assertEqual(digitalsky_log.txn, Transaction.objects.first())
 
     def test_gcs_operations_flight_plan_create(self):
-        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.sentence(), start_datetime=timezone.now(),
+        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json(), start_datetime=timezone.now(),
                                  end_datetime=timezone.now() + timezone.timedelta(minutes=30))
         self.assertNotIn(flight_plan, FlightPlan.objects.all())
         flight_plan.save()
