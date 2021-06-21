@@ -11,8 +11,9 @@ from . import countries
 from simple_history.models import HistoricalRecords
 from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
-
+import re
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
+
 
 def validate_url(value):
     if not value:
@@ -25,6 +26,8 @@ def two_year_expiration():
     return datetime.combine( date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+
+no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 
 
 class Person(models.Model):
@@ -113,7 +116,7 @@ class Authorization(models.Model):
 class Operator(models.Model):    
     OPTYPE_CHOICES = ((0, _('NA')),(1, _('LUC')),(2, _('Non-LUC')),(3, _('AUTH')),(4, _('DEC')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company_name = models.CharField(max_length=28,help_text="Official Name of the company as in the Company Registration Office")
+    company_name = models.CharField(max_length=28,help_text="Official Name of the company as in the Company Registration Office", validators = [no_special_characters_regex,])
     website = models.URLField(help_text="Put official URL")
     email = models.EmailField(help_text="Contact email for support and other queries")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #        
@@ -124,9 +127,9 @@ class Operator(models.Model):
     authorized_activities = models.ManyToManyField(Activity, related_name = 'authorized_activities',help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel" )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    vat_number = models.CharField(max_length=25,default="VAT-TMP")
-    insurance_number = models.CharField(max_length=25,default = "INS-TMP")
-    company_number = models.CharField(max_length=25, default='CO-TMP')
+    vat_number = models.CharField(max_length=25,default="VAT-TMP",validators = [no_special_characters_regex,])
+    insurance_number = models.CharField(max_length=25,default = "INS-TMP",validators = [no_special_characters_regex,])
+    company_number = models.CharField(max_length=25, default='CO-TMP',validators = [no_special_characters_regex,])
     country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'IN')
     
     def get_address(self):

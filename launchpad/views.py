@@ -451,17 +451,16 @@ class FlightPlansUpdate(APIView):
         return redirect('flightplans-list')
 
 class FlightPlanCreateView(CreateView):
+    
     model = FlightPlan
-    form_class = FlightPlanCreateForm
-    template_name = 'launchpad/flightplan_create.html'
-    
+    form_class = FlightPlanCreateForm        
+    template_name = 'launchpad/flightplan_create.html'    
     def form_valid(self, form):
-        form.save()        
-    
+        form.save()            
         return redirect('flightplans-list')
 
-        
-### Flight Operation Views
+     
+## Flight Operation Views
     
 class FlightOperationsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]

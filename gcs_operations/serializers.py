@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 import geojson
+import arrow
 
 class FirmwareSerializer(serializers.ModelSerializer):
     ''' A serializer for saving Firmware ''' 
@@ -19,18 +20,29 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
     
 
 class FlightPlanSerializer(serializers.ModelSerializer):
-        
+
+    def clean(self):
+        cleaned_data = super().clean()
+
     def validate(self, data):
         """
-        Check flight plan is  valid GeoJSON
-        """
+        Check flight plan is  valid GeoJSON        """
         
+        s_date = data.get("start_datetime")
+        e_date = data.get("end_datetime")
+        start_date = arrow.get(s_date)
+        end_date = arrow.get(e_date)
+
+        if end_date < start_date:
+            raise serializers.ValidationError("End date should be greater than start date.")
+
         try:
             gj = geojson.loads(data['geo_json'])
         except Exception as ve:
             raise serializers.ValidationError("Not a valid GeoJSON, please enter a valid GeoJSON object")            
-        else:
-            return data
+        
+        return data
+
     class Meta:
         model = FlightPlan		
         fields = '__all__'

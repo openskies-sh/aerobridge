@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -141,7 +141,6 @@ REST_FRAMEWORK = {
 }
 
 
-
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
         'pki_framework.utils.jwt_get_username_from_payload_handler',
@@ -177,5 +176,6 @@ STATIC_URL = '/static/'
 
 # Directory path to look for data fixture to load data into database before running tests
 FIXTURE_DIRS = [os.getcwd() + '/tests/fixtures/']
+
 
 django_heroku.settings(locals())

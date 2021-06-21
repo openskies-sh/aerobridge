@@ -8,14 +8,15 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 import geojson
+import arrow
 
 KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('OTHER')),)
-
 TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('RFM KEY')),(4, _('OTHER')),)
 
 # books/forms.py
+
+
 class PersonCreateForm(forms.ModelForm):
-    
 
     class Meta:
         model = Person
@@ -50,6 +51,15 @@ class FirmwareCreateForm(forms.ModelForm):
 
 class FlightPlanCreateForm(forms.ModelForm):    
     
+    def clean(self):
+        cleaned_data = super().clean()
+        s_date = cleaned_data.get("start_datetime")
+        e_date = cleaned_data.get("end_datetime")
+        start_date = arrow.get(s_date)
+        end_date = arrow.get(e_date)
+        if end_date < start_date:
+            raise forms.ValidationError("End date should be greater than start date.")
+
     def clean_geo_json(self):
         gj = self.cleaned_data.get('geo_json', False)        
         try:
@@ -58,9 +68,14 @@ class FlightPlanCreateForm(forms.ModelForm):
             raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
         else:
             return gj
+
     class Meta:
         model = FlightPlan
         fields = '__all__'
+        widgets = {            
+            'start_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
+            'end_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time ', 'type':'datetime-local'}),
+        }
 
 class FlightPermissionCreateForm(forms.ModelForm):
     # def __init__(self, *args, **kwargs):
