@@ -531,24 +531,6 @@ class FlightPermissionsDetail(APIView):
         serializer = FlightPermissionSerializer(flightpermission)
         return Response({'serializer': serializer, 'flightpermission': flightpermission})
 
-
-class FlightPermissionsUpdate(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_update.html'
-
-    def get(self, request, flightpermission_id):
-        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
-        serializer = FlightPermissionSerializer(flightpermission)
-        return Response({'serializer': serializer, 'flightpermission': flightpermission})
-
-    def post(self, request, flightpermission_id):
-        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
-        serializer = AircraftSerializer(flightpermission, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'flightpermission': flightpermission,'errors':serializer.errors})
-        serializer.save()
-        return redirect('flightpermissions-list')
-
 class FlightPermissionCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': FlightPermissionCreateForm()}
@@ -565,6 +547,39 @@ class FlightPermissionCreateView(CreateView):
     
     
 ### Flight Permission Artefact Details Views
+class FlightPermissionDigitalSkyList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightpermission_digitalsky_list.html'
+    
+    def get(self, request):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        queryset = FlightPermission.objects.filter(is_successful=False)
+        return Response({'flightpermissions': queryset})
+
+
+class FlightPermissionDigitalSkyRequest(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightpermission_digitalsky_detail.html'
+    
+
+    def get(self, request, flightpermission_id):
+        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
+        serializer = FlightPermissionSerializer(flightpermission)
+        return Response({'serializer': serializer, 'flightpermission': flightpermission})
+
+    def post(self, request,flightpermission_id):
+        
+        # Submit a call to Digital Sky API
+
+        return redirect('flightpermissions-digitalsky-thanks')
+    
+class FlightPermissionDigitalSkyThanks(TemplateView):
+    
+    template_name = 'launchpad/flightpermission_digitalsky_thanks.html'
+
     
 class FlightPermissionsArtefactList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -579,7 +594,7 @@ class FlightPermissionsArtefactDetail(APIView):
     template_name = 'launchpad/flightpermission_detail.html'
 
     def get(self, request, flightpermission_id):
-        flightpermission = get_object_or_404(FlightPermission, pk=flightoperation_id)
+        flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
         serializer = FlightPermissionSerializer(flightpermission)
         return Response({'serializer': serializer, 'flightpermission': flightpermission})
 

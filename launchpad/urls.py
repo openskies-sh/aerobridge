@@ -57,9 +57,12 @@ urlpatterns = [
     path('flightoperations/new', launchpad_views.FlightOperationCreateView.as_view(), name='flightoperations-create'),
  
     path('flightpermissions', launchpad_views.FlightPermissionsList.as_view(), name='flightpermissions-list'),
-    path('flightpermissions/<uuid:flightpermission_id>/detail', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissions-detail'),
-    path('flightpermissions/<uuid:flightpermission_id>', launchpad_views.FlightPermissionsUpdate.as_view(), name='flightpermissions-update'),
+    path('flightpermissions/<uuid:flightpermission_id>/detail', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissions-detail'),    
     path('flightpermissions/new', launchpad_views.FlightPermissionCreateView.as_view(), name='flightpermissions-create'),
+
+    path('digitalsky-flight-permissions', launchpad_views.FlightPermissionDigitalSkyList.as_view(), name='flightpermissions-digitalsky-list'),
+    path('digitalsky-flight-permissions/thanks', launchpad_views.FlightPermissionDigitalSkyThanks.as_view(), name='flightpermissions-digitalsky-thanks'),
+    path('digitalsky-flight-permissions/<uuid:flightpermission_id>/request', launchpad_views.FlightPermissionDigitalSkyRequest.as_view(), name='flightpermissions-digitalsky-request'),
  
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
     path('flightlogs/<uuid:flightpermission_id>', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),

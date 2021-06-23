@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -123,6 +123,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SECURE_API_ENDPOINTS = True
+
+# if DEBUG:
+#     BROKER_URL = os.getenv("REDIS_URL",'redis://localhost:6379/')
+# else:
+#     BROKER_URL = os.getenv("REDIS_URL","redis://redis:6379/")
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
+# CELERY_RESULT_BACKEND = BROKER_URL
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

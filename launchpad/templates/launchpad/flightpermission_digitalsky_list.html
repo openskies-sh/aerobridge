@@ -1,0 +1,24 @@
+{% extends "launchpad/layout.html" %}
+{% block content %}
+
+<div class="row mb-3">
+
+    <h2>Flight Permissions</h2>
+    <p>Below are a list of flight permission objects that dont have a associated permission artefact. If you are looking to download a permission artefact, use the use the <a href="/launchpad/flightpermissions">Flight Permissions</a> menu.  For a step-by-step review of the flow, please review the <a href="/launchpad/flight-permissions-read-first">README</a></p>
+
+    <div class="row mb-3">
+        <div class="col-md-8 themed-grid-col">
+            <ul class="list-group list-group-flush">
+                {% for flightpermission in flightpermissions %}
+                <li class="list-group-item"><a
+                        href="/launchpad/digitalsky-flight-permissions/{{flightpermission.id}}/request">{{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightpermission.created_at }} </small></li>
+                {% endfor %}
+
+            </ul><br>
+
+
+        </div>
+        <div class="col-md-4 themed-grid-col"></div>
+    </div>
+</div>
+    {% endblock %}

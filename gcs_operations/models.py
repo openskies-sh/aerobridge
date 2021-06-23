@@ -77,6 +77,7 @@ class FlightPermission(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     artefact = models.TextField(default="", help_text="If the text above is empty, permission artefact for this operation has not been received")
+    
     def __unicode__(self):
        return self.operation.name
 
@@ -91,6 +92,8 @@ class FlightLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_submitted = models.BooleanField(default=False)
+    
+    
     def __unicode__(self):
        return self.operation.name
 

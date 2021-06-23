@@ -236,6 +236,32 @@ paths:
           description: ''
       tags:
       - Digital Sky
+
+  /digitalsky/all_permissions/{id}/apply:
+    put:
+      summary: "Apply for a flight permission to DigitalSky"
+      security:
+        - AuthFromPassport: [write]    
+      description: 'Use this endpoint to apply for a flight permission for a flight operation. You will have to create a flight permission object'
+
+      operationId: applyFlightPermission
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this flight permission object.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPermission'
+          description: ''
+      tags:
+      - Digital Sky      
+      
   /digitalsky/logs/:
     get:
       summary: "Get a list of all transactions with Digital Sky"

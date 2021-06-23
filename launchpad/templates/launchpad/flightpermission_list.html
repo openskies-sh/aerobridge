@@ -1,22 +1,26 @@
-{% extends "launchpad/layout.html" %} 
+{% extends "launchpad/layout.html" %}
 {% block content %}
 
 <div class="row mb-3">
-    
     <h2>Flight Permissions</h2>
-    <p>See all the flight permission objects, these will be sent to Digital Sky to get a Permission Artefact </p></div>
-    <div class="row mb-3">
-        <div class="col-md-8 themed-grid-col">
-    
-            <ul class="list-group list-group-flush">
-        {% for flightpermission in flightpermissions %}
-        <li class="list-group-item"><a href="/launchpad/flightpermissions/{{flightpermission.id}}/detail">Permission for {{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightpermissions.created_at }} </small></li>
-        {% endfor %}
-        
-    </ul><br>
-    <p><a class="btn btn-primary" href="/launchpad/flightpermissions/new"><b>&#43; Add a new flight permission object</b></a></p>
+    <p>See all the flight permission objects, these will be sent to Digital Sky to get a Permission Artefact </p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
 
+        <ul class="list-group list-group-flush">
+            {% for flightpermission in flightpermissions %}
+            <li class="list-group-item"><a href="/launchpad/flightpermissions/{{flightpermission.id}}/detail">Permission
+                    for {{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last
+                    updated at {{ flightpermission.created_at }} </small></li>
+            {% endfor %}
+
+        </ul><br>
+        <p><a class="btn btn-primary" href="/launchpad/flightpermissions/new"><b>&#43; Add a new flight permission
+                    object</b></a></p>
+
+    </div>
+    <div class="col-md-4 themed-grid-col"></div>
 </div>
-<div class="col-md-4 themed-grid-col"></div>
-</div>
+
 {% endblock %}

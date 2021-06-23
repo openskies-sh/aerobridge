@@ -72,6 +72,8 @@ class FlightPermissionSerializer(serializers.ModelSerializer):
         fields = '__all__'	
         ordering = ['-created_at']
         
+        
+        
 class TransactionSerializer(serializers.ModelSerializer):
     ''' A serializer to the transaction view '''
 

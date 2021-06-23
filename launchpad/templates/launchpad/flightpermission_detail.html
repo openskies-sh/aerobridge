@@ -1,23 +1,47 @@
-{% extends "launchpad/layout.html" %} 
+{% extends "launchpad/layout.html" %}
 {% load rest_framework %}
 {% block content %}
-<div>
-<h1>Permission Details</h1>
-<p>Please find below all the flight permission artefacts downloaded from Digital Sky.</p>
-    <h5>Flight Operation: {{ flightpermission.operation.name }}</h5><br>
+<div class="row mb-3">
+    <h1>Permission Details</h1>
+    <p>Please find below the details of flight permission artefacts applied downloaded from Digital Sky.</p>
+    <br>
 
-    <h4>Applied Successfully: <code>{{ flightpermission.is_successful }}</code></h4>
-    <br>
-    <h4>Artefact</h4>
-    {% if flightpermission.is_successful %}
-    <code>{{ flightpermission.artefact }}</code>
-    {% else %}
-    <p>No Artefact found for this Permission</p>
-    <small class="text-muted">Please apply for a flight permission first via the Digital Sky menu and upload the permission artefact here.</small>
-    {% endif %}
-    <br>
-    <br>
-    <p><a class="btn btn-primary" href="/launchpad/flightpermissions/{{flightpermission.id}}"><b>Update Details</b></a></p>
+    
+</div>
+<div  class="row mb-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Operation</td>
+            <td><a
+                    href="/launchpad/flightoperations/{{ flightpermission.operation.id }}/detail">{{ flightpermission.operation.name }}</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Applied Successfully</td>
+            <td><code>{{ flightpermission.is_successful }}</code></td>
+        </tr>
 
+
+        <tr>
+            <td>Permission Artefact</td>
+            <td> {% if flightpermission.is_successful %}
+                <code class="text-break">{{ flightpermission.artefact }}</code>
+                {% else %}
+                <p>No Permission Artefact found for this operation. Please apply for a flight permission first via the
+                    Digital Sky menu first, once successful the artefact will appear here.</p>
+                {% endif %}</td>
+        </tr>
+
+
+    </table>
+
+
+    <p class="text-muted">Last Updated - {{ flightpermission.updated_at }}</p>
 </div>
 {% endblock %}

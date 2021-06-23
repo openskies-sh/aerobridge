@@ -17,6 +17,7 @@ urlpatterns = [
 
     path("all_permissions", gcs_views.FlyDronePermissionApplicationList.as_view(), name="apply_permission"),
     path("all_permissions/<uuid:pk>", gcs_views.FlyDronePermissionApplicationDetail.as_view(), name="permission_detail"),  
+    path("all_permissions/<uuid:pk>/apply", gcs_views.FlyDronePermissionApplicationSubmit.as_view(), name="permission_digitalsky_submit"),  
     
     
 ]
