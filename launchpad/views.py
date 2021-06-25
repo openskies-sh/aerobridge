@@ -13,10 +13,11 @@ from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
+from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm, CutsomTokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from rest_framework import status
@@ -808,26 +809,22 @@ class CredentialsDelete(DestroyAPIView):
     
 
 class CredentialsCreateView(CreateView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credentials_create.html'
+    form_class = TokenCreateForm
+    model = AerobridgeCredential
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        
+        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
+
+        f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
+
+        enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
+        self.object.token = enc_token
+        print(enc_token)
+        self.object.save()
+
     
-    def get(self, request, *args, **kwargs):
-        context = {'form': CutsomTokenCreateForm()}
-        return render(request, 'launchpad/credentials_create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = CutsomTokenCreateForm(request.POST)
-
-        if form.is_valid():
-            serializer = AerobridgeCredentialSerializer(data=form.data)
-            if serializer.is_valid():
-                secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
-                
-                f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
-                
-                enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
-                
-                serializer.save(name = form.data['name'],token=enc_token, association = form.data['association'],token_type = form.data['token_type'] )
-                
-            
         return redirect('credentials-list')
-    
-

@@ -26,9 +26,9 @@ def submit_flight_permission(permission_id):
         payload = json.dumps(ar)
         headers = {'content-type': 'application/json'}
 
-        securl = os.getenv('DIGITAL_SKY_URL')  + '/api/applicationForm/flyDronePermissionApplication'
+        securl = os.getenv('DIGITAL_SKY_URL')  + 'digital-sky/public/rpa/permissionArtifact'
         
-        r = requests.post(securl, data= json.dumps(payload), headers=headers)
+        r = requests.post(securl, json=payload, headers=headers)
 
         now = datetime.datetime.now()
         permission_response = json.loads(r.text)
