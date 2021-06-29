@@ -1,14 +1,49 @@
 from rest_framework import mixins
 from rest_framework import generics
-from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer
+from rest_framework.parsers import FileUploadParser
+from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
+from gcs_operations.models import CloudFile
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from pki_framework.utils import requires_scopes
 from digialsky_provider.tasks import submit_flight_permission
+import tempfile
+import logging
+import boto3
+from botocore.exceptions import ClientError
+
+from os import environ as env
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 # Create your views here.
+
+
+def upload_file(file_name, bucket, object_name=None):
+    """Upload a file to an S3 bucket
+
+    :param file_name: File to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name. If not specified then file_name is used
+    :return: True if file was uploaded, else False
+    """
+
+    # If S3 object_name was not specified, use file_name
+    if object_name is None:
+        object_name = file_name
+
+    # Upload the file
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.upload_file(file_name, bucket, object_name)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
+
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FirmwareList(mixins.ListModelMixin,
@@ -165,3 +200,46 @@ class FlyDronePermissionApplicationSubmit(APIView):
         submit_flight_permission.delay(permission_id = permission_id)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class CloudFileList(mixins.ListModelMixin, generics.GenericAPIView):
+    
+    queryset = CloudFile.objects.all()
+    serializer_class = CloudFileSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class CloudFileDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
+    queryset = CloudFile.objects.all()
+    serializer_class = CloudFileSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class CloudFileUpload(APIView):
+    parser_classes = (FileUploadParser,)
+
+    def put(self, request, format=None):
+        file_obj = request.FILES['file']
+        file_name = request.data.get("file_name")
+        with tempfile.NamedTemporaryFile() as f:
+            for chunk in file_obj.chunks():
+                f.write(chunk)
+            f.flush()
+            s3 = boto3.client('s3')
+            s3.upload_fileobj(f, "BUCKET_NAME", "OBJECT_NAME")
+
+            cf = CloudFile(location= location, name = file_name)
+            cf.save()
+
+        # do some stuff with uploaded file
+        return Response({'id':str(cf.id), 'name':cf.name,'location':location}, status=status.HTTP_201_CREATED)

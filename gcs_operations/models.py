@@ -18,7 +18,7 @@ def make_random_plan_common_name():
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
+    name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
     geo_json = models.TextField(help_text="Paste flight plan geometry as GeoJSON", default='{"type":"FeatureCollection","features":[]}')
     
     start_datetime = models.DateTimeField(default=datetime.now)
@@ -39,7 +39,7 @@ class FlightOperation(models.Model):
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, default="Medicine Delivery Operation" )
+    name = models.CharField(max_length=140, default="Medicine Delivery Operation", help_text="Give a friendly name for this operation")
     drone = models.ForeignKey(Aircraft, models.CASCADE)
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
@@ -87,7 +87,7 @@ class FlightPermission(models.Model):
 class FlightLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operation = models.ForeignKey(FlightOperation, on_delete=models.CASCADE)
-    signed_log = models.TextField()
+    signed_log = models.URLField(help_text="Enter the URL of the Zip file that has the signed log.")
     raw_log = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -101,3 +101,10 @@ class FlightLog(models.Model):
         return self.operation.name
     
 
+class CloudFile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    location = models.URLField(help_text="URL location of the file")
+    name = models.CharField(max_length=140, default="Uploaded File", help_text="Give name to this file e.g. Flight Log from Operation A on 21st Aug.")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

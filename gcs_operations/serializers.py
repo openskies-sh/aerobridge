@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile
 from registry.models import Firmware
 import geojson
 import arrow
@@ -87,4 +87,11 @@ class FlightLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlightLog	
         exclude = ('is_submitted',)
+        ordering = ['-created_at']
+
+
+class CloudFileSerializer(serializers.ModelSerializer):
+    ''' A serializer for Cloud Files '''
+    class Meta:
+        model = CloudFile
         ordering = ['-created_at']

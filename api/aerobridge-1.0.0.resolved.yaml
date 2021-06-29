@@ -193,6 +193,77 @@ paths:
       - Firmware
 
 
+  /gcs/files:
+    get:
+      summary: "A list of all uploaded files"
+      operationId: listCloudFiles
+      description: 'Get a list of all Files stored in the cloud via Aerobridge'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CloudFile'
+          description: ''
+      tags:
+      - Files
+  /gcs/files/{file_id}:
+    get:
+      summary: "Get a single file details"
+      security:
+        - AuthFromPassport: [read]    
+      operationId: retrieveCloudFile
+      description: 'Get a specific file details by id'
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        description: 'A UUID of the file object'
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudFile'
+          description: ''
+      tags:
+      - Files
+
+  /gcs/files/upload:
+    put:
+      summary: "Upload a single file"
+      security:
+        - AuthFromPassport: [write]    
+      operationId: createCloudFile
+      description: 'Upload a file to Aerobridge'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # 'file' will be the field name in this multipart request
+                file:
+                  type: string
+                  format: binary
+
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudFile'
+          description: ''
+      tags:
+      - Files
+
+
   /digitalsky/all_permissions:
     get:
       summary: "Get all flight permissions"
@@ -493,6 +564,35 @@ components:
       - binary_file_url
       - public_key
       - version
+    CloudFile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        location:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:      
+      - location
+      - name
     FlightPlanList:
       type: object
       properties:
