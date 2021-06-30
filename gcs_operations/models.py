@@ -92,8 +92,7 @@ class FlightLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_submitted = models.BooleanField(default=False)
-    
-    
+        
     def __unicode__(self):
        return self.operation.name
 
@@ -102,9 +101,16 @@ class FlightLog(models.Model):
     
 
 class CloudFile(models.Model):
+    UPLOAD_TYPE = (
+        ('logs', 'Logs'),
+        ('documents', 'Documents'),
+        ('other', 'Other'),
+    )
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     location = models.URLField(help_text="URL location of the file")
     name = models.CharField(max_length=140, default="Uploaded File", help_text="Give name to this file e.g. Flight Log from Operation A on 21st Aug.")
+    upload_type = models.CharField(max_length=20,choices=UPLOAD_TYPE,default='other')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

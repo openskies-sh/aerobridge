@@ -228,7 +228,10 @@ class CloudFileDetail(mixins.RetrieveModelMixin,
 class CloudFileUpload(APIView):
     parser_classes = (FileUploadParser,)
 
-    def put(self, request, format=None):
+    BUCKET_NAME = env.get("BUCKET_NAME",0)
+    
+
+    def put(self, request,document_type, format=None):
         file_obj = request.FILES['file']
         file_name = request.data.get("file_name")
         with tempfile.NamedTemporaryFile() as f:
@@ -236,9 +239,9 @@ class CloudFileUpload(APIView):
                 f.write(chunk)
             f.flush()
             s3 = boto3.client('s3')
-            s3.upload_fileobj(f, "BUCKET_NAME", "OBJECT_NAME")
+            location = s3.upload_fileobj(f, "BUCKET_NAME", file_name)
 
-            cf = CloudFile(location= location, name = file_name)
+            cf = CloudFile(location= location,upload_type = document_type,  name = file_name)
             cf.save()
 
         # do some stuff with uploaded file

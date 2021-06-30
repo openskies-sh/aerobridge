@@ -21,6 +21,6 @@ urlpatterns = [
     
     path("files", gcs_views.CloudFileList.as_view(), name="file_list"),
     path("files/<uuid:pk>", gcs_views.CloudFileDetail.as_view(), name="file_detail"),  
-    path("files/upload", gcs_views.CloudFileUpload.as_view(), name="file_upload"),  
+    path("files/(?P<document_type>(\blogs\b|\bdocuments\b))/upload", gcs_views.CloudFileUpload.as_view(), name="file_upload"),  
     
 ]

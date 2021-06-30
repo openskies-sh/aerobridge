@@ -234,13 +234,42 @@ paths:
       tags:
       - Files
 
-  /gcs/files/upload:
+  /gcs/files/logs/upload:
     put:
-      summary: "Upload a single file"
+      summary: "Upload a single log file"
       security:
         - AuthFromPassport: [write]    
       operationId: createCloudFile
-      description: 'Upload a file to Aerobridge'
+      description: 'Upload a log file to Aerobridge'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # 'file' will be the field name in this multipart request
+                file:
+                  type: string
+                  format: binary
+
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudFile'
+          description: ''
+      tags:
+      - Files
+
+  /gcs/files/documents/upload:
+    put:
+      summary: "Upload a single document file"
+      security:
+        - AuthFromPassport: [write]    
+      operationId: createCloudFile
+      description: 'Upload a document to Aerobridge'
       requestBody:
         content:
           multipart/form-data:
