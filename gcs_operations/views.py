@@ -14,7 +14,7 @@ import tempfile
 import logging
 import boto3
 from botocore.exceptions import ClientError
-
+from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
@@ -228,21 +228,31 @@ class CloudFileDetail(mixins.RetrieveModelMixin,
 class CloudFileUpload(APIView):
     parser_classes = (FileUploadParser,)
 
-    BUCKET_NAME = env.get("BUCKET_NAME",0)
-    
 
     def put(self, request,document_type, format=None):
+        BUCKET_NAME = env.get("BUCKET_NAME",0)
+    
         file_obj = request.FILES['file']
         file_name = request.data.get("file_name")
         with tempfile.NamedTemporaryFile() as f:
             for chunk in file_obj.chunks():
                 f.write(chunk)
             f.flush()
-            s3 = boto3.client('s3')
-            location = s3.upload_fileobj(f, "BUCKET_NAME", file_name)
+            
+            s3 = boto3.client('s3', aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))
+            
+            try:
+                location = s3.upload_fileobj(f, BUCKET_NAME, file_name)
+            except NoCredentialsError:
+                
+                return Response("Problem  with Cloud Bucket credentials", status=status.HTTP_400_BAD_REQUEST)
+            
+            except Exception as e:
+                
+                return Response("Problem  with Cloud Bucket credentials", status=status.HTTP_400_BAD_REQUEST)
+            
+            else:
+                cf = CloudFile(location= location,upload_type = document_type,  name = file_name)
+                cf.save()
 
-            cf = CloudFile(location= location,upload_type = document_type,  name = file_name)
-            cf.save()
-
-        # do some stuff with uploaded file
-        return Response({'id':str(cf.id), 'name':cf.name,'location':location}, status=status.HTTP_201_CREATED)
+                return Response({'id':str(cf.id), 'name':cf.name,'location':location}, status=status.HTTP_201_CREATED)
