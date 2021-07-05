@@ -1,0 +1,28 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% load static %}
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Cloud Files</h2>
+    <p>Using Aerobridge, you can store / upload files to a Cloud provider of your choice, generally it is used to store signed flight logs etc. </p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush">
+        {% for cloudfile in cloudfiles %}
+        <li class="list-group-item"><a href="/launchpad/cloudfiles/{{cloudfile.id}}/detail">{{ cloudfile.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ cloudfile.created_at }} </small></li>
+        {% endfor %}
+        
+    </ul>
+    
+    <p>&nbsp;</p>
+    <p><a class="btn btn-primary" href="/launchpad/cloud-files/upload"><b>&#43; Add a File</b></a></p>
+
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

@@ -84,4 +84,7 @@ urlpatterns = [
     path('credentials/<uuid:credential_id>/delete', launchpad_views.CredentialsDelete.as_view(), name='credentials-delete'),
     path('credentials/new', launchpad_views.CredentialsCreateView.as_view(), name='credentials-create'),
     
+    path('cloud-files', launchpad_views.CloudFilesList.as_view(), name='cloud-files-list'),
+    path('cloud-files/<uuid:cloudfile_id>/detail', launchpad_views.CloudFilesDetail.as_view(), name='cloud-files-detail'),
+    path('cloud-files/upload', launchpad_views.CloudFilesCreateView.as_view(), name='cloud-files-upload'),
 ]

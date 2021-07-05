@@ -251,8 +251,6 @@ paths:
                 file:
                   type: string
                   format: binary
-
-
       responses:
         '200':
           content:
@@ -265,7 +263,7 @@ paths:
 
   /gcs/files/documents/upload:
     put:
-      summary: "Upload a single document file"
+      summary: "Upload a single document"
       security:
         - AuthFromPassport: [write]    
       operationId: createCloudFile
@@ -280,7 +278,6 @@ paths:
                 file:
                   type: string
                   format: binary
-
 
       responses:
         '200':

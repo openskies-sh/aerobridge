@@ -1,6 +1,6 @@
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
+from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, CloudFile
 from pki_framework.models import AerobridgeCredential
 from django import forms
 from django.forms import widgets
@@ -137,6 +137,18 @@ class TokenCreateForm(forms.ModelForm):
     class Meta:
         model = AerobridgeCredential
         fields = '__all__'
+        
+        
+class CustomCloudFileCreateForm(forms.Form):
+    
+    UPLOAD_TYPE = (
+        ('logs', 'Logs'),
+        ('documents', 'Documents'),
+        ('other', 'Other'),
+    )
+    files = forms.FileField()
+    file_type = forms.CharField(max_length=140,widget=forms.Select(choices=UPLOAD_TYPE))
+    name = forms.CharField()
         
 class CutsomTokenCreateForm(forms.Form):
     name = forms.CharField(max_length=100)

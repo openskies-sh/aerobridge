@@ -32,6 +32,7 @@ urlpatterns = [
     path('digitalsky/', include('digitalsky_provider.urls')),
     path('launchpad/', include('launchpad.urls')),
     path('pki/', include('pki_framework.urls')),
+    path('gcs/', include('gcs_operations.urls')),
     # YOUR PATTERNS
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -3,8 +3,8 @@ from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
-from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
-from gcs_operations.serializers import FlightLogSerializer
+from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
+from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
@@ -17,7 +17,7 @@ from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from rest_framework import status
@@ -806,6 +806,37 @@ class CredentialsDelete(DestroyAPIView):
         
         return redirect('credentials-list')
 
+    
+class CloudFilesList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/cloudfiles_list.html'
+    serializers = CloudFileSerializer
+    def get(self, request):
+        queryset = CloudFile.objects.all()
+        return Response({'cloudfiles': queryset})
+    
+class CloudFilesDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/cloudfiles_detail.html'
+
+    def get(self, request, cloudfile_id):
+        cloudfile = get_object_or_404(CloudFile, pk=cloudfile_id)
+        serializer = CloudFileSerializer(cloudfile)
+        return Response({'serializer': serializer, 'cloudfile': cloudfile})
+
+
+class CloudFilesCreateView(APIView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': CustomCloudFileCreateForm()}
+        return render(request, 'launchpad/cloudfiles_upload.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = CustomCloudFileCreateForm(request.POST)
+        print (request.POST)
+        if form.is_valid():
+            print(form)
+            
+        return redirect('cloud-files-list')
     
 
 class CredentialsCreateView(CreateView):
