@@ -10,10 +10,14 @@
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% for activity in activities %}
-        <li class="list-group-item"><a href="/launchpad/activities/{{activity.id}}">{{ activity.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ activity.created_at }} </small></li>
-        {% endfor %}
-        
+        {% if activities %}
+            {% for activity in activities %}
+            <li class="list-group-item"><a href="/launchpad/activities/{{activity.id}}">{{ activity.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ activity.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no activites added in Aerobridge, once added the list of activities will be displayed here.</i></p></li>
+        {% endif %}
+
     </ul>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/activities/new"><b>&#43; Add an activity</b></a></p>

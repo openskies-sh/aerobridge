@@ -8,10 +8,14 @@
     <div class="col-md-8 themed-grid-col">
 
         <ul class="list-group list-group-flush">
-        {% for contact in contacts %}
-        <li class="list-group-item"><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} - {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
-        {% endfor %}
-        
+        {% if contacts %}
+            {% for contact in contacts %}
+            <li class="list-group-item"><a href="/launchpad/contacts/{{contact.id}}">{{ contact.person.first_name }} {{ contact.person.last_name }} - {{ contact.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ contact.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no contacts added in Aerobridge, once added the list of contacts will be displayed here.</i></p></li>
+        {% endif %}
+
     </ul>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/contacts/new"><b>&#43; Add a new Contact</b></a></p>

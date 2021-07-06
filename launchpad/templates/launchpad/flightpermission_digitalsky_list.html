@@ -9,11 +9,15 @@
     <div class="row mb-3">
         <div class="col-md-8 themed-grid-col">
             <ul class="list-group list-group-flush">
-                {% for flightpermission in flightpermissions %}
-                <li class="list-group-item"><a
-                        href="/launchpad/digitalsky-flight-permissions/{{flightpermission.id}}/request">{{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightpermission.created_at }} </small></li>
-                {% endfor %}
-
+            {% if flightpermissions %}
+                    {% for flightpermission in flightpermissions %}
+                    <li class="list-group-item"><a
+                            href="/launchpad/digitalsky-flight-permissions/{{flightpermission.id}}/request">{{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightpermission.created_at }} </small></li>
+                    {% endfor %}
+            {% else %}
+                <li class="list-group-item"><p class="text-muted"><i>There are no flight permissions added in Aerobridge, once added the list of flight permissions will be displayed here.</i></p></li>
+            {% endif %}
+    
             </ul><br>
 
 

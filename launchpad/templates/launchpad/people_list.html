@@ -11,11 +11,17 @@
     <div class="col-md-6 themed-grid-col">
 
         <ul class="list-group list-group-flush">
+
+        {% if people %}
             {% for person in people %}
             <li class="list-group-item"><a href="/launchpad/people/{{person.id}}">{{ person.first_name }}
                     {{ person.last_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ person.created_at }}
                 </small></li>
             {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no engines added in Aerobridge, once added the list of engines will be displayed here.</i></p></li>
+        {% endif %}
+
 
         </ul>
         <br>

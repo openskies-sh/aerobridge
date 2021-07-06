@@ -8,11 +8,16 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-
+        
         <ul class="list-group list-group-flush">
-        {% for engine in engines %}
-        <li class="list-group-item"><a href="/launchpad/engines/{{engine.id}}">{{ engine.engine_type }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ engine.created_at }} </small></li>
-        {% endfor %}
+        {% if engines %}
+            {% for engine in engines %}
+            <li class="list-group-item"><a href="/launchpad/engines/{{engine.id}}">{{ engine.engine_type }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ engine.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no engines added in Aerobridge, once added the list of engines will be displayed here.</i></p></li>
+        {% endif %}
+
         
     </ul> <br>
     <p><a class="btn btn-primary" href="/launchpad/engines/new"><b>&#43; Add a Engine</b></a></p>

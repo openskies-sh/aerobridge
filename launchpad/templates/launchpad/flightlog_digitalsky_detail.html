@@ -1,0 +1,39 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div class="row mb-3">
+<h2>Flight Log Details</h2>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+    
+        <table  class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Operation</td>
+                <td>{{ flightlog.operation.name }}</td>
+            </tr>
+
+            <tr>
+                <td>Signed Log File URL</td>
+                <td><a href="{{ flightlog.signed_log}}">{{ flightlog.signed_log}}</a></td>
+            </tr>
+            
+            <tr>
+                <td>Is Sumibtted to Digital Sky?</td>
+                <td><code>{{ flightlog.is_submitted }}</code></td>    
+            </tr>
+        </table>
+
+<form action="{% url 'flightlogs-digitalsky-send' flightlog_id=flightlog.pk %}" method="POST">
+    <p><button class="btn btn-primary" type="submit" value="Request">Submit Log to Digital Sky</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightlogs-digitalsky-list' %}" role="button">Cancel</a></p>
+    </form>
+    
+</div>
+</div>
+{% endblock %}

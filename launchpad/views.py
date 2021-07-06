@@ -622,9 +622,20 @@ class FlightLogsList(APIView):
     
 class FlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_detail.html'
+    template_name = 'launchpad/flightlog_detail.html'
 
     def get(self, request, flightlog_id):
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog)
+        return Response({'serializer': serializer, 'flightlog': flightlog})
+
+        
+class FlightLogsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightlog_update.html'
+
+    def get(self, request, flightlog_id):
+        
         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
         serializer = FlightLogSerializer(flightlog)
         return Response({'serializer': serializer, 'flightlog': flightlog})
@@ -636,6 +647,7 @@ class FlightLogsDetail(APIView):
             return Response({'serializer': serializer, 'flightlog': flightlog,'errors':serializer.errors})
         serializer.save()
         return redirect('flightlogs-list')
+
 
 class FlightLogCreateView(CreateView):
     def get(self, request, *args, **kwargs):
@@ -651,8 +663,41 @@ class FlightLogCreateView(CreateView):
         return redirect('flightlogs-list')
     
     
+class FlightLogsDigitalSkyList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightlog_digitalsky_list.html'
+
+    def get(self, request):
+        queryset = FlightLog.objects.filter(is_submitted=False)
+        return Response({'flightlogs': queryset})
     
+class FlightLogsDigitalSkyDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightlog_digitalsky_detail.html'
+
+    def get(self, request, flightlog_id):
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog)
+        return Response({'serializer': serializer, 'flightlog': flightlog})
+
+
+class FlightLogSubmitDigitalSkyRequest(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightlog_digitalsky_detail.html'
+
+    def get(self, request, flightlog_id):
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog)
+        return Response({'serializer': serializer, 'flightlog': flightlog})
+
+    def post(self, request,flightlog_id):        
+        # Submit a call to Digital Sky API
+
+        return redirect('flightlogs-digitalsky-thanks')
     
+       
+class FlightLogDigitalSkyThanks(TemplateView):    
+    template_name = 'launchpad/flightlog_digitalsky_thanks.html'
         
 ### DigitalSky Log Views
     

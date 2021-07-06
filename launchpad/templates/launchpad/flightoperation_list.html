@@ -8,11 +8,15 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-
+        {% if flightoperations %}
         <ul class="list-group list-group-flush">
-        {% for flightoperation in flightoperations %}
-        <li class="list-group-item"><a href="/launchpad/flightoperations/{{flightoperation.id}}/detail">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightoperation.created_at }} </small></li>
-        {% endfor %}
+            {% for flightoperation in flightoperations %}
+            <li class="list-group-item"><a href="/launchpad/flightoperations/{{flightoperation.id}}/detail">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightoperation.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no flight operations added in Aerobridge, once added the list of flight operations will be displayed here.</i></p></li>
+        {% endif %}
+
         
     </ul>
     <br>

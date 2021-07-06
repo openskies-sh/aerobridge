@@ -8,11 +8,15 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-
+    {% if manufacturers %}
         <ul class="list-group list-group-flush">
         {% for manufacturer in manufacturers %}
         <li class="list-group-item"><a href="/launchpad/manufacturers/{{manufacturer.id}}/detail">{{ manufacturer.common_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ manufacturer.created_at }} </small></li>
         {% endfor %}
+    {% else %}
+        <li class="list-group-item"><p class="text-muted"><i>There are no manufacturers added in Aerobridge, once added the list of manufacturers will be displayed here.</i></p></li>
+    {% endif %}
+
         
     </ul>
     <br>

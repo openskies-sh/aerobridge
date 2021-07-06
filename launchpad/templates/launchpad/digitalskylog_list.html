@@ -10,10 +10,14 @@
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% for digitalskylog in digitalskylogs %}
-        <li class="list-group-item"><a href="/launchpad/digitalskylogs/{{digitalskylog.id}}">{{ digitalskylog.txn.aircraft.model }} {{ digitalskylog.txn.aircraft.operator.company_name }}</a>&nbsp;&nbsp;<mark>{{digitalskylog.txn.prefix }}</mark>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ digitalskylog.created_at }} </small></li>
-        {% endfor %}
-            
+        {% if digitalskylogs %}
+            {% for digitalskylog in digitalskylogs %}
+            <li class="list-group-item"><a href="/launchpad/digitalsky-logs/{{digitalskylog.id}}">{{ digitalskylog.txn.aircraft.model }} {{ digitalskylog.txn.aircraft.operator.company_name }}</a>&nbsp;&nbsp;<mark>{{digitalskylog.txn.prefix }}</mark>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ digitalskylog.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+        <li class="list-group-item"><p class="text-muted"><i>There are no Digital Sky Logs added in Aerobridge, once added the list of Digital Sky Logs will be displayed here.</i></p></li>
+    {% endif %}
+
     </ul>
     <br>
     

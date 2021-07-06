@@ -10,9 +10,14 @@
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% for address in addresses %}
-        <li class="list-group-item"><a href="/launchpad/addresses/{{address.id}}">{{ address.address_line_1 }}, {{ address.city }}, {{ address.state }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ address.created_at }} </small></li>
-        {% endfor %}
+        {% if addresses %}
+            {% for address in addresses %}
+            <li class="list-group-item"><a href="/launchpad/addresses/{{address.id}}">{{ address.address_line_1 }}, {{ address.city }}, {{ address.state }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ address.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no Addresses added in Aerobridge, once added the list of addresses will be displayed here.</i></p></li>
+        {% endif %}
+
         
     </ul>
     <br>

@@ -3,15 +3,35 @@
 {% block content %}
 <div class="row mb-3">
 <h2>Flight Log Details</h2>
+
 </div>
 <div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
+    
+    <table  class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Operation</td>
+            <td>{{ flightlog.operation.name }}</td>
+        </tr>
+        <tr>
+            <td>Raw Log</td>
+            <td>{{ flightlog.raw_log}}</td>    
+        </tr>
+        <tr>
+            <td>Signed Log File URL</td>
+            <td><a href="{{ flightlog.signed_log}}">{{ flightlog.signed_log}}</a></td>
+        </tr>
+        
+    </table>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/flightlogs/{{flightlog.id}}"><b>Update Details</b></a></p>
+    
 
-<form action="{% url 'flightlogs-detail' flightlog_id=flightlog.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightlogs-list' %}" role="button">Cancel</a>
-</form>
-</div>
+
 </div>
 {% endblock %}

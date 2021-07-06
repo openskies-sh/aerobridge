@@ -4,7 +4,7 @@
 <div class="row mb-3">
     
     <h2>Flight Logs</h2>
-    <p>See all the signed flight logs, these will be sent to Digital Sky and also be maintained for your records</p>
+    <p>See all the flight logs that can be submitted to Digital Sky, if a log does not appear here then it is most likely submitted to Digital Sky already.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
@@ -12,15 +12,14 @@
     <ul class="list-group list-group-flush">
         {% if flightlogs %}
             {% for flightlog in flightlogs %}
-            <li class="list-group-item"><a href="/launchpad/flightlogs/{{flightlog.id}}/detail">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/digitalsky-flightlogs/{{flightlog.id}}">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no flight logs added in Aerobridge, once added the list of flight logs will be displayed here.</i></p></li>
         {% endif %}
 
     </ul>
-    <br>
-    <p><a class="btn btn-primary" href="/launchpad/flightlogs/new"><b>&#43; Add a new flight log</b></a></p>
+    <br>    
 
 </div>
 <div class="col-md-4 themed-grid-col"></div>

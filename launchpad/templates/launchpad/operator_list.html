@@ -8,10 +8,15 @@
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% for operator in operators %}
-        <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}/detail">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
-        {% endfor %}
-        
+
+        {% if operators %}
+            {% for operator in operators %}
+            <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}/detail">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no operators added in Aerobridge, once added the list of operators will be displayed here.</i></p></li>
+        {% endif %}
+
     </ul>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/operators/new"><b>&#43; Add a operator</b></a></p>
