@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
 from registry.models import Aircraft, Operator,Activity
+from django.core.validators import RegexValidator
 
 def make_random_plan_common_name():
     length = 6
@@ -14,6 +15,7 @@ def make_random_plan_common_name():
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
+no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 # Create your models here.
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''

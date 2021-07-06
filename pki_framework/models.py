@@ -3,8 +3,11 @@ import uuid
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 from registry.models import Aircraft, Manufacturer, Operator
-
+from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+
+no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
+
 
 class AerobridgeCredential(models.Model):
     ''' A class to store tokens from Digital Sky '''
@@ -14,7 +17,7 @@ class AerobridgeCredential(models.Model):
     TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('OTHER')),(4, _('DIGITAL_CERTIFICATE')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100, help_text="Enter a friendly name / description for the type of credential you are storing")
+    name = models.CharField(max_length=100, help_text="Enter a friendly name / description for the type of credential you are storing", validators = [no_special_characters_regex,])
     token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is, e.g Public / Private Key")
     association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling Digital Sky and other external servers")
     token = models.BinaryField()
