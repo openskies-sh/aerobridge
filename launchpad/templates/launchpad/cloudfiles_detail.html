@@ -1,0 +1,33 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Cloudfile Detail</h1>
+<br>
+<p class='text-muted'>Uploaded at {{cloudfile.created_at}}</p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Name</td>
+        <td>{{ cloudfile.name }}</td>
+    </tr>
+    <tr>
+        <td>Upload Type</td>
+        <td>{{ cloudfile.upload_type}}</td>    
+    </tr>
+    <tr>
+        <td>Download URL</td>
+        <td><a href="{{ cloudfile.url}}">{{ cloudfile.name }}</a></td>
+    </tr>
+
+</table>
+<br>
+
+</div>
+{% endblock %}

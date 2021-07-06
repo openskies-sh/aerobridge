@@ -6,7 +6,7 @@
 <div class="row mb-3">
     
     <h2>Cloud Files</h2>
-    <p>Using Aerobridge, you can store / upload files to a Cloud provider of your choice, generally it is used to store signed flight logs etc. </p>
+    <p>Using Aerobridge, you can store / upload files to a Cloud provider of your choice. It is crucial to store files and logs appropriately to ensure smooth operations, generally signed logs are used to store signed flight logs etc. </p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
@@ -14,7 +14,7 @@
     <ul class="list-group list-group-flush">
         <ul class="list-group list-group-flush">
         {% for cloudfile in cloudfiles %}
-        <li class="list-group-item"><a href="/launchpad/cloudfiles/{{cloudfile.id}}/detail">{{ cloudfile.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ cloudfile.created_at }} </small></li>
+        <li class="list-group-item"><a href="/launchpad/cloud-files/{{cloudfile.id}}/detail">{{ cloudfile.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ cloudfile.created_at }} </small></li>
         {% endfor %}
         
     </ul>

@@ -1,4 +1,4 @@
-from pki_framework import serializers
+from io import BufferedIOBase
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
@@ -20,9 +20,18 @@ from rest_framework.generics import DestroyAPIView
 from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
-from rest_framework import status
 from django.conf import settings
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
+import tempfile
+from rest_framework.parsers import MultiPartParser
+import boto3
+from botocore.exceptions import ClientError
+from botocore.exceptions import NoCredentialsError
+from os import environ as env
+from dotenv import load_dotenv, find_dotenv
+import os
+
+load_dotenv(find_dotenv())
 
 class HomeView(TemplateView):
     template_name = 'launchpad/basecamp.html'
@@ -826,18 +835,51 @@ class CloudFilesDetail(APIView):
 
 
 class CloudFilesCreateView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    parser_classes = (MultiPartParser,)
     def get(self, request, *args, **kwargs):
         context = {'form': CustomCloudFileCreateForm()}
         return render(request, 'launchpad/cloudfiles_upload.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = CustomCloudFileCreateForm(request.POST)
-        print (request.POST)
-        if form.is_valid():
-            print(form)
+        form = CustomCloudFileCreateForm(request.POST, request.FILES)        
+        if form.is_valid():            
+            BUCKET_NAME = env.get("S3_BUCKET_NAME",0)
+            endpoint_url = env.get('S3_ENDPOINT_URL',0)
+
+            file_obj = request.FILES['file']
+            for filename, file in request.FILES.items():
+                file_name = request.FILES[filename].name
+            friendly_name = request.POST.get("name")            
+            file_type = request.POST.get("file_type")
             
-        return redirect('cloud-files-list')
-    
+            with tempfile.NamedTemporaryFile() as f:
+                for chunk in file_obj.chunks():
+                    f.write(chunk)
+                f.flush()
+                
+                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME',0), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))                
+                
+                try:
+                    
+                    s3.upload_fileobj(f, BUCKET_NAME, os.path.join(file_type, file_name))
+                except NoCredentialsError as ne:                                        
+                    context = {'errors':'File not uploaded, problem  with Cloud Bucket credentials'}   
+                    return render(request, 'launchpad/cloudfiles_error.html', context)
+                except Exception as e: 
+                    
+                    context = {'errors':'File not uploaded, problem  with Cloud Bucket credentials'}   
+                    return render(request, 'launchpad/cloudfiles_error.html', context)
+                else:
+                    location = endpoint_url + '/' + file_type + file_name
+                    cf = CloudFile(location= location,upload_type = file_type,  name = friendly_name)
+                    cf.save()            
+                    return redirect('cloud-files-list')
+            
+        else:            
+            context = {'form': CustomCloudFileCreateForm(request.POST, request.FILES), 'errors':form.errors}        
+            return render(request, 'launchpad/cloudfiles_upload.html', context)
+            
 
 class CredentialsCreateView(CreateView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -854,7 +896,6 @@ class CredentialsCreateView(CreateView):
 
         enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
         self.object.token = enc_token
-        print(enc_token)
         self.object.save()
 
     

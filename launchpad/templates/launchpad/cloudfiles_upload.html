@@ -5,22 +5,30 @@
 {% load crispy_forms_tags %}
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-
-
         <h2>Upload a new file</h2>
-        <p>Upload a new file to the database, use the file url to submit file to Digital Sky etc.</p>
-        <form action="" method="post">
+        <p>Once a file has been uploaded, you will get a url back, you can then use the file url to submit file url.</p>
+
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% if errors %}
-                {% for err in errors.non_field_errors %}
-                <p class="alert alert-danger" role="alert">{{ err }}</p>
-            {% endfor %}
+            {% if form.errors %}
+                <ul class="error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li class="alert alert-danger" role="alert">
+                        {% if field != '__all__' %}
+                            <strong>{{ field.label }}:</strong>
+                        {% endif %}
+                        {{ error }}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+                </ul>
             {% endif %}
             {{ form|crispy }}
-            <br> <br>
-            <input class="btn btn-primary" type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary"
-                href="{% url 'cloud-files-list' %}" role="button">Cancel</a>
+            <br><br>
+            <input class="btn btn-primary" type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'cloud-files-list' %}"  role="button">Cancel</a>
         </form>
+        
     </div>
     <div class="col-md-6 themed-grid-col"></div>
 </div>

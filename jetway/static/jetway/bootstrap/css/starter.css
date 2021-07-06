@@ -10,3 +10,7 @@ body {
   color: #6c757d!important;
   font-size: .875em;
 }
+
+ul.error li {
+  list-style-type: none;
+}

@@ -14,6 +14,7 @@ from pki_framework.utils import requires_scopes
 from digitalsky_provider.tasks import submit_flight_permission
 import tempfile
 import logging
+import os
 import boto3
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
@@ -232,26 +233,36 @@ class CloudFileUpload(APIView):
     def put(self, request,document_type, format=None):
         
         if (document_type in ['logs', 'documents']):
-            BUCKET_NAME = env.get("BUCKET_NAME",0)
+
+
+            BUCKET_NAME = env.get("S3_BUCKET_NAME",0)
+            endpoint_url = env.get('S3_ENDPOINT_URL',0)
 
             file_obj = request.FILES['file']
-            file_name = request.data.get("file_name")
+            for filename, file in request.FILES.items():
+                file_name = request.FILES[filename].name
+            friendly_name = request.POST.get("name")            
+            file_type = request.POST.get("file_type")
+            
             with tempfile.NamedTemporaryFile() as f:
                 for chunk in file_obj.chunks():
                     f.write(chunk)
                 f.flush()
                 
-                s3 = boto3.client('s3', aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))
+                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME',0), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))                
                 
                 try:
-                    location = s3.upload_fileobj(f, BUCKET_NAME, file_name)
-                except NoCredentialsError:
+                    
+                    s3.upload_fileobj(f, BUCKET_NAME, os.path.join(file_type, file_name))
+                except NoCredentialsError as ne:                                        
                     return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)
-                except Exception as e:
+                except Exception as e: 
                     return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    cf = CloudFile(location= location,upload_type = document_type,  name = file_name)
+                    location = endpoint_url + '/' + file_type + file_name
+                    cf = CloudFile(location= location,upload_type = file_type,  name = friendly_name)
                     cf.save()
                     return Response({'id':str(cf.id), 'name':cf.name,'location':location}, status=status.HTTP_201_CREATED)
+
         else:
                 return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)

@@ -146,7 +146,7 @@ class CustomCloudFileCreateForm(forms.Form):
         ('documents', 'Documents'),
         ('other', 'Other'),
     )
-    files = forms.FileField()
+    file = forms.FileField()
     file_type = forms.CharField(max_length=140,widget=forms.Select(choices=UPLOAD_TYPE))
     name = forms.CharField()
         
