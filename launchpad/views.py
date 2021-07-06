@@ -858,7 +858,7 @@ class CloudFilesCreateView(APIView):
                     f.write(chunk)
                 f.flush()
                 
-                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME',0), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))                
+                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME','0'), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY','0'),aws_secret_access_key=env.get('S3_SECRET_KEY','0'))                
                 
                 try:
                     
@@ -866,9 +866,8 @@ class CloudFilesCreateView(APIView):
                 except NoCredentialsError as ne:                                        
                     context = {'errors':'File not uploaded, problem  with Cloud Bucket credentials'}   
                     return render(request, 'launchpad/cloudfiles_error.html', context)
-                except Exception as e: 
-                    
-                    context = {'errors':'File not uploaded, problem  with Cloud Bucket credentials'}   
+                except Exception as e:                     
+                    context = {'errors':'File not uploaded, problem  with Cloud Bucket configuration'}   
                     return render(request, 'launchpad/cloudfiles_error.html', context)
                 else:
                     location = endpoint_url + '/' + file_type + file_name
