@@ -74,7 +74,7 @@ class Transaction(models.Model):
     
 class FlightPermission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operation = models.ForeignKey(FlightOperation, models.CASCADE,related_name='Operation', null=True)
+    operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation', null=True)
     is_successful = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
