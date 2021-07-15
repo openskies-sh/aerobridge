@@ -2,7 +2,7 @@ from io import BufferedIOBase
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
+from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -10,14 +10,14 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -242,6 +242,57 @@ class PilotsCreateView(CreateView):
         return redirect('pilots-list')
     
 
+### Authorizationa Views
+    
+class AuthorizationsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/authorization_list.html'
+
+    def get(self, request):
+        queryset = Authorization.objects.all()
+        return Response({'authorizations': queryset})
+    
+class AuthorizationsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/authorization_detail.html'
+
+    def get(self, request, authorization_id):
+        authorization = get_object_or_404(Authorization, pk=authorization_id)
+        serializer = AuthorizationSerializer(authorization)
+        return Response({'serializer': serializer, 'authorization': authorization})
+
+class AuthorizationsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/authorization_update.html'
+
+    def get(self, request, authorization_id):
+        authorization = get_object_or_404(Authorization, pk=authorization_id)
+        serializer = AuthorizationSerializer(authorization)
+        return Response({'serializer': serializer, 'authorization': authorization})
+
+    def post(self, request, authorization_id):
+        authorization = get_object_or_404(Authorization, pk=authorization_id)
+        serializer = AuthorizationSerializer(authorization, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'authorization': authorization})
+        serializer.save()
+        return redirect('authorizations-list')
+
+
+class AuthorizationsCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AuthorizationCreateForm()}
+        return render(request, 'launchpad/authorization_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AuthorizationCreateForm(request.POST)
+        if form.is_valid():
+            authorization = form.save()
+            authorization.save()
+            
+        return redirect('authorizations-list')
+    
+
 
 ### Activites Views
     
@@ -261,6 +312,23 @@ class ActivitiesDetail(APIView):
         activity = get_object_or_404(Activity, pk=activity_id)
         serializer = ActivitySerializer(activity)
         return Response({'serializer': serializer, 'activity': activity})
+
+class ActivitiesUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/activity_update.html'
+
+    def get(self, request, activity_id):
+        activity = get_object_or_404(Activity, pk=activity_id)
+        serializer = ActivitySerializer(activity)
+        return Response({'serializer': serializer, 'activity': activity})
+
+    def post(self, request, activity_id):
+        activity = get_object_or_404(Activity, pk=activity_id)
+        serializer = ActivitySerializer(activity, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'activity': activity})
+        serializer.save()
+        return redirect('activities-list')
 
 
 class ActivitiesCreateView(CreateView):

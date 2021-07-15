@@ -1,0 +1,27 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Authorizations</h2>
+    <p>A list of all authorizations in the system, you can assign them to operators</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if authorizations %}
+            {% for authorization in authorizations %}
+            <li class="list-group-item"><a href="/launchpad/authorizations/{{authorization.id}}/detail">{{ authorization.title }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ authorization.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no authorizations added in Aerobridge, once added the list of authorizations will be displayed here.</i></p></li>
+        {% endif %}
+
+    </ul>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/authorization/new"><b>&#43; Add an activity</b></a></p>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

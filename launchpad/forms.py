@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity, Authorization
 from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, CloudFile
 from pki_framework.models import AerobridgeCredential
@@ -127,6 +127,12 @@ class EngineCreateForm(forms.ModelForm):
         fields = '__all__'
         
 
+class AuthorizationCreateForm(forms.ModelForm):
+    class Meta:
+        model = Authorization
+        # exclude = ('is_created',)
+        fields = '__all__'
+        
 class ActivityCreateForm(forms.ModelForm):
     class Meta:
         model = Activity

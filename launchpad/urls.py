@@ -25,8 +25,14 @@ urlpatterns = [
     path('pilots/new', launchpad_views.PilotsCreateView.as_view(), name='pilots-create'),
      
     path('activities', launchpad_views.ActivitiesList.as_view(), name='activities-list'),
-    path('activities/<uuid:activity_id>', launchpad_views.ActivitiesDetail.as_view(), name='activities-detail'),
+    path('activities/<uuid:activity_id>', launchpad_views.ActivitiesUpdate.as_view(), name='activities-update'),
+    path('activities/<uuid:activity_id>/detail', launchpad_views.ActivitiesDetail.as_view(), name='activities-detail'),
     path('activities/new', launchpad_views.ActivitiesCreateView.as_view(), name='activities-create'),
+     
+    path('authorizations', launchpad_views.AuthorizationsList.as_view(), name='authorizations-list'),
+    path('authorizations/<uuid:authorization_id>', launchpad_views.AuthorizationsUpdate.as_view(), name='authorizations-update'),
+    path('authorizations/<uuid:authorization_id>/detail', launchpad_views.AuthorizationsDetail.as_view(), name='authorizations-detail'),
+    path('authorizations/new', launchpad_views.AuthorizationsCreateView.as_view(), name='authorizations-create'),
      
     path('aircrafts', launchpad_views.AircraftList.as_view(), name='aircrafts-list'),
     path('aircrafts/<uuid:aircraft_id>', launchpad_views.AircraftUpdate.as_view(), name='aircrafts-update'),

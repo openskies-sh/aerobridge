@@ -1,0 +1,19 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+
+    <h2>Create a new activity</h2>
+    <p>Create a new activity in the database, you can then assign to the operator and flight plan</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br> <br>
+        <input class="btn btn-primary" type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'activities-list' %}" role="button">Cancel</a>
+    </form>
+</div>
+<div class="col-md-6 themed-grid-col"></div>
+</div>
+{% endblock %}
