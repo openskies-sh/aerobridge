@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
+from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
@@ -19,6 +19,12 @@ class TestModelsCreate(TestModels):
         digitalsky_log.save()
         self.assertIn(digitalsky_log, DigitalSkyLog.objects.all())
         self.assertEqual(digitalsky_log.txn, Transaction.objects.first())
+
+    def test_gcs_operations_cloud_file_create(self):
+        cloud_file = CloudFile(location=self.faker.uri(), name=self.faker.file_name(category='text'))
+        self.assertNotIn(cloud_file, CloudFile.objects.all())
+        cloud_file.save()
+        self.assertIn(cloud_file, CloudFile.objects.all())
 
     def test_gcs_operations_flight_plan_create(self):
         flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json(), start_datetime=timezone.now(),

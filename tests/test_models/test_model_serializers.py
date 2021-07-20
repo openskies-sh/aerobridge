@@ -2,7 +2,7 @@ import json
 import os
 
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
-from gcs_operations.serializers import FirmwareSerializer, FlightPlanSerializer, \
+from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
@@ -32,6 +32,13 @@ class TestModelSerializers(TestModels):
         self.assertTrue(digitalsky_log_serializer.is_valid())
         self.assertNotEqual(digitalsky_log_serializer.validated_data, dict)
         self.assertEqual(digitalsky_log_serializer.errors, dict())
+
+    def test_gcs_operations_cloud_file_serializer(self):
+        data = self._get_data_for_model('CloudFile')
+        cloud_file_serializer = CloudFileSerializer(data=data)
+        self.assertTrue(cloud_file_serializer.is_valid())
+        self.assertNotEqual(cloud_file_serializer.validated_data, dict)
+        self.assertEqual(cloud_file_serializer.errors, dict())
 
     def test_gcs_operations_firmware_serializer(self):
         data = self._get_data_for_model('Firmware')
