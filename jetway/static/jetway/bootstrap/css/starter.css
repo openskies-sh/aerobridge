@@ -14,3 +14,7 @@ body {
 ul.error li {
   list-style-type: none;
 }
+
+.map {
+  height: 300px;
+}
