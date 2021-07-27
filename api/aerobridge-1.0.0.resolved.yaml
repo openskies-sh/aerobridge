@@ -169,6 +169,7 @@ paths:
           description: ''
       tags:
       - Firmware
+
   /gcs/firmware/{firmware_id}:
     get:
       summary: "Get a single firmware download details"
@@ -193,6 +194,211 @@ paths:
       tags:
       - Firmware
 
+  /gcs/flight-plans:
+    get:
+      operationId: Get all Flight Plans
+      description: 'Get details of a single flight plan in Aerobridge'
+      security:
+        - AuthFromPassport: [read]    
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - Flight Plans
+    post:
+      operationId: Create new Flight Plan
+      description: 'Upload a new flight plan in Aerobridge'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlanList'
+              
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlanList'
+          description: ''
+      tags:
+      - Flight Plans
+
+  /gcs/flight-plans/{flightplan_id}:
+    get:
+      operationId: Get Single Flight Plan
+      description: 'Get details of a single plan'
+      security:
+        - AuthFromPassport: [read]    
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: ''
+      tags:
+      - Flight Plans
+
+    put:
+      operationId: Update details of a Flight Plan
+      description: 'Update existing flight plan'
+      security:
+        - AuthFromPassport: [write]    
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightPlan'
+              
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightPlan'
+          description: 'Flight Plan updated'
+      tags:
+      - Flight Plans
+
+    delete:
+      operationId: Remove Flight Plan
+      description: 'Delete flight plan from Aerobridge'
+      security:
+        - AuthFromPassport: [write]    
+      parameters:
+      - name: flightplan_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: 'Flight Plan deleted successfully'
+      tags:
+      - Flight Plans
+
+  /gcs/flight-logs:
+    get:
+      operationId: List all Flight Logs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - Flight Logs
+    post:
+      operationId: Create a new Flight Log
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+              
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - Flight Logs
+
+  /gcs/flight-logs/{flightlog_id}:
+    get:
+      operationId: Get a single Flight Log
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - Flight Logs
+    put:
+      operationId: Update a Flight Log
+      description: ''
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightLog'
+              
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLog'
+          description: ''
+      tags:
+      - Flight Logs
+    delete:
+      operationId: Remove Flight Log Object
+      description: 'Remove flight log'
+      parameters:
+      - name: flightlog_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - Flight Logs
+
 
   /gcs/files:
     get:
@@ -211,6 +417,7 @@ paths:
           description: ''
       tags:
       - Files
+
   /gcs/files/{file_id}:
     get:
       summary: "Get a single file details"
@@ -810,9 +1017,9 @@ components:
           type: string
           maxLength: 30
         details:
-          type: string
-          nullable: true
-          description: Paste flight plan geometry
+          type: object
+          $ref: '#/components/schemas/GeoJSON'
+          description: Paste flight plan geometry as GeoJSON
         start_datetime:
           type: string
           format: date-time
@@ -841,9 +1048,11 @@ components:
           type: string
           maxLength: 30
         details:
-          type: string
+          type: object
+          $ref: '#/components/schemas/GeoJSON'
           nullable: true
           description: Paste flight plan geometry
+          
         start_datetime:
           type: string
           format: date-time
@@ -1192,6 +1401,7 @@ components:
           readOnly: true
         signed_log:
           type: string
+          format: uri          
         raw_log:
           type: string
         created_at:
@@ -1947,3 +2157,27 @@ components:
           type: string
           description: e.g. Reseller, distributor, OEM etc.
           maxLength: 140
+
+    GeoJSON:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - Polygon
+            - MultiPolygon
+            - LineString
+
+        coordinates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Point2D"
+
+    Point2D:
+      type: array
+      maxItems: 2
+      minItems: 2
+      items:
+        type: number
