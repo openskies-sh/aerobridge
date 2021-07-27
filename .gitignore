@@ -147,3 +147,4 @@ aerobridge.sqlite3
 
 # Graphviz
 *.dot
+*.png
