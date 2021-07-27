@@ -94,4 +94,5 @@ class CloudFileSerializer(serializers.ModelSerializer):
     ''' A serializer for Cloud Files '''
     class Meta:
         model = CloudFile
+        fields = '__all__'
         ordering = ['-created_at']

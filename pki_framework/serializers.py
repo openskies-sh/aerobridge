@@ -41,9 +41,22 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
         fields = ('token', 'name', 'token_type', 'association','is_active', 'id','aircraft','manufacturer','operator',)
 
 class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
     token_type = serializers.SerializerMethodField()
     def get_token_type(self, obj):
         return obj.get_token_type_display()
+    def get_token(self, digital_sky_credentials):
+        token = digital_sky_credentials.token
+        if isinstance(token, memoryview): #for Postgres / Django
+            token = token.tobytes()
+            
+        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
+        
+        f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
+        t = f.decrypt(token)
+        t = t.decode('utf-8')
+        return t
+
     class Meta:
         model = AerobridgeCredential
-        fields = ('name', 'token_type', 'association', 'id',)
+        fields = ('token', 'name', 'token_type', 'association','is_active', 'id','aircraft','manufacturer','operator',)

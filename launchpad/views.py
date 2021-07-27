@@ -915,7 +915,7 @@ class CredentialsUpdate(APIView):
         return redirect('credentials-list')
 
 class CredentialsDelete(DestroyAPIView):  
-    
+    serializer_class = AerobridgeCredentialSerializer
     def get_credential(self, pk):
         try:
             return AerobridgeCredential.objects.get(pk=pk)

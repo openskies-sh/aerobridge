@@ -13,3 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf.urls import url
+from . import views as registryviews
+from django.urls import path
+
+urlpatterns = [
+
+    path('aircraft/', registryviews.AircraftList.as_view()),        
+    path('aircraft/<uuid:pk>', registryviews.AircraftDetail.as_view()),
+    path('operators/', registryviews.OperatorList.as_view()),
+    path('operators/<uuid:pk>', registryviews.OperatorDetail.as_view()),  
+    path('manufacturers/', registryviews.ManufacturerList.as_view()),
+    path('manufacturers/<uuid:pk>', registryviews.ManufacturerDetail.as_view()),  
+
+]

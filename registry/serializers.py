@@ -11,14 +11,12 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ('id', 'address_line_1', 'address_line_2', 'address_line_3', 'postcode', 'city', 'country',
                   'created_at', 'updated_at')
 
-
 class ManufacturerSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)
 
     class Meta:
         model = Manufacturer
         fields = ('id', 'full_name', 'common_name', 'address', 'role')
-
 
 class AuthorizationSerializer(serializers.ModelSerializer):
     risk_type = serializers.SerializerMethodField()
@@ -44,12 +42,10 @@ class TypeCertificateSerializer(serializers.ModelSerializer):
         model = TypeCertificate
         fields = ('id', 'type_certificate_id', 'type_certificate_issuing_country', 'type_certificate_holder','type_certificate_holder_country',)
 
-
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ('id', 'first_name', 'middle_name', 'last_name', 'email', 'created_at', 'updated_at')
-
 
 class TestsSerializer(serializers.ModelSerializer):
     test_type = serializers.SerializerMethodField()
@@ -64,7 +60,6 @@ class TestsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fields = ('id', 'test_type', 'taken_at', 'created_at', 'updated_at')
-
 
 class OperatorSerializer(serializers.ModelSerializer):
     ''' This is the default serializer for Operator '''
@@ -100,7 +95,6 @@ class PrivilegedOperatorSerializer(serializers.ModelSerializer):
         model = Operator
         fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
                   'operational_authorizations', 'authorized_activities', 'created_at', 'updated_at')
-
 
 class OperatorSelectRelatedSerializer(serializers.ModelSerializer):
     ''' This is the privileged serializer for Operator specially for law enforcement and other privileged operators '''

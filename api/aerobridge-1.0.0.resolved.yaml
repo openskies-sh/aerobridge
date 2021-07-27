@@ -4,9 +4,11 @@ info:
   title: "Aerobrige Server API specification"
   description: |-
     All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with the Digital Sky API, store flight plans and manage keys. 
+    
+    The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create entries in the database.
 
     Unless otherwise specified, fields specified in a message but not declared in the API shall be ignored.
-  version: "1.0.0"
+  version: "1.5.0"
 servers:
   - url: "https://virtserver.swaggerhub.com/cygnus2936/aerobridge/1.0.0"
     description: "Aerobridge Server API"
@@ -30,9 +32,8 @@ paths:
       summary: "List all credentials stored"
       security:
         - AuthFromPassport: [read]    
-
       operationId: listCredentials
-      description: List all credentials 
+      description: List all credentials in the server. Aerobridge stores credentials securely and this API decrypts 
       parameters: []
       responses:
         '200':
@@ -41,35 +42,35 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Credential'
-          description: ''
+                  $ref: '#/components/schemas/AerobridgeCredential'
+          description: 'List of all credentials stored'
       tags:
         - Credentials
     put:
-      summary: "Create a new credentials"
+      summary: "Create a new credential"
       security:
         - AuthFromPassport: [write]    
 
       operationId: createCredentials
-      description: Upload details to create a new credentials object and store encrypted token
+      description: Upload details to create a new credential object and store it securely
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Credential'
+              $ref: '#/components/schemas/AerobridgeCredential'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Credential'
+              $ref: '#/components/schemas/AerobridgeCredential'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Credential'
+              $ref: '#/components/schemas/AerobridgeCredential'
       responses:
         '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Credential'
+                $ref: '#/components/schemas/AerobridgeCredential'
           description: ''
       tags:
         - Credentials
@@ -94,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Credential'
+                $ref: '#/components/schemas/AerobridgeCredential'
           description: ''
       tags:
         - Credentials
@@ -239,7 +240,7 @@ paths:
       summary: "Upload a single log file"
       security:
         - AuthFromPassport: [write]    
-      operationId: createCloudFile
+      operationId: createCloudFileLog
       description: 'Upload a log file to Aerobridge'
       requestBody:
         content:
@@ -266,7 +267,7 @@ paths:
       summary: "Upload a single document"
       security:
         - AuthFromPassport: [write]    
-      operationId: createCloudFile
+      operationId: createCloudFileDocument
       description: 'Upload a document to Aerobridge'
       requestBody:
         content:
@@ -406,7 +407,135 @@ paths:
       - Digital Sky
         - Logs
   
-  
+
+  /registry/aircraft/:
+      get:
+        security:
+          - AuthFromPassport: [read]    
+        operationId: Get all Aircrafts
+        description: List all aircrafts in the database
+        parameters: []
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Aircraft'
+            description: ''
+        tags:
+        - Aircrafts
+          
+
+  /registry/aircraft/{id}:
+    get:
+      security:
+        - AuthFromPassport: [read]    
+      operationId: Get single Aircraft
+      description: Retrieve details of a Aircraft instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+        - Aircrafts
+
+  /registry/operators/:
+    get:
+
+      security:
+        - AuthFromPassport: [read]        
+      operationId: Get all Operators
+      description: List all operators in Aerobridge
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Operator'
+          description: ''
+      tags:
+      - Operator
+  /registry/operators/{id}:
+    get:
+
+      security:
+        - AuthFromPassport: [read]        
+      operationId: Get single Operator
+      description: Get details of a single operator in Aerobridge
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operator'
+          description: ''
+      tags:
+      - Operator
+  /registry/manufacturers/:
+    get:
+
+      security:
+        - AuthFromPassport: [read]        
+      operationId: List all Manufacturers
+      description: List all manufacturers in Aerobridge
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manufacturer'
+          description: ''
+      tags:
+      - Manufacturer
+  /registry/manufacturers/{id}:
+    get:
+
+      security:
+        - AuthFromPassport: [read]        
+      operationId: Get Single Manufacturer
+      description: Retrieve, details of a Manufacturer 
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this operator.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manufacturer'
+          description: ''
+      tags:
+      - Manufacturer       
+
 components:
 
   securitySchemes:
@@ -512,8 +641,7 @@ components:
       - operational_authorizations
       - authorized_activities
 
-    Credential:
-
+    AerobridgeCredential:
       type: object
       properties:
         token:
@@ -521,21 +649,64 @@ components:
           readOnly: true
         name:
           type: string
+          description: Enter a friendly name / description for the type of credential
+            you are storing
+          pattern: ^[-, ,_\w]*$
           maxLength: 100
         token_type:
           enum:
           - 0
           - 1
           - 2
+          - 3
+          - 4
+          description: >
+            Sort order:
+             * `0` - Public Key
+             * `1` - Private Key
+             * `2` - Authentication Token
+             * `3` - Other
+             * `4` - Digital Certificate
+        association:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          description: >
+            Set the entity this credential is associated with. The association will be used when calling Digital Sky and other external servers
+            Sort order:
+             * `0` - Operator
+             * `1` - Manufacturer
+             * `2` - Pilot
+             * `3` - RFM
+             * `4` - DSC / eMudra Token
           type: integer
+        is_active:
+          type: boolean
+          description: Set whether the credential is still active
         id:
           type: string
           format: uuid
           readOnly: true
+        aircraft:
+          type: string
+          format: uuid
+          nullable: true
+          description: A UUID of the aircraft in the system that is associated with this token, optional
+        manufacturer:
+          type: string
+          format: uuid
+          nullable: true
+          description: A UUID of the manufacturer in the system that is associated with this token, optional
+        operator:
+          type: string
+          format: uuid
+          nullable: true
+          description: A UUID of the operator in the system that is associated with this token, optional
       required:
       - name
-      - token_type
-
     Transaction:
       type: object
       properties:
@@ -573,11 +744,14 @@ components:
             ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
             .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
             .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+          description: The Files API provides ways to generate a URL to upload your files
         public_key:
           type: string
+          description: The CRC or SHA-256 hash for the firmware
         version:
           type: string
           maxLength: 25
+          description: It is recommended that you maintain major and minor version consistent with the Semver (https://semver.org/) spec
         created_at:
           type: string
           format: date-time
@@ -607,6 +781,12 @@ components:
             .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
             .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
         name:
+          type: string
+        upload_type:
+          enum:
+          - logs
+          - documents
+          - other
           type: string
         created_at:
           type: string
@@ -1360,3 +1540,410 @@ components:
       - timestamp
       - txn
             
+    Aircraft:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operator:
+          type: string
+        mass:
+          type: integer
+        manufacturer:
+          type: string
+        model:
+          type: string
+          maxLength: 280
+        status:
+          enum:
+          - 0
+          - 1
+          type: integer
+        registration_mark:
+          type: string
+          nullable: true
+          maxLength: 10
+        category:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        popular_name:
+          type: string
+          nullable: true
+          maxLength: 280
+        sub_category:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          type: integer
+        flight_controller_number:
+          type: string
+          description: This is the Drone ID from the RFM
+          maxLength: 140
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        photo_small:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        max_certified_takeoff_weight:
+          type: string
+          format: decimal
+          multipleOf: 0.001
+          maximum: 10000000
+          minimum: -10000000
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - operator
+      - mass
+      - manufacturer
+      - model
+    AircraftDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        mass:
+          type: integer
+        is_airworthy:
+          type: boolean
+        make:
+          type: string
+          nullable: true
+          maxLength: 280
+        master_series:
+          type: string
+          nullable: true
+          maxLength: 280
+        series:
+          type: string
+          nullable: true
+          maxLength: 280
+        popular_name:
+          type: string
+          nullable: true
+          maxLength: 280
+        category:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          type: integer
+        registration_mark:
+          type: string
+          nullable: true
+          maxLength: 10
+        sub_category:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          type: integer
+        icao_aircraft_type_designator:
+          type: string
+          maxLength: 4
+        max_certified_takeoff_weight:
+          type: string
+          format: decimal
+          multipleOf: 0.001
+          maximum: 10000000
+          minimum: -10000000
+        max_height_attainable:
+          type: string
+          format: decimal
+          multipleOf: 0.001
+          maximum: 10000000
+          minimum: -10000000
+        compatible_payload:
+          type: string
+          nullable: true
+          maxLength: 20
+        commission_date:
+          type: string
+          format: date-time
+          nullable: true
+        model:
+          type: string
+          maxLength: 280
+        esn:
+          type: string
+          maxLength: 48
+        digital_sky_uin_number:
+          type: string
+          description: Get a UIN number for this aircraft using the Digital Sky Portal
+          maxLength: 140
+        maci_number:
+          type: string
+          maxLength: 200
+        flight_controller_number:
+          type: string
+          description: This is the Drone ID from the RFM
+          maxLength: 140
+        controller_public_key:
+          type: string
+          description: This is the public key of the RFM used to sign log files
+        operating_frequency:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        status:
+          enum:
+          - 0
+          - 1
+          type: integer
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        photo_small:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        identification_photo:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        identification_photo_small:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        fuel_capacity:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        max_endurance:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        max_range:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        max_speed:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        dimension_length:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        dimension_breadth:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        dimension_height:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        manufactured_at:
+          type: string
+          format: date-time
+          nullable: true
+        dot_permission_document:
+          type: string
+          format: uri
+          description: Link to Purchased RPA has ETA from WPC Wing, DoT for operating
+            in the de-licensed frequency band(s). Such approval shall be valid for
+            a particular make and model
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        operataions_manual_document:
+          type: string
+          format: uri
+          description: Link to Operation Manual Document
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        operator:
+          type: string
+        manufacturer:
+          type: string
+        type_certificate:
+          type: string
+          nullable: true
+        engine:
+          type: integer
+          nullable: true
+      required:
+      - mass
+      - model
+      - digital_sky_uin_number
+      - maci_number
+      - operator
+      - manufacturer
+
+    Manufacturer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        full_name:
+          type: string
+          maxLength: 140
+        common_name:
+          type: string
+          maxLength: 140
+        address:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            address_line_1:
+              type: string
+              maxLength: 140
+            address_line_2:
+              type: string
+              nullable: true
+              maxLength: 140
+            address_line_3:
+              type: string
+              nullable: true
+              maxLength: 140
+            postcode:
+              type: string
+              maxLength: 10
+            city:
+              type: string
+              maxLength: 140
+            country:
+              enum:
+              - IN
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - address_line_1
+          - postcode
+          - city
+          readOnly: true
+        role:
+          type: string
+          description: e.g. Reseller, distributor, OEM etc.
+          maxLength: 140
