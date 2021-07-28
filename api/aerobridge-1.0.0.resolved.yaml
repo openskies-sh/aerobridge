@@ -324,31 +324,7 @@ paths:
           description: ''
       tags:
       - Flight Operations
-    post:
-      operationId: createFlightOperation
-      summary: Create a new Flight Operation
-      description: 'Create a new Flight Operation in Aerobridge'
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FlightOperation'
-          description: ''
-      tags:
-      - Flight Operations
+      
   /gcs/flight-operations/{flightoperation_id}:
     get:
       operationId: retrieveFlightOperation
@@ -370,53 +346,7 @@ paths:
           description: ''
       tags:
       - Flight Operations
-    put:
-      operationId: updateFlightOperation
-      summary: Update existing Flight Operation
-      description: ''
-      parameters:
-      - name: flightoperation_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FlightOperation'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FlightOperation'
-          description: ''
-      tags:
-      - Flight Operations
-    delete:
-      operationId: destroyFlightOperation
-      summary: Remove Flight Operation
-      description: ''
-      parameters:
-      - name: flightoperation_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '204':
-          description: ''
-      tags:
-      - Flight Operations
+      
 
   /gcs/flight-logs:
     get:
@@ -514,8 +444,8 @@ paths:
       - Flight Logs
     delete:
       operationId: destroyFlightLog
-      summary: Remove Flight Log Object
-      description: 'Remove flight log'
+      summary: Remove Flight Log 
+      description: 'Remove flight log from aerobridge'
       security:
         - AuthFromPassport: [write] 
       parameters:
@@ -1546,6 +1476,7 @@ components:
           readOnly: true
         operation:
           type: string
+          format: uuid
       required:
       - signed_log
       - raw_log
