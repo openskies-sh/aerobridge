@@ -632,7 +632,7 @@ paths:
                   $ref: '#/components/schemas/FlightPermission'
           description: ''
       tags:
-      - Digital Sky
+      - Flight Permissions
   /digitalsky/all_permissions/{id}:
     get:
       summary: "Get a single permission"
@@ -656,7 +656,7 @@ paths:
                 $ref: '#/components/schemas/FlightPermission'
           description: ''
       tags:
-      - Digital Sky
+      - Flight Permissions
 
   /digitalsky/all_permissions/{id}/apply:
     put:
@@ -681,7 +681,7 @@ paths:
                 $ref: '#/components/schemas/FlightPermission'
           description: ''
       tags:
-      - Digital Sky      
+      - Flight Permissions
       
   /digitalsky/logs/:
     get:
