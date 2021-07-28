@@ -302,10 +302,118 @@ paths:
       tags:
       - Flight Plans
 
+  /gcs/flight-operations:
+    get:
+      operationId: List all Flight Operations
+      description: 'Get all Flight Operations in Aerobridge'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - Flight Operations
+    post:
+      operationId: Create a new Flight Operation
+      description: 'Create a new Flight Operation in Aerobridge'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - Flight Operations
+  /gcs/flight-operations/{flightoperation_id}:
+    get:
+      operationId: Get a single Flight Operation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - Flight Operations
+    put:
+      operationId: Update existing Flight Operation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: ''
+      tags:
+      - Flight Operations
+    delete:
+      operationId: Remove Flight Operation
+      description: ''
+      parameters:
+      - name: flightoperation_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - Flight Operations
+
   /gcs/flight-logs:
     get:
       operationId: List all Flight Logs
-      description: ''
+      description: 'List of all raw logs and files stored in Aerobridge'
+      security:
+        - AuthFromPassport: [read]    
       parameters: []
       responses:
         '200':
@@ -320,7 +428,9 @@ paths:
       - Flight Logs
     post:
       operationId: Create a new Flight Log
-      description: ''
+      description: 'Upload a new flight log object, you will need a URL for a Cloud File first'
+      security:
+        - AuthFromPassport: [write]    
       parameters: []
       requestBody:
         content:
@@ -342,6 +452,8 @@ paths:
     get:
       operationId: Get a single Flight Log
       description: ''
+      security:
+        - AuthFromPassport: [read]    
       parameters:
       - name: flightlog_id
         in: path
@@ -361,6 +473,8 @@ paths:
     put:
       operationId: Update a Flight Log
       description: ''
+      security:
+        - AuthFromPassport: [write]    
       parameters:
       - name: flightlog_id
         in: path
@@ -386,6 +500,8 @@ paths:
     delete:
       operationId: Remove Flight Log Object
       description: 'Remove flight log'
+      security:
+        - AuthFromPassport: [write] 
       parameters:
       - name: flightlog_id
         in: path
@@ -2181,3 +2297,4 @@ components:
       minItems: 2
       items:
         type: number
+
