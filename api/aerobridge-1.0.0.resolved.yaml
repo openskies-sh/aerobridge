@@ -196,7 +196,8 @@ paths:
 
   /gcs/flight-plans:
     get:
-      operationId: Get all Flight Plans
+      operationId: listFlightPlans
+      summary: Get all Flight Plans
       description: 'Get details of a single flight plan in Aerobridge'
       security:
         - AuthFromPassport: [read]    
@@ -213,7 +214,8 @@ paths:
       tags:
       - Flight Plans
     post:
-      operationId: Create new Flight Plan
+      operationId: createFlightPlan
+      summary: Create new Flight Plan
       description: 'Upload a new flight plan in Aerobridge'
       parameters: []
       requestBody:
@@ -234,7 +236,8 @@ paths:
 
   /gcs/flight-plans/{flightplan_id}:
     get:
-      operationId: Get Single Flight Plan
+      operationId: retrieveFlightPlan
+      summary: Get Single Flight Plan
       description: 'Get details of a single plan'
       security:
         - AuthFromPassport: [read]    
@@ -257,7 +260,8 @@ paths:
       - Flight Plans
 
     put:
-      operationId: Update details of a Flight Plan
+      operationId: updateFlightPlan
+      summary: Update details of a Flight Plan
       description: 'Update existing flight plan'
       security:
         - AuthFromPassport: [write]    
@@ -285,7 +289,8 @@ paths:
       - Flight Plans
 
     delete:
-      operationId: Remove Flight Plan
+      operationId: destroyFlightPlan
+      summary: Remove Flight Plan
       description: 'Delete flight plan from Aerobridge'
       security:
         - AuthFromPassport: [write]    
@@ -304,7 +309,8 @@ paths:
 
   /gcs/flight-operations:
     get:
-      operationId: List all Flight Operations
+      operationId: listFlightOperations
+      summary: List all Flight Operations
       description: 'Get all Flight Operations in Aerobridge'
       parameters: []
       responses:
@@ -319,7 +325,8 @@ paths:
       tags:
       - Flight Operations
     post:
-      operationId: Create a new Flight Operation
+      operationId: createFlightOperation
+      summary: Create a new Flight Operation
       description: 'Create a new Flight Operation in Aerobridge'
       parameters: []
       requestBody:
@@ -344,7 +351,8 @@ paths:
       - Flight Operations
   /gcs/flight-operations/{flightoperation_id}:
     get:
-      operationId: Get a single Flight Operation
+      operationId: retrieveFlightOperation
+      summary: Get a single Flight Operation
       description: ''
       parameters:
       - name: flightoperation_id
@@ -363,7 +371,8 @@ paths:
       tags:
       - Flight Operations
     put:
-      operationId: Update existing Flight Operation
+      operationId: updateFlightOperation
+      summary: Update existing Flight Operation
       description: ''
       parameters:
       - name: flightoperation_id
@@ -393,7 +402,8 @@ paths:
       tags:
       - Flight Operations
     delete:
-      operationId: Remove Flight Operation
+      operationId: destroyFlightOperation
+      summary: Remove Flight Operation
       description: ''
       parameters:
       - name: flightoperation_id
@@ -410,7 +420,8 @@ paths:
 
   /gcs/flight-logs:
     get:
-      operationId: List all Flight Logs
+      summary: List all Flight Logs
+      operationId: listFlightLogs
       description: 'List of all raw logs and files stored in Aerobridge'
       security:
         - AuthFromPassport: [read]    
@@ -427,7 +438,9 @@ paths:
       tags:
       - Flight Logs
     post:
-      operationId: Create a new Flight Log
+    
+      operationId: createFlightLog
+      summary: Create a new Flight Log
       description: 'Upload a new flight log object, you will need a URL for a Cloud File first'
       security:
         - AuthFromPassport: [write]    
@@ -450,7 +463,8 @@ paths:
 
   /gcs/flight-logs/{flightlog_id}:
     get:
-      operationId: Get a single Flight Log
+      operationId: retrieveFlightLog
+      summary: Get a single Flight Log
       description: ''
       security:
         - AuthFromPassport: [read]    
@@ -471,7 +485,8 @@ paths:
       tags:
       - Flight Logs
     put:
-      operationId: Update a Flight Log
+      operationId: updateFlightLog
+      summary: Update a Flight Log
       description: ''
       security:
         - AuthFromPassport: [write]    
@@ -498,7 +513,8 @@ paths:
       tags:
       - Flight Logs
     delete:
-      operationId: Remove Flight Log Object
+      operationId: destroyFlightLog
+      summary: Remove Flight Log Object
       description: 'Remove flight log'
       security:
         - AuthFromPassport: [write] 
@@ -682,7 +698,7 @@ paths:
           description: ''
       tags:
       - Flight Permissions
-      
+
   /digitalsky/logs/:
     get:
       summary: "Get a list of all transactions with Digital Sky"
