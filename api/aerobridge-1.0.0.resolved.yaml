@@ -46,7 +46,7 @@ paths:
           description: 'List of all credentials stored'
       tags:
         - Credentials
-    put:
+    post:
       summary: "Create a new credential"
       security:
         - AuthFromPassport: [write]    
@@ -352,7 +352,7 @@ paths:
     get:
       summary: List all Flight Logs
       operationId: listFlightLogs
-      description: 'List of all raw logs and files stored in Aerobridge'
+      description: 'List of all raw logs and details of signed flight logs stored in Aerobridge'
       security:
         - AuthFromPassport: [read]    
       parameters: []
@@ -364,7 +364,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FlightLog'
-          description: ''
+          description: 'Successfully retrieved all flight logs'
       tags:
       - Flight Logs
     post:
@@ -387,7 +387,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightLog'
-          description: ''
+          description: 'Successfully created a new flight log object'
       tags:
       - Flight Logs
 
@@ -411,7 +411,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightLog'
-          description: ''
+          description: 'Successfully retrieved new flight log object'
       tags:
       - Flight Logs
     put:
@@ -424,7 +424,7 @@ paths:
       - name: flightlog_id
         in: path
         required: true
-        description: ''
+        description: 'ID of the flight log to be updated'
         schema:
           type: string
       requestBody:
@@ -439,7 +439,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightLog'
-          description: ''
+          description: 'Successfully updated flight log'
       tags:
       - Flight Logs
     delete:
@@ -457,7 +457,7 @@ paths:
           type: string
       responses:
         '204':
-          description: ''
+          description: 'Flight log deleted successfully'
       tags:
       - Flight Logs
 
@@ -466,7 +466,7 @@ paths:
     get:
       summary: "A list of all uploaded files"
       operationId: listCloudFiles
-      description: 'Get a list of all Files stored in the cloud via Aerobridge'
+      description: 'Get a list of all Files stored in the cloud via Aerobridge, you can configure multiple S3 like cloud providers to host your files.'
       parameters: []
       responses:
         '200':
@@ -476,7 +476,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CloudFile'
-          description: ''
+          description: 'Successfully retrieved all cloud files'
       tags:
       - Files
 
@@ -500,7 +500,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CloudFile'
-          description: ''
+          description: 'Successfully retrieved all cloud files'
       tags:
       - Files
 
@@ -736,7 +736,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Operator'
-          description: ''
+          description: 'Successfully retrieved all operators'
       tags:
       - Operator
   /registry/operators/{id}:
@@ -759,7 +759,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Operator'
-          description: ''
+          description: 'Successfully retrieved single operator details'
       tags:
       - Operator
   /registry/manufacturers/:
@@ -768,7 +768,7 @@ paths:
       security:
         - AuthFromPassport: [read]        
       operationId: List all Manufacturers
-      description: List all manufacturers in Aerobridge
+      description: List all manufacturers in Aerobridge, use this endpoint to link specific manufacturer detail and their public / signing key.
       parameters: []
       responses:
         '200':
@@ -778,7 +778,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Manufacturer'
-          description: ''
+          description: 'Successfully retrieved all manufacturers'
       tags:
       - Manufacturer
   /registry/manufacturers/{id}:
@@ -787,7 +787,7 @@ paths:
       security:
         - AuthFromPassport: [read]        
       operationId: Get Single Manufacturer
-      description: Retrieve, details of a Manufacturer 
+      description: Retrieve details of a single Manufacturer 
       parameters:
       - name: id
         in: path
@@ -801,7 +801,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Manufacturer'
-          description: ''
+          description: 'Successfully retrieved manufacturer details'
       tags:
       - Manufacturer       
 

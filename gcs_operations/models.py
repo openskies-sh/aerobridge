@@ -23,8 +23,8 @@ class FlightPlan(models.Model):
     name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
     geo_json = models.TextField(help_text="Paste flight plan geometry as GeoJSON", default='{"type":"FeatureCollection","features":[]}')
     
-    start_datetime = models.DateTimeField(default=datetime.now)
-    end_datetime = models.DateTimeField(default=datetime.now)
+    start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
+    end_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
