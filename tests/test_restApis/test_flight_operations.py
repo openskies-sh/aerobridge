@@ -6,7 +6,7 @@ from .test_setup import TestApiEndpoints
 
 class TestFlightOperations(TestApiEndpoints):
     fixtures = ['FlightOperation', 'Aircraft', 'FlightPlan', 'Activity', 'Operator', 'Manufacturer', 'TypeCertificate',
-                'Engine', 'Address', 'Authorization', ]
+                'Engine', 'Address', 'Authorization']
 
     def setUp(self):
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
