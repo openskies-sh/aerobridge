@@ -30,7 +30,7 @@ class TestApiEndpoints(APITransactionTestCase):
         type, token = res.json()['token_type'], res.json()['access_token']
         self.client.credentials(HTTP_AUTHORIZATION='%s %s' % (type, token))
 
-    def _get_pk_for_modal(self, model_name):
+    def get_pk_for_modal(self, model_name):
         filepath = '%s%s.json' % (self.data_path, model_name)
         if os.path.exists(filepath):
             data = json.loads(open(filepath, 'r').read())
