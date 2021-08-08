@@ -76,9 +76,6 @@ class FirmwareDetail(mixins.RetrieveModelMixin,
     
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-    
-    def put(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')

@@ -1,9 +1,13 @@
-from rest_framework.test import APITransactionTestCase
+import json
+import os
+
+import requests
 from faker import Faker
-import os, requests
+from rest_framework.test import APITransactionTestCase
 
 
 class TestApiEndpoints(APITransactionTestCase):
+    data_path = os.getcwd() + '/tests/fixtures/'
     READ_SCOPE = "aerobridge.read"
     WRITE_SCOPE = "aerobridge.write"
 
@@ -26,6 +30,13 @@ class TestApiEndpoints(APITransactionTestCase):
         type, token = res.json()['token_type'], res.json()['access_token']
         self.client.credentials(HTTP_AUTHORIZATION='%s %s' % (type, token))
 
+    def _get_pk_for_modal(self, model_name):
+        filepath = '%s%s.json' % (self.data_path, model_name)
+        if os.path.exists(filepath):
+            data = json.loads(open(filepath, 'r').read())
+            return data[0]['pk']
+        else:
+            raise AssertionError("File %s.json does not exists in fixtures" % model_name)
 
     @classmethod
     def tearDownClass(cls):
