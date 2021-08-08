@@ -30,11 +30,11 @@ class TestApiEndpoints(APITransactionTestCase):
         type, token = res.json()['token_type'], res.json()['access_token']
         self.client.credentials(HTTP_AUTHORIZATION='%s %s' % (type, token))
 
-    def get_pk_for_modal(self, model_name):
+    def get_pk_for_modal(self, model_name, index=0):
         filepath = '%s%s.json' % (self.data_path, model_name)
         if os.path.exists(filepath):
             data = json.loads(open(filepath, 'r').read())
-            return data[0]['pk']
+            return data[index]['pk']
         else:
             raise AssertionError("File %s.json does not exists in fixtures" % model_name)
 
