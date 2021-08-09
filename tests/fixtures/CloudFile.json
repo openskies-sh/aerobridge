@@ -1,0 +1,12 @@
+[
+{
+    "model": "gcs_operations.cloudfile",
+    "pk": "ad51671d-80bc-45b6-9f54-2d4b4400cdd2",
+    "fields": {
+        "location": "https://spencer.info/search/tag/file/",
+        "name": "anyfile.txt",
+        "created_at": "2021-07-20T16:58:44.888Z",
+        "updated_at": "2021-07-20T16:58:44.888Z"
+    }
+}
+]

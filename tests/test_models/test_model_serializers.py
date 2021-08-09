@@ -2,10 +2,9 @@ import json
 import os
 
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
-from gcs_operations.serializers import FirmwareSerializer, FlightPlanSerializer, \
+from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
-from launchpad.serializers import ActivitySerializer, EngineSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
@@ -33,6 +32,13 @@ class TestModelSerializers(TestModels):
         self.assertTrue(digitalsky_log_serializer.is_valid())
         self.assertNotEqual(digitalsky_log_serializer.validated_data, dict)
         self.assertEqual(digitalsky_log_serializer.errors, dict())
+
+    def test_gcs_operations_cloud_file_serializer(self):
+        data = self._get_data_for_model('CloudFile')
+        cloud_file_serializer = CloudFileSerializer(data=data)
+        self.assertTrue(cloud_file_serializer.is_valid())
+        self.assertNotEqual(cloud_file_serializer.validated_data, dict)
+        self.assertEqual(cloud_file_serializer.errors, dict())
 
     def test_gcs_operations_firmware_serializer(self):
         data = self._get_data_for_model('Firmware')
@@ -89,20 +95,6 @@ class TestModelSerializers(TestModels):
         self.assertTrue(flight_log_serializer.is_valid())
         self.assertNotEqual(flight_log_serializer.validated_data, dict)
         self.assertEqual(flight_log_serializer.errors, dict())
-
-    def test_launchpad_activity_serializer(self):
-        data = self._get_data_for_model('Activity')
-        activity_serializer = ActivitySerializer(data=data)
-        self.assertTrue(activity_serializer.is_valid())
-        self.assertNotEqual(activity_serializer.validated_data, dict)
-        self.assertEqual(activity_serializer.errors, dict())
-
-    def test_launchpad_engine_serializer(self):
-        data = self._get_data_for_model('Engine')
-        engine_serializer = EngineSerializer(data=data)
-        self.assertTrue(engine_serializer.is_valid())
-        self.assertNotEqual(engine_serializer.validated_data, dict)
-        self.assertEqual(engine_serializer.errors, dict())
 
     def test_registry_person_serializer(self):
         data = self._get_data_for_model('Person')

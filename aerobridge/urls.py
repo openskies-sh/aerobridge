@@ -24,7 +24,7 @@ import jetway.views as jetwayviews
 
 urlpatterns = [
     
-    path('ping/', jetwayviews.PingView.as_view()),
+    path('ping/', jetwayviews.PingView.as_view(), name="ping"),
     path('', jetwayviews.HomeView.as_view()),
     path('admin/', admin.site.urls),
 

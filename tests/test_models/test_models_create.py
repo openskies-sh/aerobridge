@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
+from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
@@ -20,8 +20,14 @@ class TestModelsCreate(TestModels):
         self.assertIn(digitalsky_log, DigitalSkyLog.objects.all())
         self.assertEqual(digitalsky_log.txn, Transaction.objects.first())
 
+    def test_gcs_operations_cloud_file_create(self):
+        cloud_file = CloudFile(location=self.faker.uri(), name=self.faker.file_name(category='text'))
+        self.assertNotIn(cloud_file, CloudFile.objects.all())
+        cloud_file.save()
+        self.assertIn(cloud_file, CloudFile.objects.all())
+
     def test_gcs_operations_flight_plan_create(self):
-        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.sentence(), start_datetime=timezone.now(),
+        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json(), start_datetime=timezone.now(),
                                  end_datetime=timezone.now() + timezone.timedelta(minutes=30))
         self.assertNotIn(flight_plan, FlightPlan.objects.all())
         flight_plan.save()
@@ -55,8 +61,8 @@ class TestModelsCreate(TestModels):
         self.assertEqual(flight_permission.operation, FlightOperation.objects.first())
 
     def test_gcs_operations_flight_log_create(self):
-        flight_log = FlightLog(operation=FlightOperation.objects.first(), signed_log=self.faker.uri_path(),
-                               raw_log=self.faker.uri_path(), is_submitted=True)
+        flight_log = FlightLog(operation=FlightOperation.objects.first(), signed_log=self.faker.uri(),
+                               raw_log=self.faker.uri(), is_submitted=True)
         self.assertNotIn(flight_log, FlightLog.objects.all())
         flight_log.save()
         self.assertIn(flight_log, FlightLog.objects.all())

@@ -1,5 +1,5 @@
 from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
+from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
@@ -8,7 +8,7 @@ from .test_setup import TestModels
 
 class TestModelsDelete(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
-                'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction',
+                'TypeCertificate', 'Pilot', 'CloudFile', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction',
                 'Contact', 'DigitalSkyLog', 'Firmware', 'FlightLog', 'FlightPermission',
                 'TestValidity', 'AerobridgeCredential']
 
@@ -17,6 +17,12 @@ class TestModelsDelete(TestModels):
         self.assertIsNotNone(digitalsky_log)
         digitalsky_log.delete()
         self.assertNotIn(digitalsky_log, DigitalSkyLog.objects.all())
+
+    def test_gcs_operations_cloud_file_delete(self):
+        cloud_file = CloudFile.objects.first()
+        self.assertIsNotNone(cloud_file)
+        cloud_file.delete()
+        self.assertNotIn(cloud_file, CloudFile.objects.all())
 
     def test_gcs_operations_flight_plan_delete(self):
         flight_plan = FlightPlan.objects.first()
