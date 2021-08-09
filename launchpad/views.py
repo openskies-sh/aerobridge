@@ -51,9 +51,9 @@ class PeopleList(APIView):
         queryset = Person.objects.all()
         return Response({'people': queryset})
     
-class PersonDetail(APIView):
+class PersonUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/person_detail.html'
+    template_name = 'launchpad/person_update.html'
 
     def get(self, request, person_id):
         person = get_object_or_404(Person, pk=person_id)
@@ -67,6 +67,17 @@ class PersonDetail(APIView):
             return Response({'serializer': serializer, 'person': person})
         serializer.save()
         return redirect('people-list')
+
+
+class PersonDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/person_detail.html'
+
+    def get(self, request, person_id):
+        person = get_object_or_404(Person, pk=person_id)
+        serializer = PersonSerializer(person)
+        return Response({'serializer': serializer, 'person': person})
+
 
 class PersonCreateView(CreateView):
     def get(self, request, *args, **kwargs):
@@ -191,7 +202,19 @@ class ContactsDetail(APIView):
     def get(self, request, contact_id):
         contact = get_object_or_404(Contact, pk=contact_id)
         serializer = ContactSerializer(contact)
+        
         return Response({'serializer': serializer, 'contact': contact})
+
+class ContactsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/contact_update.html'
+
+    def get(self, request, contact_id):
+        contact = get_object_or_404(Contact, pk=contact_id)
+        serializer = ContactSerializer(contact)
+        
+        return Response({'serializer': serializer, 'contact': contact})
+
 
 
 class ContactsCreateView(CreateView):
@@ -224,7 +247,17 @@ class PilotsDetail(APIView):
 
     def get(self, request, pilot_id):
         pilot = get_object_or_404(Pilot, pk=pilot_id)
-        serializer = PilotSerializer(Pilot)
+        serializer = PilotSerializer(pilot)
+        return Response({'serializer': serializer, 'pilot': pilot})
+
+
+class PilotsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/pilot_update.html'
+
+    def get(self, request, pilot_id):
+        pilot = get_object_or_404(Pilot, pk=pilot_id)
+        serializer = PilotSerializer(pilot)
         return Response({'serializer': serializer, 'pilot': pilot})
 
 

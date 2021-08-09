@@ -1,0 +1,20 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+<h2>Contact Update</h2>
+<p>Update the details of your contacts, assign them to operators or change their role</p>
+
+<form action="{% url 'contacts-detail' contact_id=contact.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <br>    
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'contacts-list' %}" role="button">Cancel</a>
+    <br><br>
+    <small class="text-muted">Updated at: {{ serializer.updated_at.value }}</small>
+</form>
+</div>
+</div>
+{% endblock %}

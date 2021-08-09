@@ -2,18 +2,39 @@
 {% load rest_framework %}
 {% block content %}
 
-<div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-<h2>Contact Details</h2>
 
-<form action="{% url 'contacts-detail' contact_id=contact.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <br>    
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'contacts-list' %}" role="button">Cancel</a>
-    <br><br>
-    <small>Updated at: {{ serializer.updated_at.value }}</small>
-</form>
-</div>
-</div>
+<h2>Contact Details</h2>
+<br>
+<p><img src="{{contact.photo_small}}"></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>Type</td>
+        <td>{{ contact.get_role_type_display }}</td>    
+    </tr>
+    <tr>
+        <td>Operator</td>
+        <td>{{ contact.operator.company_name }}</td>
+    </tr>
+    <tr>
+        <td>Full Name</td>
+        <td><b>{{contact.person.first_name}} {{contact.person.last_name}}</b></td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{contact.address.address_line_1}}, {{contact.address.city}}</td>
+    </tr>
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/contacts/{{contact.id}}"><b>Update Details</b></a></p>
+
+
 {% endblock %}

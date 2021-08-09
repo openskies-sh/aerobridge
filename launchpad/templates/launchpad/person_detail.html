@@ -2,17 +2,43 @@
 {% load rest_framework %}
 {% block content %}
 
-<div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-        <h2>Update Profile - {{ person.first_name }} {{ person.last_name }}</h2>
-        <br>
+<h2>Person Details</h2>
+<p>Details of person in Aerobridge, you can assign a person as a pilot, contact for a operator etc. </p>
+<br>
 
-        <form action="{% url 'people-detail' person_id=person.pk %}" method="POST">
-            {% csrf_token %}
-            {% render_form serializer %}
-            <br>
-            <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'people-list' %}" role="button">Cancel</a>
-        </form>
-    </div>
-    </div>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>Social Security Number</td>
+        <td>{{ person.social_security_number }}</td>    
+    </tr>
+    <tr>
+        <td>ID Number</td>
+        <td>{{ person.identification_number }}</td>
+    </tr>
+    <tr>
+        <td>Full Name</td>
+        <td><b>{{ person.first_name}} {{person.last_name}}</b></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{person.email}}</td>
+    </tr>
+    <tr>
+        <td>Phone Number</td>
+        <td>{{person.phone_number}}</td>
+    </tr>
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/people/{{person.id}}"><b>Update Details</b></a></p>
+
+
 {% endblock %}

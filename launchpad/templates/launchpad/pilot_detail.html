@@ -2,16 +2,39 @@
 {% load rest_framework %}
 {% block content %}
 
-<div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-<h2>Contact Details</h2>
+
+<h2>Pilot Details</h2>
 <br>
-<form action="{% url 'pilots-detail' pilot_id=pilot.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <br>
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'pilots-list' %}" role="button">Cancel</a>
-</form>
-</div>
-</div>
+<p><img src="{{pilot.photo_small}}"></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>Company</td>
+        <td>{{ pilot.operator.company_name }}</td>    
+    </tr>
+    <tr>
+        <td>Photo URL</td>
+        <td>{{ pilot.identification_photo_small }}</td>
+    </tr>
+    <tr>
+        <td>Full Name</td>
+        <td><b>{{pilot.person.first_name}} {{pilot.person.last_name}}</b></td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{pilot.address.address_line_1}}, {{pilot.address.city}}</td>
+    </tr>
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/pilots/{{pilot.id}}"><b>Update Details</b></a></p>
+
+
 {% endblock %}

@@ -4,23 +4,22 @@
 <div class="row mb-3">
 
     <h2>Pilots list</h2>
-    <p>See all the pilots for your operators as a list below</p>
+    <p>See all the pilots for your operators as a list below, click to show details or add a new pilot</p>
 
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-    <ul>
+    <ul class="list-group list-group-flush">
         {% if pilots %}
             {% for pilot in pilots %}
-            <li><a href="/launchpad/pilots/{{pilot.id}}">{{ pilot.person.first_name }} {{ pilot.person.last_name }} {{ pilot.operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ pilot.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/pilots/{{pilot.id}}/detail">{{ pilot.person.first_name }} {{ pilot.person.last_name }} - {{ pilot.operator.company_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ pilot.created_at }}</small></li>
             {% endfor %}
 
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no pilots added in Aerobridge, once added the list of pilots will be displayed here.</i></p></li>
-        {% endif %}
-
-        
+        {% endif %}        
     </ul>
+    <br>
     <p><a class="btn btn-primary" href="/launchpad/pilots/new"><b>&#43; Add a new pilot</b></a></p>
 </div>
 <div class="col-md-6 themed-grid-col"></div>

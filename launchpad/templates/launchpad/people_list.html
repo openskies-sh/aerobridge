@@ -14,8 +14,8 @@
 
         {% if people %}
             {% for person in people %}
-            <li class="list-group-item"><a href="/launchpad/people/{{person.id}}">{{ person.first_name }}
-                    {{ person.last_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ person.created_at }}
+            <li class="list-group-item"><a href="/launchpad/people/{{person.id}}/detail">{{ person.first_name }}
+                    {{ person.last_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ person.created_at }}
                 </small></li>
             {% endfor %}
         {% else %}

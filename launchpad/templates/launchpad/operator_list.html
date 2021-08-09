@@ -11,7 +11,7 @@
 
         {% if operators %}
             {% for operator in operators %}
-            <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}/detail">{{ operator.company_name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ operator.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/operators/{{operator.id}}/detail">{{ operator.company_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ operator.created_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no operators added in Aerobridge, once added the list of operators will be displayed here.</i></p></li>
