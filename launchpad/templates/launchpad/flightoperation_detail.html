@@ -1,6 +1,12 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
+{% load static %}{% load i18n %}
 {% block content %}
+<!-- Bootstrap core CSS -->
+<link href="{% static "jetway/leafletjs/leaflet.css" %}" rel="stylesheet">    
+<script src="{% static "jetway/leafletjs/leaflet.js" %}"  type="text/javascript"></script>
+
+
 <div>
 <h1>Flight Operation Detail - {{ flightoperation.name }}</h1>
 <br>
@@ -18,7 +24,7 @@
     </tr>
     <tr>
         <td>GeoJSON</td>
-        <td>{{ flightoperation.flight_plan.geo_json}}</td>    
+        <td><div id="flight_plan" class="map"></div></td>    
     </tr>
     <tr>
         <td>Type of Operation</td>
@@ -44,4 +50,22 @@
 <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a></p>
 
 </div>
+<script type="text/javascript">
+    var map = L.map('flight_plan', {zoomControl: false,   doubleClickZoom: false, 
+        closePopupOnClick: false, 
+        dragging: false, 
+        trackResize: false,
+        touchZoom: false,
+        scrollWheelZoom: false});
+    var fg = L.featureGroup().addTo(map);
+    let geo_json = JSON.parse('{{ flightoperation.flight_plan.geo_json|safe }}');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    L.geoJSON(geo_json).addTo(fg);
+    map.fitBounds(fg.getBounds());
+
+</script>
+
 {% endblock %}

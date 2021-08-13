@@ -75,6 +75,7 @@ urlpatterns = [
  
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
     path('flightlogs/<uuid:flightlog_id>/detail', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
+    path('flightlogs/<uuid:flightlog_id>/sign', launchpad_views.FlightLogsSign.as_view(), name='flightlogs-sign'),
     path('flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsUpdate.as_view(), name='flightlogs-update'),
     path('flightlogs/new', launchpad_views.FlightLogCreateView.as_view(), name='flightlogs-create'),
 

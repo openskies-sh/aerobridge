@@ -721,6 +721,15 @@ class FlightLogsList(APIView):
         queryset = FlightLog.objects.all()
         return Response({'flightlogs': queryset})
     
+class FlightLogsSign(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightlog_sign.html'
+
+    def get(self, request, flightlog_id):
+        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+        serializer = FlightLogSerializer(flightlog)
+        return Response({'serializer': serializer, 'flightlog': flightlog})
+
 class FlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightlog_detail.html'

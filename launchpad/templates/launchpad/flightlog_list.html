@@ -12,7 +12,7 @@
     <ul class="list-group list-group-flush">
         {% if flightlogs %}
             {% for flightlog in flightlogs %}
-            <li class="list-group-item"><a href="/launchpad/flightlogs/{{flightlog.id}}/detail">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small>&mdash; Last updated at {{ flightlog.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/flightlogs/{{flightlog.id}}/detail">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightlog.created_at }} </small><a href="/launchpad/flightlogs/{{flightlog.id}}/sign">Sign log</a></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no flight logs added in Aerobridge, once added the list of flight logs will be displayed here.</i></p></li>

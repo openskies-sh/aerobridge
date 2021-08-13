@@ -11,7 +11,6 @@ from . import countries
 from simple_history.models import HistoricalRecords
 from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
-import re
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 
