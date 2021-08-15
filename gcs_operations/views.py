@@ -3,7 +3,8 @@ from rest_framework import generics
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer
+from django.http import Http404
+from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer, FlightOperationPermissionSerializer
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
@@ -291,16 +292,15 @@ class CloudFileUpload(APIView):
                 file_name = request.FILES[filename].name
             friendly_name = request.POST.get("name")            
             file_type = request.POST.get("file_type")
-            
+
             with tempfile.NamedTemporaryFile() as f:
                 for chunk in file_obj.chunks():
                     f.write(chunk)
                 f.flush()
                 
-                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME',0), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))                
+                s3 = boto3.client('s3', region_name =env.get('S3_REGION_NAME',0), endpoint_url= endpoint_url, aws_access_key_id=env.get('S3_ACCESS_KEY',0),aws_secret_access_key=env.get('S3_SECRET_KEY',0))
                 
                 try:
-                    
                     s3.upload_fileobj(f, BUCKET_NAME, os.path.join(file_type, file_name))
                 except NoCredentialsError as ne:     
                     logger.error("S3 Error, credentails not found / supplied %s" % ne)                                   
