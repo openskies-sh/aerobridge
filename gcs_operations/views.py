@@ -3,8 +3,8 @@ from rest_framework import generics
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
+from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer
+from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
 from django.utils.decorators import method_decorator
@@ -168,6 +168,46 @@ class FlightLogDetail(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
+
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class FlightLogSign(APIView):
+
+    def get_SignedFlightLog(self, pk):
+        created = 0
+        try:
+            fl = FlightLog.objects.get(id=pk)
+            
+            signed_fl, created = SignedFlightLog.objects.get_or_create(flight_log= fl)
+        except FlightLog.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+        except SignedFlightLog.DoesNotExist:
+            raise status.HTTP_404_NOT_FOUND
+        else:
+            return signed_fl, created
+
+    def put(self, request, pk, format=None):
+        signed_flight_log, created = self.get_SignedFlightLog(pk)
+        
+        if created:
+                
+            # get the raw log
+            # sign the log and create a hash from the private key
+
+            # add signature to JSON
+
+            # create Zip file
+
+            # upload Zip file 
+            
+
+            # save URL
+            serializer = SignedFlightLogSerializer(signed_flight_log, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message":"Signed log object exists"}, status=status.HTTP_409_CONFLICT)
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):

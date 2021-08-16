@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile
+from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
 import geojson
 import arrow
@@ -87,6 +87,12 @@ class FlightLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlightLog	
         exclude = ('is_submitted',)
+        ordering = ['-created_at']
+ 
+class SignedFlightLogSerializer(serializers.ModelSerializer):
+    ''' A serializer for Signed Flight Logs '''
+    class Meta:
+        model = SignedFlightLog	        
         ordering = ['-created_at']
 
 

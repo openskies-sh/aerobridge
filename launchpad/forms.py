@@ -91,7 +91,7 @@ class FlightPermissionCreateForm(forms.ModelForm):
 class FlightLogCreateForm(forms.ModelForm):
     class Meta:
         model = FlightLog
-        fields = ('operation','raw_log', 'signed_log',)
+        fields = ('operation','raw_log',)
         
 
 class FlightOperationCreateForm(forms.ModelForm):

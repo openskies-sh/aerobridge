@@ -14,6 +14,7 @@ urlpatterns = [
     
     path('flight-logs', gcs_views.FlightLogList.as_view(), name='log-list'),
     path('flight-logs/<uuid:pk>', gcs_views.FlightLogDetail.as_view(), name='log-detail'),
+    path('flight-logs/<uuid:pk>/sign', gcs_views.FlightLogSign.as_view(), name='log-sign'),
 
     path("all_permissions", gcs_views.FlyDronePermissionApplicationList.as_view(), name="apply_permission"),
     path("all_permissions/<uuid:pk>", gcs_views.FlyDronePermissionApplicationDetail.as_view(), name="permission_detail"),  

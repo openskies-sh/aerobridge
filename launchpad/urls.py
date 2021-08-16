@@ -75,10 +75,12 @@ urlpatterns = [
  
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
     path('flightlogs/<uuid:flightlog_id>/detail', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
-    path('flightlogs/<uuid:flightlog_id>/sign', launchpad_views.FlightLogsSign.as_view(), name='flightlogs-sign'),
+    path('flightlogs/<uuid:flightlog_id>/sign', launchpad_views.FlightLogsSign.as_view(), name='flightlogs-sign-thanks'),
     path('flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsUpdate.as_view(), name='flightlogs-update'),
     path('flightlogs/new', launchpad_views.FlightLogCreateView.as_view(), name='flightlogs-create'),
 
+    path('signed-flightlogs', launchpad_views.SignedFlightLogsList.as_view(), name='digitalskylogs-list'),
+    path('signed-flightlogs/<uuid:signed_flightlog_id>', launchpad_views.SignedFlightLogsDetail.as_view(), name='flightlogs-detail'),
 
     path('digitalsky-flightlogs', launchpad_views.FlightLogsDigitalSkyList.as_view(), name='flightlogs-digitalsky-list'),    
     path('digitalsky-flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsDigitalSkyDetail.as_view(), name='flightlogs-digitalsky-detail'),

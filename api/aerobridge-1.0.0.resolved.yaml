@@ -389,7 +389,7 @@ paths:
                 $ref: '#/components/schemas/FlightLog'
           description: 'Successfully created a new flight log object'
       tags:
-      - Flight Logs
+      - Raw Flight Logs
 
   /gcs/flight-logs/{flightlog_id}:
     get:
@@ -441,7 +441,7 @@ paths:
                 $ref: '#/components/schemas/FlightLog'
           description: 'Successfully updated flight log'
       tags:
-      - Flight Logs
+      - Raw Flight Logs
     delete:
       operationId: destroyFlightLog
       summary: Remove Flight Log 
@@ -459,7 +459,7 @@ paths:
         '204':
           description: 'Flight log deleted successfully'
       tags:
-      - Flight Logs
+      - Raw Flight Logs
 
 
   /gcs/files:
@@ -1461,9 +1461,7 @@ components:
           type: string
           format: uuid
           readOnly: true
-        signed_log:
-          type: string
-          format: uri          
+                 
         raw_log:
           type: string
         created_at:
@@ -1478,7 +1476,6 @@ components:
           type: string
           format: uuid
       required:
-      - signed_log
       - raw_log
       - operation
     

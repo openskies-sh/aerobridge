@@ -88,18 +88,31 @@ class FlightPermission(models.Model):
 
 class FlightLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operation = models.ForeignKey(FlightOperation, on_delete=models.CASCADE)
-    signed_log = models.URLField(help_text="Enter the URL of the Zip file that has the signed log.")
+    operation = models.ForeignKey(FlightOperation, on_delete=models.CASCADE)    
     raw_log = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_submitted = models.BooleanField(default=False)
-        
+
     def __unicode__(self):
        return self.operation.name
 
     def __str__(self):
         return self.operation.name
+    
+class SignedFlightLog(models.Model):
+    ''' As of August 2021, it is unclear if the flight logs will be signed by the GCS or if the flight log will be signed by the management server. By sepearating the flight log and signed flight log we enable either cases. '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    log = models.OneToOneField(FlightLog, on_delete=models.CASCADE, related_name ="signed_flight_log")
+    signed_log = models.URLField(help_text="Enter the URL of the Zip file that has the signed log, signed by the drone private key.")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+       return self.log.operation.name
+
+    def __str__(self):
+        return self.log.operation.name
     
 
 class CloudFile(models.Model):

@@ -3,8 +3,8 @@ from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
-from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction
-from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer
+from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, SignedFlightLog
+from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
@@ -721,14 +721,9 @@ class FlightLogsList(APIView):
         queryset = FlightLog.objects.all()
         return Response({'flightlogs': queryset})
     
-class FlightLogsSign(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_sign.html'
+class FlightLogsSign(TemplateView):
+    template_name = 'launchpad/flightlog_sign_thanks.html'
 
-    def get(self, request, flightlog_id):
-        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
-        serializer = FlightLogSerializer(flightlog)
-        return Response({'serializer': serializer, 'flightlog': flightlog})
 
 class FlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -808,6 +803,26 @@ class FlightLogSubmitDigitalSkyRequest(APIView):
        
 class FlightLogDigitalSkyThanks(TemplateView):    
     template_name = 'launchpad/flightlog_digitalsky_thanks.html'
+        
+### Signed FLight Log Views
+
+    
+class SignedFlightLogsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/signed_flightlog_list.html'
+
+    def get(self, request):
+        queryset = SignedFlightLog.objects.all()
+        return Response({'signed_flightlogs': queryset})
+    
+class SignedFlightLogsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/signed_flightlog_detail.html'
+
+    def get(self, request, signed_flightlog_id):
+        signed_flightlog = get_object_or_404(SignedFlightLog, pk=signed_flightlog_id)
+        serializer = SignedFlightLogSerializer(signed_flightlog_id)
+        return Response({'serializer': serializer, 'signed_flightlog': signed_flightlog})
         
 ### DigitalSky Log Views
     

@@ -1,0 +1,31 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+
+    <table  class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>ID</td>
+            <td><p><code>{{ signed_flight_log.id }}</code></p></td>
+        </tr>
+        <tr>
+            <td>Zip file download URL:</td>
+            <td><a href="{{signed_flight_log.log}}">{{ signed_flight_log.log.operation.name}}</a></td>    
+        </tr>
+        <tr>
+            <td>Signed by:</td>
+            <td>{{ signed_flight_log.log.operation.drone.model}}</td>    
+        </tr>
+        
+    </table>
+</div>
+</div>
+{% endblock %}

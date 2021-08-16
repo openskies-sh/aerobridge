@@ -1,0 +1,27 @@
+{% extends "launchpad/layout.html" %} 
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Signed Flight Logs list</h2><br>
+    <p>See the details of flight logs signed by the management server, to sign a log, use the flight log menu to see details of sign logs.</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if signed_flightlogs %}
+        {% for signed_flightlog in signed_flightlogs %}
+        <li class="list-group-item">Log for <a href="/launchpad/signed-flightlogs/{{signed_flightlog.id}}">{{ signed_flightlog.log.operation.name}}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ signed_flightlog.created_at }} </small></li>
+        {% endfor %}      
+        
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no signed flight logs in Aerobridge, once a log is signed a list of signed logs will be displayed here.</i></p></li>
+        {% endif %}  
+    </ul>
+    <br>
+    
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}
