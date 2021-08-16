@@ -9,7 +9,7 @@ The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-p
 If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack:
 
 - Standard way to communicate with Digital Sky APIs
-- Integration with PX4 / Ardupilot
+- Integration with Ardupilot 
 - Manage permission artefacts and flight logs
 - RFM integration
 - Easily manage compliance with NPNT
