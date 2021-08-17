@@ -171,12 +171,11 @@ class FlightLogDetail(mixins.RetrieveModelMixin,
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightLogSign(APIView):
-
+    
     def get_SignedFlightLog(self, pk):
         created = 0
         try:
-            fl = FlightLog.objects.get(id=pk)
-            
+            fl = FlightLog.objects.get(id=pk)            
             signed_fl, created = SignedFlightLog.objects.get_or_create(flight_log= fl)
         except FlightLog.DoesNotExist:
             raise status.HTTP_404_NOT_FOUND
@@ -207,7 +206,28 @@ class FlightLogSign(APIView):
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"message":"Signed log object exists"}, status=status.HTTP_409_CONFLICT)
+            return Response({"message":"Signed log object already exists"}, status=status.HTTP_409_CONFLICT)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class SignedFlightLogList(mixins.ListModelMixin,                  
+                  generics.GenericAPIView):
+    queryset = SignedFlightLog.objects.all()
+    serializer_class = SignedFlightLogSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class SignedFlightLogDetail(mixins.RetrieveModelMixin,
+                    generics.GenericAPIView):
+    queryset = SignedFlightLog.objects.all()
+    serializer_class = SignedFlightLogSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+        
+
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):

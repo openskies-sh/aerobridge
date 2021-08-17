@@ -94,6 +94,7 @@ class SignedFlightLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignedFlightLog	        
         ordering = ['-created_at']
+        fields = '__all__'
 
 
 class CloudFileSerializer(serializers.ModelSerializer):

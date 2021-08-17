@@ -367,8 +367,7 @@ paths:
           description: 'Successfully retrieved all flight logs'
       tags:
       - Flight Logs
-    post:
-    
+    post:    
       operationId: createFlightLog
       summary: Create a new Flight Log
       description: 'Upload a new flight log object, you will need a URL for a Cloud File first'
@@ -389,7 +388,8 @@ paths:
                 $ref: '#/components/schemas/FlightLog'
           description: 'Successfully created a new flight log object'
       tags:
-      - Raw Flight Logs
+      - Flight Logs
+
 
   /gcs/flight-logs/{flightlog_id}:
     get:
@@ -441,7 +441,7 @@ paths:
                 $ref: '#/components/schemas/FlightLog'
           description: 'Successfully updated flight log'
       tags:
-      - Raw Flight Logs
+      - Flight Logs
     delete:
       operationId: destroyFlightLog
       summary: Remove Flight Log 
@@ -459,9 +459,72 @@ paths:
         '204':
           description: 'Flight log deleted successfully'
       tags:
-      - Raw Flight Logs
+      - Flight Logs
 
+  /gcs/flight-logs/{id}/sign:
+    put:
+      operationId: Sign Flight Log
+      description: 'Sign a Flight Log with the private key of the drone, a new signed flight log object is created'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'ID of the raw log '
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - Flight Logs
 
+  /gcs/signed-flight-logs:
+    get:
+      operationId: List all Signed logs
+      description: 'A list of all logs signed using the private key of the drone'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedFlightLog'
+          description: 'All signed flight log details successfully retrieved'
+      tags:
+      - Signed Flight Logs
+  /gcs/signed-flight-logs/{id}:
+    get:
+      operationId: Get single flight log
+      description: 'Retrieve the details of a single flight log'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this signed flight log.
+        schema:
+          type: string
+      responses:
+        '200':      
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedFlightLog'
+          description: 'Signed flight log details successfully retrieved'
+      tags:
+      - Signed Flight Logs
   /gcs/files:
     get:
       summary: "A list of all uploaded files"
@@ -2242,3 +2305,37 @@ components:
       items:
         type: number
 
+    SignedFlightLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        signed_log:
+          type: string
+          format: uri
+          description: Enter the URL of the Zip file that has the signed log, signed
+            by the drone private key.
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        log:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - signed_log
+      - log
