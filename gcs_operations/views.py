@@ -7,19 +7,27 @@ from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightO
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
+from pki_framework.models import AerobridgeCredential
+from pki_framework import encrpytion_util
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from pki_framework.utils import requires_scopes
 from digitalsky_provider.tasks import submit_flight_permission
 import tempfile
+from django.conf import settings
 import logging
-import os
+import hashlib
+import os, json
 import boto3
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
+
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
 
 load_dotenv(find_dotenv())
 # Create your views here.
@@ -172,32 +180,51 @@ class FlightLogDetail(mixins.RetrieveModelMixin,
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightLogSign(APIView):
     
+
     def get_SignedFlightLog(self, pk):
+        
         created = 0
         try:
-            fl = FlightLog.objects.get(id=pk)            
-            signed_fl, created = SignedFlightLog.objects.get_or_create(flight_log= fl)
+            
+            fl = FlightLog.objects.get(id=pk)              
+            signed_fl, created = SignedFlightLog.objects.get_or_create(raw_flight_log= fl)
         except FlightLog.DoesNotExist:
             raise status.HTTP_404_NOT_FOUND
         except SignedFlightLog.DoesNotExist:
             raise status.HTTP_404_NOT_FOUND
         else:
+           
             return signed_fl, created
 
     def put(self, request, pk, format=None):
         signed_flight_log, created = self.get_SignedFlightLog(pk)
         
-        if created:
+        if created:           
                 
             # get the raw log
+            flight_log = signed_flight_log.raw_flight_log
+            raw_log = flight_log.raw_log
+            raw_log_json = json.loads(raw_log)
+            minified_raw_log = json.dumps(raw_log_json , separators=(',', ':'))
             # sign the log and create a hash from the private key
-
+            # IF log chaining is required
+            #hs = hashlib.sha256(minified_raw_log.encode('utf-8')).hexdigest()
             # add signature to JSON
+            drone = flight_log.operation.drone
 
-            # create Zip file
+            credential_obj = AerobridgeCredential.objects.get(aircraft=drone, token_type = 1,association = 3, is_active = True)
 
-            # upload Zip file 
-            
+            secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')            
+            f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
+            drone_private_key_raw = f.decrypt(credential_obj.token).decode()
+            print(drone_private_key_raw)
+            key = RSA.importKey(drone_private_key_raw,  passphrase='aerobridge')
+            hasher = SHA256.new(minified_raw_log)
+            signer = PKCS1_v1_5.new(key)
+            signature = signer.sign(hasher)
+            raw_log_json['signature'] = signature      
+            signed_flight_log.signed_log = raw_log_json
+            signed_flight_log.save()            
 
             # save URL
             serializer = SignedFlightLogSerializer(signed_flight_log, data=request.data)
