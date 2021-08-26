@@ -3,7 +3,7 @@ from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, CloudFile
 from pki_framework.models import AerobridgeCredential
 from django import forms
-from django.forms import widgets
+from django.forms import widgets, Textarea
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -140,9 +140,12 @@ class ActivityCreateForm(forms.ModelForm):
         fields = '__all__'
         
 class TokenCreateForm(forms.ModelForm):
+    credential = forms.CharField(widget=forms.Textarea, help_text="Paste the credential as plain text here")
     class Meta:
         model = AerobridgeCredential
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('token',)
+        
         
         
 class CustomCloudFileCreateForm(forms.Form):

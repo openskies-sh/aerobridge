@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import Http404
 from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
@@ -15,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from pki_framework.utils import requires_scopes
 from digitalsky_provider.tasks import submit_flight_permission
 import tempfile
+from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import logging
 import hashlib
@@ -188,10 +190,10 @@ class FlightLogSign(APIView):
             
             fl = FlightLog.objects.get(id=pk)              
             signed_fl, created = SignedFlightLog.objects.get_or_create(raw_flight_log= fl)
-        except FlightLog.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
-        except SignedFlightLog.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
+        except ObjectDoesNotExist:
+            raise Http404
+        except ObjectDoesNotExist:
+            raise Http404
         else:
            
             return signed_fl, created
@@ -211,9 +213,9 @@ class FlightLogSign(APIView):
             #hs = hashlib.sha256(minified_raw_log.encode('utf-8')).hexdigest()
             # add signature to JSON
             drone = flight_log.operation.drone
-
+            
             credential_obj = AerobridgeCredential.objects.get(aircraft=drone, token_type = 1,association = 3, is_active = True)
-
+            print(credential_obj)
             secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')            
             f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
             drone_private_key_raw = f.decrypt(credential_obj.token).decode()

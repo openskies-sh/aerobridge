@@ -13,11 +13,11 @@ from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
-from pki_framework.forms import TokenCreateForm
+# from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, CutsomTokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -1062,7 +1062,7 @@ class CredentialsCreateView(CreateView):
 
         f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
 
-        enc_token = f.encrypt(message = form.data['token'].encode('utf-8'))
+        enc_token = f.encrypt(message = form.data['credential'].encode('utf-8'))
         self.object.token = enc_token
         self.object.save()
 
