@@ -31,6 +31,7 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
+
 load_dotenv(find_dotenv())
 # Create your views here.
 
@@ -215,18 +216,23 @@ class FlightLogSign(APIView):
             drone = flight_log.operation.drone
             
             credential_obj = AerobridgeCredential.objects.get(aircraft=drone, token_type = 1,association = 3, is_active = True)
-            print(credential_obj)
+            
             secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')            
             f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
-            drone_private_key_raw = f.decrypt(credential_obj.token).decode()
-            print(drone_private_key_raw)
-            key = RSA.importKey(drone_private_key_raw,  passphrase='aerobridge')
-            hasher = SHA256.new(minified_raw_log)
-            signer = PKCS1_v1_5.new(key)
-            signature = signer.sign(hasher)
-            raw_log_json['signature'] = signature      
-            signed_flight_log.signed_log = raw_log_json
-            signed_flight_log.save()            
+            drone_private_key_raw = f.decrypt(credential_obj.token).decode('utf-8')
+            
+            try:
+                key = RSA.importKey(drone_private_key_raw)
+                hasher = SHA256.new(minified_raw_log.encode('utf-8').strip())
+                signer = PKCS1_v1_5.new(key)
+                signature = signer.sign(hasher)
+            except Exception as e:
+                signed_flight_log.delete()
+            else:
+                
+                raw_log_json['signature'] = signature
+                signed_flight_log.signed_log = raw_log_json
+                signed_flight_log.save()            
 
             # save URL
             serializer = SignedFlightLogSerializer(signed_flight_log, data=request.data)

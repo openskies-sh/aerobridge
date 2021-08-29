@@ -2,7 +2,7 @@ Django
 djangorestframework
 markdown
 cryptography
-django-cryptography
+pycryptodome
 django-filter
 django-cors-headers
 drf-jwt
