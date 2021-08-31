@@ -22,6 +22,7 @@ import logging
 import hashlib
 import os, json
 import boto3
+import base64
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
@@ -229,17 +230,14 @@ class FlightLogSign(APIView):
             except Exception as e:
                 signed_flight_log.delete()
             else:
-                
-                raw_log_json['signature'] = signature
+                sign = base64.b64encode(signature).decode()
+                raw_log_json['signature'] = sign
                 signed_flight_log.signed_log = raw_log_json
                 signed_flight_log.save()            
 
             # save URL
-            serializer = SignedFlightLogSerializer(signed_flight_log, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer = SignedFlightLogSerializer(signed_flight_log)
+            return Response(serializer.data)
         else:
             return Response({"message":"Signed log object already exists"}, status=status.HTTP_409_CONFLICT)
 
