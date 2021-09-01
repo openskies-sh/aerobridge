@@ -724,6 +724,9 @@ class FlightLogsList(APIView):
 class FlightLogsSign(TemplateView):
     template_name = 'launchpad/flightlog_sign_thanks.html'
 
+    def get(self, request):
+        pass
+    
 
 class FlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
