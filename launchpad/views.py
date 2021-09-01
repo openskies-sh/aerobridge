@@ -776,7 +776,7 @@ class FlightLogsDigitalSkyList(APIView):
     template_name = 'launchpad/flightlog_digitalsky_list.html'
 
     def get(self, request):
-        queryset = FlightLog.objects.filter(is_submitted=False)
+        queryset = FlightLog.objects.filter(is_submitted=False, is_editable=False)
         return Response({'flightlogs': queryset})
     
 class FlightLogsDigitalSkyDetail(APIView):
