@@ -18,3 +18,8 @@ ul.error li {
 .map {
   height: 300px;
 }
+
+.flush {
+  inline-size: 600px;
+  overflow-wrap: break-word;
+}

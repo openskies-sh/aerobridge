@@ -6,6 +6,7 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
+{% if flightoperation.is_editable %}
 <form action="{% url 'flightoperations-update' flightoperation_id=flightoperation.pk %}" method="POST">
     {% csrf_token %}
     {% if errors %}
@@ -20,6 +21,9 @@
 
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>
 </form>
+{% else %}
+<p>The flight operation is not editable becuase the log has been signed.</p>
+{% endif %}
 </div>
 </div>
 {% endblock %}

@@ -12,7 +12,7 @@
     <ul class="list-group list-group-flush">
         {% if signed_flightlogs %}
         {% for signed_flightlog in signed_flightlogs %}
-        <li class="list-group-item">Log for <a href="/launchpad/signed-flightlogs/{{signed_flightlog.id}}">{{ signed_flightlog.log.operation.name}}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ signed_flightlog.created_at }} </small></li>
+        <li class="list-group-item">Signed log for {{ signed_flightlog.raw_flight_log.operation.name}} (<a href="/launchpad/signed-flightlogs/{{signed_flightlog.id}}">details</a>)&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ signed_flightlog.created_at }} </small></li>
         {% endfor %}      
         
         {% else %}

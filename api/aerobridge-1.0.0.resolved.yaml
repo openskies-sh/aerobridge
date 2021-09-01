@@ -1144,6 +1144,10 @@ components:
         end_datetime:
           type: string
           format: date-time
+        is_editable:
+          type: boolean
+          description: Set whether the flight plan can be edited. Once the flight
+            log has been signed a flight plan cannot be edited.
         created_at:
           type: string
           format: date-time
@@ -1170,6 +1174,10 @@ components:
           $ref: '#/components/schemas/GeoJSON'
           nullable: true
           description: Paste flight plan geometry
+        is_editable:
+          type: boolean
+          description: Set whether the flight plan can be edited. Once the flight
+            log has been signed a flight plan cannot be edited.
           
         start_datetime:
           type: string
@@ -1205,6 +1213,10 @@ components:
           type: integer
           description: At the moment, only VLOS and BVLOS operations are supported,
             for other types of operations, please issue a pull-request
+        is_editable:
+          type: boolean
+          description: Set whether the flight operation can be edited. Once the flight
+            log has been signed a flight operation cannot be edited.
         flight_termination_or_return_home_capability:
           type: boolean
         geo_fencing_capability:
@@ -1506,6 +1518,10 @@ components:
           type: string
           format: date-time
           readOnly: true
+        is_editable:
+          type: boolean
+          description: Set whether the flight operation can be edited. Once the flight
+            log has been signed a flight operation cannot be edited.
         purpose:
           type: string
           description: To add additional categories, please add entries to the Activities

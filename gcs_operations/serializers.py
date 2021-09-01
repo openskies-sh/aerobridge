@@ -45,7 +45,7 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlightPlan		
-        fields = '__all__'
+        exclude = ('is_editable',)
         ordering = ['-created_at']
 
 class FlightOperationListSerializer(serializers.ModelSerializer):
@@ -62,7 +62,7 @@ class FlightOperationSerializer(serializers.ModelSerializer):
     # flight_plan = FlightPlanSerializer(read_only=True)
     class Meta:
         model = FlightOperation	
-        fields = '__all__'	
+        exclude = ('is_editable',)
         ordering = ['-created_at']
         
 class FlightPermissionSerializer(serializers.ModelSerializer):
@@ -86,7 +86,7 @@ class FlightLogSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Logs '''
     class Meta:
         model = FlightLog	
-        exclude = ('is_submitted',)
+        exclude = ('is_submitted','is_editable',)
         ordering = ['-created_at']
  
 class SignedFlightLogSerializer(serializers.ModelSerializer):

@@ -71,7 +71,7 @@ class FlightPlanCreateForm(forms.ModelForm):
 
     class Meta:
         model = FlightPlan
-        fields = '__all__'
+        exclude = ('is_editable',)
         widgets = {            
             'start_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
             'end_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time ', 'type':'datetime-local'}),
@@ -89,6 +89,10 @@ class FlightPermissionCreateForm(forms.ModelForm):
         
 
 class FlightLogCreateForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super (FlightLogCreateForm,self ).__init__(*args,**kwargs) # populates the post        
+        self.fields['operation'].queryset = FlightOperation.objects.filter(is_editable=True)
+
     class Meta:
         model = FlightLog
         fields = ('operation','raw_log',)
@@ -97,8 +101,7 @@ class FlightLogCreateForm(forms.ModelForm):
 class FlightOperationCreateForm(forms.ModelForm):
     class Meta:
         model = FlightOperation
-        fields = '__all__'
-
+        exclude = ('is_editable',)
 
 class ContactCreateForm(forms.ModelForm):
     class Meta:

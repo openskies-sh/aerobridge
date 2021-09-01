@@ -20,16 +20,21 @@
         </tr>
         <tr>
             <td>Raw Log</td>
-            <td>{{ flightlog.raw_log}}</td>    
+            <td><small>{{ flightlog.raw_log}}</small></td>    
         </tr>
         <tr>
-            <td>Signed Log File URL</td>
-            <td><a href="{{ flightlog.signed_log}}">{{ flightlog.signed_log}}</a></td>
+            <td>Submitted to DigitalSky? </td>
+            <td><code>{{ flightlog.is_submitted}}</code></td>
         </tr>
         
     </table>
     <br>
+    {% if flightlog.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightlogs/{{flightlog.id}}"><b>Update Details</b></a></p>
+    {% else %}
+    
+    <p class='text-muted'>This flight log has been signed and cannot be edited, create a new plan, operation and re-upload a log to update it.</p>
+    {% endif %}
     
 
 

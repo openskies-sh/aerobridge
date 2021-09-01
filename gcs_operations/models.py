@@ -25,6 +25,7 @@ class FlightPlan(models.Model):
     
     start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
     end_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
+    is_editable = models.BooleanField(default=True, help_text="Set whether the flight plan can be edited. Once the flight log has been signed a flight plan cannot be edited.")
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -46,7 +47,7 @@ class FlightOperation(models.Model):
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")
-    is_editable = models.BooleanField(default=True)
+    is_editable = models.BooleanField(default=True, help_text="Set whether the flight operation can be edited. Once the flight log has been signed a flight operation cannot be edited.")
     
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -93,6 +94,7 @@ class FlightLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_submitted = models.BooleanField(default=False)
+    is_editable = models.BooleanField(default=True, help_text="Set whether the flight log can be edited. Once the flight log has been signed raw flight log cannot be edited.")
 
     def __unicode__(self):
        return self.operation.name
@@ -103,8 +105,8 @@ class FlightLog(models.Model):
 class SignedFlightLog(models.Model):
     ''' As of August 2021, it is unclear if the flight logs will be signed by the GCS or if the flight log will be signed by the management server. By sepearating the flight log and signed flight log we enable either cases. '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    raw_flight_log = models.OneToOneField(FlightLog, on_delete=models.CASCADE, related_name ="signed_flight_log")
-    signed_log = models.URLField(help_text="Enter the URL of the Zip file that has the signed log, signed by the drone private key.")
+    raw_flight_log = models.OneToOneField(FlightLog, on_delete=models.CASCADE, related_name ="raw_flight_log")
+    signed_log = models.TextField(help_text="Flight log signed by the drone private key")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

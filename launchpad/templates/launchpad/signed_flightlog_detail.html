@@ -3,29 +3,34 @@
 {% block content %}
 
 <div class="row mb-3">
+    <h2>Signed Flight Log Details</h2>
     <div class="col-md-6 themed-grid-col">
-
-    <table  class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tr>
-            <td>ID</td>
-            <td><p><code>{{ signed_flight_log.id }}</code></p></td>
-        </tr>
-        <tr>
-            <td>Zip file download URL:</td>
-            <td><a href="{{signed_flight_log.log}}">{{ signed_flight_log.log.operation.name}}</a></td>    
-        </tr>
-        <tr>
-            <td>Signed by:</td>
-            <td>{{ signed_flight_log.log.operation.drone.model}}</td>    
-        </tr>
+    {% if signed_flightlog.signed_log %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
         
-    </table>
+            <tr>
+                <td>Raw Flight Log</td>
+                <td><p class="flush">{{ signed_flightlog.raw_flight_log.raw_log }}</p></td>    
+            </tr>
+            <tr>
+                <td>Signed Flight Log</td>
+                <td><p class="flush">{{ signed_flightlog.signed_log }}</p></td>    
+            </tr>
+            <tr>
+                <td>Signed by:</td>
+                <td>{{ signed_flightlog.raw_flight_log.operation.drone.model}}</td>    
+            </tr>
+            
+        </table>
+    {% else %}
+    <p>No signed flight log exists, please sign the log first via the GCS or the user interface.</p>
+    {% endif %}
 </div>
 </div>
 {% endblock %}

@@ -203,10 +203,11 @@ class FlightLogSign(APIView):
     def put(self, request, pk, format=None):
         signed_flight_log, created = self.get_SignedFlightLog(pk)
         
-        if created:           
-                
+        if created:                           
             # get the raw log
             flight_log = signed_flight_log.raw_flight_log
+            flight_operation = flight_log.operation
+            flight_plan = flight_operation.flight_plan
             raw_log = flight_log.raw_log
             raw_log_json = json.loads(raw_log)
             minified_raw_log = json.dumps(raw_log_json , separators=(',', ':'))
@@ -234,8 +235,13 @@ class FlightLogSign(APIView):
                 raw_log_json['signature'] = sign
                 signed_flight_log.signed_log = raw_log_json
                 signed_flight_log.save()            
-
-            # save URL
+                flight_operation.is_editable = False
+                flight_operation.save()
+                flight_log.is_editable = False
+                flight_log.save()
+                flight_plan.is_editable = False
+                flight_plan.save()
+                
             serializer = SignedFlightLogSerializer(signed_flight_log)
             return Response(serializer.data)
         else:
