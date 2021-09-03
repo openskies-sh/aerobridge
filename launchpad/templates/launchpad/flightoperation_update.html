@@ -18,7 +18,7 @@
     {% endfor %}
     {% endif %}
     {% render_form serializer %}
-
+    <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>
 </form>
 {% else %}

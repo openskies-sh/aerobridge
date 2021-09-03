@@ -479,6 +479,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/SignedFlightLog'
           description: 'Details of a the signed flight log and its signature'
+        '404':
+          content:
+            application/json:              
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+          description: 'A flight log object was not found'
+        '409':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+          description: 'The flight log has already been signed'
       tags:
       - Flight Logs
 

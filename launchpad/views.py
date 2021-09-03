@@ -25,6 +25,7 @@ from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSeri
 import tempfile
 from rest_framework.parsers import MultiPartParser
 import boto3
+from gcs_operations import log_signer
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
@@ -721,11 +722,13 @@ class FlightLogsList(APIView):
         queryset = FlightLog.objects.all()
         return Response({'flightlogs': queryset})
     
-class FlightLogsSign(TemplateView):
+class FlightLogsSign(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightlog_sign_thanks.html'
 
-    def get(self, request):
-        pass
+    def get(self, request, flightlog_id):
+        sign_result = log_signer.sign_log(flightlog_id)
+        return Response()
     
 
 class FlightLogsDetail(APIView):

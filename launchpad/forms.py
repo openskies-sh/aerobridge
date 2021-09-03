@@ -99,9 +99,16 @@ class FlightLogCreateForm(forms.ModelForm):
         
 
 class FlightOperationCreateForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super (FlightOperationCreateForm,self ).__init__(*args,**kwargs) # populates the post        
+        self.fields['flight_plan'].queryset = FlightPlan.objects.filter(is_editable=True)
+
     class Meta:
         model = FlightOperation
         exclude = ('is_editable',)
+        help_texts = {
+            'flight_plan': 'If a flight log is signed and is associated with a plan, that plan will not show here',
+        }
 
 class ContactCreateForm(forms.ModelForm):
     class Meta:

@@ -43,7 +43,7 @@ class FlightOperation(models.Model):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=140, default="Medicine Delivery Operation", help_text="Give a friendly name for this operation")
-    drone = models.ForeignKey(Aircraft, models.CASCADE)
+    drone = models.ForeignKey(Aircraft, models.CASCADE, help_text="Pick the drone that will be used to fly this opreation")
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")

@@ -47,7 +47,12 @@
 
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a></p>
+{% if flightoperation.is_editable %}
+    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a></p>
+{% else %}    
+    <p class='text-muted'>This flight operation had a log associated with it that has been signed and cannot be edited, create a new plan, and a new operation .</p>
+{% endif %}
+
 
 </div>
 <script type="text/javascript">
