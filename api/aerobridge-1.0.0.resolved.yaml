@@ -5,9 +5,10 @@ info:
   description: |-
     All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with the Digital Sky API, store flight plans and manage keys. 
     
-    The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create entries in the database.
+    The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create some entries in the database.
 
     Unless otherwise specified, fields specified in a message but not declared in the API shall be ignored.
+
   version: "1.5.0"
 servers:
   - url: "https://virtserver.swaggerhub.com/cygnus2936/aerobridge/1.0.0"
@@ -198,19 +199,19 @@ paths:
     get:
       operationId: listFlightPlans
       summary: Get all Flight Plans
-      description: 'Get details of a single flight plan in Aerobridge'
+      description: 'Get a list of all Flight Plans Aerobridge'
       security:
         - AuthFromPassport: [read]    
       parameters: []
       responses:
-        '200':
+        '200':          
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/FlightPlanList'
-          description: ''
+          description: 'All flight plans retrieved'
       tags:
       - Flight Plans
     post:
@@ -222,15 +223,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlightPlanList'
+              $ref: '#/components/schemas/FlightPlan'
               
       responses:
         '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FlightPlanList'
-          description: ''
+                $ref: '#/components/schemas/FlightPlan'
+          description: 'Flight Plan successfully created'
       tags:
       - Flight Plans
 
@@ -245,7 +246,7 @@ paths:
       - name: flightplan_id
         in: path
         required: true
-        description: ''
+        description: 'ID of the Flight Plan in Aerobridge'
         schema:
           type: string
 
@@ -255,7 +256,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightPlan'
-          description: ''
+          description: 'Flight Plan retrieved successfullly'
       tags:
       - Flight Plans
 
@@ -269,7 +270,7 @@ paths:
       - name: flightplan_id
         in: path
         required: true
-        description: ''
+        description: 'ID of the Flight Plan in Aerobridge'
         schema:
           type: string
       requestBody:
@@ -298,7 +299,7 @@ paths:
       - name: flightplan_id
         in: path
         required: true
-        description: ''
+        description: 'ID of the Flight Plan in Aerobridge'
         schema:
           type: string
       responses:
@@ -318,10 +319,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FlightOperation'
-          description: ''
+                $ref: '#/components/schemas/FlightOperationList'
+          description: 'Operations retrieved successfully'
       tags:
       - Flight Operations
       
@@ -343,7 +342,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightOperation'
-          description: ''
+          description: 'Operation retrieved successfully'
       tags:
       - Flight Operations
       
@@ -445,7 +444,7 @@ paths:
     delete:
       operationId: destroyFlightLog
       summary: Remove Flight Log 
-      description: 'Remove flight log from aerobridge'
+      description: 'Remove flight log from Aerobridge'
       security:
         - AuthFromPassport: [write] 
       parameters:
@@ -463,7 +462,7 @@ paths:
 
   /gcs/flight-logs/{id}/sign:
     put:
-      operationId: Sign Flight Log
+      operationId: Sign a Flight Log
       description: 'Sign a Flight Log with the private key of the drone, a new signed flight log object is created'
       parameters:
       - name: id
@@ -478,7 +477,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SignedFlightLog'
-          description: 'Details of a the signed flight log and its signature'
+          description: 'Flight Log signed successfully'
         '404':
           content:
             application/json:              
@@ -489,7 +488,7 @@ paths:
                 properties:
                   message:
                     type: string
-          description: 'A flight log object was not found'
+          description: 'A Flight Log object was not found'
         '409':
           content:
             application/json:
@@ -500,7 +499,7 @@ paths:
                 properties:
                   message:
                     type: string
-          description: 'The flight log has already been signed'
+          description: 'The Flight Log has already been signed'
       tags:
       - Flight Logs
 
@@ -557,6 +556,7 @@ paths:
           description: 'Successfully retrieved all cloud files'
       tags:
       - Files
+      
 
   /gcs/files/{file_id}:
     get:
@@ -883,6 +883,32 @@ paths:
       tags:
       - Manufacturer       
 
+tags:
+  - name: Files
+    description: "Aerobridge provides functionality to upload files to your favourite cloud provider, use these endpoints to manage files, you will have to configure the cloud provider during installion / configuration of Aerobridge"
+  - name: Manufacturer
+    description: "Aerobridge stores details of aircraft manufacturers, manufacturers are linked to aircraft and control release of firmware"
+  - name: Operator
+    description: "Operators have a very specific definition and are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
+  - name: Aircrafts
+    description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft"    
+  - name: Digital Sky
+    description: "Aerobridge can communicate with Digital Sky and all endpoints related to Digital Sky are here. As of September-2021 Digital Sky is changing and some commands and endpoints are not supported."      
+  - name: Flight Permissions
+    description: "Flight Permissions are issued by Digital Sky and you can use these endpoints to download permission objects."
+  - name: Signed Flight Logs
+    description: "Flights logs can be signed on the management server use these enpoints to interact with the flight logs signed on the server"
+  - name: Flight Logs
+    description: "After the mission is complete use these endpoints to upload flight logs to the management server."
+  - name: Flight Operations
+    description: "Flight Operations depend on flight plans and specify details about operation that will enable the drone to fly the plan. Use these endpoints to interact with operations stored in the management server."
+  - name: Flight Plans
+    description: "Flight plans are GeoJSON objects that can be stored in the server, usually flight plans are generated on the GCS and stored on the management server. A operation is created against the plan and permission artefacts retrieved for the operation."
+  - name: Firmware
+    description: "Manufacturer can  sign and release firmwares and these endpoints help in downloading firmware to the GCS"
+  - name: Credentials
+    description: "Aerobrdige can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials."
+
 components:
 
   securitySchemes:
@@ -1146,41 +1172,6 @@ components:
       required:      
       - location
       - name
-    FlightPlanList:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        name:
-          type: string
-          maxLength: 30
-        details:
-          type: object
-          $ref: '#/components/schemas/GeoJSON'
-          description: Paste flight plan geometry as GeoJSON
-        start_datetime:
-          type: string
-          format: date-time
-        end_datetime:
-          type: string
-          format: date-time
-        is_editable:
-          type: boolean
-          description: Set whether the flight plan can be edited. Once the flight
-            log has been signed a flight plan cannot be edited.
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-      required:
-      - start_datetime
-      - end_datetime
     FlightPlan:
       type: object
       properties:
@@ -1191,7 +1182,7 @@ components:
         name:
           type: string
           maxLength: 30
-        details:
+        geo_json:
           type: object
           $ref: '#/components/schemas/GeoJSON'
           nullable: true
@@ -1200,6 +1191,7 @@ components:
           type: boolean
           description: Set whether the flight plan can be edited. Once the flight
             log has been signed a flight plan cannot be edited.
+          readOnly: true
           
         start_datetime:
           type: string
@@ -1218,48 +1210,18 @@ components:
       required:
       - start_datetime
       - end_datetime
+      - geo_json
+      - name
+      
+    FlightPlanList:
+      type: array
+      items:         
+          $ref: "#/components/schemas/FlightPlan"
+      
     FlightOperationList:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        name:
-          type: string
-          maxLength: 30
-        type_of_operation:
-          enum:
-          - 0
-          - 1
-          type: integer
-          description: At the moment, only VLOS and BVLOS operations are supported,
-            for other types of operations, please issue a pull-request
-        is_editable:
-          type: boolean
-          description: Set whether the flight operation can be edited. Once the flight
-            log has been signed a flight operation cannot be edited.
-        flight_termination_or_return_home_capability:
-          type: boolean
-        geo_fencing_capability:
-          type: boolean
-        detect_and_avoid_capability:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        drone:
-          type: string
-        flight_plan:
-          type: string
-        purpose:
-          type: string
-          description: To add additional categories, please add entries to the Activities
-            table
-      required:
-      - drone
-      - flight_plan
+      type: array
+      items:         
+          $ref: "#/components/schemas/FlightOperation"
     FlightOperation:
       type: object
       properties:
