@@ -294,8 +294,7 @@ class CloudFileUpload(APIView):
     parser_classes = (MultiPartParser,)
     def put(self, request,document_type, format=None):
         
-        if (document_type in ['logs', 'documents']):
-
+        if (document_type in ['documents']):
 
             BUCKET_NAME = env.get("S3_BUCKET_NAME",0)
             endpoint_url = env.get('S3_ENDPOINT_URL',0)
@@ -327,4 +326,4 @@ class CloudFileUpload(APIView):
                     return Response({'id':str(cf.id), 'name':cf.name,'location':location}, status=status.HTTP_201_CREATED)
 
         else:
-                return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"detail":"File not uploaded, you can only choose to upload in the documents subfolder."}, status=status.HTTP_400_BAD_REQUEST)

@@ -15,8 +15,8 @@ servers:
     description: "Aerobridge Server API"
 security:
   - AuthFromPassport:
-      - "write"
-      - "read"
+      - "aerobridge.write"
+      - "aerobridge.read"
 
 paths:
   /ping:
@@ -557,7 +557,6 @@ paths:
       tags:
       - Files
       
-
   /gcs/files/{file_id}:
     get:
       summary: "Get a single file details"
@@ -578,34 +577,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CloudFile'
-          description: 'Successfully retrieved all cloud files'
-      tags:
-      - Files
-
-  /gcs/files/logs/upload:
-    put:
-      summary: "Upload a single log file"
-      security:
-        - AuthFromPassport: [write]    
-      operationId: createCloudFileLog
-      description: 'Upload a log file to Aerobridge'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                # 'file' will be the field name in this multipart request
-                file:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CloudFile'
-          description: ''
+          description: 'Successfully retrieved single cloud files'
       tags:
       - Files
 
@@ -615,7 +587,7 @@ paths:
       security:
         - AuthFromPassport: [write]    
       operationId: createCloudFileDocument
-      description: 'Upload a document to Aerobridge'
+      description: 'Upload a document to Aerobridge, use this endpoint to upload PDFs, certificates etc.'
       requestBody:
         content:
           multipart/form-data:
@@ -727,7 +699,6 @@ paths:
           description: ''
       tags:
       - Digital Sky
-        - Logs
   /digitalsky/logs/{log_id}:
     get:
       summary: "Get details of a single transaction log"
@@ -752,7 +723,6 @@ paths:
           description: ''
       tags:
       - Digital Sky
-        - Logs
   
 
   /registry/aircraft/:
@@ -1155,12 +1125,14 @@ components:
             .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
         name:
           type: string
+          example: 'uin_certificate.pdf'
         upload_type:
           enum:
           - logs
           - documents
           - other
           type: string
+          example: documents
         created_at:
           type: string
           format: date-time
