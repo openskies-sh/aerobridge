@@ -242,7 +242,7 @@ class Manufacturer(models.Model):
 
 class Engine(models.Model):
 
-    power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Specify the engine power")
     count = models.IntegerField(default =1 )
     engine_type = models.CharField(max_length=15, help_text="Specify the type of engine")
     propellor = models.CharField(max_length=140, help_text="Specify number of propellors")
@@ -302,8 +302,7 @@ class Aircraft(models.Model):
     esn = models.CharField(max_length = 48, default='000000000000000000000000000000000000000000000000')
     digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal")
     maci_number = models.CharField(max_length = 200)
-    flight_controller_number = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0)
-    controller_public_key = models.TextField(help_text= "This is the public key of the RFM used to sign log files", default=0)
+    flight_controller_number = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0)    
     operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     status = models.IntegerField(choices=STATUS_CHOICES, default = 1)
     photo = models.URLField(blank=True, null=True)
@@ -312,7 +311,7 @@ class Aircraft(models.Model):
     identification_photo_small = models.URLField(blank=True, null=True)
     engine = models.ForeignKey(Engine, models.CASCADE,blank=True, null=True)
     is_registered = models.BooleanField(default=False)
-    fuel_capacity = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    
     max_endurance = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     max_range = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
     max_speed = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)

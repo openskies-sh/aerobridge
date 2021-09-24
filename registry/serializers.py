@@ -8,8 +8,7 @@ from registry.models import Authorization, Operator, Contact, Aircraft, Pilot, A
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ('id', 'address_line_1', 'address_line_2', 'address_line_3', 'postcode', 'city', 'country',
-                  'created_at', 'updated_at')
+        fields = ('id', 'address_line_1', 'address_line_2', 'address_line_3', 'postcode', 'city', 'country','created_at', 'updated_at')
 
 class ManufacturerSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)

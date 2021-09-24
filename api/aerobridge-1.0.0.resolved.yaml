@@ -32,7 +32,7 @@ paths:
     get:
       summary: "List all credentials stored"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: listCredentials
       description: List all credentials in the server. Aerobridge stores credentials securely and this API decrypts 
       parameters: []
@@ -50,7 +50,7 @@ paths:
     post:
       summary: "Create a new credential"
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
 
       operationId: createCredentials
       description: Upload details to create a new credential object and store it securely
@@ -80,7 +80,7 @@ paths:
     get:
       summary: "Get details of a single credential"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
 
       operationId: retrieveCredentials
       description: Retrieve or delete a credential instance.
@@ -103,7 +103,7 @@ paths:
     delete:
       summary: "Delete credential details"
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
 
       operationId: deleteCredentials
       description: Delete a Credentials instance.
@@ -146,7 +146,7 @@ paths:
     put:
       summary: "Add a new firmware release"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: createFirmware
       description: 'Update the server with a new Firmware version'
       parameters: []
@@ -175,7 +175,7 @@ paths:
     get:
       summary: "Get a single firmware download details"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: retrieveFirmware
       description: 'Get a specific firmware by id'
       parameters:
@@ -201,7 +201,7 @@ paths:
       summary: Get all Flight Plans
       description: 'Get a list of all Flight Plans Aerobridge'
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       parameters: []
       responses:
         '200':          
@@ -241,7 +241,7 @@ paths:
       summary: Get Single Flight Plan
       description: 'Get details of a single plan'
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       parameters:
       - name: flightplan_id
         in: path
@@ -265,7 +265,7 @@ paths:
       summary: Update details of a Flight Plan
       description: 'Update existing flight plan'
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       parameters:
       - name: flightplan_id
         in: path
@@ -294,7 +294,7 @@ paths:
       summary: Remove Flight Plan
       description: 'Delete flight plan from Aerobridge'
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       parameters:
       - name: flightplan_id
         in: path
@@ -353,7 +353,7 @@ paths:
       operationId: listFlightLogs
       description: 'List of all raw logs and details of signed flight logs stored in Aerobridge'
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       parameters: []
       responses:
         '200':
@@ -371,7 +371,7 @@ paths:
       summary: Create a new Flight Log
       description: 'Upload a new flight log object, you will need a URL for a Cloud File first'
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       parameters: []
       requestBody:
         content:
@@ -396,7 +396,7 @@ paths:
       summary: Get a single Flight Log
       description: ''
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       parameters:
       - name: flightlog_id
         in: path
@@ -418,7 +418,7 @@ paths:
       summary: Update a Flight Log
       description: ''
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       parameters:
       - name: flightlog_id
         in: path
@@ -446,7 +446,7 @@ paths:
       summary: Remove Flight Log 
       description: 'Remove flight log from Aerobridge'
       security:
-        - AuthFromPassport: [write] 
+        - AuthFromPassport: [aerobridge.write] 
       parameters:
       - name: flightlog_id
         in: path
@@ -561,7 +561,7 @@ paths:
     get:
       summary: "Get a single file details"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: retrieveCloudFile
       description: 'Get a specific file details by id'
       parameters:
@@ -585,7 +585,7 @@ paths:
     put:
       summary: "Upload a single document"
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       operationId: createCloudFileDocument
       description: 'Upload a document to Aerobridge, use this endpoint to upload PDFs, certificates etc.'
       requestBody:
@@ -615,7 +615,7 @@ paths:
       summary: "Get all flight permissions"
       description: 'Use this endpoint to retrieve all flight permissions'
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: listFlightPermissions
       parameters: []
       responses:
@@ -633,7 +633,7 @@ paths:
     get:
       summary: "Get a single permission"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       description: 'Use this endpoint to retrieve details of a single flight permission'
 
       operationId: retrieveFlightPermission
@@ -658,7 +658,7 @@ paths:
     put:
       summary: "Apply for a flight permission to DigitalSky"
       security:
-        - AuthFromPassport: [write]    
+        - AuthFromPassport: [aerobridge.write]    
       description: 'Use this endpoint to apply for a flight permission for a flight operation. You will have to create a flight permission object'
 
       operationId: applyFlightPermission
@@ -683,7 +683,7 @@ paths:
     get:
       summary: "Get a list of all transactions with Digital Sky"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
 
       operationId: listDigitalSkyLogs
       description: ''
@@ -703,7 +703,7 @@ paths:
     get:
       summary: "Get details of a single transaction log"
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
 
       operationId: retrieveDigitalSkyLog
       description: ''
@@ -728,7 +728,7 @@ paths:
   /registry/aircraft/:
       get:
         security:
-          - AuthFromPassport: [read]    
+          - AuthFromPassport: [aerobridge.read]    
         operationId: Get all Aircrafts
         description: List all aircrafts in the database
         parameters: []
@@ -748,7 +748,7 @@ paths:
   /registry/aircraft/{id}:
     get:
       security:
-        - AuthFromPassport: [read]    
+        - AuthFromPassport: [aerobridge.read]    
       operationId: Get single Aircraft
       description: Retrieve details of a Aircraft instance.
       parameters:
@@ -772,7 +772,7 @@ paths:
     get:
 
       security:
-        - AuthFromPassport: [read]        
+        - AuthFromPassport: [aerobridge.read]        
       operationId: Get all Operators
       description: List all operators in Aerobridge
       parameters: []
@@ -791,7 +791,7 @@ paths:
     get:
 
       security:
-        - AuthFromPassport: [read]        
+        - AuthFromPassport: [aerobridge.read]        
       operationId: Get single Operator
       description: Get details of a single operator in Aerobridge
       parameters:
@@ -814,7 +814,7 @@ paths:
     get:
 
       security:
-        - AuthFromPassport: [read]        
+        - AuthFromPassport: [aerobridge.read]        
       operationId: List all Manufacturers
       description: List all manufacturers in Aerobridge, use this endpoint to link specific manufacturer detail and their public / signing key.
       parameters: []
@@ -833,7 +833,7 @@ paths:
     get:
 
       security:
-        - AuthFromPassport: [read]        
+        - AuthFromPassport: [aerobridge.read]        
       operationId: Get Single Manufacturer
       description: Retrieve details of a single Manufacturer 
       parameters:
@@ -923,6 +923,7 @@ components:
             ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
             .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
             .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh
         email:
           type: string
           format: email
@@ -934,6 +935,7 @@ components:
         expiration:
           type: string
           format: date-time
+          example: '2021-09-24T13:53:14'
         operator_type:
           enum:
           - 0
@@ -946,36 +948,77 @@ components:
           type: string
           format: date-time
           readOnly: true
+          example: '2021-09-24T13:53:14'
         updated_at:
           type: string
           format: date-time
           readOnly: true
+          example: '2021-09-24T13:53:14'
         vat_number:
           type: string
           nullable: true
           maxLength: 25
+          example: 'CE1558433548'
         insurance_number:
           type: string
           nullable: true
           maxLength: 25
+          example: 'CDDFEF23DW'
         company_number:
           type: string
           nullable: true
           maxLength: 25
+          example: '3934304933'
         country:
           enum:
           - IN
           type: string
         address:
-          type: string
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            address_line_1:
+              type: string
+              maxLength: 140
+            address_line_2:
+              type: string
+              nullable: true
+              maxLength: 140
+            address_line_3:
+              type: string
+              nullable: true
+              maxLength: 140
+            postcode:
+              type: string
+              maxLength: 10
+            city:
+              type: string
+              maxLength: 140
+            country:
+              enum:
+              - IN
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
         operational_authorizations:
           type: array
           items:
             type: string
+          example: ['SORA']
         authorized_activities:
           type: array
           items:
             type: string
+          example: ['Videotaping']
       required:
       - company_name
       - website
@@ -1033,21 +1076,25 @@ components:
           type: string
           format: uuid
           readOnly: true
+          example: 5d84afc6-47e1-4b92-ad9e-541b8ebc54b1
         aircraft:
           type: string
           format: uuid
           nullable: true
           description: A UUID of the aircraft in the system that is associated with this token, optional
+          example: 846ddb6c-2fcf-4617-8f3b-b6dcf86ceeb0
         manufacturer:
           type: string
           format: uuid
           nullable: true
           description: A UUID of the manufacturer in the system that is associated with this token, optional
+          example: 94fa5ad6-e82e-4f65-be93-07b62fb89195
         operator:
           type: string
           format: uuid
           nullable: true
           description: A UUID of the operator in the system that is associated with this token, optional
+          example: edcbafed-edc7-47bb-96ee-5ed972bb977c
       required:
       - name
     Transaction:
@@ -1346,12 +1393,6 @@ components:
                 0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
                 -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
                 s]*)?\\z"
-            fuel_capacity:
-              type: string
-              format: decimal
-              multipleOf: 0.01
-              maximum: 100000000
-              minimum: -100000000
             max_endurance:
               type: string
               format: decimal
@@ -1666,12 +1707,6 @@ components:
                     -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
                     -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\\
                     d{2,5})?(?:[/?#][^\\s]*)?\\z"
-                fuel_capacity:
-                  type: string
-                  format: decimal
-                  multipleOf: 0.01
-                  maximum: 100000000
-                  minimum: -100000000
                 max_endurance:
                   type: string
                   format: decimal
@@ -1847,22 +1882,30 @@ components:
           readOnly: true
         operator:
           type: string
+          format: uuid
+          example: 34496e37-bbba-4ebf-8a26-66780e6f78e6
         mass:
           type: integer
+          example: 400
         manufacturer:
           type: string
+          format: uuid
+          example: 2752bb92-a184-4c89-8eb2-cd07f310fead
         model:
           type: string
           maxLength: 280
+          example: eBee
         status:
           enum:
           - 0
           - 1
           type: integer
+          example: 1
         registration_mark:
           type: string
           nullable: true
           maxLength: 10
+          example: IND-223202
         category:
           enum:
           - 0
@@ -1875,6 +1918,7 @@ components:
           - 7
           - 8
           type: integer
+          example: 0
         created_at:
           type: string
           format: date-time
@@ -1883,6 +1927,7 @@ components:
           type: string
           nullable: true
           maxLength: 280
+          example: eBee X2
         sub_category:
           enum:
           - 0
@@ -1900,6 +1945,7 @@ components:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
+          example: 0054883A 584678896 25544488798
         photo:
           type: string
           format: uri
@@ -1928,15 +1974,13 @@ components:
           multipleOf: 0.001
           maximum: 10000000
           minimum: -10000000
+          example: 250.00
         updated_at:
           type: string
           format: date-time
           readOnly: true
-      required:
-      - operator
-      - mass
-      - manufacturer
-      - model
+          
+
     AircraftDetail:
       type: object
       properties:
@@ -1946,6 +1990,7 @@ components:
           readOnly: true
         mass:
           type: integer
+          example: 400
         is_airworthy:
           type: boolean
         make:
@@ -1956,14 +2001,17 @@ components:
           type: string
           nullable: true
           maxLength: 280
+          example: X2
         series:
           type: string
           nullable: true
           maxLength: 280
+          example: X2B
         popular_name:
           type: string
           nullable: true
           maxLength: 280
+          example: eBee X2B
         category:
           enum:
           - 0
@@ -1976,10 +2024,12 @@ components:
           - 7
           - 8
           type: integer
+          example: 0
         registration_mark:
           type: string
           nullable: true
           maxLength: 10
+          example: IND-223202
         sub_category:
           enum:
           - 0
@@ -1993,55 +2043,65 @@ components:
           - 8
           - 9
           type: integer
+          example: 0
         icao_aircraft_type_designator:
           type: string
           maxLength: 4
+          example: DRNB
         max_certified_takeoff_weight:
           type: string
           format: decimal
           multipleOf: 0.001
           maximum: 10000000
           minimum: -10000000
+          example: 35.2
         max_height_attainable:
           type: string
           format: decimal
           multipleOf: 0.001
-          maximum: 10000000
-          minimum: -10000000
+          maximum: 400
+          minimum: 0
+          example: 350.0
         compatible_payload:
           type: string
           nullable: true
           maxLength: 20
+          example: Camera
         commission_date:
           type: string
           format: date-time
           nullable: true
+          example: 2021-09-24T13:53
         model:
           type: string
           maxLength: 280
+          example: X3
         esn:
           type: string
           maxLength: 48
+          example: 000000000000000000000000000000000000000000000000
         digital_sky_uin_number:
           type: string
           description: Get a UIN number for this aircraft using the Digital Sky Portal
           maxLength: 140
+          example: a83534aa-c1a0-4d28-aa49-67a588b13747
         maci_number:
           type: string
           maxLength: 200
+          example: 
         flight_controller_number:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
-        controller_public_key:
-          type: string
-          description: This is the public key of the RFM used to sign log files
+          example: 0054883A 584678896 25544488798
+
         operating_frequency:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
           minimum: -100000000
+          example: 65.5
         status:
           enum:
           - 0
@@ -2058,6 +2118,7 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         photo_small:
           type: string
           format: uri
@@ -2069,6 +2130,7 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         identification_photo:
           type: string
           format: uri
@@ -2080,6 +2142,7 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         identification_photo_small:
           type: string
           format: uri
@@ -2091,60 +2154,62 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
-        fuel_capacity:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: -100000000
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
+
         max_endurance:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
-          minimum: -100000000
+          minimum: 0
+          example: 50.0
         max_range:
           type: string
           format: decimal
           multipleOf: 0.01
-          maximum: 100000000
-          minimum: -100000000
+          maximum: 5000
+          minimum: 0
+          example: 45.0
         max_speed:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
-          minimum: -100000000
+          minimum: 0
+          example: 45
         dimension_length:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
-          minimum: -100000000
+          minimum: 0
         dimension_breadth:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
-          minimum: -100000000
+          minimum: 0
         dimension_height:
           type: string
           format: decimal
           multipleOf: 0.01
           maximum: 100000000
-          minimum: -100000000
+          minimum: 0
         created_at:
           type: string
           format: date-time
           readOnly: true
+          example: '2021-09-24T13:54:48'
         updated_at:
           type: string
           format: date-time
           readOnly: true
+          example: '2021-09-24T13:54:48'
         manufactured_at:
           type: string
           format: date-time
           nullable: true
+          example: '2021-09-24T13:54:48'
         dot_permission_document:
           type: string
           format: uri
@@ -2158,6 +2223,7 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         operataions_manual_document:
           type: string
           format: uri
@@ -2169,13 +2235,20 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         operator:
           type: string
+          format: uuid
+          example: 152c79f8-caf9-423e-8602-dc7faec97ee5
         manufacturer:
           type: string
+          format: uuid
+          example: f190f97b-0150-43ea-8004-38ce607a98d6
         type_certificate:
           type: string
+          format: uuid
           nullable: true
+          exmaple: 4ca8170c-0cfa-4796-bfae-503760d738fc
         engine:
           type: integer
           nullable: true
