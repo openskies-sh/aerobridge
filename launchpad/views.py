@@ -512,18 +512,16 @@ class FirmwaresDetail(APIView):
         return redirect('firmwares-list')
 
 class FirmwareCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': FirmwareCreateForm()}
-        return render(request, 'launchpad/firmware_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = FirmwareCreateForm(request.POST)
-        if form.is_valid():
-            firmware = form.save()
-            firmware.save()
-            
+    model = Firmware
+    form_class = FirmwareCreateForm        
+    template_name = 'launchpad/firmware_create.html'    
+    def form_valid(self, form):
+        form.save()            
+        
         return redirect('firmwares-list')
-    
+
+         
         
 ### Flight Plan Views
     

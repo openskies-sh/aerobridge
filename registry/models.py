@@ -245,7 +245,7 @@ class Engine(models.Model):
     power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Specify the engine power")
     count = models.IntegerField(default =1 )
     engine_type = models.CharField(max_length=15, help_text="Specify the type of engine")
-    propellor = models.CharField(max_length=140, help_text="Specify number of propellors")
+    propellor = models.IntegerField(help_text="Specify number of propellors")
     
     def __unicode__(self):
        return self.engine_type 

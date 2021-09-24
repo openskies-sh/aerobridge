@@ -52,7 +52,7 @@ urlpatterns = [
     path('engines/new', launchpad_views.EngineCreateView.as_view(), name='engines-create'),
 
     path('firmwares', launchpad_views.FirmwaresList.as_view(), name='firmwares-list'),
-    path('firmwares/<uuid:manufacturer_id>', launchpad_views.FirmwaresDetail.as_view(), name='firmwares-detail'),
+    path('firmwares/<uuid:firmware_id>', launchpad_views.FirmwaresDetail.as_view(), name='firmwares-detail'),
     path('firmwares/new', launchpad_views.FirmwareCreateView.as_view(), name='firmwares-create'),
  
     path('flightplans', launchpad_views.FlightPlansList.as_view(), name='flightplans-list'),

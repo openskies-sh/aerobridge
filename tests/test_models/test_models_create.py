@@ -191,7 +191,7 @@ class TestModelsCreate(TestModels):
     def test_registry_engine_create(self):
         engine = Engine(power=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
                         count=self.faker.pyint(min_value=0, max_value=50), engine_type=self.faker.word(),
-                        propellor=self.faker.sentence())
+                        propellor=self.faker.pyint(min_value=0, max_value=4))
         self.assertNotIn(engine, Engine.objects.all())
         engine.save()
         self.assertIn(engine, Engine.objects.all())
