@@ -294,7 +294,7 @@ class CloudFileUpload(APIView):
     parser_classes = (MultiPartParser,)
     def put(self, request,document_type, format=None):
         
-        if (document_type in ['documents']):
+        if document_type in ['photos','documents']:
 
             BUCKET_NAME = env.get("S3_BUCKET_NAME",0)
             endpoint_url = env.get('S3_ENDPOINT_URL',0)

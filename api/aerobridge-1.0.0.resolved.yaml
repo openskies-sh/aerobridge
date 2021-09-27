@@ -609,6 +609,34 @@ paths:
       tags:
       - Files
 
+  /gcs/files/photos/upload:
+    put:
+      summary: "Upload a single photo"
+      security:
+        - AuthFromPassport: [aerobridge.write]    
+      operationId: createCloudFileDocument
+      description: 'Upload a photo to Aerobridge, use this endpoint to upload jpgs etc.'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # 'file' will be the field name in this multipart request
+                file:
+                  type: string
+                  format: binary
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudFile'
+          description: ''
+      tags:
+      - Files
+
 
   /digitalsky/all_permissions:
     get:
@@ -1884,28 +1912,34 @@ components:
           type: string
           format: uuid
           example: 34496e37-bbba-4ebf-8a26-66780e6f78e6
+          description: ID of a operator flying the mission
         mass:
           type: integer
           example: 400
+          description: Mass of the aircraft in grams
         manufacturer:
           type: string
           format: uuid
           example: 2752bb92-a184-4c89-8eb2-cd07f310fead
+          description:  ID of the manufacturer manufacturing the drone
         model:
           type: string
           maxLength: 280
-          example: eBee
+          example: eBee X201
+          description: A detailed model of the drone, for more information see http://www.intlaviationstandards.org/Documents/AircraftMakeModelSeriesBusinessRules1.pdf
         status:
           enum:
           - 0
           - 1
           type: integer
           example: 1
+          description: Specify if the drone is marked as active in the management server
         registration_mark:
           type: string
           nullable: true
           maxLength: 10
           example: IND-223202
+          description: Registration details of the drone as provided by DigitalSky 
         category:
           enum:
           - 0
@@ -1919,6 +1953,17 @@ components:
           - 8
           type: integer
           example: 0
+          description: |-
+            Category of a aircraft: 
+                - 0 Other
+                - 1 FIXED WING
+                - 2 ROTORCRAFT
+                - 3 LIGHTER-THAN-AIR
+                - 4 HYBRID LIFT
+                - 5 MICRO
+                - 6 SMALL
+                - 7 MEIDUM
+                - 8 Large
         created_at:
           type: string
           format: date-time
@@ -1928,6 +1973,7 @@ components:
           nullable: true
           maxLength: 280
           example: eBee X2
+          description: A colloquial name for the aircraft, if avaiable
         sub_category:
           enum:
           - 0
@@ -1941,6 +1987,20 @@ components:
           - 8
           - 9
           type: integer
+          example: 0
+          description: |-
+            Category of a aircraft: 
+                - 0 Other
+                - 1 AIRPLANE
+                - 2 NONPOWERED GLIDER
+                - 3 POWERED GLIDER
+                - 4 HELICOPTER
+                - 5 GYROPLANE
+                - 6 BALLOON 
+                - 7 AIRSHIP
+                - 8 UAV
+                - 9 Multirotor
+                - 10 Hybrid
         flight_controller_number:
           type: string
           description: This is the Drone ID from the RFM
@@ -1957,6 +2017,7 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          description: Enter a URL for  a photo of the aircraft
         photo_small:
           type: string
           format: uri
@@ -1968,13 +2029,15 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
+          description: Enter a URL for a small photo of the aircraft
         max_certified_takeoff_weight:
           type: string
           format: decimal
           multipleOf: 0.001
           maximum: 10000000
-          minimum: -10000000
+          minimum: 0
           example: 250.00
+          description: Maximum take off weight in grams
         updated_at:
           type: string
           format: date-time
@@ -1991,22 +2054,24 @@ components:
         mass:
           type: integer
           example: 400
-        is_airworthy:
-          type: boolean
+          description: Mass of the aircraft in grams
         make:
           type: string
           nullable: true
           maxLength: 280
+          description: Make of the drone, if applicable, see for more information, https://www.intlaviationstandards.org/Documents/AircraftMakeModelSeriesBusinessRules1.pdf
         master_series:
           type: string
           nullable: true
           maxLength: 280
           example: X2
+          description: Drone master-series 
         series:
           type: string
           nullable: true
           maxLength: 280
           example: X2B
+          description: Drone production series, if applicable 
         popular_name:
           type: string
           nullable: true
@@ -2025,11 +2090,23 @@ components:
           - 8
           type: integer
           example: 0
+          description: |-
+            Category of a aircraft: 
+                - 0 Other
+                - 1 FIXED WING
+                - 2 ROTORCRAFT
+                - 3 LIGHTER-THAN-AIR
+                - 4 HYBRID LIFT
+                - 5 MICRO
+                - 6 SMALL
+                - 7 MEIDUM
+                - 8 Large
         registration_mark:
           type: string
           nullable: true
           maxLength: 10
           example: IND-223202
+          description: Registration details of the drone as provided by DigitalSky 
         sub_category:
           enum:
           - 0
@@ -2044,16 +2121,30 @@ components:
           - 9
           type: integer
           example: 0
+          description: |-
+            Category of a aircraft: 
+                - 0 Other
+                - 1 AIRPLANE
+                - 2 NONPOWERED GLIDER
+                - 3 POWERED GLIDER
+                - 4 HELICOPTER
+                - 5 GYROPLANE
+                - 6 BALLOON 
+                - 7 AIRSHIP
+                - 8 UAV
+                - 9 Multirotor
+                - 10 Hybrid
         icao_aircraft_type_designator:
           type: string
           maxLength: 4
           example: DRNB
+          description: 
         max_certified_takeoff_weight:
           type: string
           format: decimal
           multipleOf: 0.001
           maximum: 10000000
-          minimum: -10000000
+          minimum: 0
           example: 35.2
         max_height_attainable:
           type: string
@@ -2062,6 +2153,7 @@ components:
           maximum: 400
           minimum: 0
           example: 350.0
+          description: 
         compatible_payload:
           type: string
           nullable: true
@@ -2119,6 +2211,8 @@ components:
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
           example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
+          description: URL of the 
+
         photo_small:
           type: string
           format: uri
