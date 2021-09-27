@@ -13,6 +13,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientSecret",
 							"value": "{{client_secret}}",
 							"type": "string"
@@ -21,13 +33,6 @@
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
-						},
-						{
-							"key": "audience",
-							"value": {
-								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
-							},
-							"type": "any"
 						},
 						{
 							"key": "tokenType",
@@ -42,11 +47,6 @@
 						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -116,6 +116,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientSecret",
 							"value": "{{client_secret}}",
 							"type": "string"
@@ -124,13 +136,6 @@
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
-						},
-						{
-							"key": "audience",
-							"value": {
-								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
-							},
-							"type": "any"
 						},
 						{
 							"key": "tokenType",
@@ -145,11 +150,6 @@
 						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -209,6 +209,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -219,20 +231,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -292,6 +292,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -302,20 +314,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -375,6 +375,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -385,20 +397,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -458,6 +458,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -468,20 +480,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -542,6 +542,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -552,20 +564,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -626,6 +626,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -636,20 +648,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -709,6 +709,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -719,20 +731,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -792,6 +792,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -802,20 +814,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -876,6 +876,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -886,20 +898,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -959,6 +959,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -969,20 +981,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -1043,6 +1043,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -1053,20 +1065,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -1126,6 +1126,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -1136,20 +1148,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
@@ -1210,6 +1210,18 @@
 					"type": "oauth2",
 					"oauth2": [
 						{
+							"key": "audience",
+							"value": {
+								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+							},
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"value": "{{aerobridge_scopes}}",
+							"type": "string"
+						},
+						{
 							"key": "clientId",
 							"value": "{{client_id}}",
 							"type": "string"
@@ -1220,20 +1232,8 @@
 							"type": "string"
 						},
 						{
-							"key": "audience",
-							"value": {
-								"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
-							},
-							"type": "any"
-						},
-						{
 							"key": "tokenName",
 							"value": "Aerobridge Token",
-							"type": "string"
-						},
-						{
-							"key": "scope",
-							"value": "aerobridge.read aerobridge.write",
 							"type": "string"
 						},
 						{
