@@ -84,6 +84,17 @@ class TransactionSerializer(serializers.ModelSerializer):
         
 class FlightLogSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Logs '''
+    def validate(self, data):
+        """
+        Check flight log already exists for the operation  """
+
+        operation_id = data.get("operation")
+
+        if FlightLog.objects.filter(operation = operation_id).exists():
+            raise serializers.ValidationError("A raw flight log has already been submitted for this operation.")        
+
+
+        
     class Meta:
         model = FlightLog	
         exclude = ('is_submitted','is_editable',)
