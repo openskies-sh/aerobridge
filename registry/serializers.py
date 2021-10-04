@@ -230,7 +230,7 @@ class AircraftSerializer(serializers.ModelSerializer):
         model = Aircraft
         fields = ('id', 'operator', 'mass', 'manufacturer', 'model', 'manufacturer', 'status', 'registration_mark',
                   'category', 'created_at', 'popular_name', 'manufacturer', 'registration_mark', 'sub_category',
-                  "flight_controller_number", "photo", "photo_small", 'max_certified_takeoff_weight', 'updated_at',
+                  "flight_controller_id", "photo", "photo_small", 'max_certified_takeoff_weight', 'updated_at',
                   'photo_small', 'photo')
 
 
@@ -261,7 +261,7 @@ class AircraftSigningSerializer(serializers.ModelSerializer):
 
     def get_deviceModelId(self, response):
         a = Aircraft.objects.get(id=response.id)
-        return a.maci_number
+        return a.model
 
     def get_operatorBusinessIdentifier(self, response):
         a = Aircraft.objects.get(id=response.id)

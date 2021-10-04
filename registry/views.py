@@ -85,6 +85,33 @@ class AircraftDetail(mixins.RetrieveModelMixin,
 
 
 
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+class AircraftRFMDetail(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Aircraft instance.
+    """
+    # authentication_classes = (SessionAuthentication,TokenAuthentication)
+    # permission_classes = (IsAuthenticated,)
+
+    queryset = Aircraft.objects.all()
+    serializer_class = AircraftDetailSerializer
+    
+    def get_Aircraft(self, flight_controller_id):
+        try:
+            a = Aircraft.objects.get(flight_controller_id=flight_controller_id)
+        except Aircraft.DoesNotExist:
+            raise Http404
+        else:
+            return a
+
+    def get(self, request, flight_controller_id, format=None):
+        aircraft = self.get_Aircraft(flight_controller_id = flight_controller_id)
+        serializer = AircraftDetailSerializer(aircraft)
+        return Response(serializer.data)
+
+
+
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class ManufacturerList(mixins.ListModelMixin,
                   generics.GenericAPIView):

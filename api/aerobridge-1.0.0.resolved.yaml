@@ -777,13 +777,36 @@ paths:
     get:
       security:
         - AuthFromPassport: [aerobridge.read]    
-      operationId: Get single Aircraft
+      operationId: Get Single Aircraft
       description: Retrieve details of a Aircraft instance.
       parameters:
       - name: id
         in: path
         required: true
         description: A UUID string identifying this aircraft.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftDetail'
+          description: ''
+      tags:
+        - Aircrafts
+
+  /registry/aircraft/rfm/{flight_controller_id}:
+    get:
+      security:
+        - AuthFromPassport: [aerobridge.read]    
+      operationId: Get Single Aircraft (RFM ID)
+      description: Retrieve details of a Aircraft instance using the RFM ID.
+      parameters:
+      - name: flight_controller_id
+        in: path
+        required: true
+        description: A flight controller id that is linked to this aircraft.
         schema:
           type: string
       responses:
@@ -1285,8 +1308,6 @@ components:
               readOnly: true
             mass:
               type: integer
-            is_airworthy:
-              type: boolean
             make:
               type: string
               nullable: true
@@ -1340,17 +1361,13 @@ components:
               format: decimal
               multipleOf: 0.001
               maximum: 10000000
-              minimum: -10000000
+              minimum: 0
             max_height_attainable:
               type: string
               format: decimal
               multipleOf: 0.001
               maximum: 10000000
-              minimum: -10000000
-            compatible_payload:
-              type: string
-              nullable: true
-              maxLength: 20
+              minimum: 0
             commission_date:
               type: string
               format: date-time
@@ -1358,20 +1375,14 @@ components:
             model:
               type: string
               maxLength: 280
-            esn:
-              type: string
-              maxLength: 48
-            maci_number:
-              type: string
-              maxLength: 280
-            flight_controller_number:
+            flight_controller_id:
               type: string
             operating_frequency:
               type: string
               format: decimal
               multipleOf: 0.01
               maximum: 100000000
-              minimum: -100000000
+              minimum: 0
             status:
               enum:
               - 0
@@ -1482,7 +1493,6 @@ components:
           required:
           - mass
           - model
-          - maci_number
           - operator
           - manufacturer
           readOnly: true
@@ -1599,8 +1609,6 @@ components:
                   readOnly: true
                 mass:
                   type: integer
-                is_airworthy:
-                  type: boolean
                 make:
                   type: string
                   nullable: true
@@ -1661,24 +1669,14 @@ components:
                   multipleOf: 0.001
                   maximum: 10000000
                   minimum: -10000000
-                compatible_payload:
-                  type: string
-                  nullable: true
-                  maxLength: 20
                 commission_date:
                   type: string
                   format: date-time
                   nullable: true
                 model:
                   type: string
-                  maxLength: 280
-                esn:
-                  type: string
-                  maxLength: 48
-                maci_number:
-                  type: string
-                  maxLength: 280
-                flight_controller_number:
+                  maxLength: 280                  
+                flight_controller_id:
                   type: string
                 operating_frequency:
                   type: string
@@ -1796,7 +1794,6 @@ components:
               required:
               - mass
               - model
-              - maci_number
               - operator
               - manufacturer
               readOnly: true
@@ -2001,7 +1998,7 @@ components:
                 - 8 UAV
                 - 9 Multirotor
                 - 10 Hybrid
-        flight_controller_number:
+        flight_controller_id:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
@@ -2138,7 +2135,7 @@ components:
           type: string
           maxLength: 4
           example: DRNB
-          description: 
+          description: "Set the ICAO aicraft type designator if availble: https://www.icao.int/publications/doc8643/pages/search.aspx"
         max_certified_takeoff_weight:
           type: string
           format: decimal
@@ -2153,12 +2150,7 @@ components:
           maximum: 400
           minimum: 0
           example: 350.0
-          description: 
-        compatible_payload:
-          type: string
-          nullable: true
-          maxLength: 20
-          example: Camera
+          description: "Maximum height attainable in meteres"
         commission_date:
           type: string
           format: date-time
@@ -2168,20 +2160,12 @@ components:
           type: string
           maxLength: 280
           example: X3
-        esn:
-          type: string
-          maxLength: 48
-          example: 000000000000000000000000000000000000000000000000
         digital_sky_uin_number:
           type: string
           description: Get a UIN number for this aircraft using the Digital Sky Portal
           maxLength: 140
           example: a83534aa-c1a0-4d28-aa49-67a588b13747
-        maci_number:
-          type: string
-          maxLength: 200
-          example: 
-        flight_controller_number:
+        flight_controller_id:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
@@ -2350,7 +2334,6 @@ components:
       - mass
       - model
       - digital_sky_uin_number
-      - maci_number
       - operator
       - manufacturer
 

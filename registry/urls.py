@@ -22,6 +22,7 @@ urlpatterns = [
 
     path('aircraft/', registryviews.AircraftList.as_view()),        
     path('aircraft/<uuid:pk>', registryviews.AircraftDetail.as_view()),
+    path('aircraft/rfm/<str:flight_controller_id>', registryviews.AircraftRFMDetail.as_view()),
     path('operators/', registryviews.OperatorList.as_view()),
     path('operators/<uuid:pk>', registryviews.OperatorDetail.as_view()),  
     path('manufacturers/', registryviews.ManufacturerList.as_view()),

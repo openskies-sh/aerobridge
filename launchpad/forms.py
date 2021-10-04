@@ -37,7 +37,7 @@ class OperatorCreateForm(forms.ModelForm):
 class AircraftCreateForm(forms.ModelForm):
     class Meta:
         model = Aircraft
-        exclude = ('is_registered','type_certificate','esn',)
+        exclude = ('is_registered','type_certificate',)
 
 class ManufacturerCreateForm(forms.ModelForm):
     class Meta:
