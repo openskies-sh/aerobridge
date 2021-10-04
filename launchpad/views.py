@@ -17,7 +17,7 @@ from pki_framework.serializers import AerobridgeCredentialSerializer, Aerobridge
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, CutsomTokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, DigitalSkyTransactionCreateForm, CutsomTokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -87,12 +87,13 @@ class PersonCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = PersonCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            person = form.save()
-            person.save()
-            
-        return redirect('people-list')
-    
+            form.save()
+            return redirect('people-list')
+
+        return render(request, 'launchpad/person_create.html', context)
+  
     
 ### Address Views
     
@@ -129,12 +130,13 @@ class AddressCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = AddressCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            address = form.save()
-            address.save()
-            
-        return redirect('addresses-list')
+            form.save()
+            return redirect('addresses-list')
 
+        return render(request, 'launchpad/address_create.html', context)
+  
 
 ### Address Views
     
@@ -180,11 +182,15 @@ class OperatorCreateView(CreateView):
     form_class = OperatorCreateForm
     model= Operator
     
-    def form_valid(self, form):
-        form.save()        
-    
-        return redirect('operators-list')
-    
+    def post(self, request, *args, **kwargs):
+        form = OperatorCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('operators-list')
+
+        return render(request, 'launchpad/operator_create.html', context)
+  
 
 ### Contact Views
     
@@ -225,13 +231,13 @@ class ContactsCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = ContactCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            contact = form.save()
-            contact.save()
-            
-        return redirect('contacts-list')
-    
+            form.save()
+            return redirect('contacts-list')
 
+        return render(request, 'launchpad/contact_create.html', context)
+  
 ### Flight Pilot Views
     
 class PilotsList(APIView):
@@ -269,12 +275,13 @@ class PilotsCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = PilotCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            pilot = form.save()
-            pilot.save()
-            
-        return redirect('pilots-list')
-    
+            form.save()
+            return redirect('pilots-list')
+
+        return render(request, 'launchpad/pilot_create.html', context)
+  
 
 ### Authorizationa Views
     
@@ -320,11 +327,13 @@ class AuthorizationsCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = AuthorizationCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            authorization = form.save()
-            authorization.save()
-            
-        return redirect('authorizations-list')
+            form.save()
+            return redirect('authorizations-list')
+
+        return render(request, 'launchpad/authorization_create.html', context)
+  
     
 
 
@@ -372,12 +381,13 @@ class ActivitiesCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = ActivityCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            activity = form.save()
-            activity.save()
-            
-        return redirect('activities-list')
-    
+            form.save()
+            return redirect('activities-list')
+
+        return render(request, 'launchpad/activity_create.html', context)
+  
 
 ### Aircraft Views
     
@@ -417,20 +427,20 @@ class AircraftUpdate(APIView):
         serializer.save()
         return redirect('aircrafts-list')
 
-
 class AircraftCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': AircraftCreateForm()}
         return render(request, 'launchpad/aircraft_create.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = OperatorCreateForm(request.POST)
+        form = AircraftCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            aircraft = form.save()
-            aircraft.save()
-            
-        return redirect('aircrafts-list')
-    
+            form.save()
+            return redirect('aircrafts-list')
+
+        return render(request, 'launchpad/aircraft_create.html', context)
+  
     
 
 ### Manufacturer Views
@@ -477,12 +487,13 @@ class ManufacturerCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = ManufacturerCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            manufacturer = form.save()
-            manufacturer.save()
+            form.save()
             
-        return redirect('manufacturers-list')
+            return redirect('manufacturers-list')
     
+        return render(request, 'launchpad/person_create.html', context)
     
 ### Manufacturer Views
     
@@ -513,15 +524,18 @@ class FirmwaresDetail(APIView):
 
 class FirmwareCreateView(CreateView):
 
-    model = Firmware
-    form_class = FirmwareCreateForm        
-    template_name = 'launchpad/firmware_create.html'    
-    def form_valid(self, form):
-        form.save()            
-        
-        return redirect('firmwares-list')
+    def get(self, request, *args, **kwargs):
+        context = {'form': FirmwareCreateForm()}
+        return render(request, 'launchpad/firmware_create.html', context)
 
-         
+    def post(self, request, *args, **kwargs):
+        form = FirmwareCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('firmwares-list')
+
+        return render(request, 'launchpad/firmware_create.html', context)
         
 ### Flight Plan Views
     
@@ -565,10 +579,16 @@ class FlightPlanCreateView(CreateView):
     model = FlightPlan
     form_class = FlightPlanCreateForm        
     template_name = 'launchpad/flightplan_create.html'    
-    def form_valid(self, form):
-        form.save()            
-        return redirect('flightplans-list')
+    
+    def post(self, request, *args, **kwargs):
+        form = FlightPlanCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('flightplans-list')
 
+        return render(request, 'launchpad/flightplan_create.html', context)
+  
      
 ## Flight Operation Views
     
@@ -611,16 +631,16 @@ class FlightOperationCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': FlightOperationCreateForm()}
         return render(request, 'launchpad/flightoperation_create.html', context)
-
+    
     def post(self, request, *args, **kwargs):
         form = FlightOperationCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            flightoperation = form.save()
-            flightoperation.save()
-            
-        return redirect('flightoperations-list')
-    
-    
+            form.save()
+            return redirect('flightoperations-list')
+
+        return render(request, 'launchpad/flightoperation_create.html', context)
+  
         
 ### Flight Permission Views
     
@@ -648,12 +668,13 @@ class FlightPermissionCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = FlightPermissionCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            flightpermission = form.save()
-            flightpermission.save()
-            
-        return redirect('flightpermissions-list')
-    
+            form.save()
+            return redirect('flightpermissions-list')
+
+        return render(request, 'launchpad/flightpermission_create.html', context)
+  
     
     
 ### Flight Permission Artefact Details Views
@@ -765,11 +786,13 @@ class FlightLogCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = FlightLogCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            flightlog = form.save()
-            flightlog.save()
-            
-        return redirect('flightlogs-list')
+            form.save()
+            return redirect('flightlogs-list')
+
+        return render(request, 'launchpad/flightlog_create.html', context)
+  
     
     
 class FlightLogsDigitalSkyList(APIView):
@@ -855,12 +878,13 @@ class DigitalSkyLogCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = DigitalSkyLogCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            digitskylog = form.save()
-            digitskylog.save()
-            
-        return redirect('digitalskylogs-list')
-    
+            form.save()
+            return redirect('digitalskylogs-list')
+
+        return render(request, 'launchpad/digitalskylog_create.html', context)
+  
  # Digital Sky Transactionss   
     
 class DigitalSkyTransactionsList(APIView):
@@ -888,14 +912,14 @@ class DigitalSkyTransactionCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = DigitalSkyTransactionCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            digitalskytransaction = form.save()
-            digitalskytransaction.save()
-            
-        return redirect('digitalskytransactions-list')
+            form.save()
+            return redirect('digitalskytransactions-list')
+
+        return render(request, 'launchpad/digitalskytransaction_create.html', context)
+  
     
-
-
     
 ### Manufacturer Views
     
@@ -931,12 +955,13 @@ class EngineCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = EngineCreateForm(request.POST)
+        context = {'form': form}
         if form.is_valid():
-            engine = form.save()
-            engine.save()
-            
-        return redirect('engines-list')
-    
+            form.save()
+            return redirect('engines-list')
+
+        return render(request, 'launchpad/engine_create.html', context)
+  
     
 class CredentialsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]

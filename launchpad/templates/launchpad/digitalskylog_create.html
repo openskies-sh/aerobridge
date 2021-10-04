@@ -7,6 +7,20 @@
     <p>Create a new flight permission object that will be sent to Digital Sky, a permission artefact will be issued against this operation.</p>
     <form action="" method="post">
         {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
         {{ form.as_p }}
         <input class="btn btn-primary"  type="submit" value="Save" />
     </form>

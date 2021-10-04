@@ -10,6 +10,20 @@
     <p>Create a new flight operation, link to a flight plan and get permission artefacts against those operations</p>
     <form action="" method="post">
         {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
         {{ form|crispy }}
         <br> <br>
         <input class="btn btn-primary"  type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>

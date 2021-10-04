@@ -8,6 +8,20 @@
     <p>A Contact is the legal point of contact with a operators, normally it is the operator's company director or other legal persons. Use the form below to update / assign contacts for your operators.</p>
     <form action="" method="post">
         {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
         {{ form|crispy }}
         <br> <br>
         <input class="btn btn-primary"  type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'contacts-list' %}" role="button">Cancel</a>
