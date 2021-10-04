@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+import re
 from digitalsky_provider.models import Transaction
 from registry.models import Authorization, Operator, Contact, Aircraft, Pilot, Address, Person, Test, \
     TypeCertificate, Manufacturer, TestValidity
@@ -273,6 +273,8 @@ class AircraftSigningSerializer(serializers.ModelSerializer):
 
 
 class AircraftDetailSerializer(serializers.ModelSerializer):
+
+
     class Meta:
         model = Aircraft
         exclude = ('is_registered',)

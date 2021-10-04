@@ -13,13 +13,15 @@ from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
-
+def validate_flight_controller_id(value):
+        if not value.isalnum():
+            raise ValidationError(u'%s flight controller id cannot contain special characters or spaces' % value)
 def validate_url(value):
     if not value:
         return  # Required error is done the field
     parsed_url = urlparse(value)
     if not bool(parsed_url.scheme):
-        raise ValidationError('Only urls from YouTube or SoundCloud allowed')
+        raise ValidationError('Only valid urls are allowed')
 
 def two_year_expiration():
     return datetime.combine( date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
@@ -282,8 +284,8 @@ class Aircraft(models.Model):
    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")
-    mass = models.IntegerField(default= 300, help_text="Set a mass in gms.")
-    make = models.CharField(max_length = 280, blank= True, null=True)    
+    mass = models.IntegerField(default= 300, help_text="Set the vehicle's mass in gms.")
+    make = models.CharField(max_length = 280, blank= True, null=True, help_text="")    
     master_series = models.CharField(max_length = 280, blank= True, null=True)    
     series = models.CharField(max_length = 280, blank= True, null=True)
     popular_name = models.CharField(max_length = 280, blank= True, null=True)    
@@ -291,16 +293,16 @@ class Aircraft(models.Model):
     category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default = 0, help_text="Set the category for this aircraft")
     registration_mark = models.CharField(max_length= 10, blank= True, null=True, help_text="Set the registration mark for this aircraft")
     sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default = 7)
-    icao_aircraft_type_designator = models.CharField(max_length =4, default = '0000', help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
+    icao_aircraft_type_designator = models.CharField( blank= True, null=True,max_length =4, default = '0000', help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
     max_certified_takeoff_weight = models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00, help_text="Set the takeoff weight for the aircraft in gms.")
     max_height_attainable =  models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00,  help_text="Set the max attainable height in meters")
     commission_date = models.DateTimeField(blank= True, null= True)
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True, help_text="Set the type certificate if available for the drone")
     model = models.CharField(max_length = 280, help_text="Set the model of the aircraft")
-    digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal")
+    digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal",blank= True, null= True)
     
-    flight_controller_id = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0)    
-    operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00)
+    flight_controller_id = models.CharField(help_text= "This is the Drone ID from the RFM",max_length=140,default=0, validators=[validate_flight_controller_id])    
+    operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00,blank= True, null= True)
     status = models.IntegerField(choices=STATUS_CHOICES, default = 1)
     photo = models.URLField(blank=True, null=True, help_text="A link to a photo of the URL")
     photo_small = models.URLField(blank=True, null=True, help_text="A link to a photo of the URL")
@@ -317,7 +319,7 @@ class Aircraft(models.Model):
     dimension_height = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the height of the drone in cms")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    manufactured_at = models.DateTimeField(null=True, help_text="Set the date when the drone was manufactureed")    
+    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was manufactured",blank= True, null= True)    
     dot_permission_document = models.URLField(help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
     operataions_manual_document = models.URLField(help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
 
