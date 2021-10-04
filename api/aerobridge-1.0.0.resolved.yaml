@@ -2002,7 +2002,7 @@ components:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
-          example: 0054883A 584678896 25544488798
+          example: 0054883A58467889625544488798
         photo:
           type: string
           format: uri
@@ -2169,7 +2169,7 @@ components:
           type: string
           description: This is the Drone ID from the RFM
           maxLength: 140
-          example: 0054883A 584678896 25544488798
+          example: 0054883A58467889625544488798
 
         operating_frequency:
           type: string
