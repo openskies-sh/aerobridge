@@ -38,7 +38,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField()    
     phone_number = models.CharField(validators=[phone_regex], max_length=17)
-    identification_document = models.URLField(max_length= 20, blank=True, null=True,validators=[validate_url,], default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
+    identification_document = models.URLField(blank=True, null=True,validators=[validate_url,], default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
     social_security_number = models.CharField(max_length=25, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
