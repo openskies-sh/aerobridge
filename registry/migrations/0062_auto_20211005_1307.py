@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='identification_document',
-            field=models.URLField(blank=True, default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf', max_length=20, null=True, validators=[registry.models.validate_url]),
+            field=models.URLField(blank=True, default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf', max_length=280, null=True, validators=[registry.models.validate_url]),
         ),
         migrations.AlterField(
             model_name='aircraft',
