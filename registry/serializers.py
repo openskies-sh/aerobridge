@@ -225,14 +225,18 @@ class PilotDetailSerializer(serializers.ModelSerializer):
                   'identification_photo', 'identification_photo_small', 'tests')
 
 
+class AircraftFullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aircraft
+        fields = '__all__'
+
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
         fields = ('id', 'operator', 'mass', 'manufacturer', 'model', 'manufacturer', 'status', 'registration_mark',
                   'category', 'created_at', 'popular_name', 'manufacturer', 'registration_mark', 'sub_category',
                   "flight_controller_id", "photo", "photo_small", 'max_certified_takeoff_weight', 'updated_at',
-                  'photo_small', 'photo')
-
+                  'photo_small', 'photo','dot_permission_document','operataions_manual_document')
 
 class AircraftSigningSerializer(serializers.ModelSerializer):
     droneTypeId = serializers.SerializerMethodField()

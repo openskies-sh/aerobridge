@@ -3,6 +3,7 @@ from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
+from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -405,7 +406,7 @@ class AircraftDetail(APIView):
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftSerializer(aircraft)
+        serializer = AircraftFullSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
 
 
@@ -416,12 +417,12 @@ class AircraftUpdate(APIView):
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftSerializer(aircraft)
+        serializer = AircraftFullSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
 
     def post(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftSerializer(aircraft, data=request.data)
+        serializer = AircraftFullSerializer(aircraft, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'aircraft': aircraft})
         serializer.save()

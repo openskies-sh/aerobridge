@@ -71,7 +71,7 @@ class TestModelsCreate(TestModels):
     def test_registry_person_create(self):
         person = Person(first_name=self.faker.first_name(), last_name=self.faker.last_name(), email=self.faker.email(),
                         phone_number=self.faker.numerify('+' + '#' * 9),
-                        identification_number=self.faker.numerify('#' * 15),
+                        identification_document=self.faker.url(),
                         social_security_number=self.faker.ssn(), date_of_birth=self.faker.date_of_birth())
         self.assertNotIn(person, Person.objects.all())
         person.save()

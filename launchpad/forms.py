@@ -37,7 +37,7 @@ class OperatorCreateForm(forms.ModelForm):
 class AircraftCreateForm(forms.ModelForm):
     class Meta:
         model = Aircraft
-        exclude = ('is_registered','type_certificate','make','model', 'series', 'master_series', 'registration_mark', 'icao_aircraft_type_designator', 'commission_date','operating_frequency','engine','manufactured_at','photo', 'photo_small', 'digital_sky_uin_number','identification_photo', 'identification_photo_small','popular_name',)
+        exclude = ('is_registered','type_certificate','make','series', 'master_series', 'registration_mark', 'icao_aircraft_type_designator', 'commission_date','operating_frequency','engine','manufactured_at', 'digital_sky_uin_number','identification_photo', 'identification_photo_small','popular_name','dot_permission_document','operataions_manual_document',)
 
 class ManufacturerCreateForm(forms.ModelForm):
     class Meta:
