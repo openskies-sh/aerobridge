@@ -1104,7 +1104,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/xZEM5RGvC8thujXX",
+					"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/FfS8dHf8ARwr9jyu",
 					"protocol": "https",
 					"host": [
 						"aerobridgetestflight",
@@ -1115,7 +1115,7 @@
 						"registry",
 						"aircraft",
 						"rfm",
-						"xZEM5RGvC8thujXX"
+						"FfS8dHf8ARwr9jyu"
 					]
 				}
 			},
