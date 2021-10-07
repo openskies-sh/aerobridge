@@ -36,11 +36,11 @@ class Person(models.Model):
     first_name = models.CharField(max_length=30, help_text="The first name of the person added to the database")
     middle_name = models.CharField(max_length=30, null = True, blank = True)
     last_name = models.CharField(max_length=30)
-    email = models.EmailField()    
-    phone_number = models.CharField(validators=[phone_regex], max_length=17)
+    email = models.EmailField(help_text="Associate a email address with the person, this field is required")    
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, help_text="Associate a phone number with this person")
     identification_document = models.URLField(blank=True, null=True,validators=[validate_url,], default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
-    social_security_number = models.CharField(max_length=25, blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
+    social_security_number = models.CharField(max_length=25, blank=True, null=True, help_text="If social security / identification number is avaialble associate it with a person")
+    date_of_birth = models.DateField(blank=True, null=True, help_text="Assign a date of birth with this person")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -59,9 +59,9 @@ class Address(models.Model):
     address_line_2 = models.CharField(max_length=140,blank=True, null=True)
     address_line_3 = models.CharField(max_length=140,blank=True, null=True)
     postcode = models.CharField(_("post code"), max_length=10)
-    city = models.CharField(max_length=140)
-    state = models.CharField(max_length=2, blank=True, null=True , choices=STATE_CHOICES)
-    country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'NA')
+    city = models.CharField(max_length=140, help_text="Set a city for this address")
+    state = models.CharField(max_length=2, blank=True, null=True , choices=STATE_CHOICES, help_text="Pick a state, at the moment only Indian States are configured.")
+    country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'IN')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -76,8 +76,8 @@ class Address(models.Model):
 class Activity(models.Model):
     ACTIVITYTYPE_CHOICES = ((0, _('NA')),(1, _('Open')),(2, _('Specific')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=140)
-    activity_type = models.IntegerField(choices=ACTIVITYTYPE_CHOICES, default = 0)
+    name = models.CharField(max_length=140, help_text="Set a name for this activity")
+    activity_type = models.IntegerField(choices=ACTIVITYTYPE_CHOICES, default = 0, help_text="Set the activity type and the airspace")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -96,14 +96,14 @@ class Authorization(models.Model):
     ALTITUDE_SYSTEM = ((0, _('wgs84')),(1, _('amsl')),(2, _('agl')),(3, _('sps')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=140)
-    operation_max_height = models.IntegerField(default = 0)
-    operation_altitude_system = models.IntegerField(default =0, choices = ALTITUDE_SYSTEM)
-    airspace_type = models.IntegerField(choices = AIRSPACE_CHOICES, default =0)
-    permit_to_fly_above_crowd = models.BooleanField(default = 0)
-    operation_area_type = models.IntegerField(choices=AREATYPE_CHOICES, default = 0)
-    risk_type = models.IntegerField(choices= RISKCLASS_CHOICES, default =0)
-    authorization_type = models.IntegerField(choices= AUTHTYPE_CHOICES, default =0)
-    end_date = models.DateTimeField(default = two_year_expiration)
+    operation_max_height = models.IntegerField(default = 0, help_text="Set the maximum authorized height for this authorization")
+    operation_altitude_system = models.IntegerField(default =0, choices = ALTITUDE_SYSTEM, help_text="Set the altitude system")
+    airspace_type = models.IntegerField(choices = AIRSPACE_CHOICES, default =0, help_text="Set the airspace type, if available")
+    permit_to_fly_above_crowd = models.BooleanField(default = 0, help_text="Select if the company is permitted to fly above crowd")
+    operation_area_type = models.IntegerField(choices=AREATYPE_CHOICES, default = 0,  help_text="Can the operator fly over crowds? ")
+    risk_type = models.IntegerField(choices= RISKCLASS_CHOICES, default =0, help_text="If available, set the airspace risk type")
+    authorization_type = models.IntegerField(choices= AUTHTYPE_CHOICES, default =0, help_text="Set the type of the authorization")
+    end_date = models.DateTimeField(default = two_year_expiration, help_text="By default every authorization exipres in two years, you can set a different end date")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -165,7 +165,7 @@ class Test(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     test_type = models.IntegerField(choices = TESTTYPE_CHOICES, default =0, help_text="Specify the type of test")
     taken_at = models.IntegerField(choices = TAKEN_AT_CHOICES, default =0, help_text="Specify where this test was taken")
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, help_text="Set a name for this test that can be understood")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -186,7 +186,7 @@ class Pilot(models.Model):
     tests = models.ManyToManyField(Test, through ='TestValidity', help_text="Specify the tests if any the pilot has taken")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default =0, help_text="Is this pilot active? If he is not working for the company or has moved on")
+    is_active = models.BooleanField(default =0, help_text="Is this pilot active? If he is not working for the company or has moved on, set it as inactive")
 
     def __unicode__(self):
        return self.person.first_name + ' ' + self.person.last_name + ' : '+ self.operator.company_name
@@ -278,8 +278,7 @@ class Firmware(models.Model):
 class Aircraft(models.Model):
     AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),(5, _('MICRO')),(6, _('SMALL')),(7, _('MEIDUM')),(8, _('Large')),)
     AIRCRAFT_SUB_CATEGORY = ((0, _('Other')),(1, _('AIRPLANE')),(2, _('NONPOWERED GLIDER')),(3, _('POWERED GLIDER')),(4, _('HELICOPTER')),(5, _('GYROPLANE')),(6, _('BALLOON')),(7, _('AIRSHIP')),(8, _('UAV')),(9, _('Multirotor')),(10, _('Hybrid')),)
-    STATUS_CHOICES = ((0, _('Inactive')),(1, _('Active')),)
-  
+    STATUS_CHOICES = ((0, _('Inactive')),(1, _('Active')),)  
    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")

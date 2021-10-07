@@ -2,17 +2,17 @@
 
 # Introduction
 
-The [Directorate General of Civil Aviation (DGCA)](https://dgca.gov.in/digigov-portal/) in India has unveiled a policy of "No permission - No takeoff" for drone flights. This means that public and private companies intending to fly drones in India need to interface with DGCA's infrastructure for flight permissions and other authorizations. These APIs are called India's [Digital Sky](https://digitalsky.dgca.gov.in/) eco-system. Aerobridge is a server that helps you interface with the APIs in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
+Aerobridge is server to help you with your drone flights and operations. . Aerobridge is a server that helps you interface with the APIs in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
 
 ## How can Aerobridge help you?
 
 If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack:
 
-- Standard way to communicate with Digital Sky APIs
-- Integration with Ardupilot 
+- Store and approve flight plans
+- Manage Drone fleet
+- Integration with Ardupilot
 - Manage permission artefacts and flight logs
 - RFM integration
-- Easily manage compliance with NPNT
 
 ## Webinar and pilot program ✨
 
@@ -29,11 +29,11 @@ Aerobridge is fully open source and you can get involved by participating in our
 
 ## Technical Details
 
-This is an open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with India's [Digital Sky](https://digitalsky.dgca.gov.in/) API infrastructure. This server can be deployed to any public and private cloud and be used to manage communication with DGCA's Digital Sky Infrastructure and manage NPNT permissions. For a more technical introduction, see this [presentation](https://docs.google.com/presentation/d/1cZrNwNrLtLIj5eKEGql2HN-G1gZFbbGhGbiTB1i16So/edit?usp=sharing).
+This is an open source implementation of the "Manufacturer's Management Server" to help with key signing and managing interactions with external APIs. This server can be deployed to any public and private cloud and be used to manage communication.
 
 ## Get Started / Self hosting / Debugging
 
-Aerobridge is a Django server and is python based. To setup a local instance with a SQLLite database follow the following steps: 
+Aerobridge is a Django server and is python based. To setup a local instance with a SQLLite database follow the following steps:
 
 1. Clone the repository
 2. Install dependencies, we recommend creating a virtual environment via a tool like [Anaconda](https://docs.conda.io/en/latest/)
@@ -74,7 +74,7 @@ As of May 2021, Aerobridge provides the following toolset:
   - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
 
 - **GCS Module**
-  - [Mavlink Aerobridge](https://github.com/openskies-sh/mavlink-aerobridge) Integration with RFM
+  - [QGCS Aerobridge Guardian](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
 
 - **RFM Module**
   - A customized Flight Controller Firmware and Bootloader (coming soon)
@@ -82,8 +82,6 @@ As of May 2021, Aerobridge provides the following toolset:
 ## References
 
 - This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
-- Further details regarding NPNT can be found in the latest [RPAS Guidance Manual](https://public-prd-dgca.s3.ap-south-1.amazonaws.com/InventoryList/headerblock/drones/DGCA%20RPAS%20Guidance%20Manual.pdf).
-- The Digital Sky's Public APIs can be viewed at [DigitalSky Platform Public APIs (1.0.0)](https://redocly.github.io/redoc/?url=https://digitalsky.dgca.gov.in/assets/files/DigitalSky-Public-API-Swagger-Specification-v1.0.0.yml).
 
 ## Test drive
 
