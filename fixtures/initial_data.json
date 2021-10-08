@@ -377,7 +377,7 @@
         "updated_at": "2018-09-04T12:20:30Z",
         "manufactured_at": null,
         "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+        "operations_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
     }
 }, {
     "model": "registry.aircraft",
@@ -419,7 +419,7 @@
         "updated_at": "2018-09-04T12:20:30Z",
         "manufactured_at": null,
         "dot_permission_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "operataions_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
+        "operations_manual_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf"
     }
 }, {
     "model": "gcs_operations.flightplan",

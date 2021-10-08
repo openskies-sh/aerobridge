@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 
 def validate_flight_controller_id(value):
         if not value.isalnum():
-            raise ValidationError(u'%s flight controller id cannot contain special characters or spaces' % value)
+            raise ValidationError(u'%s flight controller ID cannot contain special characters or spaces' % value)
 def validate_url(value):
     if not value:
         return  # Required error is done the field
@@ -117,7 +117,7 @@ class Operator(models.Model):
     OPTYPE_CHOICES = ((0, _('NA')),(1, _('LUC')),(2, _('Non-LUC')),(3, _('AUTH')),(4, _('DEC')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     company_name = models.CharField(max_length=28,help_text="Official Name of the company as in the Company Registration Office", validators = [no_special_characters_regex,])
-    website = models.URLField(help_text="Put official URL")
+    website = models.URLField(help_text="Put official URL of the company, if none is avaiable then a manufacturers")
     email = models.EmailField(help_text="Contact email for support and other queries")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #        
     expiration = models.DateTimeField(default = two_year_expiration)
@@ -125,13 +125,14 @@ class Operator(models.Model):
     address = models.ForeignKey(Address, models.CASCADE,help_text="Select the official address for the company")
     operational_authorizations = models.ManyToManyField(Authorization, related_name = 'operational_authorizations',help_text="Choose what kind of authorization this operator posseses, to add additional authorizations, use the administration panel")
     authorized_activities = models.ManyToManyField(Activity, related_name = 'authorized_activities',help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel" )
+    vat_number = models.CharField(max_length=25,default="VAT-TMP",validators = [no_special_characters_regex,], blank = True, null=True, help_text="VAT / Tax number if available")
+    insurance_number = models.CharField(max_length=25,default = "INS-TMP",validators = [no_special_characters_regex,], blank = True, null=True, help_text="Insurance number if avaialble")
+    company_number = models.CharField(max_length=25, default='CO-TMP',validators = [no_special_characters_regex,], blank = True, null=True, help_text="Company number if avaiable")
+    country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'IN', help_text="At the moment only India is configured, you can setup your own country")
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    vat_number = models.CharField(max_length=25,default="VAT-TMP",validators = [no_special_characters_regex,])
-    insurance_number = models.CharField(max_length=25,default = "INS-TMP",validators = [no_special_characters_regex,])
-    company_number = models.CharField(max_length=25, default='CO-TMP',validators = [no_special_characters_regex,])
-    country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'IN')
-    
+
     def get_address(self):
         full_address = '%s, %s, %s, %s %s, %s' % (self.address.address_line_1, self.address.address_line_2,self.address.address_line_3,self.address.city, self.address.state, self.address.country)
         return full_address
@@ -145,9 +146,9 @@ class Operator(models.Model):
 class Contact(models.Model):
     ROLE_CHOICES = ((0, _('Other')),(1, _('Responsible')))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operator = models.ForeignKey(Operator, models.CASCADE, related_name='person_contact')    
-    person = models.ForeignKey(Person, models.CASCADE)
-    address = models.ForeignKey(Address, models.CASCADE)
+    operator = models.ForeignKey(Operator, models.CASCADE, related_name='person_contact', help_text="Set a operator for this contact")    
+    person = models.ForeignKey(Person, models.CASCADE, help_text="Associate a person for this contact")    
+    address = models.ForeignKey(Address, models.CASCADE, help_text="Add a address for this contact")
     role_type = models.IntegerField(choices=ROLE_CHOICES, default = 0, help_text="A contact may or may not be legally responsible officer within a company, specify if the contact is responsisble (legally) for operations in the company")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -218,13 +219,13 @@ class TypeCertificate(models.Model):
 
 class Manufacturer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    full_name = models.CharField(max_length = 140, default = 'NA', help_text="Full legal name of the manufacturing entity")
-    common_name = models.CharField(max_length = 140, default = 'NA', help_text="Common name for the manufacturer e.g. Skydio")
+    full_name = models.CharField(max_length = 140,help_text="Full legal name of the manufacturing entity")
+    common_name = models.CharField(max_length = 140, help_text="Common name for the manufacturer e.g. Skydio")
     address = models.ForeignKey(Address, models.CASCADE, blank= True, null=True, help_text="Assign a address to this manufacturers")
-    acronym = models.CharField(max_length =10, default = 'NA', help_text="If you use a acronym for this manufacturer, you can assign it here")
-    role = models.CharField(max_length = 140, default = 'NA', help_text="e.g. Reseller, distributor, OEM etc.")
-    country = models.CharField(max_length =3, default = 'NA', help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
-    digital_sky_id = models.CharField(max_length=140, help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
+    acronym = models.CharField(max_length =10,help_text="If you use a acronym for this manufacturer, you can assign it here")
+    role = models.CharField(max_length = 140, help_text="e.g. Reseller, distributor, OEM etc.")
+    country = models.CharField(max_length =3, help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
+    digital_sky_id = models.CharField(max_length=140, default="NA", help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
 
     cin_document = models.URLField(help_text ='Link to certificate of Incorporation issued by ROC, MCA', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
     gst_document = models.URLField(help_text='Link to GST certification document', default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
@@ -262,7 +263,7 @@ class Firmware(models.Model):
     version = models.CharField(max_length=25, help_text="Set a semantic version for the firmware version")  
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE, help_text = "Associate a manufacturer to the firmware")
     friendly_name = models.CharField(max_length=140, help_text="Give it a friendly name e.g. May-2021 1.2 release")
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False, help_text="Set if the firmware is active, don't forget to mark old firmware as inactive")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -298,7 +299,7 @@ class Aircraft(models.Model):
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True, help_text="Set the type certificate if available for the drone")
     model = models.CharField(max_length = 280, help_text="Set the model of the aircraft")
     digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal",blank= True, null= True)    
-    flight_controller_id = models.CharField(help_text= "This is the Drone ID from the RFM, if there are spaces in the ID, remove them",max_length=140,default=0, validators=[validate_flight_controller_id])    
+    flight_controller_id = models.CharField(help_text= "This is the Drone ID from the RFM, if there are spaces in the ID, remove them",max_length=140, validators=[validate_flight_controller_id])    
     operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00,blank= True, null= True)
     status = models.IntegerField(choices=STATUS_CHOICES, default = 1, help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
     photo = models.URLField(help_text="A URL of a photo of the drone", default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
@@ -318,7 +319,7 @@ class Aircraft(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     manufactured_at = models.DateTimeField(help_text="Set the date when the drone was manufactured",blank= True, null= True)    
     dot_permission_document = models.URLField(blank=True, null=True, help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
-    operataions_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    operations_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
 
     
     history = HistoricalRecords()

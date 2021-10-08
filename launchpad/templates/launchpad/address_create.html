@@ -22,9 +22,7 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {{ form|crispy }}
-        <br> <br>
-        <input class="btn btn-primary"  type="submit" value="Save" />
+        {% crispy form %}       
     </form>
 </div>
 <div class="col-md-6 themed-grid-col"></div>

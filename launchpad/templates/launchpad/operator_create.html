@@ -12,9 +12,8 @@
         {% csrf_token %}
         
         {{ form|as_crispy_errors }}
-        {{ form|crispy }}
-        <br> <br>
-        <button class="btn btn-primary" type="submit">Save</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'operators-list' %}" role="button">Cancel</a>
+        {% crispy form %}       
+        
     </form>
 </div>
 <div class="col-md-6 themed-grid-col"></div>

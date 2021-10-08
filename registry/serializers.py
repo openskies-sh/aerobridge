@@ -236,7 +236,7 @@ class AircraftSerializer(serializers.ModelSerializer):
         fields = ('id', 'operator', 'mass', 'manufacturer', 'model', 'manufacturer', 'status', 'registration_mark',
                   'category', 'created_at', 'popular_name', 'manufacturer', 'registration_mark', 'sub_category',
                   "flight_controller_id", "photo", "photo_small", 'max_certified_takeoff_weight', 'updated_at',
-                  'photo_small', 'photo','dot_permission_document','operataions_manual_document')
+                  'photo_small', 'photo','dot_permission_document','operations_manual_document')
 
 class AircraftSigningSerializer(serializers.ModelSerializer):
     droneTypeId = serializers.SerializerMethodField()

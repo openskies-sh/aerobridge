@@ -494,7 +494,7 @@ class ManufacturerCreateView(CreateView):
             
             return redirect('manufacturers-list')
     
-        return render(request, 'launchpad/person_create.html', context)
+        return render(request, 'launchpad/manufacturer_create.html', context)
     
 ### Manufacturer Views
     

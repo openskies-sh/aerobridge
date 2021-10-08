@@ -2302,7 +2302,7 @@ components:
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
           example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-        operataions_manual_document:
+        operations_manual_document:
           type: string
           format: uri
           description: Link to Operation Manual Document

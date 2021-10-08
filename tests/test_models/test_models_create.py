@@ -232,7 +232,7 @@ class TestModelsCreate(TestModels):
                             dimension_breadth=self.faker.pyfloat(min_value=0, max_value=200.00, right_digits=2),
                             dimension_height=self.faker.pyfloat(min_value=0, max_value=20.00, right_digits=2),
                             manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
-                            operataions_manual_document=self.faker.uri()
+                            operations_manual_document=self.faker.uri()
                             )
         self.assertNotIn(aircraft, Aircraft.objects.all())
         aircraft.save()
