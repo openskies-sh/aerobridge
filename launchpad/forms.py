@@ -95,7 +95,7 @@ class OperatorCreateForm(forms.ModelForm):
         
         self.helper.layout = Layout(
                 BS5Accordion(
-                    AccordionGroup("Basic Information",
+                    AccordionGroup("Mandatory Information",
                         FloatingField("company_name"),
                         FloatingField("website"),
                         FloatingField("email"),
@@ -134,7 +134,7 @@ class AircraftCreateForm(forms.ModelForm):
         
         self.helper.layout = Layout(
                 BS5Accordion(
-                    AccordionGroup("Basic Information",
+                    AccordionGroup("Mandatory Information",
                         FloatingField("operator"),
                         FloatingField("manufacturer"),
                         FloatingField("category"),
@@ -180,7 +180,7 @@ class ManufacturerCreateForm(forms.ModelForm):
         
         self.helper.layout = Layout(
                 BS5Accordion(
-                    AccordionGroup("Basic Information",
+                    AccordionGroup("Mandatory Information",
                         FloatingField("full_name"),
                         FloatingField("common_name"),
                         FloatingField("address"),
@@ -299,7 +299,26 @@ class FlightPermissionCreateForm(forms.ModelForm):
     #    super(FlightPermissionCreateForm, self).__init__(*args, **kwargs)
     #    self.fields['is_successful'].widget.attrs['disabled'] = True
     #    self.fields['artefact'].widget.attrs['disabled'] = True
-
+    def __init__(self,*args,**kwargs):
+        super(FlightPermissionCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("operation"),
+                        ),
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Manufacturer'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'flightpermissions-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+        
     class Meta:
         model = FlightPermission
         fields = ('operation',)
@@ -310,16 +329,61 @@ class FlightLogCreateForm(forms.ModelForm):
         super (FlightLogCreateForm,self ).__init__(*args,**kwargs) # populates the post        
         self.fields['operation'].queryset = FlightOperation.objects.filter(is_editable=True)
 
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("operation"),
+                        FloatingField("raw_log"),
+                        ),
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Manufacturer'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'flightlogs-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+        
+     
     class Meta:
         model = FlightLog
         fields = ('operation','raw_log',)
         
 
 class FlightOperationCreateForm(forms.ModelForm):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         super (FlightOperationCreateForm,self ).__init__(*args,**kwargs) # populates the post        
         self.fields['flight_plan'].queryset = FlightPlan.objects.filter(is_editable=True)
 
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("name"),
+                        FloatingField("drone"),
+                        FloatingField("flight_plan"),
+                        FloatingField("purpose")
+                        ),
+                    AccordionGroup("Optional Information",
+                        FloatingField("type_of_operation")                                 
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Manufacturer'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'flightplans-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+        )
+     
     class Meta:
         model = FlightOperation
         exclude = ('is_editable',)
@@ -386,8 +450,8 @@ class PilotCreateForm(forms.ModelForm):
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Contact'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'contacts-list' %}" role="button">Cancel</a>""")
+                                Submit('submit', '+ Add Pilot'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'pilots-list' %}" role="button">Cancel</a>""")
                     )
                 )     
         
@@ -407,24 +471,119 @@ class DigitalSkyTransactionCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class EngineCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("power"),
+                        FloatingField("count"),
+                        FloatingField("engine_type"),
+                        FloatingField("propellor")
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Engine'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'engines-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+        )
     class Meta:
         model = Engine
         fields = '__all__'
         
 
 class AuthorizationCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("title"),
+                        FloatingField("operation_max_height"),
+                        FloatingField("operation_altitude_system"),
+                        FloatingField("airspace_type"),
+                        FloatingField("operation_area_type"),
+                        FloatingField("risk_type"),
+                        FloatingField("authorization_type"),
+                        "permit_to_fly_above_crowd",
+                        ),                   
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Activity'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'activities-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
     class Meta:
         model = Authorization
         # exclude = ('is_created',)
         fields = '__all__'
         
 class ActivityCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("name"),
+                        'activity_type'
+                        ),                   
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Activity'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'activities-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+     
     class Meta:
         model = Activity
         # exclude = ('is_created',)
         fields = '__all__'
         
 class TokenCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("name"),
+                        FloatingField("token_type"),
+                        FloatingField("association"),
+                        FloatingField("aircraft"),
+                        FloatingField("manufacturer"),
+                        FloatingField("operator"),
+                        'is_active'
+                        ),                   
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Credentials'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'credentials-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+     
     credential = forms.CharField(widget=forms.Textarea, help_text="Paste the credential as plain text here")
     class Meta:
         model = AerobridgeCredential

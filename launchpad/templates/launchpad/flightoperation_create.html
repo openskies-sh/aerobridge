@@ -6,8 +6,8 @@
     <div class="col-md-6 themed-grid-col">
 
 
-    <h2>Add new Flight operation</h2>
-    <p>Create a new flight operation, link to a flight plan and get permission artefacts against those operations</p>
+    <h2>Add new Flight Operation</h2>
+    <p>Create a new flight operation, link it to a flight plan and get permission artefacts against those operations</p>
     <form action="" method="post">
         {% csrf_token %}
         {% if form.errors %}
@@ -24,9 +24,8 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {{ form|crispy }}
-        <br> <br>
-        <input class="btn btn-primary"  type="submit" value="Save" />&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>
+        {% crispy form %}
+        
     </form>
 </div>
 <div class="col-md-6 themed-grid-col"></div>
