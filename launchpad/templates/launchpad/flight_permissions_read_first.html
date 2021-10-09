@@ -4,15 +4,14 @@
 {% block content %}
 <div class="row mb-3">
     <h2>Get started with Flight Permissions</h2>
-    <p>Flight permissions must be obtained via Digital Sky, the following is the flow for getting / managing flight permission artefacts:</p><br><br>
+    <p>Aerobridge gives you the ability to issue cryptographically signed permissions for authorized GCSs, to ensure that only authorized flights can be launched in the drone. The following is the flow for getting / managing flight permission artefacts:</p><br><br>
 </div>
 <div class="row mb-3">
     <ol class="list-group list-group-numbered">
-        <li class="list-group-item">Create a Flight Plan, upload  a co-ordinates file as GeoJSON in Aerobridge</li>
-        <li class="list-group-item">Create a Flight Operation, assign a flight plan to a operation and a drone, you will have to input additional fields around the operation.</li>
-        <li class="list-group-item">Create a Flight Permission Object, this will have the details of the operation against which the permission is requested.  As of May 2021,you have to use the Digital Sky Application to submit the flight plan.</li>
-        <li class="list-group-item">Once a flight permission object is created, you can then use the "<a ref="/launchpad/digitalsky-flight-permissions">Request Flight Permission</a>" link in the DigitalSky menu to request a permission artefact.</li>
-        <li class="list-group-item">Once the flight permission isssued, you can see the permission artefact at in the <a href="/launchpad/flightpermissions">Flight Permissions</a> menu in the "Plans and Operations" list</li>
+        <li class="list-group-item">Create a Flight Plan in the GCS and upload a co-ordinates file as GeoJSON in Aerobridge</li>
+        <li class="list-group-item">In Aerobridge, create a Flight Operation, assign a flight plan to a operation and a drone, you will have to input additional fields around the operation.</li>
+        <li class="list-group-item">Generate a permission artefact by looking at a operation  in the <a href="/launchpad/flightoperations">Flight Operations</a> menu.</li>
+        <li class="list-group-item">Once the flight permission isssued, you can see the permission artefact at in the <a href="/launchpad/flightpermissions">Flight Permissions</a> menu.</li>
         <li class="list-group-item">After the operation is complete the signed flight logs from the drone can be uploaded to the server.</li>
     </ol>
 </div>

@@ -638,7 +638,7 @@ paths:
       - Files
 
 
-  /digitalsky/all_permissions:
+  /gcs/all_permissions:
     get:
       summary: "Get all flight permissions"
       description: 'Use this endpoint to retrieve all flight permissions'
@@ -657,7 +657,7 @@ paths:
           description: ''
       tags:
       - Flight Permissions
-  /digitalsky/all_permissions/{id}:
+  /gcs/all_permissions/{id}:
     get:
       summary: "Get a single permission"
       security:
@@ -682,7 +682,7 @@ paths:
       tags:
       - Flight Permissions
 
-  /digitalsky/all_permissions/{id}/apply:
+  /gcs/all_permissions/{id}/apply:
     put:
       summary: "Apply for a flight permission to DigitalSky"
       security:
@@ -707,50 +707,50 @@ paths:
       tags:
       - Flight Permissions
 
-  /digitalsky/logs/:
-    get:
-      summary: "Get a list of all transactions with Digital Sky"
-      security:
-        - AuthFromPassport: [aerobridge.read]    
+  # /digitalsky/logs/:
+  #   get:
+  #     summary: "Get a list of all transactions with Digital Sky"
+  #     security:
+  #       - AuthFromPassport: [aerobridge.read]    
 
-      operationId: listDigitalSkyLogs
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DigitalSkyLog'
-          description: ''
-      tags:
-      - Digital Sky
-  /digitalsky/logs/{log_id}:
-    get:
-      summary: "Get details of a single transaction log"
-      security:
-        - AuthFromPassport: [aerobridge.read]    
+  #     operationId: listDigitalSkyLogs
+  #     description: ''
+  #     parameters: []
+  #     responses:
+  #       '200':
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/DigitalSkyLog'
+  #         description: ''
+  #     tags:
+  #     - Digital Sky
+  # /digitalsky/logs/{log_id}:
+  #   get:
+  #     summary: "Get details of a single transaction log"
+  #     security:
+  #       - AuthFromPassport: [aerobridge.read]    
 
-      operationId: retrieveDigitalSkyLog
-      description: ''
-      parameters:
-      - name: log_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DigitalSkyLog'
-          description: ''
-      tags:
-      - Digital Sky
+  #     operationId: retrieveDigitalSkyLog
+  #     description: ''
+  #     parameters:
+  #     - name: log_id
+  #       in: path
+  #       required: true
+  #       description: ''
+  #       schema:
+  #         type: string
+  #     responses:
+  #       '200':
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/DigitalSkyLog'
+  #         description: ''
+  #     tags:
+  #     - Digital Sky
   
 
   /registry/aircraft/:
@@ -913,8 +913,8 @@ tags:
     description: "Operators have a very specific definition and are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
   - name: Aircrafts
     description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft"    
-  - name: Digital Sky
-    description: "Aerobridge can communicate with Digital Sky and all endpoints related to Digital Sky are here. As of September-2021 Digital Sky is changing and some commands and endpoints are not supported."      
+  # - name: Digital Sky
+  #   description: "Aerobridge can communicate with Digital Sky and all endpoints related to Digital Sky are here. As of September-2021 Digital Sky is changing and some commands and endpoints are not supported."      
   - name: Flight Permissions
     description: "Flight Permissions are issued by Digital Sky and you can use these endpoints to download permission objects."
   - name: Signed Flight Logs

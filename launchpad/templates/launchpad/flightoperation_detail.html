@@ -8,9 +8,7 @@
 
 
 <div>
-<h1>Flight Operation Detail - {{ flightoperation.name }}</h1>
-<br>
-<br>
+<h2>{{ flightoperation.name }}</h2>
 <table  class="table">
     <thead>
         <tr>
@@ -19,11 +17,11 @@
         </tr>
     </thead>
     <tr>
-        <td>Name</td>
+        <td>Drone </td>
         <td>{{ flightoperation.drone.model }}</td>
     </tr>
     <tr>
-        <td>GeoJSON</td>
+        <td>Flight Path / Volume</td>
         <td><div id="flight_plan" class="map"></div></td>    
     </tr>
     <tr>
@@ -37,18 +35,18 @@
     </tr>
     </tr>
     <tr>
-        <td>Start</td>
+        <td>Operation Start</td>
         <td><p class="text-muted">{{ flightoperation.flight_plan.start_datetime }}</p></td>
     </tr>
     <tr>
-        <td>End</td>
+        <td>Opearation End</td>
         <td><p class="text-muted">{{ flightoperation.flight_plan.end_datetime }}</p></td>
     </tr>
 
 </table>
 <br>
 {% if flightoperation.is_editable %}
-    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a></p>
+    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightpermissions/new"><b>Issue Flight Permission</b></a>{% endif %}</p>
 {% else %}    
     <p class='text-muted'>This flight operation had a log associated with it that has been signed and cannot be edited, create a new plan, and a new operation .</p>
 {% endif %}

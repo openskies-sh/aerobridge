@@ -69,9 +69,9 @@ urlpatterns = [
     path('flightpermissions/<uuid:flightpermission_id>/detail', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissions-detail'),    
     path('flightpermissions/new', launchpad_views.FlightPermissionCreateView.as_view(), name='flightpermissions-create'),
 
-    path('digitalsky-flight-permissions', launchpad_views.FlightPermissionDigitalSkyList.as_view(), name='flightpermissions-digitalsky-list'),
-    path('digitalsky-flight-permissions/thanks', launchpad_views.FlightPermissionDigitalSkyThanks.as_view(), name='flightpermissions-digitalsky-thanks'),
-    path('digitalsky-flight-permissions/<uuid:flightpermission_id>/request', launchpad_views.FlightPermissionDigitalSkyRequest.as_view(), name='flightpermissions-digitalsky-request'),
+    # path('digitalsky-flight-permissions', launchpad_views.FlightPermissionDigitalSkyList.as_view(), name='flightpermissions-digitalsky-list'),
+    # path('digitalsky-flight-permissions/thanks', launchpad_views.FlightPermissionDigitalSkyThanks.as_view(), name='flightpermissions-digitalsky-thanks'),
+    # path('digitalsky-flight-permissions/<uuid:flightpermission_id>/request', launchpad_views.FlightPermissionDigitalSkyRequest.as_view(), name='flightpermissions-digitalsky-request'),
  
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
     path('flightlogs/<uuid:flightlog_id>/detail', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
@@ -79,22 +79,8 @@ urlpatterns = [
     path('flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsUpdate.as_view(), name='flightlogs-update'),
     path('flightlogs/new', launchpad_views.FlightLogCreateView.as_view(), name='flightlogs-create'),
 
-    path('signed-flightlogs', launchpad_views.SignedFlightLogsList.as_view(), name='digitalskylogs-list'),
-    path('signed-flightlogs/<uuid:signed_flightlog_id>', launchpad_views.SignedFlightLogsDetail.as_view(), name='flightlogs-detail'),
-
-    path('digitalsky-flightlogs', launchpad_views.FlightLogsDigitalSkyList.as_view(), name='flightlogs-digitalsky-list'),    
-    path('digitalsky-flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsDigitalSkyDetail.as_view(), name='flightlogs-digitalsky-detail'),
-    path('digitalsky-flightlogs/<uuid:flightlog_id>/send', launchpad_views.FlightLogSubmitDigitalSkyRequest.as_view(), name='flightlogs-digitalsky-send'),
-    path('digital-sky-flightlogs/thanks', launchpad_views.FlightLogDigitalSkyThanks.as_view(), name='flightlogs-digitalsky-thanks'),
- 
- 
-    path('digitalsky-logs', launchpad_views.DigitalSkyLogsList.as_view(), name='digitalskylogs-list'),
-    path('digitalsky-logs/<uuid:digitalskylog_id>', launchpad_views.DigitalSkyLogsDetail.as_view(), name='digitalskylogs-detail'),
-    
-    path('digitalsky-transactions', launchpad_views.DigitalSkyTransactionsList.as_view(), name='digitalskytransactions-list'),
-    path('digitalsky-transactions/<uuid:transaction_id>', launchpad_views.DigitalSkyTransactionDetail.as_view(), name='digitalskytransactions-detail'),
-    
-    path('digitalsky-read-first', launchpad_views.DigitalSkyReadFirst.as_view(), name='digitalsky-read-first'),
+    path('signed-flightlogs', launchpad_views.SignedFlightLogsList.as_view(), name='signed-flight-logs-list'),
+    path('signed-flightlogs/<uuid:signed_flightlog_id>', launchpad_views.SignedFlightLogsDetail.as_view(), name='signed-flight-logs-detail'),
 
     path('flight-permissions-read-first', launchpad_views.FlightPermissionsReadFirst.as_view(), name='flight-permissions-read-first'),
 

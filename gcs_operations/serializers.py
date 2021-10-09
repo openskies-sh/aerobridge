@@ -74,13 +74,13 @@ class FlightPermissionSerializer(serializers.ModelSerializer):
         
         
         
-class TransactionSerializer(serializers.ModelSerializer):
-    ''' A serializer to the transaction view '''
+# class TransactionSerializer(serializers.ModelSerializer):
+#     ''' A serializer to the transaction view '''
 
-    class Meta:
-        model = Transaction		
-        fields = '__all__'
-        ordering = ['-created_at']
+#     class Meta:
+#         model = Transaction		
+#         fields = '__all__'
+#         ordering = ['-created_at']
         
 class FlightLogSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Logs '''

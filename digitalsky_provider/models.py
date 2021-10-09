@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 import uuid
 from gcs_operations.models import Transaction
-from registry.models import Aircraft
 # Create your models here.
 
 # Use camel case DGCA API required Snake Case

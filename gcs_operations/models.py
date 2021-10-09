@@ -6,7 +6,7 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
-from registry.models import Aircraft, Operator,Activity
+from registry.models import Aircraft,Activity
 from django.core.validators import RegexValidator
 
 def make_random_plan_common_name():
@@ -75,11 +75,11 @@ class Transaction(models.Model):
     
 class FlightPermission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation', null=True)
-    is_successful = models.BooleanField(default = False)
+    operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation')
+    
+    json = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    artefact = models.TextField(default="", help_text="If the text above is empty, permission artefact for this operation has not been received")
     
     def __unicode__(self):
        return self.operation.name

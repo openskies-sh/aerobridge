@@ -314,7 +314,7 @@ class FlightPermissionCreateForm(forms.ModelForm):
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Manufacturer'),
+                                Submit('submit', '+ Add Permission'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'flightpermissions-list' %}" role="button">Cancel</a>""")
                     )
                 )     
@@ -343,7 +343,7 @@ class FlightLogCreateForm(forms.ModelForm):
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Manufacturer'),
+                                Submit('submit', '+ Add Log'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'flightlogs-list' %}" role="button">Cancel</a>""")
                     )
                 )     
@@ -378,7 +378,7 @@ class FlightOperationCreateForm(forms.ModelForm):
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Manufacturer'),
+                                Submit('submit', '+ Add Operation'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'flightplans-list' %}" role="button">Cancel</a>""")
                     )
                 )     
@@ -460,15 +460,15 @@ class PilotCreateForm(forms.ModelForm):
         model = Pilot
         fields = '__all__'
 
-class DigitalSkyLogCreateForm(forms.ModelForm):
-    class Meta:
-        model = DigitalSkyLog
-        fields = '__all__'
+# class DigitalSkyLogCreateForm(forms.ModelForm):
+#     class Meta:
+#         model = DigitalSkyLog
+#         fields = '__all__'
 
-class DigitalSkyTransactionCreateForm(forms.ModelForm):
-    class Meta:
-        model = Transaction
-        fields = '__all__'
+# class DigitalSkyTransactionCreateForm(forms.ModelForm):
+#     class Meta:
+#         model = Transaction
+#         fields = '__all__'
 
 class EngineCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

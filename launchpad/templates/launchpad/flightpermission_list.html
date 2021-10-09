@@ -1,9 +1,21 @@
 {% extends "launchpad/layout.html" %}
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Flights
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Permissions
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
 {% block content %}
 
 <div class="row mb-3">
     <h2>Flight Permissions</h2>
-    <p>See all the flight permission objects, these will be sent to Digital Sky to get a Permission Artefact </p>
+    <p>See all the flight permission objects, if you do not see your operation, go to the operation and issue a permission.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">

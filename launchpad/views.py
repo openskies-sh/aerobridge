@@ -12,17 +12,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer
-from digitalsky_provider.serializers import DigitalSkyLogSerializer
+
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm, DigitalSkyLogCreateForm, ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, DigitalSkyTransactionCreateForm, CutsomTokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
-from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, TransactionSerializer, FlightLogSerializer
+from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, FlightLogSerializer
 import tempfile
 from rest_framework.parsers import MultiPartParser
 import boto3
@@ -607,8 +607,10 @@ class FlightOperationsDetail(APIView):
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
+        flightpermission = FlightPermission.objects.filter(operation = flightoperation).exists()
+        print(flightpermission)
         serializer = FlightPlanSerializer(flightoperation)
-        return Response({'serializer': serializer, 'flightoperation': flightoperation})
+        return Response({'serializer': serializer, 'flightoperation': flightoperation, 'flightpermission':flightpermission})
 
 
 class FlightOperationsUpdate(APIView):
@@ -671,7 +673,9 @@ class FlightPermissionCreateView(CreateView):
         form = FlightPermissionCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
-            form.save()
+            flight_permission = form.save()
+            ## Issue a permission artefact
+            print(flight_permission.operation.flight_plan.id) 
             return redirect('flightpermissions-list')
 
         return render(request, 'launchpad/flightpermission_create.html', context)
@@ -796,41 +800,41 @@ class FlightLogCreateView(CreateView):
   
     
     
-class FlightLogsDigitalSkyList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_digitalsky_list.html'
+# class FlightLogsDigitalSkyList(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/flightlog_digitalsky_list.html'
 
-    def get(self, request):
-        queryset = FlightLog.objects.filter(is_submitted=False, is_editable=False)
-        return Response({'flightlogs': queryset})
+#     def get(self, request):
+#         queryset = FlightLog.objects.filter(is_submitted=False, is_editable=False)
+#         return Response({'flightlogs': queryset})
     
-class FlightLogsDigitalSkyDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_digitalsky_detail.html'
+# class FlightLogsDigitalSkyDetail(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/flightlog_digitalsky_detail.html'
 
-    def get(self, request, flightlog_id):
-        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
-        serializer = FlightLogSerializer(flightlog)
-        return Response({'serializer': serializer, 'flightlog': flightlog})
+#     def get(self, request, flightlog_id):
+#         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+#         serializer = FlightLogSerializer(flightlog)
+#         return Response({'serializer': serializer, 'flightlog': flightlog})
 
 
-class FlightLogSubmitDigitalSkyRequest(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_digitalsky_detail.html'
+# class FlightLogSubmitDigitalSkyRequest(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/flightlog_digitalsky_detail.html'
 
-    def get(self, request, flightlog_id):
-        flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
-        serializer = FlightLogSerializer(flightlog)
-        return Response({'serializer': serializer, 'flightlog': flightlog})
+#     def get(self, request, flightlog_id):
+#         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+#         serializer = FlightLogSerializer(flightlog)
+#         return Response({'serializer': serializer, 'flightlog': flightlog})
 
-    def post(self, request,flightlog_id):        
-        # Submit a call to Digital Sky API
+#     def post(self, request,flightlog_id):        
+#         # Submit a call to Digital Sky API
 
-        return redirect('flightlogs-digitalsky-thanks')
+#         return redirect('flightlogs-digitalsky-thanks')
     
        
-class FlightLogDigitalSkyThanks(TemplateView):    
-    template_name = 'launchpad/flightlog_digitalsky_thanks.html'
+# class FlightLogDigitalSkyThanks(TemplateView):    
+#     template_name = 'launchpad/flightlog_digitalsky_thanks.html'
         
 ### Signed FLight Log Views
 
@@ -854,71 +858,71 @@ class SignedFlightLogsDetail(APIView):
         
 ### DigitalSky Log Views
     
-class DigitalSkyLogsList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/digitalskylog_list.html'
+# class DigitalSkyLogsList(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/digitalskylog_list.html'
 
-    def get(self, request):
-        queryset = DigitalSkyLog.objects.all()
-        return Response({'digitalskylogs': queryset})
+#     def get(self, request):
+#         queryset = DigitalSkyLog.objects.all()
+#         return Response({'digitalskylogs': queryset})
     
-class DigitalSkyLogsDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/digitalskylog_detail.html'
+# class DigitalSkyLogsDetail(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/digitalskylog_detail.html'
 
-    def get(self, request, digitalskylog_id):
-        digitalskylog = get_object_or_404(DigitalSkyLog, pk=digitalskylog_id)
-        serializer = DigitalSkyLogSerializer(digitalskylog)
-        return Response({'serializer': serializer, 'digitalskylog': digitalskylog})
+#     def get(self, request, digitalskylog_id):
+#         digitalskylog = get_object_or_404(DigitalSkyLog, pk=digitalskylog_id)
+#         serializer = DigitalSkyLogSerializer(digitalskylog)
+#         return Response({'serializer': serializer, 'digitalskylog': digitalskylog})
 
 
-class DigitalSkyLogCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': DigitalSkyLogCreateForm()}
-        return render(request, 'launchpad/digitalskylog_create.html', context)
+# class DigitalSkyLogCreateView(CreateView):
+#     def get(self, request, *args, **kwargs):
+#         context = {'form': DigitalSkyLogCreateForm()}
+#         return render(request, 'launchpad/digitalskylog_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = DigitalSkyLogCreateForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            return redirect('digitalskylogs-list')
+#     def post(self, request, *args, **kwargs):
+#         form = DigitalSkyLogCreateForm(request.POST)
+#         context = {'form': form}
+#         if form.is_valid():
+#             form.save()
+#             return redirect('digitalskylogs-list')
 
-        return render(request, 'launchpad/digitalskylog_create.html', context)
+#         return render(request, 'launchpad/digitalskylog_create.html', context)
   
  # Digital Sky Transactionss   
     
-class DigitalSkyTransactionsList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/digitalskytransaction_list.html'
+# class DigitalSkyTransactionsList(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/digitalskytransaction_list.html'
 
-    def get(self, request):
-        queryset = Transaction.objects.all()
-        return Response({'digitalskytransactions': queryset})
+#     def get(self, request):
+#         queryset = Transaction.objects.all()
+#         return Response({'digitalskytransactions': queryset})
     
-class DigitalSkyTransactionDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/digitalskytransaction_detail.html'
+# class DigitalSkyTransactionDetail(APIView):
+#     renderer_classes = [TemplateHTMLRenderer]
+#     template_name = 'launchpad/digitalskytransaction_detail.html'
 
-    def get(self, request, transaction_id):
-        digitalskytransaction = get_object_or_404(Transaction, pk=transaction_id)
-        serializer = TransactionSerializer(digitalskytransaction)
-        return Response({'serializer': serializer, 'digitalskytransaction': digitalskytransaction})
+#     def get(self, request, transaction_id):
+#         digitalskytransaction = get_object_or_404(Transaction, pk=transaction_id)
+#         serializer = TransactionSerializer(digitalskytransaction)
+#         return Response({'serializer': serializer, 'digitalskytransaction': digitalskytransaction})
 
 
-class DigitalSkyTransactionCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': DigitalSkyTransactionCreateForm()}
-        return render(request, 'launchpad/digitalskytransaction_create.html', context)
+# class DigitalSkyTransactionCreateView(CreateView):
+#     def get(self, request, *args, **kwargs):
+#         context = {'form': DigitalSkyTransactionCreateForm()}
+#         return render(request, 'launchpad/digitalskytransaction_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = DigitalSkyTransactionCreateForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            return redirect('digitalskytransactions-list')
+#     def post(self, request, *args, **kwargs):
+#         form = DigitalSkyTransactionCreateForm(request.POST)
+#         context = {'form': form}
+#         if form.is_valid():
+#             form.save()
+#             return redirect('digitalskytransactions-list')
 
-        return render(request, 'launchpad/digitalskytransaction_create.html', context)
+#         return render(request, 'launchpad/digitalskytransaction_create.html', context)
   
     
     

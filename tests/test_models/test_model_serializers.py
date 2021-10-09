@@ -201,13 +201,6 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(aircraft_serializer.validated_data, dict)
         self.assertEqual(aircraft_serializer.errors, dict())
 
-    def test_registry_aircraft_signing_serializer(self):
-        data = self._get_data_for_model('Aircraft')
-        aircraft_signing_serializer = AircraftSigningSerializer(data=data)
-        self.assertTrue(aircraft_signing_serializer.is_valid())
-        self.assertNotEqual(aircraft_signing_serializer.validated_data, dict)
-        self.assertEqual(aircraft_signing_serializer.errors, dict())
-
     def test_registry_aircraft_detail_serializer(self):
         data = self._get_data_for_model('Aircraft')
         aircraft_detail_serializer = AircraftDetailSerializer(data=data)

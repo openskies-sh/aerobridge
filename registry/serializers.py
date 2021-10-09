@@ -238,43 +238,6 @@ class AircraftSerializer(serializers.ModelSerializer):
                   "flight_controller_id", "photo", "photo_small", 'max_certified_takeoff_weight', 'updated_at',
                   'photo_small', 'photo','dot_permission_document','operations_manual_document')
 
-class AircraftSigningSerializer(serializers.ModelSerializer):
-    droneTypeId = serializers.SerializerMethodField()
-    version = serializers.SerializerMethodField()
-    deviceId = serializers.SerializerMethodField()
-    deviceModelId = serializers.SerializerMethodField()
-    operatorBusinessIdentifier = serializers.SerializerMethodField()
-    txn = serializers.SerializerMethodField()
-
-    def get_txn(self, response):
-        drone = Aircraft.objects.get(id=response.id)
-        t, created = Transaction.objects.get_or_create(aircraft_id=drone.id, prefix="tsc_signing")
-        return t.id
-
-    def get_droneTypeId(self, response):
-        a = Aircraft.objects.get(id=response.id)
-        return a.sub_category
-
-    def get_version(self, response):
-        a = Aircraft.objects.get(id=response.id)
-        return a.model
-
-    def get_deviceId(self, response):
-        a = Aircraft.objects.get(id=response.id)
-        return a.esn
-
-    def get_deviceModelId(self, response):
-        a = Aircraft.objects.get(id=response.id)
-        return a.model
-
-    def get_operatorBusinessIdentifier(self, response):
-        a = Aircraft.objects.get(id=response.id)
-        return a.operator.id
-
-    class Meta:
-        model = Aircraft
-        fields = ('droneTypeId', 'version', 'deviceId', 'deviceModelId', 'txn', 'operatorBusinessIdentifier')
-
 
 class AircraftDetailSerializer(serializers.ModelSerializer):
 

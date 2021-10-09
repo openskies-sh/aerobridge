@@ -4,8 +4,8 @@
 {% load crispy_forms_tags %}
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-    <h2>Add new Flight permssion</h2>
-    <p>Create a new flight permission object that will be sent to Digital Sky, a permission artefact will be issued against this operation.</p>
+    <h2>Create a new Flight Permssion</h2>
+    <p>Create a new cryptographically signed flight permission object that can be downloaded in the GCS and loaded on to the drone.</p>
     <form action="" method="post">
         {% csrf_token %}
         {% if form.errors %}
