@@ -21,7 +21,7 @@ class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
-    geo_json = models.TextField(help_text="Paste flight plan geometry as GeoJSON", default='{"type":"FeatureCollection","features":[]}')
+    geo_json = models.JSONField(help_text="Paste flight plan geometry as GeoJSON", default=dict)
     
     start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
     end_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")

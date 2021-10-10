@@ -51,7 +51,7 @@
         touchZoom: false,
         scrollWheelZoom: false});
     var fg = L.featureGroup().addTo(map);
-    let geo_json = JSON.parse('{{ flightplan.geo_json|safe }}');
+    let geo_json = {{ flightplan.geo_json|safe }};
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);

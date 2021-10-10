@@ -425,7 +425,7 @@
     "model": "gcs_operations.flightplan",
     "pk": "12818e87-4c96-4e4c-8c63-82b8e12c3b73",
     "fields": {
-        "name": "Flight uqjscr",
+        "name": "Flight Plan A",
         "geo_json": {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[78.02593231201172,21.309206440970613],[78.03897857666016,21.298331112793388],[78.04515838623045,21.28617538185596]]}}]},
         "start_datetime": "2021-04-07T06:38:44Z",
         "end_datetime": "2021-04-07T06:38:44Z",
@@ -433,34 +433,12 @@
         "updated_at": "2021-04-07T06:38:47.429Z"
     }
 }, {
-    "model": "gcs_operations.flightplan",
-    "pk": "b4951f06-5ef2-44bc-85e4-6a5722b789b3",
-    "fields": {
-        "name": "Flight uqjscr",
-        "geo_json": {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[77.88439750671387,21.05959174859059],[77.88156509399414,21.055907203445262],[77.8864574432373,21.05606740295723],[77.88851737976074,21.05999223713098],[77.88439750671387,21.05959174859059]]]}}]},
-        "start_datetime": "2021-04-07T06:38:44Z",
-        "end_datetime": "2021-04-07T06:38:44Z",
-        "created_at": "2021-04-07T06:38:47.913Z",
-        "updated_at": "2021-04-07T06:38:47.916Z"
-    }
-}, {
-    "model": "gcs_operations.flightplan",
-    "pk": "f1adc799-6c38-4ebd-a096-254a0539dbef",
-    "fields": {
-        "name": "Flight xbezqg",
-        "geo_json": {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[77.87864685058594,21.07745248921053],[77.87281036376953,21.073768386476477],[77.86723136901855,21.068322154357606]]}}]},
-        "start_datetime": "2021-02-04T09:44:51Z",
-        "end_datetime": "2021-02-04T09:44:51Z",
-        "created_at": "2021-02-04T09:44:56.242Z",
-        "updated_at": "2021-03-15T05:30:35.281Z"
-    }
-}, {
     "model": "gcs_operations.flightoperation",
     "pk": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
     "fields": {
-        "name": "Flight izxnsg",
+        "name": "Flight Operation A",
         "drone": "0797d9ef-02d9-41cf-93ff-439aaf1609ae",
-        "flight_plan": "f1adc799-6c38-4ebd-a096-254a0539dbef",
+        "flight_plan": "12818e87-4c96-4e4c-8c63-82b8e12c3b73",
         "purpose": "26b6a66d-5e77-4a43-94e9-630e141a1087",
         "type_of_operation": 0,
         "is_editable":1, 
