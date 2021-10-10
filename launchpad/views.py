@@ -607,8 +607,7 @@ class FlightOperationsDetail(APIView):
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
-        flightpermission = FlightPermission.objects.filter(operation = flightoperation).exists()
-        print(flightpermission)
+        flightpermission = FlightPermission.objects.get(operation = flightoperation)
         serializer = FlightPlanSerializer(flightoperation)
         return Response({'serializer': serializer, 'flightoperation': flightoperation, 'flightpermission':flightpermission})
 

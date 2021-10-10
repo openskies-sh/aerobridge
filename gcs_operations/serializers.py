@@ -26,7 +26,8 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """
-        Check flight plan is  valid GeoJSON        """
+        Check flight plan is  valid GeoJSON        
+        """
         
         s_date = data.get("start_datetime")
         e_date = data.get("end_datetime")

@@ -18,7 +18,7 @@
     </thead>
     <tr>
         <td>Drone </td>
-        <td>{{ flightoperation.drone.model }}</td>
+        <td><a href="/launchpad/aircrafts/{{ flightoperation.drone.id}}/detail">{{ flightoperation.drone.model }}</a></td>
     </tr>
     <tr>
         <td>Flight Path / Volume</td>
@@ -33,6 +33,10 @@
         <td>Purpose</td>
         <td>{{ flightoperation.purpose}}</td>
     </tr>
+    <tr>
+        <td>Pilot</td>
+        <td><a href="/launchpad/people/{{ flightoperation.pilot.person.id}}/detail">{{ flightoperation.pilot.person.first_name}} {{ flightoperation.pilot.person.last_name}}</a></td>
+    </tr>
     </tr>
     <tr>
         <td>Operation Start</td>
@@ -46,7 +50,7 @@
 </table>
 <br>
 {% if flightoperation.is_editable %}
-    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightpermissions/new"><b>Issue Flight Permission</b></a>{% endif %}</p>
+    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightpermissions/new"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
 {% else %}    
     <p class='text-muted'>This flight operation had a log associated with it that has been signed and cannot be edited, create a new plan, and a new operation .</p>
 {% endif %}
@@ -61,7 +65,7 @@
         touchZoom: false,
         scrollWheelZoom: false});
     var fg = L.featureGroup().addTo(map);
-    let geo_json = JSON.parse('{{ flightoperation.flight_plan.geo_json|safe }}');
+    let geo_json = {{ flightoperation.flight_plan.geo_json|safe }};
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);

@@ -128,7 +128,7 @@ class FlightOperationList(mixins.ListModelMixin,
     # def post(self, request, *args, **kwargs):
     #     return self.create(request, *args, **kwargs)
 
-@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FlightOperationDetail(mixins.RetrieveModelMixin,
                     mixins.UpdateModelMixin,
                     mixins.DestroyModelMixin,
@@ -240,7 +240,7 @@ class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericA
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
     
-@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+@method_decorator(requires_scopes(['aerobridge.read','aerobridge.write']), name='dispatch')
 class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.GenericAPIView):
     
     queryset = FlightPermission.objects.all()

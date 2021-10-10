@@ -5,8 +5,6 @@
     <h1>Permission Details</h1>
     <p>Please find below the details of flight permission artefacts applied downloaded from Digital Sky.</p>
     <br>
-
-    
 </div>
 <div  class="row mb-3">
     <table class="table">
@@ -22,26 +20,15 @@
                     href="/launchpad/flightoperations/{{ flightpermission.operation.id }}/detail">{{ flightpermission.operation.name }}</a>
             </td>
         </tr>
-        <tr>
-            <td>Applied Successfully</td>
-            <td><code>{{ flightpermission.is_successful }}</code></td>
-        </tr>
-
-
+        
         <tr>
             <td>Permission Artefact</td>
-            <td> {% if flightpermission.is_successful %}
-                <code class="text-break">{{ flightpermission.artefact }}</code>
-                {% else %}
-                <p>No Permission Artefact found for this operation. Please apply for a flight permission first via the
-                    Digital Sky menu first, once successful the artefact will appear here.</p>
-                {% endif %}</td>
+            <td> 
+                <code class="text-break">{{ flightpermission.json }}</code>
+                
+            </td>
         </tr>
-
-
     </table>
-
-
-    <p class="text-muted">Last Updated - {{ flightpermission.updated_at }}</p>
+    <p class="text-muted">Created At - {{ flightpermission.created_at }}</p>
 </div>
 {% endblock %}
