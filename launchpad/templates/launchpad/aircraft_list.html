@@ -25,12 +25,11 @@
     <ul class="list-group list-group-flush">
         {% if aircrafts %}
             {% for aircraft in aircrafts %}
-            <li class="list-group-item"><img src="{{aircraft.photo_small}}" height="50"><br><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small><br><br></li>
+            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></li>
         {% endif %}
-
     </ul>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/aircrafts/new"><b>&#43; Add a aircraft</b></a></p>

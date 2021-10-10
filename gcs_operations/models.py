@@ -6,7 +6,7 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
-from registry.models import Aircraft,Activity
+from registry.models import Aircraft,Activity, Pilot
 from django.core.validators import RegexValidator
 
 def make_random_plan_common_name():
@@ -47,6 +47,7 @@ class FlightOperation(models.Model):
     flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")
+    pilot = models.ForeignKey(Pilot, models.CASCADE)
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight operation can be edited. Once the flight log has been signed a flight operation cannot be edited.")
     
     created_at = models.DateTimeField(auto_now_add=True)

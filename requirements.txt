@@ -26,3 +26,5 @@ crispy-bootstrap5
 faker
 django-simple-history
 boto3
+pyyaml
+uritemplate
