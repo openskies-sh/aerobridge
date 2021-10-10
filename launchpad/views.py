@@ -26,8 +26,9 @@ from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSeri
 import tempfile
 from rest_framework.parsers import MultiPartParser
 import boto3
-from gcs_operations import log_signer
+from gcs_operations import log_signer, permissions_issuer
 from botocore.exceptions import ClientError
+from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
@@ -607,7 +608,10 @@ class FlightOperationsDetail(APIView):
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
-        flightpermission = FlightPermission.objects.get(operation = flightoperation)
+        try:
+            flightpermission = FlightPermission.objects.get(operation = flightoperation)
+        except ObjectDoesNotExist:
+            flightpermission = 0 
         serializer = FlightPlanSerializer(flightoperation)
         return Response({'serializer': serializer, 'flightoperation': flightoperation, 'flightpermission':flightpermission})
 
@@ -638,11 +642,26 @@ class FlightOperationCreateView(CreateView):
         form = FlightOperationCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
-            form.save()
+            flight_operation = form.save()
             return redirect('flightoperations-list')
 
         return render(request, 'launchpad/flightoperation_create.html', context)
   
+class FlightOperationPermissionCreateView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/flightoperation_permission_thanks.html'
+
+    def get(self, request, flightoperation_id):
+        
+        flight_operation = get_object_or_404(FlightOperation,pk = flightoperation_id)
+        flight_permission = FlightPermission.objects.filter(operation = flight_operation).exists()
+        if flight_permission:
+            flight_permission = FlightPermission.objects.get(operation = flight_operation)
+        else:
+            flight_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)
+        
+        return Response({'flightpermissions': flight_permission})
+    
         
 ### Flight Permission Views
     
@@ -663,21 +682,21 @@ class FlightPermissionsDetail(APIView):
         serializer = FlightPermissionSerializer(flightpermission)
         return Response({'serializer': serializer, 'flightpermission': flightpermission})
 
-class FlightPermissionCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': FlightPermissionCreateForm()}
-        return render(request, 'launchpad/flightpermission_create.html', context)
+# class FlightPermissionCreateView(CreateView):
+#     def get(self, request, *args, **kwargs):
+#         context = {'form': FlightPermissionCreateForm()}
+#         return render(request, 'launchpad/flightpermission_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = FlightPermissionCreateForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            flight_permission = form.save()
-            ## Issue a permission artefact
-            print(flight_permission.operation.flight_plan.id) 
-            return redirect('flightpermissions-list')
+#     def post(self, request, *args, **kwargs):
+#         form = FlightPermissionCreateForm(request.POST)
+#         context = {'form': form}
+#         if form.is_valid():
+#             flight_permission = form.save()
+#             ## Issue a permission artefact
+#             print(flight_permission.operation.flight_plan.id) 
+#             return redirect('flightpermissions-list')
 
-        return render(request, 'launchpad/flightpermission_create.html', context)
+#         return render(request, 'launchpad/flightpermission_create.html', context)
   
     
     

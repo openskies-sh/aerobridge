@@ -1,4 +1,4 @@
-from gcs_operations.models import FlightOperation
+from gcs_operations.models import FlightOperation, FlightPermission
 import json
 import arrow
 from pki_framework import encrpytion_util
@@ -11,11 +11,13 @@ import base64
 
 def issue_permission(flight_operation_id):
 
-    flight_operation = FlightOperation.objects.get(id = flight_operation_id)  
-    pass
+    flight_operation = FlightOperation.objects.get(id = flight_operation_id)
     
-#     # get the raw log
-#     flight_plan = flight_operation.flight_plan
+    # get the raw log
+    flight_plan = flight_operation.flight_plan
+    flight_permission = FlightPermission(operation = flight_operation, json = {})
+    flight_permission.save()
+    return flight_permission
 #     flight_operation = flight_log.operation
 #     flight_plan = flight_operation.flight_plan
 #     raw_log = flight_log.raw_log

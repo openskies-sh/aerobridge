@@ -254,7 +254,8 @@ class FlightPlanCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
                         "geo_json",
-                        "is_editable",
+                        "start_datetime",
+                        "end_datetime",
                         ),
                     
                     HTML("""
@@ -278,10 +279,12 @@ class FlightPlanCreateForm(forms.ModelForm):
             raise forms.ValidationError("End date should be greater than start date.")
 
     def clean_geo_json(self):
-        gj = self.cleaned_data.get('geo_json', False)        
+        gj = self.cleaned_data.get('geo_json', False)    
+        print(gj)    
         try:
-            validated_gj = geojson.loads(gj)
-        except Exception as ve:                        
+            validated_gj = gj
+        except Exception as ve:                    
+            print(ve)    
             raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
         else:
             return gj
@@ -370,7 +373,7 @@ class FlightOperationCreateForm(forms.ModelForm):
                         FloatingField("drone"),
                         FloatingField("flight_plan"),
                         FloatingField("purpose"),
-                        FloatingField("person")
+                        FloatingField("pilot")
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("type_of_operation")                                 

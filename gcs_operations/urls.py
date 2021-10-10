@@ -11,6 +11,7 @@ urlpatterns = [
     
     path('flight-operations', gcs_views.FlightOperationList.as_view(), name='flight-operation-list'),
     path('flight-operations/<uuid:pk>', gcs_views.FlightOperationDetail.as_view(), name='flight-operation-detail'),
+    path("flight-operations/<uuid:pk>/generate-permission", gcs_views.FlightPermissionApplicationGenerate.as_view(), name="permission_generate"),  
     
     path('flight-logs', gcs_views.FlightLogList.as_view(), name='log-list'),
     path('flight-logs/<uuid:pk>', gcs_views.FlightLogDetail.as_view(), name='log-detail'),
@@ -19,10 +20,8 @@ urlpatterns = [
     path('signed-flight-logs', gcs_views.SignedFlightLogList.as_view(), name='signed-log-list'),
     path('signed-flight-logs/<uuid:pk>', gcs_views.SignedFlightLogDetail.as_view(), name='signed-log-detail'),
 
-    path("all_permissions", gcs_views.FlyDronePermissionApplicationList.as_view(), name="apply_permission"),
-    path("all_permissions/<uuid:pk>", gcs_views.FlyDronePermissionApplicationDetail.as_view(), name="permission_detail"),  
-    path("all_permissions/<uuid:pk>/apply", gcs_views.FlyDronePermissionApplicationSubmit.as_view(), name="permission_digitalsky_submit"),  
-    
+    path("all_permissions", gcs_views.FlightPermissionApplicationList.as_view(), name="flight-permissions-list"),
+    path("all_permissions/<uuid:pk>", gcs_views.FlightPermissionApplicationDetail.as_view(), name="flight-permissions-detail"),  
     path("files", gcs_views.CloudFileList.as_view(), name="file_list"),
     path("files/<uuid:pk>", gcs_views.CloudFileDetail.as_view(), name="file_detail"),  
     path("files/<str:document_type>/upload", gcs_views.CloudFileUpload.as_view(), name="file_upload"),  

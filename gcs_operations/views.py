@@ -4,7 +4,7 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer
+from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer, FlightOperationPermissionSerializer
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
@@ -145,6 +145,20 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
     # def delete(self, request, *args, **kwargs):
     #     return self.destroy(request, *args, **kwargs)
 
+@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+class FlightPermissionApplicationGenerate(APIView):
+
+    queryset = FlightOperation.objects.all()
+    serializer_class = FlightOperationPermissionSerializer
+
+    
+    def put(self, request, operation_id,format=None):	
+        flight_operation = get_object_or_404(FlightOperation, pk=operation_id)
+        permission = FlightPermission.objects.get(operation = flight_operation)
+        # submit_flight_permission.delay(permission_id = permission.id)
+
+        return Response(status=status.HTTP_201_CREATED)
+
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightLogList(mixins.ListModelMixin,
@@ -232,7 +246,7 @@ class SignedFlightLogDetail(mixins.RetrieveModelMixin,
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
-class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):
+class FlightPermissionApplicationList(mixins.ListModelMixin, generics.GenericAPIView):
     
     queryset = FlightPermission.objects.all()
     serializer_class = FlightPermissionSerializer
@@ -241,30 +255,13 @@ class FlyDronePermissionApplicationList(mixins.ListModelMixin, generics.GenericA
         return self.list(request, *args, **kwargs)
     
 @method_decorator(requires_scopes(['aerobridge.read','aerobridge.write']), name='dispatch')
-class FlyDronePermissionApplicationDetail(mixins.CreateModelMixin, generics.GenericAPIView):
+class FlightPermissionApplicationDetail(mixins.CreateModelMixin, generics.GenericAPIView):
     
     queryset = FlightPermission.objects.all()
     serializer_class = FlightPermissionSerializer
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
-class FlyDronePermissionApplicationSubmit(APIView):
-
-    
-    queryset = FlightPermission.objects.all()
-    serializer_class = FlightPermissionSerializer
-
-    
-    def post(self, request, permission_id,format=None):	
-        permission = get_object_or_404(FlightPermission, pk=permission_id)
-        submit_flight_permission.delay(permission_id = permission_id)
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')

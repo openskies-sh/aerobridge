@@ -64,10 +64,11 @@ urlpatterns = [
     path('flightoperations/<uuid:flightoperation_id>', launchpad_views.FlightOperationsUpdate.as_view(), name='flightoperations-update'),
     path('flightoperations/<uuid:flightoperation_id>/detail', launchpad_views.FlightOperationsDetail.as_view(), name='flightoperations-detail'),
     path('flightoperations/new', launchpad_views.FlightOperationCreateView.as_view(), name='flightoperations-create'),
+    path('flightoperations/<uuid:flightoperation_id>/generate_permission', launchpad_views.FlightOperationPermissionCreateView.as_view(), name='flightoperations-permission-create'),
  
     path('flightpermissions', launchpad_views.FlightPermissionsList.as_view(), name='flightpermissions-list'),
     path('flightpermissions/<uuid:flightpermission_id>/detail', launchpad_views.FlightPermissionsDetail.as_view(), name='flightpermissions-detail'),    
-    path('flightpermissions/new', launchpad_views.FlightPermissionCreateView.as_view(), name='flightpermissions-create'),
+    # path('flightpermissions/new', launchpad_views.FlightPermissionCreateView.as_view(), name='flightpermissions-create'),
 
     # path('digitalsky-flight-permissions', launchpad_views.FlightPermissionDigitalSkyList.as_view(), name='flightpermissions-digitalsky-list'),
     # path('digitalsky-flight-permissions/thanks', launchpad_views.FlightPermissionDigitalSkyThanks.as_view(), name='flightpermissions-digitalsky-thanks'),

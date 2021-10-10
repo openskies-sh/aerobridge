@@ -9,7 +9,6 @@ from pki_framework.models import AerobridgeCredential
 import base64
 
 def get_SignedFlightLog(pk):
-    
     created = 0
     try:
         

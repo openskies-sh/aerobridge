@@ -1,3 +1,4 @@
+from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
@@ -55,7 +56,8 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
         model = FlightOperation	
         fields = '__all__'
         ordering = ['-created_at']
-    
+
+     
  
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
@@ -74,6 +76,18 @@ class FlightPermissionSerializer(serializers.ModelSerializer):
         ordering = ['-created_at']
         
         
+class FlightOperationPermissionSerializer(serializers.ModelSerializer):
+    ''' A serializer for Flight Operations '''
+    permission = serializers.SerializerMethodField()
+    
+    def get_permission(self, obj):
+        permission = FlightPermission.objects.get(operation_id = obj.id)
+        return permission.json
+    class Meta:
+        model = FlightOperation	
+        fields = ('operation_id', 'permission')
+        ordering = ['-created_at']
+    
         
 # class TransactionSerializer(serializers.ModelSerializer):
 #     ''' A serializer to the transaction view '''
