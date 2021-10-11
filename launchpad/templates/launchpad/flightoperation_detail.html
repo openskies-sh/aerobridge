@@ -69,7 +69,7 @@
         
     
     
-    let raw_kml = "{{ flightoperation.flight_plan.kml|safe }}";
+    let raw_kml = '{{ flightoperation.flight_plan.kml|safe }}';
         // Create new kml overlay
         const parser = new DOMParser();
         const kml = parser.parseFromString(raw_kml, 'text/xml');
