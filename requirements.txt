@@ -8,6 +8,7 @@ django-cors-headers
 drf-jwt
 pyjwt
 fastkml
+lxml
 requests
 python-dotenv
 django-heroku
