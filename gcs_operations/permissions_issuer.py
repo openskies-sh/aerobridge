@@ -17,7 +17,7 @@ def issue_permission(flight_operation_id):
     flight_plan = flight_operation.flight_plan
     flight_permission = FlightPermission(operation = flight_operation, json = {})
     flight_permission.save()
-    return flight_permission
+    return {"permission": flight_permission}
 #     flight_operation = flight_log.operation
 #     flight_plan = flight_operation.flight_plan
 #     raw_log = flight_log.raw_log

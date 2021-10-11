@@ -8,13 +8,11 @@ from .serializers import FlightPlanListSerializer, FlightPlanSerializer, FlightO
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
-from pki_framework.models import AerobridgeCredential
-from pki_framework import encrpytion_util
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from pki_framework.utils import requires_scopes
-from digitalsky_provider.tasks import submit_flight_permission
+from . import permissions_issuer
 import tempfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
@@ -27,6 +25,8 @@ from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
+
+from gcs_operations import serializers
 
 
 
@@ -125,8 +125,8 @@ class FlightOperationList(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    # def post(self, request, *args, **kwargs):
-    #     return self.create(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class FlightOperationDetail(mixins.RetrieveModelMixin,
@@ -145,20 +145,21 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
     # def delete(self, request, *args, **kwargs):
     #     return self.destroy(request, *args, **kwargs)
 
-@method_decorator(requires_scopes(['aerobridge.write']), name='dispatch')
+@method_decorator(requires_scopes(['aerobridge.administration']), name='dispatch')
 class FlightPermissionApplicationGenerate(APIView):
 
-    queryset = FlightOperation.objects.all()
-    serializer_class = FlightOperationPermissionSerializer
-
-    
     def put(self, request, operation_id,format=None):	
         flight_operation = get_object_or_404(FlightOperation, pk=operation_id)
-        permission = FlightPermission.objects.get(operation = flight_operation)
-        # submit_flight_permission.delay(permission_id = permission.id)
-
-        return Response(status=status.HTTP_201_CREATED)
-
+        permission = FlightPermission.objects.filter(operation = flight_operation).exists()
+        if permission:
+            f_p = FlightPermission.objects.get(operation = flight_operation)            
+        else:
+            f_p = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)            
+                    
+        serializer = FlightPermissionSerializer(f_p['permission'])
+        
+        return Response(serializer.data, status = status.HTTP_200_OK)
+                
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightLogList(mixins.ListModelMixin,

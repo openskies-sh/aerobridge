@@ -643,6 +643,9 @@ class FlightOperationCreateView(CreateView):
         context = {'form': form}
         if form.is_valid():
             flight_operation = form.save()
+            # Create flight permission
+            flight_permission = permissions_issuer.issue_permission(flight_operation_id= flight_operation.id)
+
             return redirect('flightoperations-list')
 
         return render(request, 'launchpad/flightoperation_create.html', context)
@@ -660,7 +663,7 @@ class FlightOperationPermissionCreateView(APIView):
         else:
             flight_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)
         
-        return Response({'flightpermissions': flight_permission})
+        return Response({'flightpermissions': flight_permission['permission']})
     
         
 ### Flight Permission Views

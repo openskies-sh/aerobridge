@@ -786,6 +786,203 @@
 			"response": []
 		},
 		{
+			"name": "POST Generate Flight Permission",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "audience",
+							"value": {
+								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+							},
+							"type": "any"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Aerobridge Token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "aerobridge.read aerobridge.write",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://local.test:3000/callback",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "http://local.test:8000/o/authorize",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://id.openskies.sh/oauth/token/",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-operations/3408bce9-dbab-4665-abfc-8ea03b0ad871/permission",
+					"protocol": "https",
+					"host": [
+						"aerobridgetestflight",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"gcs",
+						"flight-operations",
+						"3408bce9-dbab-4665-abfc-8ea03b0ad871",
+						"permission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Create Flight Operation",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "audience",
+							"value": {
+								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+							},
+							"type": "any"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Aerobridge Token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "aerobridge.read aerobridge.write",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://local.test:3000/callback",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "http://local.test:8000/o/authorize",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://id.openskies.sh/oauth/token/",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {        \r\n        \"name\": \"Flight Operation \",\r\n        \"type_of_operation\": 0,        \r\n        \"drone\": \"0797d9ef-02d9-41cf-93ff-439aaf1609ae\",\r\n        \"flight_plan\": \"12818e87-4c96-4e4c-8c63-82b8e12c3b73\",\r\n        \"purpose\": \"26b6a66d-5e77-4a43-94e9-630e141a1087\",\r\n        \"pilot\": \"2f15a395-65a3-4a73-a492-57c7c470d527\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-operations",
+					"protocol": "https",
+					"host": [
+						"aerobridgetestflight",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"gcs",
+						"flight-operations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET a single Cloudfile",
 			"request": {
 				"auth": {

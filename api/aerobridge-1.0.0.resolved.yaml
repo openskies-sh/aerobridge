@@ -17,6 +17,7 @@ security:
   - AuthFromPassport:
       - "aerobridge.write"
       - "aerobridge.read"
+      - "aerobridge.privileged"
 
 paths:
   /ping:
@@ -323,6 +324,31 @@ paths:
           description: 'Operations retrieved successfully'
       tags:
       - Flight Operations
+    put:
+      operationId: updateFlightOperation
+      summary: Create a new operation
+      description: 'Create a new Flight Operation'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightOperation'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightOperation'
+          description: 'New Flight Operation created'
+          
+      tags:
+      - Flight Operations
       
   /gcs/flight-operations/{flightoperation_id}:
     get:
@@ -346,10 +372,12 @@ paths:
       tags:
       - Flight Operations
       
-  /gcs/flight-operations/{id}/generate-permission:
+  /gcs/flight-operations/{id}/permission:
     put:
-      operationId: Generate permission for a operation
+      operationId: Get or Create permission for a operation
       description: 'Generate a permission for operation'
+      security:
+        - AuthFromPassport: [aerobridge.privileged]    
       parameters:
       - name: id
         in: path
@@ -362,8 +390,22 @@ paths:
         '200':
           content:
             application/json:
-              schema: {}
-          description: ''
+              schema:
+                  $ref: '#/components/schemas/FlightPermission'
+                
+          description: 'Flight permission object retrieved'
+          
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  message:
+                    type: string
+                    example: "Error in your request"
+                
+          description: 'Error in your request'
       tags:
       - Flight Operations
 
@@ -657,7 +699,7 @@ paths:
       tags:
       - Files
 
-  /gcs/all_permissions:
+  /gcs/flight-permissions:
     get:
       summary: "Get all flight permissions"
       description: 'Use this endpoint to retrieve all flight permissions'
@@ -676,7 +718,7 @@ paths:
           description: ''
       tags:
       - Flight Permissions
-  /gcs/all_permissions/{id}:
+  /gcs/flight-permissions/{id}:
     get:
       summary: "Get a single permission"
       security:
@@ -1241,6 +1283,8 @@ components:
       type: array
       items:         
           $ref: "#/components/schemas/FlightOperation"
+
+
     FlightOperation:
       type: object
       properties:
@@ -1266,19 +1310,28 @@ components:
         drone:
           type: string
           description: Pick the drone that will be used to fly this opreation
+          format: uuid
+          example: 01e27e8a-351c-4fa9-83b1-f243c6595e88
         flight_plan:
           type: string
+          format: uuid
+          description: A ID of a flight plan added to Aerobridge
         purpose:
-          type: string
-          description: To add additional categories, please add entries to the Activities
-            table
+          type: string          
+          description: By default the purpose of the operation is related to authorized activities
+          format: uuid
+          example: 359029ad-2967-4e3f-9e55-923d1972430b
         pilot:
           type: string
-          description: Assign a pilot for this operation
+          format: uuid
+          example: 5178fd83-34bf-4721-bc53-291b0e6f05f8
+          description: Assign a pilot to this operation
       required:
       - drone
       - flight_plan
       - pilot
+
+
     FlightLog:
       type: object
       properties:
