@@ -703,6 +703,108 @@
 			"response": []
 		},
 		{
+			"name": "PUT Create a new Flight Plan Copy",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "audience",
+							"value": {
+								"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+							},
+							"type": "any"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "Aerobridge Token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "aerobridge.read aerobridge.write",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://local.test:3000/callback",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "http://local.test:8000/o/authorize",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://id.openskies.sh/oauth/token/",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"North West Medical Delivery\",\r\n  \"kml\": \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><kml xmlns=\\\"http://www.opengis.net/kml/2.2\\\"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>\",\r\n  \"start_datetime\": \"2019-08-24T14:15:22Z\",\r\n  \"end_datetime\": \"2019-08-24T14:15:22Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-plans",
+					"protocol": "https",
+					"host": [
+						"aerobridgetestflight",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"gcs",
+						"flight-plans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET all Flight Operations",
 			"request": {
 				"auth": {

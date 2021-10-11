@@ -7,7 +7,7 @@ django-filter
 django-cors-headers
 drf-jwt
 pyjwt
-geojson
+fastkml
 requests
 python-dotenv
 django-heroku

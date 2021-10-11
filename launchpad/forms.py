@@ -7,7 +7,8 @@ from django.forms import widgets, Textarea
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
-import geojson
+
+from fastkml import kml
 import arrow
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -278,16 +279,16 @@ class FlightPlanCreateForm(forms.ModelForm):
         if end_date < start_date:
             raise forms.ValidationError("End date should be greater than start date.")
 
-    def clean_geo_json(self):
-        gj = self.cleaned_data.get('geo_json', False)    
-        print(gj)    
+    def clean_kml(self):
+        raw_kml = self.cleaned_data.get('kml', False)    
+        
         try:
-            validated_gj = gj
-        except Exception as ve:                    
-            print(ve)    
-            raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+            k = kml.KML()
+            k.from_string(raw_kml)            
+        except Exception as ve:            
+            raise ValidationError(_("Not a valid KML, please enter a valid KML string"))
         else:
-            return gj
+            return raw_kml
 
     class Meta:
         model = FlightPlan

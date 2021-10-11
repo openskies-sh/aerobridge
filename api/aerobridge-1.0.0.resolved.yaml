@@ -224,7 +224,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlightPlan'
+              $ref: '#/components/schemas/FlightPlanCreateUpdate'
               
       responses:
         '201':
@@ -278,7 +278,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlightPlan'
+              $ref: '#/components/schemas/FlightPlanCreateUpdate'
               
       responses:
         '200':
@@ -287,25 +287,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/FlightPlan'
           description: 'Flight Plan updated'
-      tags:
-      - Flight Plans
-
-    delete:
-      operationId: destroyFlightPlan
-      summary: Remove Flight Plan
-      description: 'Delete flight plan from Aerobridge'
-      security:
-        - AuthFromPassport: [aerobridge.write]    
-      parameters:
-      - name: flightplan_id
-        in: path
-        required: true
-        description: 'ID of the Flight Plan in Aerobridge'
-        schema:
-          type: string
-      responses:
-        '204':
-          description: 'Flight Plan deleted successfully'
       tags:
       - Flight Plans
 
@@ -915,7 +896,7 @@ tags:
   - name: Flight Operations
     description: "Flight Operations depend on flight plans and specify details about operation that will enable the drone to fly the plan. Use these endpoints to interact with operations stored in the management server."
   - name: Flight Plans
-    description: "Flight plans are GeoJSON objects that can be stored in the server, usually flight plans are generated on the GCS and stored on the management server. A operation is created against the plan and permission artefacts retrieved for the operation."
+    description: "Flight plans are KML objects that can be stored in the server, usually flight plans are generated on the GCS as KML files and stored on the management server. A operation is created against the plan and permission artefacts retrieved for the operation."
   - name: Firmware
     description: "Manufacturer can  sign and release firmwares and these endpoints help in downloading firmware to the GCS"
   - name: Credentials
@@ -1243,11 +1224,11 @@ components:
         name:
           type: string
           maxLength: 30
-        geo_json:
-          type: object
-          $ref: '#/components/schemas/GeoJSON'
-          nullable: true
-          description: Paste flight plan geometry
+          example: North West Medical Delivery
+        kml:
+          type: string
+          description: Flight Plan Geometry as KML
+          example: <?xml version='1.0' encoding='UTF-8'?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>
         is_editable:
           type: boolean
           description: Set whether the flight plan can be edited. Once the flight
@@ -1271,7 +1252,48 @@ components:
       required:
       - start_datetime
       - end_datetime
-      - geo_json
+      - kml
+      - name
+      
+    FlightPlanCreateUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+          example: North West Medical Delivery
+        kml:
+          type: string
+          description: Paste flight plan geometry as a KML String
+          example: <?xml version='1.0' encoding='UTF-8'?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>
+        is_editable:
+          type: boolean
+          description: Set whether the flight plan can be edited. Once the flight
+            log has been signed a flight plan cannot be edited.
+          readOnly: true
+          
+        start_datetime:
+          type: string
+          format: date-time
+        end_datetime:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - start_datetime
+      - end_datetime
+      - kml
       - name
       
     FlightPlanList:

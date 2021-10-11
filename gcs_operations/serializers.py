@@ -2,8 +2,9 @@ from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
-import geojson
+
 import arrow
+from fastkml import kml
 
 class FirmwareSerializer(serializers.ModelSerializer):
     ''' A serializer for saving Firmware ''' 
@@ -12,7 +13,7 @@ class FirmwareSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['-created_at']
         
-class FlightPlanListSerializer(serializers.ModelSerializer):
+class   FlightPlanListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightPlan	
@@ -22,12 +23,9 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
 
 class FlightPlanSerializer(serializers.ModelSerializer):
 
-    def clean(self):
-        cleaned_data = super().clean()
-
     def validate(self, data):
         """
-        Check flight plan is  valid GeoJSON        
+        Check flight plan is  valid KML        
         """
         
         s_date = data.get("start_datetime")
@@ -39,9 +37,12 @@ class FlightPlanSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("End date should be greater than start date.")
 
         try:
-            gj = geojson.loads(data['geo_json'])
+            k = kml.KML()            
+            k.from_string(data['kml'])
+            data['kml'] = k.to_string()
+
         except Exception as ve:
-            raise serializers.ValidationError("Not a valid GeoJSON, please enter a valid GeoJSON object")            
+            raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
         
         return data
 

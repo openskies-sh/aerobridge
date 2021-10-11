@@ -20,8 +20,8 @@ no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No 
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")
-    geo_json = models.JSONField(help_text="Paste flight plan geometry as GeoJSON", default=dict)
+    name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")    
+    kml = models.TextField("Paste flight plan geometry as KML String", default = "")
     
     start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
     end_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
