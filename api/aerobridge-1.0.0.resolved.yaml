@@ -1075,7 +1075,7 @@ components:
              * `1` - Private Key
              * `2` - Authentication Token
              * `3` - Other
-             * `4` - Digital Certificate
+             * `4` - x509 Digital Certificate
         association:
           enum:
           - 0
@@ -1084,13 +1084,13 @@ components:
           - 3
           - 4
           description: >
-            Set the entity this credential is associated with. The association will be used when calling Digital Sky and other external servers
+            Set the entity this credential is associated with. The association will be used when calling other external servers
             Sort order:
              * `0` - Operator
              * `1` - Manufacturer
              * `2` - Pilot
              * `3` - RFM
-             * `4` - DSC / eMudra Token
+             * `4` - Company
           type: integer
         is_active:
           type: boolean
@@ -1334,15 +1334,21 @@ components:
           description: Pick the drone that will be used to fly this opreation
           format: uuid
           example: 01e27e8a-351c-4fa9-83b1-f243c6595e88
+        operator:
+          type: string          
+          description: Assign a operator for this drone
+          format: uuid
+          example: 0adaf595-9267-4ddc-8d77-58bbafae79d0
         flight_plan:
           type: string
           format: uuid
           description: A ID of a flight plan added to Aerobridge
+          example: 15e1e37d-abe1-42b7-a7d4-a05ae2eb21d4
         purpose:
           type: string          
           description: By default the purpose of the operation is related to authorized activities
           format: uuid
-          example: 359029ad-2967-4e3f-9e55-923d1972430b
+          example: 57f92cc6-f1fb-42d0-a19d-f777c31eb44e
         pilot:
           type: string
           format: uuid
@@ -1352,6 +1358,7 @@ components:
       - drone
       - flight_plan
       - pilot
+      - operator
 
 
     FlightLog:
@@ -1363,7 +1370,8 @@ components:
           readOnly: true
                  
         raw_log:
-          type: string
+          type: object
+
         created_at:
           type: string
           format: date-time
@@ -1375,6 +1383,8 @@ components:
         operation:
           type: string
           format: uuid
+          example: 29ec06cb-c6fb-4578-aea6-56fa438f4f82
+
       required:
       - raw_log
       - operation
@@ -1506,7 +1516,7 @@ components:
           nullable: true
           maxLength: 280
           example: eBee X2
-          description: A colloquial name for the aircraft, if avaiable
+          description: A colloquial name for the aircraft, if avaialble
         sub_category:
           enum:
           - 0

@@ -2,7 +2,7 @@ from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
-
+import json
 import arrow
 from fastkml import kml
 
@@ -104,11 +104,12 @@ class FlightLogSerializer(serializers.ModelSerializer):
         """
         Check flight log already exists for the operation  """
 
-        operation_id = data.get("operation")
-
-        if FlightLog.objects.filter(operation = operation_id).exists():
-            raise serializers.ValidationError("A raw flight log has already been submitted for this operation.")        
-
+        raw_log = data.get("raw_log")
+        try: 
+            json.loads(raw_log)
+        except TypeError as te:
+            raise serializers.ValidationError("A raw flight log must be a valid JSON object")        
+        return data
 
         
     class Meta:

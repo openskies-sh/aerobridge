@@ -12,14 +12,14 @@ no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No 
 class AerobridgeCredential(models.Model):
     ''' A class to store tokens from Digital Sky '''
     
-    KEY_ENVIRONMENT = ((0, _('OPERATOR')),(1, _('MANUFACTURER')),(2, _('PILOT')),(3, _('RFM')),(4, _('DSC / eMudra Token')),)
+    KEY_ENVIRONMENT = ((0, _('Operator')),(1, _('Manufacturer')),(2, _('Pilot')),(3, _('RFM')),(4, _('Company')),)
     
-    TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('OTHER')),(4, _('DIGITAL_CERTIFICATE')),)
+    TOKEN_TYPE= ((0, _('Public Key')),(1, _('Private Key')),(2, _('Authentication Token')),(3, _('Other')),(4, _('x509 Digital Certificate')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, help_text="Enter a friendly name / description for the type of credential you are storing", validators = [no_special_characters_regex,])
     token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is, e.g Public / Private Key")
-    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling Digital Sky and other external servers")
+    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling external servers.")
     token = models.BinaryField()
 
     aircraft = models.ForeignKey(Aircraft,blank=True, null=True, on_delete = models.CASCADE)

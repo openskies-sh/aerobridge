@@ -7,13 +7,21 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-
-<form action="{% url 'flightlogs-update' flightlog_id=flightlog.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <br>
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightlogs-list' %}" role="button">Cancel</a>
-</form>
+        {% if errors %}
+    
+        {% for err, val in errors.items %}
+            {% for v in val %}
+                <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
+            {% endfor %}
+        {% endfor %}
+        
+    {% endif %}
+        <form action="{% url 'flightlogs-update' flightlog_id=flightlog.pk %}" method="POST">
+            {% csrf_token %}
+            {% render_form serializer %}
+            <br>
+            <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'flightlogs-list' %}" role="button">Cancel</a>
+        </form>
 </div>
 </div>
 {% endblock %}

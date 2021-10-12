@@ -117,7 +117,7 @@ class Operator(models.Model):
     OPTYPE_CHOICES = ((0, _('NA')),(1, _('LUC')),(2, _('Non-LUC')),(3, _('AUTH')),(4, _('DEC')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     company_name = models.CharField(max_length=28,help_text="Official Name of the company as in the Company Registration Office", validators = [no_special_characters_regex,])
-    website = models.URLField(help_text="Put official URL of the company, if none is avaiable then a manufacturers")
+    website = models.URLField(help_text="Put official URL of the company, if none is available then a manufacturers public facing URL is necessary")
     email = models.EmailField(help_text="Contact email for support and other queries")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) #        
     expiration = models.DateTimeField(default = two_year_expiration)
@@ -127,7 +127,7 @@ class Operator(models.Model):
     authorized_activities = models.ManyToManyField(Activity, related_name = 'authorized_activities',help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel" )
     vat_number = models.CharField(max_length=25,default="VAT-TMP",validators = [no_special_characters_regex,], blank = True, null=True, help_text="VAT / Tax number if available")
     insurance_number = models.CharField(max_length=25,default = "INS-TMP",validators = [no_special_characters_regex,], blank = True, null=True, help_text="Insurance number if avaialble")
-    company_number = models.CharField(max_length=25, default='CO-TMP',validators = [no_special_characters_regex,], blank = True, null=True, help_text="Company number if avaiable")
+    company_number = models.CharField(max_length=25, default='CO-TMP',validators = [no_special_characters_regex,], blank = True, null=True, help_text="Company number if available ")
     country = models.CharField(max_length = 2, choices=countries.COUNTRY_CHOICES_ISO3166, default = 'IN', help_text="At the moment only India is configured, you can setup your own country")
     
     created_at = models.DateTimeField(auto_now_add=True)

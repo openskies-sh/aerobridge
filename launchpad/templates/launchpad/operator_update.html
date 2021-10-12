@@ -13,7 +13,7 @@
     
     {% for err, val in errors.items %}
         {% for v in val %}
-            <p class="alert alert-danger" role="alert">{{ v }}</p><br>
+        <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
         {% endfor %}
     {% endfor %}
     {% endif %}

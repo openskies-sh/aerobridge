@@ -6,7 +6,7 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
-from registry.models import Aircraft,Activity, Pilot
+from registry.models import Aircraft,Activity, Operator, Pilot
 from django.core.validators import RegexValidator
 
 def make_random_plan_common_name():
@@ -44,7 +44,8 @@ class FlightOperation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=140, default="Medicine Delivery Operation", help_text="Give a friendly name for this operation")
     drone = models.ForeignKey(Aircraft, models.CASCADE, help_text="Pick the drone that will be used to fly this opreation")
-    flight_plan = models.ForeignKey(FlightPlan, models.CASCADE)
+    flight_plan = models.ForeignKey(FlightPlan, models.CASCADE, help_text="Pick a flight plan for this operation")
+    operator = models.ForeignKey(Operator, models.CASCADE, help_text="Assign a operator for this operaiton")
     purpose = models.ForeignKey(Activity, models.CASCADE, default= '7a875ff9-79ee-460e-816f-30360e0ac645', help_text="To add additional categories, please add entries to the Activities table")
     type_of_operation = models.IntegerField(choices=OPERATION_TYPES, default=0, help_text="At the moment, only VLOS and BVLOS operations are supported, for other types of operations, please issue a pull-request")
     pilot = models.ForeignKey(Pilot, models.CASCADE)
@@ -91,7 +92,7 @@ class FlightPermission(models.Model):
 class FlightLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operation = models.ForeignKey(FlightOperation, on_delete=models.CASCADE)    
-    raw_log = models.TextField()
+    raw_log = models.JSONField(default= dict)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_submitted = models.BooleanField(default=False)

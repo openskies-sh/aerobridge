@@ -67,7 +67,7 @@ class PersonUpdate(APIView):
         person = get_object_or_404(Person, pk=person_id)
         serializer = PersonSerializer(person, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'person': person})
+            return Response({'serializer': serializer, 'person': person,'errors':serializer.errors})
         serializer.save()
         return redirect('people-list')
 
@@ -121,7 +121,7 @@ class AddressDetail(APIView):
         address = get_object_or_404(Address, pk=address_id)
         serializer = AddressSerializer(address, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'address': address})
+            return Response({'serializer': serializer, 'address': address,'errors':serializer.errors})
         serializer.save()
         return redirect('addresses-list')
 
@@ -317,7 +317,7 @@ class AuthorizationsUpdate(APIView):
         authorization = get_object_or_404(Authorization, pk=authorization_id)
         serializer = AuthorizationSerializer(authorization, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'authorization': authorization})
+            return Response({'serializer': serializer, 'authorization': authorization,'errors':serializer.errors})
         serializer.save()
         return redirect('authorizations-list')
 
@@ -371,7 +371,7 @@ class ActivitiesUpdate(APIView):
         activity = get_object_or_404(Activity, pk=activity_id)
         serializer = ActivitySerializer(activity, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'activity': activity})
+            return Response({'serializer': serializer, 'activity': activity,'errors':serializer.errors})
         serializer.save()
         return redirect('activities-list')
 
@@ -425,7 +425,7 @@ class AircraftUpdate(APIView):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         serializer = AircraftFullSerializer(aircraft, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'aircraft': aircraft})
+            return Response({'serializer': serializer, 'aircraft': aircraft,'errors':serializer.errors})
         serializer.save()
         return redirect('aircrafts-list')
 
@@ -478,7 +478,7 @@ class ManufacturersUpdate(APIView):
         manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
         serializer = ManufacturerSerializer(manufacturer, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'manufacturer': manufacturer})
+            return Response({'serializer': serializer, 'manufacturer': manufacturer,'errors':serializer.errors})
         serializer.save()
         return redirect('manufacturers-list')
 
@@ -520,7 +520,7 @@ class FirmwaresDetail(APIView):
         firmware = get_object_or_404(Firmware, pk=firmware_id)
         serializer = FirmwareSerializer(firmware, data=request.data)
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'firmware': firmware})
+            return Response({'serializer': serializer, 'firmware': firmware,'errors':serializer.errors})
         serializer.save()
         return redirect('firmwares-list')
 
@@ -544,7 +544,6 @@ class FirmwareCreateView(CreateView):
 class FlightPlansList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightplan_list.html'
-
     def get(self, request):
         queryset = FlightPlan.objects.all()
         return Response({'flightplans': queryset})
@@ -662,8 +661,9 @@ class FlightOperationPermissionCreateView(APIView):
             flight_permission = FlightPermission.objects.get(operation = flight_operation)
         else:
             flight_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)
+            flight_permission = flight_permission['permission']
         
-        return Response({'flightpermissions': flight_permission['permission']})
+        return Response({'flightpermissions': flight_permission})
     
         
 ### Flight Permission Views
@@ -702,8 +702,9 @@ class FlightPermissionsDetail(APIView):
 #         return render(request, 'launchpad/flightpermission_create.html', context)
   
     
-    
 ### Flight Permission Artefact Details Views
+    
+    
 class FlightPermissionDigitalSkyList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flightpermission_digitalsky_list.html'
@@ -773,7 +774,7 @@ class FlightLogsSign(APIView):
 
     def get(self, request, flightlog_id):
         sign_result = log_signer.sign_log(flightlog_id)
-        return Response()
+        return Response(sign_result)
     
 
 class FlightLogsDetail(APIView):
@@ -797,8 +798,11 @@ class FlightLogsUpdate(APIView):
         return Response({'serializer': serializer, 'flightlog': flightlog})
 
     def post(self, request, flightlog_id):
+        
         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
+
         serializer = FlightLogSerializer(flightlog, data=request.data)
+        
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'flightlog': flightlog,'errors':serializer.errors})
         serializer.save()
@@ -988,6 +992,9 @@ class EngineCreateView(CreateView):
 
         return render(request, 'launchpad/engine_create.html', context)
   
+    
+class CredentialsReadFirst(TemplateView):    
+    template_name = 'launchpad/credentials_read_first.html'
     
 class CredentialsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]

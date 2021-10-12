@@ -16,16 +16,13 @@
         </thead>
         <tr>
             <td>Operation</td>
-            <td>{{ flightlog.operation.name }}</td>
+            <td><a href="/launchpad/flightoperations/{{ flightlog.operation.id }}/detail">{{ flightlog.operation.name }}</a></td>
         </tr>
         <tr>
             <td>Raw Log</td>
             <td><small>{{ flightlog.raw_log}}</small></td>    
         </tr>
-        <tr>
-            <td>Submitted to DigitalSky? </td>
-            <td><code>{{ flightlog.is_submitted}}</code></td>
-        </tr>
+      
         
     </table>
     <br>

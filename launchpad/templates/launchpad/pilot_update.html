@@ -8,6 +8,15 @@
 <br>
 <form action="{% url 'pilots-detail' pilot_id=pilot.pk %}" method="POST">
     {% csrf_token %}
+    {% if errors %}
+
+    {% for err, val in errors.items %}
+        {% for v in val %}
+            <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    
+{% endif %}
     {% render_form serializer %}
     <br>
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'pilots-list' %}" role="button">Cancel</a>

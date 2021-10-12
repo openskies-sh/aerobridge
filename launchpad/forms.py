@@ -574,6 +574,9 @@ class TokenCreateForm(forms.ModelForm):
                         FloatingField("name"),
                         FloatingField("token_type"),
                         FloatingField("association"),
+                        "credential"
+                    ),
+                    AccordionGroup("Optional Information",
                         FloatingField("aircraft"),
                         FloatingField("manufacturer"),
                         FloatingField("operator"),
