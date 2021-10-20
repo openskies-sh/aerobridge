@@ -206,6 +206,20 @@ class TestModelsCreate(TestModels):
 
     def test_registry_aircraft_create(self):
         aircraft = Aircraft(operator=Operator.objects.first(), mass=self.faker.pyint(min_value=0, max_value=50),
+                            manufacturer=Manufacturer.objects.first(),
+                            category=self.faker.pyint(min_value=0, max_value=len(Aircraft.AIRCRAFT_CATEGORY) - 1),
+                            flight_controller_id=self.faker.numerify('#' * 60),
+                            status=self.faker.pyint(min_value=0, max_value=len(Aircraft.STATUS_CHOICES) - 1),
+                            photo=self.faker.uri(), identification_photo=self.faker.uri(),
+                            )
+        self.assertNotIn(aircraft, Aircraft.objects.all())
+        aircraft.save()
+        self.assertIn(aircraft, Aircraft.objects.all())
+        self.assertEqual(aircraft.operator, Operator.objects.first())
+        self.assertEqual(aircraft.manufacturer, Manufacturer.objects.first())
+
+    def test_registry_aircraft_detail_create(self):
+        aircraft = Aircraft(operator=Operator.objects.first(), mass=self.faker.pyint(min_value=0, max_value=50),
                             make=self.faker.sentence(), master_series=self.faker.sentence(),
                             series=self.faker.sentence(), popular_name=self.faker.word(),
                             manufacturer=Manufacturer.objects.first(),
@@ -234,14 +248,9 @@ class TestModelsCreate(TestModels):
                             manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
                             operations_manual_document=self.faker.uri()
                             )
-        self.assertNotIn(aircraft, Aircraft.objects.all())
-        aircraft.save()
         self.assertIn(aircraft, Aircraft.objects.all())
-        self.assertEqual(aircraft.operator, Operator.objects.first())
-        self.assertEqual(aircraft.manufacturer, Manufacturer.objects.first())
         self.assertEqual(aircraft.type_certificate, TypeCertificate.objects.first())
         self.assertEqual(aircraft.engine, Engine.objects.first())
-
     def test_pki_framework_aerobridge_credentials_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),
                                                       token_type=self.faker.pyint(min_value=0, max_value=len(
