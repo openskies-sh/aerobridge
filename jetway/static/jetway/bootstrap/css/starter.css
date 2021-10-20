@@ -23,3 +23,5 @@ ul.error li {
   inline-size: 600px;
   overflow-wrap: break-word;
 }
+
+.thumbnail  { min-height:150px; height:150px; } 

@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity, Authorization
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity, Authorization, AircraftDetail
 from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, CloudFile
 from pki_framework.models import AerobridgeCredential
@@ -139,6 +139,38 @@ class AircraftCreateForm(forms.ModelForm):
                         FloatingField("operator"),
                         FloatingField("manufacturer"),
                         FloatingField("category"),
+                        FloatingField("flight_controller_id"),
+                        FloatingField("status"),
+                        FloatingField("photo"),
+                        FloatingField("model")
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircrafts-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )     
+     
+
+    class Meta:
+        model = Aircraft
+        fields = ('operator','manufacturer', 'model','flight_controller_id', 'category','status','photo',)
+
+class AircraftDetailCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("operator"),
+                        FloatingField("manufacturer"),
+                        FloatingField("category"),
                         FloatingField("sub_category"),
                         FloatingField("operator_type"),
                         FloatingField("address"),
@@ -147,7 +179,7 @@ class AircraftCreateForm(forms.ModelForm):
                         FloatingField("model"),
                         FloatingField("flight_controller_id"),
                         FloatingField("photo"),
-                        FloatingField("photo_small"),
+                        
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("mass"),
@@ -167,10 +199,9 @@ class AircraftCreateForm(forms.ModelForm):
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircrafts-list' %}" role="button">Cancel</a>""")
                     )
                 )     
-     
-
+    
     class Meta:
-        model = Aircraft
+        model = AircraftDetail
         exclude = ('is_registered','type_certificate','make','series', 'master_series', 'registration_mark', 'icao_aircraft_type_designator', 'commission_date','operating_frequency','engine','manufactured_at', 'digital_sky_uin_number','identification_photo', 'identification_photo_small','popular_name','dot_permission_document','operations_manual_document',)
 
 class ManufacturerCreateForm(forms.ModelForm):
@@ -439,14 +470,12 @@ class PilotCreateForm(forms.ModelForm):
                         FloatingField("operator"),
                         FloatingField("person"),
                         FloatingField("photo"),
-                        FloatingField("photo_small")
+                        
                         ),
                         
                     AccordionGroup("Optional Information",
                         FloatingField("photo"),
-                        FloatingField("photo_small"),
                         FloatingField("identification_photo"),
-                        FloatingField("identification_photo_small"),
                         FloatingField("tests"),
                         ),                                 
                     ),

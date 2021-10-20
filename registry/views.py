@@ -3,8 +3,8 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Operator, Aircraft, Manufacturer
-from .serializers import (OperatorSerializer, AircraftSerializer, AircraftDetailSerializer, ManufacturerSerializer)
+from .models import Operator, Aircraft, Manufacturer, AircraftDetail
+from .serializers import (AircraftDetailSerializer, OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer)
 
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes
@@ -68,7 +68,7 @@ class AircraftDetail(mixins.RetrieveModelMixin,
     # permission_classes = (IsAuthenticated,)
 
     queryset = Aircraft.objects.all()
-    serializer_class = AircraftDetailSerializer
+    serializer_class = AircraftFullSerializer
     
     def get_Aircraft(self, pk):
         try:
@@ -80,7 +80,7 @@ class AircraftDetail(mixins.RetrieveModelMixin,
 
     def get(self, request, pk, format=None):
         aircraft = self.get_Aircraft(pk)
-        serializer = AircraftDetailSerializer(aircraft)
+        serializer = AircraftFullSerializer(aircraft)
         return Response(serializer.data)
 
 
@@ -95,7 +95,7 @@ class AircraftRFMDetail(mixins.RetrieveModelMixin,
     # permission_classes = (IsAuthenticated,)
 
     queryset = Aircraft.objects.all()
-    serializer_class = AircraftDetailSerializer
+    serializer_class = AircraftFullSerializer
     
     def get_Aircraft(self, flight_controller_id):
         try:
@@ -107,7 +107,7 @@ class AircraftRFMDetail(mixins.RetrieveModelMixin,
 
     def get(self, request, flight_controller_id, format=None):
         aircraft = self.get_Aircraft(flight_controller_id = flight_controller_id)
-        serializer = AircraftDetailSerializer(aircraft)
+        serializer = AircraftFullSerializer(aircraft)
         return Response(serializer.data)
 
 
@@ -143,3 +143,6 @@ class ManufacturerDetail(mixins.RetrieveModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+    
+    
+    

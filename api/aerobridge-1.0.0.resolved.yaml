@@ -763,7 +763,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AircraftDetail'
+                $ref: '#/components/schemas/Aircraft'
           description: ''
       tags:
         - Aircrafts
@@ -786,7 +786,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AircraftDetail'
+                $ref: '#/components/schemas/Aircraft'
           description: ''
       tags:
         - Aircrafts
@@ -1453,36 +1453,21 @@ components:
           readOnly: true
         operator:
           type: string
-          format: uuid
-          example: 34496e37-bbba-4ebf-8a26-66780e6f78e6
-          description: ID of a operator flying the mission
-        mass:
-          type: integer
-          example: 400
-          description: Mass of the aircraft in grams
+          description: Associate a operator to this Aircraft
         manufacturer:
           type: string
-          format: uuid
-          example: 2752bb92-a184-4c89-8eb2-cd07f310fead
-          description:  ID of the manufacturer manufacturing the drone
+          description: Associate a manufacturer in the database to this aircraft
         model:
           type: string
+          description: Set the model of the aircraft
           maxLength: 280
-          example: eBee X201
-          description: A detailed model of the drone, for more information see http://www.intlaviationstandards.org/Documents/AircraftMakeModelSeriesBusinessRules1.pdf
         status:
           enum:
           - 0
           - 1
           type: integer
-          example: 1
-          description: Specify if the drone is marked as active in the management server
-        registration_mark:
-          type: string
-          nullable: true
-          maxLength: 10
-          example: IND-223202
-          description: Registration details of the drone as provided by DigitalSky 
+          description: Set the status of this drone, if it is set as inactive, the
+            GCS might fail and flight plans might not be able to load on the drone
         category:
           enum:
           - 0
@@ -1495,64 +1480,12 @@ components:
           - 7
           - 8
           type: integer
-          example: 0
-          description: |-
-            Category of a aircraft: 
-                - 0 Other
-                - 1 FIXED WING
-                - 2 ROTORCRAFT
-                - 3 LIGHTER-THAN-AIR
-                - 4 HYBRID LIFT
-                - 5 MICRO
-                - 6 SMALL
-                - 7 MEIDUM
-                - 8 Large
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        popular_name:
-          type: string
-          nullable: true
-          maxLength: 280
-          example: eBee X2
-          description: A colloquial name for the aircraft, if avaialble
-        sub_category:
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-          type: integer
-          example: 0
-          description: |-
-            Category of a aircraft: 
-                - 0 Other
-                - 1 AIRPLANE
-                - 2 NONPOWERED GLIDER
-                - 3 POWERED GLIDER
-                - 4 HELICOPTER
-                - 5 GYROPLANE
-                - 6 BALLOON 
-                - 7 AIRSHIP
-                - 8 UAV
-                - 9 Multirotor
-                - 10 Hybrid
-        flight_controller_id:
-          type: string
-          description: This is the Drone ID from the RFM
-          maxLength: 140
-          example: 0054883A58467889625544488798
+          description: Set the category for this aircraft, use the closest aircraft
+            type
         photo:
           type: string
           format: uri
-          nullable: true
+          description: A URL of a photo of the drone
           maxLength: 200
           pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
             d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
@@ -1560,66 +1493,34 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
-          description: Enter a URL for  a photo of the aircraft
-        photo_small:
+        flight_controller_id:
           type: string
-          format: uri
-          nullable: true
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          description: Enter a URL for a small photo of the aircraft
-        max_certified_takeoff_weight:
-          type: string
-          format: decimal
-          multipleOf: 0.001
-          maximum: 10000000
-          minimum: 0
-          example: 250.00
-          description: Maximum take off weight in grams
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          
+          description: This is the Drone ID from the RFM, if there are spaces in the
+            ID, remove them
+          maxLength: 140
+      required:
+      - operator
+      - manufacturer
+      - model
+      - flight_controller_id
+      
 
-    AircraftDetail:
+    AircraftFull:
       type: object
       properties:
         id:
           type: string
           format: uuid
           readOnly: true
-        mass:
-          type: integer
-          example: 400
-          description: Mass of the aircraft in grams
-        make:
+        model:
           type: string
-          nullable: true
+          description: Set the model of the aircraft
           maxLength: 280
-          description: Make of the drone, if applicable, see for more information, https://www.intlaviationstandards.org/Documents/AircraftMakeModelSeriesBusinessRules1.pdf
-        master_series:
+        flight_controller_id:
           type: string
-          nullable: true
-          maxLength: 280
-          example: X2
-          description: Drone master-series 
-        series:
-          type: string
-          nullable: true
-          maxLength: 280
-          example: X2B
-          description: Drone production series, if applicable 
-        popular_name:
-          type: string
-          nullable: true
-          maxLength: 280
-          example: eBee X2B
+          description: This is the Drone ID from the RFM, if there are spaces in the
+            ID, remove them
+          maxLength: 140
         category:
           enum:
           - 0
@@ -1632,107 +1533,19 @@ components:
           - 7
           - 8
           type: integer
-          example: 0
-          description: |-
-            Category of a aircraft: 
-                - 0 Other
-                - 1 FIXED WING
-                - 2 ROTORCRAFT
-                - 3 LIGHTER-THAN-AIR
-                - 4 HYBRID LIFT
-                - 5 MICRO
-                - 6 SMALL
-                - 7 MEIDUM
-                - 8 Large
-        registration_mark:
-          type: string
-          nullable: true
-          maxLength: 10
-          example: IND-223202
-          description: Registration details of the drone as provided by DigitalSky 
-        sub_category:
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-          type: integer
-          example: 0
-          description: |-
-            Category of a aircraft: 
-                - 0 Other
-                - 1 AIRPLANE
-                - 2 NONPOWERED GLIDER
-                - 3 POWERED GLIDER
-                - 4 HELICOPTER
-                - 5 GYROPLANE
-                - 6 BALLOON 
-                - 7 AIRSHIP
-                - 8 UAV
-                - 9 Multirotor
-                - 10 Hybrid
-        icao_aircraft_type_designator:
-          type: string
-          maxLength: 4
-          example: DRNB
-          description: "Set the ICAO aicraft type designator if availble: https://www.icao.int/publications/doc8643/pages/search.aspx"
-        max_certified_takeoff_weight:
-          type: string
-          format: decimal
-          multipleOf: 0.001
-          maximum: 10000000
-          minimum: 0
-          example: 35.2
-        max_height_attainable:
-          type: string
-          format: decimal
-          multipleOf: 0.001
-          maximum: 400
-          minimum: 0
-          example: 350.0
-          description: "Maximum height attainable in meteres"
-        commission_date:
-          type: string
-          format: date-time
-          nullable: true
-          example: 2021-09-24T13:53
-        model:
-          type: string
-          maxLength: 280
-          example: X3
-        digital_sky_uin_number:
-          type: string
-          description: Get a UIN number for this aircraft using the Digital Sky Portal
-          maxLength: 140
-          example: a83534aa-c1a0-4d28-aa49-67a588b13747
-        flight_controller_id:
-          type: string
-          description: This is the Drone ID from the RFM
-          maxLength: 140
-          example: 0054883A58467889625544488798
-
-        operating_frequency:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: -100000000
-          example: 65.5
+          description: Set the category for this aircraft, use the closest aircraft
+            type
         status:
           enum:
           - 0
           - 1
           type: integer
+          description: Set the status of this drone, if it is set as inactive, the
+            GCS might fail and flight plans might not be able to load on the drone
         photo:
           type: string
           format: uri
-          nullable: true
+          description: A URL of a photo of the drone
           maxLength: 200
           pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
             d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
@@ -1740,149 +1553,25 @@ components:
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
             -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
             s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-          description: URL of the 
-
-        photo_small:
-          type: string
-          format: uri
-          nullable: true
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-        identification_photo:
-          type: string
-          format: uri
-          nullable: true
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-        identification_photo_small:
-          type: string
-          format: uri
-          nullable: true
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-
-        max_endurance:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: 0
-          example: 50.0
-        max_range:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 5000
-          minimum: 0
-          example: 45.0
-        max_speed:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: 0
-          example: 45
-        dimension_length:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: 0
-        dimension_breadth:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: 0
-        dimension_height:
-          type: string
-          format: decimal
-          multipleOf: 0.01
-          maximum: 100000000
-          minimum: 0
         created_at:
           type: string
           format: date-time
           readOnly: true
-          example: '2021-09-24T13:54:48'
         updated_at:
           type: string
           format: date-time
           readOnly: true
-          example: '2021-09-24T13:54:48'
-        manufactured_at:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2021-09-24T13:54:48'
-        dot_permission_document:
-          type: string
-          format: uri
-          description: Link to Purchased RPA has ETA from WPC Wing, DoT for operating
-            in the de-licensed frequency band(s). Such approval shall be valid for
-            a particular make and model
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
-        operations_manual_document:
-          type: string
-          format: uri
-          description: Link to Operation Manual Document
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-          example: https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf
         operator:
           type: string
-          format: uuid
-          example: 152c79f8-caf9-423e-8602-dc7faec97ee5
+          description: Associate a operator to this Aircraft
         manufacturer:
           type: string
-          format: uuid
-          example: f190f97b-0150-43ea-8004-38ce607a98d6
-        type_certificate:
-          type: string
-          format: uuid
-          nullable: true
-          exmaple: 4ca8170c-0cfa-4796-bfae-503760d738fc
-        engine:
-          type: integer
-          nullable: true
+          description: Associate a manufacturer in the database to this aircraft
       required:
-      - mass
       - model
-      - digital_sky_uin_number
+      - flight_controller_id
       - operator
       - manufacturer
-
     SignedFlightLog:
           type: object
           properties:

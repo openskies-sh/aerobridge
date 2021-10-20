@@ -9,7 +9,7 @@ from pki_framework.serializers import AerobridgeCredentialSerializer, Aerobridge
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
     TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
-    AircraftSigningSerializer, PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftDetailSerializer
+    AircraftSigningSerializer, PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftFullSerializer
 from .test_setup import TestModels
 
 
@@ -203,7 +203,7 @@ class TestModelSerializers(TestModels):
 
     def test_registry_aircraft_detail_serializer(self):
         data = self._get_data_for_model('Aircraft')
-        aircraft_detail_serializer = AircraftDetailSerializer(data=data)
+        aircraft_detail_serializer = AircraftFullSerializer(data=data)
         self.assertTrue(aircraft_detail_serializer.is_valid())
         self.assertNotEqual(aircraft_detail_serializer.validated_data, dict)
         self.assertEqual(aircraft_detail_serializer.errors, dict())

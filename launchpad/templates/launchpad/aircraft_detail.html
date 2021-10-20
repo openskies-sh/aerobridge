@@ -4,7 +4,7 @@
 <div>
 <h1>Aircraft - {{ aircraft.model }}</h1>
 <br>
-<p><img src="{{aircraft.photo_small}}"></p>
+<p><img src="{{aircraft.photo}}" class="thumbnail"></p>
 <br>
 <table  class="table">
     <thead>
@@ -22,10 +22,6 @@
         <td>{{ aircraft.model}}</td>    
     </tr>
     <tr>
-        <td>Type</td>
-        <td>{{ aircraft.sub_category}}</td>
-    </tr>
-    <tr>
         <td>Flight Controller Number (Drone ID)</td>
         <td><b>{{aircraft.flight_controller_id}}</b></td>
     </tr>
@@ -33,11 +29,11 @@
         <td>Manufacturer</td>
         <td>{{aircraft.manufacturer.full_name}}</td>
     </tr>
-    <tr>
-        <td>ID Plate photo</td>
-        <td><img src="{{aircraft.identification_photo_small}}"></td>
-    </tr>
 
+    <tr>
+        <td>Drone Status</td>
+        <td> <div class="alert {% if aircraft.status == 1 %}alert-success{% else %}alert-danger{% endif %}" role="alert"> {{ aircraft.get_status_display }}</div></td>    
+    </tr>
 </table>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
