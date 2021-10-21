@@ -2,13 +2,13 @@
 {% load rest_framework %}
 {% block content %}
 <div class="row mb-3">
-<h2>Update Aircraft - {{ aircraft.model }}</h2>
+<h2>Update extended details for {{ aircraft_extended.aircraft.model }}</h2>
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
 
 
-<form action="{% url 'aircraft-extended-update' aircraft_extended_id=aircraft.pk %}" method="POST">
+<form action="{% url 'aircraft-extended-update' aircraft_detail_id=aircraft_extended.pk %}" method="POST">
   
     {% csrf_token %}
     {% if errors %}
