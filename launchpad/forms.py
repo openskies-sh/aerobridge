@@ -168,41 +168,50 @@ class AircraftDetailCreateForm(forms.ModelForm):
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("operator"),
-                        FloatingField("manufacturer"),
-                        FloatingField("category"),
+                        FloatingField("aircraft"),
+                        FloatingField("mass"),
                         FloatingField("sub_category"),
-                        FloatingField("operator_type"),
-                        FloatingField("address"),
                         FloatingField("max_certified_takeoff_weight"),
                         FloatingField("max_height_attainable"),
-                        FloatingField("model"),
-                        FloatingField("flight_controller_id"),
-                        FloatingField("photo"),
-                        
-                        ),
-                    AccordionGroup("Optional Information",
-                        FloatingField("mass"),
+                        FloatingField("is_registered"),
                         FloatingField("max_endurance"),
                         FloatingField("max_range"),
                         FloatingField("max_speed"),
                         FloatingField("dimension_length"),
                         FloatingField("dimension_breadth"),
                         FloatingField("dimension_height"),
+                        
+                        ),
+                    AccordionGroup("Optional Information",
+                        FloatingField("popular_name"),
+                        FloatingField("commission_date"),
+                        FloatingField("make"),
+                        FloatingField("master_series"),
+                        FloatingField("series"),
+                        FloatingField("icao_aircraft_type_designator"),
+                        FloatingField("registration_mark"),
+                        FloatingField("digital_sky_uin_number"),
+                        FloatingField("operating_frequency"),
+                        FloatingField("manufactured_at"),
+                        FloatingField("dot_permission_document"),
+                        FloatingField("operations_manual_document"),
+                        FloatingField("type_certificate"),
+                        FloatingField("engine"),
+                        FloatingField("identification_photo"),
                         ),                                 
                     ),
                     HTML("""
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Aircraft'),
+                                Submit('submit', '+ Add Aircraft Details'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircrafts-list' %}" role="button">Cancel</a>""")
                     )
                 )     
     
     class Meta:
         model = AircraftDetail
-        exclude = ('is_registered','type_certificate','make','series', 'master_series', 'registration_mark', 'icao_aircraft_type_designator', 'commission_date','operating_frequency','engine','manufactured_at', 'digital_sky_uin_number','identification_photo', 'identification_photo_small','popular_name','dot_permission_document','operations_manual_document',)
+        fields = '__all__'
 
 class ManufacturerCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

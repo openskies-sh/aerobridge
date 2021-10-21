@@ -2,7 +2,7 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Aircraft - {{ aircraft.model }}</h1>
+<h2>Aircraft - {{ aircraft.model }}</h2>
 <br>
 <p><img src="{{aircraft.photo}}" class="thumbnail"></p>
 <br>
@@ -36,7 +36,7 @@
     </tr>
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
+<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_extended %}<a class="btn btn-secondary" href="/launchpad/aircraft-extended/{{aircraft_extended.id}}/detail"><b>See extended details</b></a>{% endif %}</p>
 
 </div>
 {% endblock %}

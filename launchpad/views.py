@@ -3,6 +3,7 @@ from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
 from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
+from registry.models import AircraftDetail as ad
 from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
@@ -11,14 +12,13 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer
-
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from digitalsky_provider.models import DigitalSkyLog
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, FlightPermissionCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -225,7 +225,6 @@ class ContactsUpdate(APIView):
         return Response({'serializer': serializer, 'contact': contact})
 
 
-
 class ContactsCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': ContactCreateForm()}
@@ -407,9 +406,16 @@ class AircraftDetail(APIView):
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftFullSerializer(aircraft)
-        return Response({'serializer': serializer, 'aircraft': aircraft})
+        
+        try:
+            aircraft_extended = ad.objects.get(aircraft=aircraft_id)
+            
+        except ObjectDoesNotExist as oe: 
+            print('jere')
+            aircraft_extended = 0
 
+        serializer = AircraftFullSerializer(aircraft)
+        return Response({'serializer': serializer, 'aircraft': aircraft,'aircraft_extended':aircraft_extended})
 
 
 class AircraftUpdate(APIView):
@@ -442,6 +448,59 @@ class AircraftCreateView(CreateView):
             return redirect('aircrafts-list')
 
         return render(request, 'launchpad/aircraft/aircraft_create.html', context)
+  
+    
+
+### Aircraft Extended Views
+    
+class AircraftExtendedList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_extended/aircraft_extended_list.html'
+
+    def get(self, request):
+        queryset = ad.objects.all()
+        return Response({'aircraft_extended': queryset})
+    
+class AircraftExtendedDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_extended/aircraft_extended_detail.html'
+
+    def get(self, request, aircraft_detail_id):
+        aircraft_detail = get_object_or_404(ad, pk=aircraft_detail_id)
+        
+        serializer = AircraftDetailSerializer(aircraft_detail)
+        return Response({'serializer': serializer, 'aircraft_extended': aircraft_detail})
+
+class AircraftExtendedUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_extended/aircraft_extended_update.html'
+
+    def get(self, request, aircraft_detail_id):
+        aircraft_detail = get_object_or_404(ad, pk=aircraft_detail_id)
+        serializer = AircraftDetailSerializer(aircraft_detail)
+        return Response({'serializer': serializer, 'aircraft_extended': aircraft_detail})
+
+    def post(self, request, aircraft_detail_id):
+        aircraft_detail = get_object_or_404(ad, pk=aircraft_detail_id)
+        serializer = AircraftDetailSerializer(aircraft_detail, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraft_extended': aircraft_detail,'errors':serializer.errors})
+        serializer.save()
+        return redirect('aircraft-extended-list')
+
+class AircraftExtendedCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AircraftDetailCreateForm()}
+        return render(request, 'launchpad/aircraft_extended/aircraft_extended_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AircraftDetailCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('aircraft-extended-list')
+
+        return render(request, 'launchpad/aircraft_extended/aircraft_extended_create.html', context)
   
     
 

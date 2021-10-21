@@ -306,27 +306,12 @@ class AircraftDetail(models.Model):
     AIRCRAFT_SUB_CATEGORY = ((0, _('Other')),(1, _('AIRPLANE')),(2, _('NONPOWERED GLIDER')),(3, _('POWERED GLIDER')),(4, _('HELICOPTER')),(5, _('GYROPLANE')),(6, _('BALLOON')),(7, _('AIRSHIP')),(8, _('UAV')),(9, _('Multirotor')),(10, _('Hybrid')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
     aircraft = models.OneToOneField(Aircraft, models.CASCADE, help_text="Choose the aircraft")
     mass = models.IntegerField(default= 300, help_text="Set the vehicle's mass in gms.")
-    popular_name = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter popular name for this aircraft")    
-    make = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter aircraft make ")    
-    master_series = models.CharField(max_length = 280, blank= True, null=True, help_text="Specify the master series, if available")    
-    series = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter aircraft production series, if available")
     sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default = 7, help_text='')
-    icao_aircraft_type_designator = models.CharField( blank= True, null=True,max_length =4, default = '0000', help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
-    registration_mark = models.CharField(max_length= 10, blank= True, null=True, help_text="Set the registration mark for this aircraft, if applicable")
     max_certified_takeoff_weight = models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00, help_text="Set the takeoff weight for the aircraft in gms.")
-    max_height_attainable =  models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00,  help_text="Set the max attainable height in meters")
-    commission_date = models.DateTimeField(blank= True, null= True)
-    digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal",blank= True, null= True)
-    
-    operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00,blank= True, null= True)
-    
-    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was manufactured",blank= True, null= True)    
-    dot_permission_document = models.URLField(blank=True, null=True, help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
-    operations_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
-    type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True, help_text="Set the type certificate if available for the drone")
-    engine = models.ForeignKey(Engine, models.CASCADE,blank=True, null=True, help_text="Associate a engine with this aircraft")
+    max_height_attainable =  models.DecimalField(decimal_places = 3, max_digits=10, default = 0.00,  help_text="Set the max attainable height in meters")    
     is_registered = models.BooleanField(default=False, help_text="Set if the aircraft is registred with the Civil Aviation Authority")
     max_endurance = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the endurance in minutes")
     max_range = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the range in kms for the drone")
@@ -334,6 +319,22 @@ class AircraftDetail(models.Model):
     dimension_length = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the length of the drone in cms") 
     dimension_breadth = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the breadth of the drone in cms")
     dimension_height = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Set the height of the drone in cms")
+
+
+    popular_name = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter popular name for this aircraft")    
+    make = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter aircraft make ")    
+    master_series = models.CharField(max_length = 280, blank= True, null=True, help_text="Specify the master series, if available")    
+    series = models.CharField(max_length = 280, blank= True, null=True, help_text="Enter aircraft production series, if available")    
+    icao_aircraft_type_designator = models.CharField( blank= True, null=True,max_length =4, default = '0000', help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
+    registration_mark = models.CharField(max_length= 10, blank= True, null=True, help_text="Set the registration mark for this aircraft, if applicable")
+    commission_date = models.DateTimeField(blank= True, null= True)
+    digital_sky_uin_number = models.CharField(max_length=140, help_text="Get a UIN number for this aircraft using the Digital Sky Portal",blank= True, null= True)    
+    operating_frequency = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00,blank= True, null= True)    
+    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was manufactured",blank= True, null= True)    
+    dot_permission_document = models.URLField(blank=True, null=True, help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    operations_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
+    type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True, help_text="Set the type certificate if available for the drone")
+    engine = models.ForeignKey(Engine, models.CASCADE,blank=True, null=True, help_text="Associate a engine with this aircraft")
     identification_photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the drone ID or other identifying image of the drone.")
     history = HistoricalRecords()
 
@@ -343,4 +344,4 @@ class AircraftDetail(models.Model):
     def __unicode__(self):
         return self.aircraft.model + ' Extended Details'
     def __str__(self):
-        return self.operator.company_name + ' Extended Details'
+        return self.aircraft.model + ' Extended Details'

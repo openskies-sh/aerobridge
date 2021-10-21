@@ -2,9 +2,9 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Aircraft - {{ aircraft.model }}</h1>
+<h2>Extended detail for Aircraft - <a href="/launchpad/aircrafts/{{aircraft_extended.aircraft.id}}/detail">{{ aircraft_extended.aircraft.model }}</a></h2>
 <br>
-<p><img src="{{aircraft.photo}}" class="thumbnail"></p>
+<p><img src="{{aircraft_extended.aircraft.photo}}" class="thumbnail"></p>
 <br>
 <table  class="table">
     <thead>
@@ -15,28 +15,44 @@
     </thead>
     <tr>
         <td>Operator</td>
-        <td>{{ aircraft.operator.company_name }}</td>
+        <td>{{ aircraft_extended.aircraft.operator.company_name }}</td>
     </tr>
     <tr>
-        <td>Model</td>
-        <td>{{ aircraft.model}}</td>    
+        <td>Mass</td>
+        <td>{{ aircraft_extended.mass}} gms.</td>    
     </tr>
     <tr>
-        <td>Flight Controller Number (Drone ID)</td>
-        <td><b>{{aircraft.flight_controller_id}}</b></td>
+        <td>Make</td>
+        <td>{{ aircraft_extended.make}}</td>    
     </tr>
     <tr>
-        <td>Manufacturer</td>
-        <td>{{aircraft.manufacturer.full_name}}</td>
+        <td>Operating Frequency</td>
+        <td>{{ aircraft_extended.operating_frequency}} Hz.</td>    
     </tr>
-
+    
     <tr>
-        <td>Drone Status</td>
-        <td> <div class="alert {% if aircraft.status == 1 %}alert-success{% else %}alert-danger{% endif %}" role="alert"> {{ aircraft.get_status_display }}</div></td>    
+        <td>Maximum Endurance</td>
+        <td>{{ aircraft_extended.max_endurance}}</td>    
+    </tr>
+    <tr>
+        <td>Maximum Range</td>
+        <td>{{ aircraft_extended.max_range}}</td>    
+    </tr>
+    <tr>
+        <td>Maximum Speed</td>
+        <td>{{ aircraft_extended.max_speed}}</td>    
+    </tr>
+    <tr>
+        <td>Maximum Endurance</td>
+        <td>{{ aircraft_extended.max_endurance}}</td>    
+    </tr>
+    <tr>
+        <td>Maximum Endurance</td>
+        <td>{{ aircraft_extended.max_endurance}}</td>    
     </tr>
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a></p>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-extended/{{aircraft_extended.id}}"><b>Update Details</b></a></p>
 
 </div>
 {% endblock %}

@@ -8,7 +8,7 @@
     <div class="col-md-6 themed-grid-col">
 
 
-<form action="{% url 'aircrafts-update' aircraft_id=aircraft.pk %}" method="POST">
+<form action="{% url 'aircraft-extended-update' aircraft_extended_id=aircraft.pk %}" method="POST">
   
     {% csrf_token %}
     {% if errors %}
@@ -22,7 +22,7 @@
     {% endif %}
     {% render_form serializer %}
     <br>
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'aircrafts-list' %}" role="button">Cancel</a>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'aircraft-extended-list' %}" role="button">Cancel</a>
 </form>
 </div>
 </div>
