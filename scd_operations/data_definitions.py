@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import uuid
 import enum
-from typing import Literal,List
+from typing import List
 import arrow
 
 
