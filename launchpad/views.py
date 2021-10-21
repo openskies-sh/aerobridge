@@ -5,7 +5,7 @@ from django.shortcuts import render
 from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
 from registry.models import AircraftDetail as ad
 from registry.serializers import AircraftFullSerializer
-from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, SignedFlightLog
+from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from django.views.generic import TemplateView, CreateView
@@ -16,7 +16,7 @@ from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
-from digitalsky_provider.models import DigitalSkyLog
+from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
 from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
 from django.shortcuts import redirect
@@ -395,7 +395,8 @@ class ActivitiesCreateView(CreateView):
 class AircraftList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft/aircraft_list.html'
-
+    pagination_class = StandardResultsSetPagination
+    
     def get(self, request):
         queryset = Aircraft.objects.all()
         return Response({'aircrafts': queryset})
@@ -408,10 +409,8 @@ class AircraftDetail(APIView):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         
         try:
-            aircraft_extended = ad.objects.get(aircraft=aircraft_id)
-            
+            aircraft_extended = ad.objects.get(aircraft=aircraft_id)            
         except ObjectDoesNotExist as oe: 
-            print('jere')
             aircraft_extended = 0
 
         serializer = AircraftFullSerializer(aircraft)
