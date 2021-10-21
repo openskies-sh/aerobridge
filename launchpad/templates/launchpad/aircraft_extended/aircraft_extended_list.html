@@ -1,0 +1,40 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircrafts
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Aircrafts</h2>
+    <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc. </p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if aircrafts %}
+            {% for aircraft in aircrafts %}
+            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></li>
+        {% endif %}
+    </ul>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/aircrafts/new"><b>&#43; Add a aircraft</b></a></p>
+    
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

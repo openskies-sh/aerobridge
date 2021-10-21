@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from registry.models import Activity, Operator, Contact, Aircraft, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Engine, Authorization
+from registry.models import Activity, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Engine, Authorization
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
@@ -75,4 +75,9 @@ class ActivitySerializer(serializers.ModelSerializer):
 class AuthorizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Authorization
+        fields = '__all__'
+
+class AircraftDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AircraftDetail
         fields = '__all__'

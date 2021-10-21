@@ -40,15 +40,15 @@ class HomeView(TemplateView):
     template_name = 'launchpad/basecamp.html'
 
 class DigitalSkyReadFirst(TemplateView):
-    template_name = 'launchpad/digitalsky_read_first.html'
+    template_name = 'launchpad/digital_sky/digitalsky_read_first.html'
     
 class FlightPermissionsReadFirst(TemplateView):
-    template_name = 'launchpad/flight_permissions_read_first.html'
+    template_name = 'launchpad/flight_permission/flight_permissions_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/people_list.html'
+    template_name = 'launchpad/person/person_list.html'
 
     def get(self, request):
         queryset = Person.objects.all()
@@ -56,7 +56,7 @@ class PeopleList(APIView):
     
 class PersonUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/person_update.html'
+    template_name = 'launchpad/person/person_update.html'
 
     def get(self, request, person_id):
         person = get_object_or_404(Person, pk=person_id)
@@ -74,7 +74,7 @@ class PersonUpdate(APIView):
 
 class PersonDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/person_detail.html'
+    template_name = 'launchpad/person/person_detail.html'
 
     def get(self, request, person_id):
         person = get_object_or_404(Person, pk=person_id)
@@ -85,7 +85,7 @@ class PersonDetail(APIView):
 class PersonCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': PersonCreateForm()}
-        return render(request, 'launchpad/person_create.html', context)
+        return render(request, 'launchpad/person/person_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = PersonCreateForm(request.POST)
@@ -94,7 +94,7 @@ class PersonCreateView(CreateView):
             form.save()
             return redirect('people-list')
 
-        return render(request, 'launchpad/person_create.html', context)
+        return render(request, 'launchpad/person/person_create.html', context)
   
     
 ### Address Views
@@ -102,7 +102,7 @@ class PersonCreateView(CreateView):
     
 class AddressList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/address_list.html'
+    template_name = 'launchpad/address/address_list.html'
 
     def get(self, request):
         queryset = Address.objects.all()
@@ -110,7 +110,7 @@ class AddressList(APIView):
     
 class AddressDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/address_detail.html'
+    template_name = 'launchpad/address/address_detail.html'
 
     def get(self, request, address_id):
         address = get_object_or_404(Address, pk=address_id)
@@ -128,7 +128,7 @@ class AddressDetail(APIView):
 class AddressCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': AddressCreateForm()}
-        return render(request, 'launchpad/address_create.html', context)
+        return render(request, 'launchpad/address/address_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = AddressCreateForm(request.POST)
@@ -137,15 +137,15 @@ class AddressCreateView(CreateView):
             form.save()
             return redirect('addresses-list')
 
-        return render(request, 'launchpad/address_create.html', context)
+        return render(request, 'launchpad/address/address_create.html', context)
   
 
-### Address Views
+### Operator Views
     
     
 class OperatorList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/operator_list.html'
+    template_name = 'launchpad/operator/operator_list.html'
 
     def get(self, request):
         queryset = Operator.objects.all()
@@ -153,7 +153,7 @@ class OperatorList(APIView):
     
 class OperatorDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/operator_detail.html'
+    template_name = 'launchpad/operator/operator_detail.html'
 
     def get(self, request, operator_id):
         operator = get_object_or_404(Operator, pk=operator_id)
@@ -163,7 +163,7 @@ class OperatorDetail(APIView):
 
 class OperatorUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/operator_update.html'
+    template_name = 'launchpad/operator/operator_update.html'
 
     def get(self, request, operator_id):
         operator = get_object_or_404(Operator, pk=operator_id)
@@ -180,7 +180,7 @@ class OperatorUpdate(APIView):
         return redirect('operators-list')
 
 class OperatorCreateView(CreateView):
-    template_name = 'launchpad/operator_create.html'
+    template_name = 'launchpad/operator/operator_create.html'
     form_class = OperatorCreateForm
     model= Operator
     
@@ -191,14 +191,14 @@ class OperatorCreateView(CreateView):
             form.save()
             return redirect('operators-list')
 
-        return render(request, 'launchpad/operator_create.html', context)
+        return render(request, 'launchpad/operator/operator_create.html', context)
   
 
 ### Contact Views
     
 class ContactsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/contact_list.html'
+    template_name = 'launchpad/contact/contact_list.html'
 
     def get(self, request):
         queryset = Contact.objects.all()
@@ -206,7 +206,7 @@ class ContactsList(APIView):
     
 class ContactsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/contact_detail.html'
+    template_name = 'launchpad/contact/contact_detail.html'
 
     def get(self, request, contact_id):
         contact = get_object_or_404(Contact, pk=contact_id)
@@ -216,7 +216,7 @@ class ContactsDetail(APIView):
 
 class ContactsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/contact_update.html'
+    template_name = 'launchpad/contact/contact_update.html'
 
     def get(self, request, contact_id):
         contact = get_object_or_404(Contact, pk=contact_id)
@@ -229,7 +229,7 @@ class ContactsUpdate(APIView):
 class ContactsCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': ContactCreateForm()}
-        return render(request, 'launchpad/contact_create.html', context)
+        return render(request, 'launchpad/contact/contact_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = ContactCreateForm(request.POST)
@@ -238,13 +238,13 @@ class ContactsCreateView(CreateView):
             form.save()
             return redirect('contacts-list')
 
-        return render(request, 'launchpad/contact_create.html', context)
+        return render(request, 'launchpad/contact/contact_create.html', context)
   
 ### Flight Pilot Views
     
 class PilotsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/pilot_list.html'
+    template_name = 'launchpad/pilot/pilot_list.html'
 
     def get(self, request):
         queryset = Pilot.objects.all()
@@ -252,7 +252,7 @@ class PilotsList(APIView):
     
 class PilotsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/pilot_detail.html'
+    template_name = 'launchpad/pilot/pilot_detail.html'
 
     def get(self, request, pilot_id):
         pilot = get_object_or_404(Pilot, pk=pilot_id)
@@ -262,7 +262,7 @@ class PilotsDetail(APIView):
 
 class PilotsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/pilot_update.html'
+    template_name = 'launchpad/pilot/pilot_update.html'
 
     def get(self, request, pilot_id):
         pilot = get_object_or_404(Pilot, pk=pilot_id)
@@ -273,7 +273,7 @@ class PilotsUpdate(APIView):
 class PilotsCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': PilotCreateForm()}
-        return render(request, 'launchpad/pilot_create.html', context)
+        return render(request, 'launchpad/pilot/pilot_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = PilotCreateForm(request.POST)
@@ -282,14 +282,14 @@ class PilotsCreateView(CreateView):
             form.save()
             return redirect('pilots-list')
 
-        return render(request, 'launchpad/pilot_create.html', context)
+        return render(request, 'launchpad/pilot/pilot_create.html', context)
   
 
 ### Authorizationa Views
     
 class AuthorizationsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/authorization_list.html'
+    template_name = 'launchpad/authorization/authorization_list.html'
 
     def get(self, request):
         queryset = Authorization.objects.all()
@@ -297,7 +297,7 @@ class AuthorizationsList(APIView):
     
 class AuthorizationsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/authorization_detail.html'
+    template_name = 'launchpad/authorization/authorization_detail.html'
 
     def get(self, request, authorization_id):
         authorization = get_object_or_404(Authorization, pk=authorization_id)
@@ -306,7 +306,7 @@ class AuthorizationsDetail(APIView):
 
 class AuthorizationsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/authorization_update.html'
+    template_name = 'launchpad/authorization/authorization_update.html'
 
     def get(self, request, authorization_id):
         authorization = get_object_or_404(Authorization, pk=authorization_id)
@@ -325,7 +325,7 @@ class AuthorizationsUpdate(APIView):
 class AuthorizationsCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': AuthorizationCreateForm()}
-        return render(request, 'launchpad/authorization_create.html', context)
+        return render(request, 'launchpad/authorization/authorization_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = AuthorizationCreateForm(request.POST)
@@ -334,7 +334,7 @@ class AuthorizationsCreateView(CreateView):
             form.save()
             return redirect('authorizations-list')
 
-        return render(request, 'launchpad/authorization_create.html', context)
+        return render(request, 'launchpad/authorization/authorization_create.html', context)
   
     
 
@@ -343,7 +343,7 @@ class AuthorizationsCreateView(CreateView):
     
 class ActivitiesList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/activity_list.html'
+    template_name = 'launchpad/activity/activity_list.html'
 
     def get(self, request):
         queryset = Activity.objects.all()
@@ -351,7 +351,7 @@ class ActivitiesList(APIView):
     
 class ActivitiesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/activity_detail.html'
+    template_name = 'launchpad/activity/activity_detail.html'
 
     def get(self, request, activity_id):
         activity = get_object_or_404(Activity, pk=activity_id)
@@ -360,7 +360,7 @@ class ActivitiesDetail(APIView):
 
 class ActivitiesUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/activity_update.html'
+    template_name = 'launchpad/activity/launchpad/activity/activity_update.html'
 
     def get(self, request, activity_id):
         activity = get_object_or_404(Activity, pk=activity_id)
@@ -379,7 +379,7 @@ class ActivitiesUpdate(APIView):
 class ActivitiesCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': ActivityCreateForm()}
-        return render(request, 'launchpad/activity_create.html', context)
+        return render(request, 'launchpad/activity/activity_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = ActivityCreateForm(request.POST)
@@ -388,14 +388,14 @@ class ActivitiesCreateView(CreateView):
             form.save()
             return redirect('activities-list')
 
-        return render(request, 'launchpad/activity_create.html', context)
+        return render(request, 'launchpad/activity//activity_create.html', context)
   
 
 ### Aircraft Views
     
 class AircraftList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraft_list.html'
+    template_name = 'launchpad/aircraft/aircraft_list.html'
 
     def get(self, request):
         queryset = Aircraft.objects.all()
@@ -403,7 +403,7 @@ class AircraftList(APIView):
     
 class AircraftDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraft_detail.html'
+    template_name = 'launchpad/aircraft/aircraft_detail.html'
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
@@ -414,7 +414,7 @@ class AircraftDetail(APIView):
 
 class AircraftUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraft_update.html'
+    template_name = 'launchpad/aircraft/aircraft_update.html'
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
@@ -432,7 +432,7 @@ class AircraftUpdate(APIView):
 class AircraftCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': AircraftCreateForm()}
-        return render(request, 'launchpad/aircraft_create.html', context)
+        return render(request, 'launchpad/aircraft/aircraft_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = AircraftCreateForm(request.POST)
@@ -441,7 +441,7 @@ class AircraftCreateView(CreateView):
             form.save()
             return redirect('aircrafts-list')
 
-        return render(request, 'launchpad/aircraft_create.html', context)
+        return render(request, 'launchpad/aircraft/aircraft_create.html', context)
   
     
 
@@ -449,7 +449,7 @@ class AircraftCreateView(CreateView):
     
 class ManufacturersList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer_list.html'
+    template_name = 'launchpad/manufacturer/manufacturer_list.html'
 
     def get(self, request):
         queryset = Manufacturer.objects.all()
@@ -457,7 +457,7 @@ class ManufacturersList(APIView):
     
 class ManufacturersDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer_detail.html'
+    template_name = 'launchpad/manufacturer/manufacturer_detail.html'
 
     def get(self, request, manufacturer_id):
         manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
@@ -467,7 +467,7 @@ class ManufacturersDetail(APIView):
 
 class ManufacturersUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer_update.html'
+    template_name = 'launchpad/manufacturer/manufacturer_update.html'
 
     def get(self, request, manufacturer_id):
         manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
@@ -485,7 +485,7 @@ class ManufacturersUpdate(APIView):
 class ManufacturerCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': ManufacturerCreateForm()}
-        return render(request, 'launchpad/manufacturer_create.html', context)
+        return render(request, 'launchpad/manufacturer/manufacturer_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = ManufacturerCreateForm(request.POST)
@@ -495,13 +495,13 @@ class ManufacturerCreateView(CreateView):
             
             return redirect('manufacturers-list')
     
-        return render(request, 'launchpad/manufacturer_create.html', context)
+        return render(request, 'launchpad/manufacturer/manufacturer_create.html', context)
     
-### Manufacturer Views
+### Firmware Views
     
 class FirmwaresList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/firmware_list.html'
+    template_name = 'launchpad/firmware/firmware_list.html'
 
     def get(self, request):
         queryset = Firmware.objects.all()
@@ -509,7 +509,7 @@ class FirmwaresList(APIView):
     
 class FirmwaresDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/firmware_detail.html'
+    template_name = 'launchpad/firmware/firmware_detail.html'
 
     def get(self, request, firmware_id):
         firmware = get_object_or_404(Firmware, pk=firmware_id)
@@ -528,7 +528,7 @@ class FirmwareCreateView(CreateView):
 
     def get(self, request, *args, **kwargs):
         context = {'form': FirmwareCreateForm()}
-        return render(request, 'launchpad/firmware_create.html', context)
+        return render(request, 'launchpad/firmware/firmware_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = FirmwareCreateForm(request.POST)
@@ -537,20 +537,20 @@ class FirmwareCreateView(CreateView):
             form.save()
             return redirect('firmwares-list')
 
-        return render(request, 'launchpad/firmware_create.html', context)
+        return render(request, 'launchpad/firmware/firmware_create.html', context)
         
 ### Flight Plan Views
     
 class FlightPlansList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightplan_list.html'
+    template_name = 'launchpad/flight_plan/flightplan_list.html'
     def get(self, request):
         queryset = FlightPlan.objects.all()
         return Response({'flightplans': queryset})
     
 class FlightPlansDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightplan_detail.html'
+    template_name = 'launchpad/flight_plan/flightplan_detail.html'
 
     def get(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
@@ -560,7 +560,7 @@ class FlightPlansDetail(APIView):
 
 class FlightPlansUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightplan_update.html'
+    template_name = 'launchpad/flight_plan/flightplan_update.html'
     serializer_class = FlightPlanSerializer
     def get(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
@@ -579,7 +579,7 @@ class FlightPlanCreateView(CreateView):
     
     model = FlightPlan
     form_class = FlightPlanCreateForm        
-    template_name = 'launchpad/flightplan_create.html'    
+    template_name = 'launchpad/flight_plan/flightplan_create.html'    
     
     def post(self, request, *args, **kwargs):
         form = FlightPlanCreateForm(request.POST)
@@ -588,14 +588,14 @@ class FlightPlanCreateView(CreateView):
             form.save()
             return redirect('flightplans-list')
 
-        return render(request, 'launchpad/flightplan_create.html', context)
+        return render(request, 'launchpad/flight_plan/flightplan_create.html', context)
   
      
 ## Flight Operation Views
     
 class FlightOperationsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightoperation_list.html'
+    template_name = 'launchpad/flight_operation/flightoperation_list.html'
 
     def get(self, request):
         queryset = FlightOperation.objects.all()
@@ -603,7 +603,7 @@ class FlightOperationsList(APIView):
     
 class FlightOperationsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightoperation_detail.html'
+    template_name = 'launchpad/flight_operation/flightoperation_detail.html'
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
@@ -617,7 +617,7 @@ class FlightOperationsDetail(APIView):
 
 class FlightOperationsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightoperation_update.html'
+    template_name = 'launchpad/flight_operation/flightoperation_update.html'
 
     def get(self, request, flightoperation_id):
         flightoperation = get_object_or_404(FlightOperation, pk=flightoperation_id)
@@ -635,7 +635,7 @@ class FlightOperationsUpdate(APIView):
 class FlightOperationCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': FlightOperationCreateForm()}
-        return render(request, 'launchpad/flightoperation_create.html', context)
+        return render(request, 'launchpad/flight_operation/flightoperation_create.html', context)
     
     def post(self, request, *args, **kwargs):
         form = FlightOperationCreateForm(request.POST)
@@ -647,11 +647,11 @@ class FlightOperationCreateView(CreateView):
 
             return redirect('flightoperations-list')
 
-        return render(request, 'launchpad/flightoperation_create.html', context)
+        return render(request, 'launchpad/flight_operation/flightoperation_create.html', context)
   
 class FlightOperationPermissionCreateView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightoperation_permission_thanks.html'
+    template_name = 'launchpad/flight_operation/flightoperation_permission_thanks.html'
 
     def get(self, request, flightoperation_id):
         
@@ -670,7 +670,7 @@ class FlightOperationPermissionCreateView(APIView):
     
 class FlightPermissionsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_list.html'
+    template_name = 'launchpad/flight_permission/flightpermission_list.html'
 
     def get(self, request):
         queryset = FlightPermission.objects.all()
@@ -678,7 +678,7 @@ class FlightPermissionsList(APIView):
     
 class FlightPermissionsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_detail.html'
+    template_name = 'launchpad/flight_permission/flightpermission_detail.html'
 
     def get(self, request, flightpermission_id):
         flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
@@ -720,7 +720,7 @@ class FlightPermissionDigitalSkyList(APIView):
 
 class FlightPermissionDigitalSkyRequest(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_digitalsky_detail.html'
+    template_name = 'launchpad/flight_permission_digital_sky/flightpermission_digitalsky_detail.html'
     
 
     def get(self, request, flightpermission_id):
@@ -736,12 +736,12 @@ class FlightPermissionDigitalSkyRequest(APIView):
     
 class FlightPermissionDigitalSkyThanks(TemplateView):
     
-    template_name = 'launchpad/flightpermission_digitalsky_thanks.html'
+    template_name = 'launchpad/flight_permission_digital_sky/flightpermission_digitalsky_thanks.html'
 
     
 class FlightPermissionsArtefactList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_list.html'
+    template_name = 'launchpad/flight_permission_digital_sky/flightpermission_list.html'
 
     def get(self, request):
         queryset = FlightPermission.objects.filter(is_successful=True)
@@ -749,7 +749,7 @@ class FlightPermissionsArtefactList(APIView):
     
 class FlightPermissionsArtefactDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightpermission_detail.html'
+    template_name = 'launchpad/flight_permission_digital_sky/flightpermission_detail.html'
 
     def get(self, request, flightpermission_id):
         flightpermission = get_object_or_404(FlightPermission, pk=flightpermission_id)
@@ -758,11 +758,11 @@ class FlightPermissionsArtefactDetail(APIView):
 
 
 
-### Flight Permission Views
+### Flight Logs Views
     
 class FlightLogsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_list.html'
+    template_name = 'launchpad/flight_log/flightlog_list.html'
 
     def get(self, request):
         queryset = FlightLog.objects.all()
@@ -770,7 +770,7 @@ class FlightLogsList(APIView):
     
 class FlightLogsSign(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_sign_thanks.html'
+    template_name = 'launchpad/flight_log/flightlog_sign_thanks.html'
 
     def get(self, request, flightlog_id):
         sign_result = log_signer.sign_log(flightlog_id)
@@ -779,7 +779,7 @@ class FlightLogsSign(APIView):
 
 class FlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_detail.html'
+    template_name = 'launchpad/flight_log/flightlog_detail.html'
 
     def get(self, request, flightlog_id):
         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
@@ -789,7 +789,7 @@ class FlightLogsDetail(APIView):
         
 class FlightLogsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/flightlog_update.html'
+    template_name = 'launchpad/flight_log/flightlog_update.html'
 
     def get(self, request, flightlog_id):
         
@@ -812,7 +812,7 @@ class FlightLogsUpdate(APIView):
 class FlightLogCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': FlightLogCreateForm()}
-        return render(request, 'launchpad/flightlog_create.html', context)
+        return render(request, 'launchpad/flight_log/flightlog_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = FlightLogCreateForm(request.POST)
@@ -821,13 +821,13 @@ class FlightLogCreateView(CreateView):
             form.save()
             return redirect('flightlogs-list')
 
-        return render(request, 'launchpad/flightlog_create.html', context)
+        return render(request, 'launchpad/flight_log/flightlog_create.html', context)
   
     
     
 # class FlightLogsDigitalSkyList(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/flightlog_digitalsky_list.html'
+#     template_name = 'launchpad/flight_log_digital_sky/flightlog_digitalsky_list.html'
 
 #     def get(self, request):
 #         queryset = FlightLog.objects.filter(is_submitted=False, is_editable=False)
@@ -835,7 +835,7 @@ class FlightLogCreateView(CreateView):
     
 # class FlightLogsDigitalSkyDetail(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/flightlog_digitalsky_detail.html'
+#     template_name = 'launchpad/flight_log_digital_sky/flightlog_digitalsky_detail.html'
 
 #     def get(self, request, flightlog_id):
 #         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
@@ -845,7 +845,7 @@ class FlightLogCreateView(CreateView):
 
 # class FlightLogSubmitDigitalSkyRequest(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/flightlog_digitalsky_detail.html'
+#     template_name = 'launchpad/flight_log_digital_sky/flightlog_digitalsky_detail.html'
 
 #     def get(self, request, flightlog_id):
 #         flightlog = get_object_or_404(FlightLog, pk=flightlog_id)
@@ -859,14 +859,14 @@ class FlightLogCreateView(CreateView):
     
        
 # class FlightLogDigitalSkyThanks(TemplateView):    
-#     template_name = 'launchpad/flightlog_digitalsky_thanks.html'
+#     template_name = 'launchpad/flight_log_digital_sky/flightlog_digitalsky_thanks.html'
         
 ### Signed FLight Log Views
 
     
 class SignedFlightLogsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/signed_flightlog_list.html'
+    template_name = 'launchpad/signed_flight_log/signed_flightlog_list.html'
 
     def get(self, request):
         queryset = SignedFlightLog.objects.all()
@@ -874,7 +874,7 @@ class SignedFlightLogsList(APIView):
     
 class SignedFlightLogsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/signed_flightlog_detail.html'
+    template_name = 'launchpad/signed_flight_log/signed_flightlog_detail.html'
 
     def get(self, request, signed_flightlog_id):
         signed_flightlog = get_object_or_404(SignedFlightLog, pk=signed_flightlog_id)
@@ -885,7 +885,7 @@ class SignedFlightLogsDetail(APIView):
     
 # class DigitalSkyLogsList(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/digitalskylog_list.html'
+#     template_name = 'launchpad/digital_sky_log/digitalskylog_list.html'
 
 #     def get(self, request):
 #         queryset = DigitalSkyLog.objects.all()
@@ -893,7 +893,7 @@ class SignedFlightLogsDetail(APIView):
     
 # class DigitalSkyLogsDetail(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/digitalskylog_detail.html'
+#     template_name = 'launchpad/digital_sky_log/digitalskylog_detail.html'
 
 #     def get(self, request, digitalskylog_id):
 #         digitalskylog = get_object_or_404(DigitalSkyLog, pk=digitalskylog_id)
@@ -904,7 +904,7 @@ class SignedFlightLogsDetail(APIView):
 # class DigitalSkyLogCreateView(CreateView):
 #     def get(self, request, *args, **kwargs):
 #         context = {'form': DigitalSkyLogCreateForm()}
-#         return render(request, 'launchpad/digitalskylog_create.html', context)
+#         return render(request, 'launchpad/digital_sky_log/digitalskylog_create.html', context)
 
 #     def post(self, request, *args, **kwargs):
 #         form = DigitalSkyLogCreateForm(request.POST)
@@ -913,13 +913,13 @@ class SignedFlightLogsDetail(APIView):
 #             form.save()
 #             return redirect('digitalskylogs-list')
 
-#         return render(request, 'launchpad/digitalskylog_create.html', context)
+#         return render(request, 'launchpad/digital_sky_log/digitalskylog_create.html', context)
   
  # Digital Sky Transactionss   
     
 # class DigitalSkyTransactionsList(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/digitalskytransaction_list.html'
+#     template_name = 'launchpad/digital_sky_transaction/digitalskytransaction_list.html'
 
 #     def get(self, request):
 #         queryset = Transaction.objects.all()
@@ -927,7 +927,7 @@ class SignedFlightLogsDetail(APIView):
     
 # class DigitalSkyTransactionDetail(APIView):
 #     renderer_classes = [TemplateHTMLRenderer]
-#     template_name = 'launchpad/digitalskytransaction_detail.html'
+#     template_name = 'launchpad/digital_sky_transaction/digitalskytransaction_detail.html'
 
 #     def get(self, request, transaction_id):
 #         digitalskytransaction = get_object_or_404(Transaction, pk=transaction_id)
@@ -938,7 +938,7 @@ class SignedFlightLogsDetail(APIView):
 # class DigitalSkyTransactionCreateView(CreateView):
 #     def get(self, request, *args, **kwargs):
 #         context = {'form': DigitalSkyTransactionCreateForm()}
-#         return render(request, 'launchpad/digitalskytransaction_create.html', context)
+#         return render(request, 'launchpad/digital_sky_transaction/digitalskytransaction_create.html', context)
 
 #     def post(self, request, *args, **kwargs):
 #         form = DigitalSkyTransactionCreateForm(request.POST)
@@ -947,15 +947,15 @@ class SignedFlightLogsDetail(APIView):
 #             form.save()
 #             return redirect('digitalskytransactions-list')
 
-#         return render(request, 'launchpad/digitalskytransaction_create.html', context)
+#         return render(request, 'launchpad/digital_sky_transaction/digitalskytransaction_create.html', context)
   
     
     
-### Manufacturer Views
+### Engine Views
     
 class EnginesList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/engine_list.html'
+    template_name = 'launchpad/engine/engine_list.html'
 
     def get(self, request):
         queryset = Engine.objects.all()
@@ -963,7 +963,7 @@ class EnginesList(APIView):
     
 class EnginesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/engine_detail.html'
+    template_name = 'launchpad/engine/engine_detail.html'
 
     def get(self, request, engine_id):
         engine = get_object_or_404(Engine, pk=engine_id)
@@ -981,7 +981,7 @@ class EnginesDetail(APIView):
 class EngineCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         context = {'form': EngineCreateForm()}
-        return render(request, 'launchpad/engine_create.html', context)
+        return render(request, 'launchpad/engine/engine_create.html', context)
 
     def post(self, request, *args, **kwargs):
         form = EngineCreateForm(request.POST)
@@ -990,15 +990,15 @@ class EngineCreateView(CreateView):
             form.save()
             return redirect('engines-list')
 
-        return render(request, 'launchpad/engine_create.html', context)
+        return render(request, 'launchpad/engine/engine_create.html', context)
   
-    
+# Aerobridge Credentials View
 class CredentialsReadFirst(TemplateView):    
-    template_name = 'launchpad/credentials_read_first.html'
+    template_name = 'launchpad/credential/credentials_read_first.html'
     
 class CredentialsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/credential_list.html'
+    template_name = 'launchpad/credential/credential_list.html'
     serializers = AerobridgeCredentialGetSerializer
     def get(self, request):
         queryset = AerobridgeCredential.objects.all()
@@ -1006,7 +1006,7 @@ class CredentialsList(APIView):
     
 class CredentialsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/credential_detail.html'
+    template_name = 'launchpad/credential/credential_detail.html'
 
     def get(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
@@ -1017,7 +1017,7 @@ class CredentialsDetail(APIView):
 
 class CredentialsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/credential_update.html'
+    template_name = 'launchpad/credential/credential_update.html'
 
     def get(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
@@ -1047,10 +1047,33 @@ class CredentialsDelete(DestroyAPIView):
         
         return redirect('credentials-list')
 
+
+class CredentialsCreateView(CreateView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/credential/credentials_create.html'
+    form_class = TokenCreateForm
+    model = AerobridgeCredential
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        
+        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
+
+        f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
+
+        enc_token = f.encrypt(message = form.data['credential'].encode('utf-8'))
+        self.object.token = enc_token
+        self.object.save()
+
+    
+        return redirect('credentials-list')
+
+
+# Cloud Files View
     
 class CloudFilesList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/cloudfiles_list.html'
+    template_name = 'launchpad/cloud_file/cloudfiles_list.html'
     serializers = CloudFileSerializer
     def get(self, request):
         queryset = CloudFile.objects.all()
@@ -1058,7 +1081,7 @@ class CloudFilesList(APIView):
     
 class CloudFilesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/cloudfiles_detail.html'
+    template_name = 'launchpad/cloud_file/cloudfiles_detail.html'
 
     def get(self, request, cloudfile_id):
         cloudfile = get_object_or_404(CloudFile, pk=cloudfile_id)
@@ -1071,7 +1094,7 @@ class CloudFilesCreateView(APIView):
     parser_classes = (MultiPartParser,)
     def get(self, request, *args, **kwargs):
         context = {'form': CustomCloudFileCreateForm()}
-        return render(request, 'launchpad/cloudfiles_upload.html', context)
+        return render(request, 'launchpad/cloud_file/cloudfiles_upload.html', context)
 
     def post(self, request, *args, **kwargs):
         form = CustomCloudFileCreateForm(request.POST, request.FILES)        
@@ -1096,10 +1119,10 @@ class CloudFilesCreateView(APIView):
                     s3.upload_fileobj(f, BUCKET_NAME, os.path.join(file_type, file_name))
                 except NoCredentialsError as ne:                                        
                     context = {'errors':'File not uploaded, problem  with Cloud Bucket credentials'}   
-                    return render(request, 'launchpad/cloudfiles_error.html', context)
+                    return render(request, 'launchpad/cloud_file/cloudfiles_error.html', context)
                 except Exception as e:                     
                     context = {'errors':'File not uploaded, problem with Cloud Bucket configuration, it is improperly configured or not supported, please contact your administrator.'}   
-                    return render(request, 'launchpad/cloudfiles_error.html', context)
+                    return render(request, 'launchpad/cloud_file/cloudfiles_error.html', context)
                 else:
                     location = endpoint_url + '/' + file_type + file_name
                     cf = CloudFile(location= location,upload_type = file_type,  name = friendly_name)
@@ -1108,25 +1131,5 @@ class CloudFilesCreateView(APIView):
             
         else:            
             context = {'form': CustomCloudFileCreateForm(request.POST, request.FILES), 'errors':form.errors}        
-            return render(request, 'launchpad/cloudfiles_upload.html', context)
+            return render(request, 'launchpad/cloud_file/cloudfiles_upload.html', context)
             
-
-class CredentialsCreateView(CreateView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/credentials_create.html'
-    form_class = TokenCreateForm
-    model = AerobridgeCredential
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        
-        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
-
-        f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
-
-        enc_token = f.encrypt(message = form.data['credential'].encode('utf-8'))
-        self.object.token = enc_token
-        self.object.save()
-
-    
-        return redirect('credentials-list')
