@@ -916,11 +916,11 @@ class FlightPermissionsList(APIView):
         queryset = self.get_queryset()
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = FlightPlanSerializer(page, many=True)
+            serializer = FlightPermissionSerializer(page, many=True)
             result = self.get_paginated_response(serializer.data)
             data = result.data # pagination data
         else:
-            serializer = FlightPlanSerializer(queryset, many=True)
+            serializer = FlightPermissionSerializer(queryset, many=True)
             data = serializer.data        
 
         
