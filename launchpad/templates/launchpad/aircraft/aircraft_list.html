@@ -19,12 +19,13 @@
     <h2>Aircrafts</h2>
     <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc. </p>
 </div>
+
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% if aircrafts %}
-            {% for aircraft in aircrafts %}
+        {% if aircrafts.results %}
+            {% for aircraft in aircrafts.results %}
             <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small></li>
             {% endfor %}
         {% else %}
@@ -32,6 +33,42 @@
         {% endif %}
     </ul>
     <br>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          {% if aircrafts.links.previous %}
+          
+          <li class="page-item">
+            <a class="page-link" href="{{ aircrafts.links.previous }}">Previous</a>
+          </li>  
+            
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if aircrafts.pages %}  
+          <li class="page-item" aria-current="page">
+            
+            <small>Page  {{aircrafts.page}} of {{ aircrafts.total }} </small>
+          </li>        
+              <small></small>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if aircrafts.links.next %}   
+          <li class="page-item">
+            <a class="page-link" href="{{ aircrafts.links.next }}">Next</a>
+          </li>         
+          
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">Next</a>
+          </li>
+          {% endif %}
+      </ul>
+    </nav>
+
+    <br><br>
     <p><a class="btn btn-primary" href="/launchpad/aircrafts/new"><b>&#43; Add a aircraft</b></a></p>
     
 </div>

@@ -1,4 +1,6 @@
 from io import BufferedIOBase
+
+from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
@@ -33,6 +35,7 @@ from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 import os
+from rest_framework.pagination import LimitOffsetPagination
 
 load_dotenv(find_dotenv())
 
@@ -396,11 +399,57 @@ class AircraftList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft/aircraft_list.html'
     pagination_class = StandardResultsSetPagination
-    
-    def get(self, request):
-        queryset = Aircraft.objects.all()
-        return Response({'aircrafts': queryset})
-    
+
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_aircraft(self):
+        try:
+            return Aircraft.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_aircraft()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = AircraftSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = AircraftSerializer(queryset, many=True)
+            data = serializer.data        
+
+        
+        payload = {'aircrafts': data}
+        
+        return Response(payload)
+
 class AircraftDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft/aircraft_detail.html'
@@ -602,10 +651,59 @@ class FirmwareCreateView(CreateView):
 class FlightPlansList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_plan/flightplan_list.html'
-    def get(self, request):
-        queryset = FlightPlan.objects.all()
-        return Response({'flightplans': queryset})
-    
+    pagination_class = StandardResultsSetPagination
+
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_queryset(self):
+        try:
+            
+            return FlightPlan.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = FlightPlanSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = FlightPlanSerializer(queryset, many=True)
+            data = serializer.data        
+
+        
+        payload = {'flightplans': data}
+        
+        return Response(payload)
+
 class FlightPlansDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_plan/flightplan_detail.html'
@@ -654,11 +752,59 @@ class FlightPlanCreateView(CreateView):
 class FlightOperationsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_operation/flightoperation_list.html'
+    pagination_class = StandardResultsSetPagination
 
-    def get(self, request):
-        queryset = FlightOperation.objects.all()
-        return Response({'flightoperations': queryset})
-    
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_queryset(self):
+        try:
+
+            return FlightOperation.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = FlightOperationSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = FlightOperationSerializer(queryset, many=True)
+            data = serializer.data        
+
+        
+        payload = {'flightoperations': data}
+        
+        return Response(payload)
+
 class FlightOperationsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_operation/flightoperation_detail.html'
@@ -729,10 +875,59 @@ class FlightOperationPermissionCreateView(APIView):
 class FlightPermissionsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_permission/flightpermission_list.html'
+    pagination_class = StandardResultsSetPagination
 
-    def get(self, request):
-        queryset = FlightPermission.objects.all()
-        return Response({'flightpermissions': queryset})
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_queryset(self):
+        try:
+            
+            return FlightPermission.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = FlightPlanSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = FlightPlanSerializer(queryset, many=True)
+            data = serializer.data        
+
+        
+        payload = {'flightpermissions': data}
+        
+        return Response(payload)
+        
     
 class FlightPermissionsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]

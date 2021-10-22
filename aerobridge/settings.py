@@ -138,6 +138,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
+    'DATETIME_FORMAT': "%d-%b-%Y %H:%M:%S",
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -151,7 +152,7 @@ REST_FRAMEWORK = {
 
 
 JWT_AUTH = {
-    'DEFAULT_PAGINATION_CLASS': 'jetway.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'jetway.pagination.StandardResultsSetPagination',
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
         'pki_framework.utils.jwt_get_username_from_payload_handler',
     'JWT_DECODE_HANDLER':

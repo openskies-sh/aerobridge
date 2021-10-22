@@ -15,16 +15,18 @@
 {% block content %}
 
 <div class="row mb-3">
-    
+  <div class="col-md-6 themed-grid-col">
     <h2>Flight Plan</h2>
     <p>See all the flight plans in the system, click on any one to show details</p>
+  </div>
+  <div class="col-md-6 themed-grid-col"></div>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% if flightplans %}
-            {% for flightplan in flightplans %}
+        {% if flightplans.results %}
+            {% for flightplan in flightplans.results %}
             <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}/detail">{{ flightplan.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightplan.created_at }} </small></li>
             {% endfor %}
         {% else %}
@@ -32,7 +34,43 @@
         {% endif %}
 
     </ul>
-    <br>
+    <br><br>
+    
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          {% if flightplans.links.previous %}
+          
+          <li class="page-item">
+            <a class="page-link" href="{{ flightplans.links.previous }}">Previous</a>
+          </li>  
+            
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if flightplans.pages %}  
+          <li class="page-item" aria-current="page">
+            
+            <small>Page  {{flightplans.page}} of {{ flightplans.total }} </small>
+          </li>        
+              <small></small>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if flightplans.links.next %}   
+          <li class="page-item">
+            <a class="page-link" href="{{ flightplans.links.next }}">Next</a>
+          </li>         
+          
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">Next</a>
+          </li>
+          {% endif %}
+      </ul>
+    </nav>
+    <br><br>
     <p><a class="btn btn-primary" href="/launchpad/flightplans/new"><b>&#43; Add a new flightplan</b></a></p>
 </div>
 <div class="col-md-4 themed-grid-col"></div>
