@@ -1,7 +1,8 @@
 from django.utils import timezone
 
 from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
+from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog, \
+    SignedFlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
     Manufacturer, Firmware, Pilot, TestValidity, Aircraft
@@ -9,8 +10,8 @@ from .test_setup import TestModels
 
 
 class TestModelsCreate(TestModels):
-    fixtures = ['Activity', 'Address', 'Authorization', 'Manufacturer', 'Operator', 'Person', 'Test',
-                'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction']
+    fixtures = ['Activity', 'Address', 'Authorization', 'Person', 'Test', 'TypeCertificate', 'Operator', 'Pilot',
+                'Manufacturer', 'Aircraft', 'FlightPlan', 'FlightOperation', 'Transaction', 'FlightLog']
 
     def test_digitalsky_provider_digitalsky_log_create(self):
         digitalsky_log = DigitalSkyLog(txn=Transaction.objects.first(), response_code=self.faker.numerify('###'),
@@ -27,23 +28,27 @@ class TestModelsCreate(TestModels):
         self.assertIn(cloud_file, CloudFile.objects.all())
 
     def test_gcs_operations_flight_plan_create(self):
-        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json())
+        flight_plan = FlightPlan(name=self.faker.word(), kml=self.faker.text(), start_datetime=timezone.now(),
+                                 end_datetime=timezone.now() + timezone.timedelta(minutes=30),
+                                 is_editable=self.faker.boolean())
         self.assertNotIn(flight_plan, FlightPlan.objects.all())
         flight_plan.save()
         self.assertIn(flight_plan, FlightPlan.objects.all())
 
     def test_gcs_operations_flight_operation_create(self):
         flight_operation = FlightOperation(name=self.faker.word(), drone=Aircraft.objects.first(),
-                                           flight_plan=FlightPlan.objects.first(), purpose=Activity.objects.first(),
-                                           type_of_operation=self.faker.pyint(min_value=0, max_value=len(
-                                               FlightOperation.OPERATION_TYPES) - 1),start_datetime=timezone.now(),
-                                 end_datetime=timezone.now() + timezone.timedelta(minutes=30))
+                                           flight_plan=FlightPlan.objects.first(), operator=Operator.objects.first(),
+                                           pilot=Pilot.objects.first(), purpose=Activity.objects.first(),
+                                           is_editable=self.faker.boolean(), type_of_operation=self.faker.pyint(
+                                                    min_value=0, max_value=len(FlightOperation.OPERATION_TYPES) - 1))
         self.assertNotIn(flight_operation, FlightOperation.objects.all())
         flight_operation.save()
         self.assertIn(flight_operation, FlightOperation.objects.all())
         self.assertEqual(flight_operation.drone, Aircraft.objects.first())
         self.assertEqual(flight_operation.flight_plan, FlightPlan.objects.first())
         self.assertEqual(flight_operation.purpose, Activity.objects.first())
+        self.assertEqual(flight_operation.operator, Operator.objects.first())
+        self.assertEqual(flight_operation.pilot, Pilot.objects.first())
 
     def test_gcs_operations_transaction_create(self):
         transaction = Transaction(prefix=self.faker.word(), aircraft=Aircraft.objects.first())
@@ -53,20 +58,26 @@ class TestModelsCreate(TestModels):
         self.assertEqual(transaction.aircraft, Aircraft.objects.first())
 
     def test_gcs_operations_flight_permission_create(self):
-        flight_permission = FlightPermission(operation=FlightOperation.objects.first(), statu_code='granted',
-                                             token=self.faker.text())
+        flight_permission = FlightPermission(operation=FlightOperation.objects.first(), json=self.faker.json())
         self.assertNotIn(flight_permission, FlightPermission.objects.all())
         flight_permission.save()
         self.assertIn(flight_permission, FlightPermission.objects.all())
         self.assertEqual(flight_permission.operation, FlightOperation.objects.first())
 
     def test_gcs_operations_flight_log_create(self):
-        flight_log = FlightLog(operation=FlightOperation.objects.first(), signed_log=self.faker.uri(),
-                               raw_log=self.faker.uri(), is_submitted=True)
+        flight_log = FlightLog(operation=FlightOperation.objects.first(), raw_log=self.faker.json(), is_submitted=True,
+                               is_editable=self.faker.boolean())
         self.assertNotIn(flight_log, FlightLog.objects.all())
         flight_log.save()
         self.assertIn(flight_log, FlightLog.objects.all())
         self.assertEqual(flight_log.operation, FlightOperation.objects.first())
+
+    def test_gcs_operations_signedFlightLog_create(self):
+        signed_flight_log = SignedFlightLog(raw_flight_log=FlightLog.objects.first(), signed_log=self.faker.text())
+        self.assertNotIn(signed_flight_log, SignedFlightLog.objects.all())
+        signed_flight_log.save()
+        self.assertIn(signed_flight_log, SignedFlightLog.objects.all())
+        self.assertEqual(signed_flight_log.raw_flight_log, FlightLog.objects.first())
 
     def test_registry_person_create(self):
         person = Person(first_name=self.faker.first_name(), last_name=self.faker.last_name(), email=self.faker.email(),
@@ -149,8 +160,8 @@ class TestModelsCreate(TestModels):
 
     def test_registry_pilot_create(self):
         pilot = Pilot(operator=Operator.objects.first(), person=Person.objects.first(), photo=self.faker.uri(),
-                       address=Address.objects.first(),
-                      identification_photo=self.faker.uri(), )
+                      photo_small=self.faker.uri(), address=Address.objects.first(),
+                      identification_photo=self.faker.uri(), identification_photo_small=self.faker.uri())
         self.assertNotIn(pilot, Pilot.objects.all())
         pilot.save()
         self.assertIn(pilot, Pilot.objects.all())
@@ -188,6 +199,13 @@ class TestModelsCreate(TestModels):
         manufacturer.save()
         self.assertIn(manufacturer, Manufacturer.objects.all())
 
+    def test_registry_engine_create(self):
+        engine = Engine(power=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
+                        count=self.faker.pyint(min_value=0, max_value=50), engine_type=self.faker.word(),
+                        propellor=self.faker.pyint(min_value=0, max_value=4))
+        self.assertNotIn(engine, Engine.objects.all())
+        engine.save()
+        self.assertIn(engine, Engine.objects.all())
 
     def test_registry_firmware_create(self):
         firmware = Firmware(binary_file_url=self.faker.uri(), public_key=self.faker.text(),
@@ -198,13 +216,11 @@ class TestModelsCreate(TestModels):
         self.assertIn(firmware, Firmware.objects.all())
 
     def test_registry_aircraft_create(self):
-        aircraft = Aircraft(operator=Operator.objects.first(), mass=self.faker.pyint(min_value=0, max_value=50),
-                            manufacturer=Manufacturer.objects.first(),
+        aircraft = Aircraft(operator=Operator.objects.first(), manufacturer=Manufacturer.objects.first(),
+                            model=self.faker.first_name(), flight_controller_id=self.faker.numerify('#' * 60),
                             category=self.faker.pyint(min_value=0, max_value=len(Aircraft.AIRCRAFT_CATEGORY) - 1),
-                            flight_controller_id=self.faker.numerify('#' * 60),
                             status=self.faker.pyint(min_value=0, max_value=len(Aircraft.STATUS_CHOICES) - 1),
-                            photo=self.faker.uri(), identification_photo=self.faker.uri(),
-                            )
+                            photo=self.faker.uri())
         self.assertNotIn(aircraft, Aircraft.objects.all())
         aircraft.save()
         self.assertIn(aircraft, Aircraft.objects.all())
@@ -212,39 +228,45 @@ class TestModelsCreate(TestModels):
         self.assertEqual(aircraft.manufacturer, Manufacturer.objects.first())
 
     def test_registry_aircraft_detail_create(self):
-        aircraft = Aircraft(operator=Operator.objects.first(), mass=self.faker.pyint(min_value=0, max_value=50),
-                            make=self.faker.sentence(), master_series=self.faker.sentence(),
-                            series=self.faker.sentence(), popular_name=self.faker.word(),
-                            manufacturer=Manufacturer.objects.first(),
-                            category=self.faker.pyint(min_value=0, max_value=len(Aircraft.AIRCRAFT_CATEGORY) - 1),
-                            registration_mark=self.faker.numerify('#' * 10),
-                            sub_category=self.faker.pyint(min_value=0, max_value=len(
-                                Aircraft.AIRCRAFT_SUB_CATEGORY) - 1),
-                            icao_aircraft_type_designator=self.faker.numerify('#' * 4),
-                            max_certified_takeoff_weight=self.faker.pyfloat(min_value=0, max_value=50.00,
-                                                                            right_digits=2),
-                            max_height_attainable=self.faker.pyfloat(min_value=0, max_value=160.00, right_digits=2),commission_date=timezone.now(),
-                            type_certificate=TypeCertificate.objects.first(), model=self.faker.text(),
-                            digital_sky_uin_number=self.faker.numerify('#' * 30),
-                            flight_controller_id=self.faker.numerify('#' * 60),
-                            operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00, right_digits=2),
-                            status=self.faker.pyint(min_value=0, max_value=len(Aircraft.STATUS_CHOICES) - 1),
-                            photo=self.faker.uri(), identification_photo=self.faker.uri(),
-                            
-                            is_registered=True,
-                            max_endurance=self.faker.pyfloat(min_value=0, max_value=20, right_digits=2),
-                            max_range=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
-                            max_speed=self.faker.pyfloat(min_value=0, max_value=70.00, right_digits=2),
-                            dimension_length=self.faker.pyfloat(min_value=0, max_value=200.00, right_digits=2),
-                            dimension_breadth=self.faker.pyfloat(min_value=0, max_value=200.00, right_digits=2),
-                            dimension_height=self.faker.pyfloat(min_value=0, max_value=20.00, right_digits=2),
-                            manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
-                            operations_manual_document=self.faker.uri()
-                            )
-        self.assertIn(aircraft, Aircraft.objects.all())
-        self.assertEqual(aircraft.type_certificate, TypeCertificate.objects.first())
-        
-    def test_pki_framework_aerobridge_credentials_create(self):
+        aircraft_detail = AircraftDetail(aircraft=Aircraft.objects.first(),
+                                         mass=self.faker.pyint(min_value=0, max_value=50),
+                                         sub_category=self.faker.pyint(min_value=0, max_value=len(
+                                             AircraftDetail.AIRCRAFT_SUB_CATEGORY) - 1),
+                                         max_certified_takeoff_weight=self.faker.pyfloat(min_value=0, max_value=50.00,
+                                                                                         right_digits=2),
+                                         max_height_attainable=self.faker.pyfloat(min_value=0, max_value=160.00,
+                                                                                  right_digits=2),
+                                         is_registered=True,
+                                         max_endurance=self.faker.pyfloat(min_value=0, max_value=20, right_digits=2),
+                                         max_range=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
+                                         max_speed=self.faker.pyfloat(min_value=0, max_value=70.00, right_digits=2),
+                                         dimension_length=self.faker.pyfloat(min_value=0, max_value=200.00,
+                                                                             right_digits=2),
+                                         dimension_breadth=self.faker.pyfloat(min_value=0, max_value=200.00,
+                                                                              right_digits=2),
+                                         dimension_height=self.faker.pyfloat(min_value=0, max_value=20.00,
+                                                                             right_digits=2),
+                                         popular_name=self.faker.word(), make=self.faker.sentence(),
+                                         master_series=self.faker.sentence(), series=self.faker.sentence(),
+                                         icao_aircraft_type_designator=self.faker.numerify('#' * 4),
+                                         registration_mark=self.faker.numerify('#' * 10),
+                                         commission_date=timezone.now(),
+                                         digital_sky_uin_number=self.faker.numerify('#' * 30),
+                                         operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00,
+                                                                                right_digits=2),
+                                         manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
+                                         operations_manual_document=self.faker.uri(),
+                                         type_certificate=TypeCertificate.objects.first(),
+                                         engine=Engine.objects.first(), identification_photo=self.faker.uri())
+
+        self.assertNotIn(aircraft_detail, AircraftDetail.objects.all())
+        aircraft_detail.save()
+        self.assertIn(aircraft_detail, AircraftDetail.objects.all())
+        self.assertEqual(aircraft_detail.aircraft, Aircraft.objects.first())
+        self.assertEqual(aircraft_detail.type_certificate, TypeCertificate.objects.first())
+        self.assertEqual(aircraft_detail.engine, Engine.objects.first())
+
+    def test_pki_framework_aerobridgeCredentials_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),
                                                       token_type=self.faker.pyint(min_value=0, max_value=len(
                                                           AerobridgeCredential.TOKEN_TYPE) - 1),

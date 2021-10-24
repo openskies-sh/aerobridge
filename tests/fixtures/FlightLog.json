@@ -4,11 +4,11 @@
     "pk": "3ee346a4-32ca-457d-90d7-cc4f9a3acd61",
     "fields": {
         "operation": "628cf2ae-d03e-4a83-85ac-6e140836780b",
-        "signed_log": "https://galvan.com/category/posts/category/signed_log.html",
-        "raw_log": "https://galvan.com/category/posts/category/raw_log.html",
+        "raw_log": "[{\"name\": \"Cole Hart\", \"residency\": \"386 Guerrero Heights\\\\nLake Tracy, RI 55489\"}, {\"name\": \"Brooke Fuller\", \"residency\": \"951 Stewart Ridge\\\\nNorth Ashleyland, CT 66073\"}, {\"name\": \"Carolyn Peterson\", \"residency\": \"602 George Park Suite 618\\\\nWest Jeffreyburgh, ID 23282\"}, {\"name\": \"Tara Morris\", \"residency\": \"852 Long Burgs Suite 963\\\\nNew Thomaston, OH 80648\"}, {\"name\": \"Dana Castro\", \"residency\": \"6188 Patrick Terrace Suite 414\\\\nSouth Nancymouth, AZ 94284\"}, {\"name\": \"Jeffrey Hess\", \"residency\": \"313 Lisa Walks Suite 920\\\\nLeahchester, VA 22127\"}, {\"name\": \"Joseph Wade\", \"residency\": \"5464 Knight Trace Suite 392\\\\nValeriestad, OK 25889\"}, {\"name\": \"Erika Clark\", \"residency\": \"298 Jennifer Rest\\\\nPort Kelly, MD 12236\"}, {\"name\": \"Karen Kramer\", \"residency\": \"0952 Brown Creek Suite 873\\\\nEast Michaelland, MI 12440\"}, {\"name\": \"Wayne Smith\", \"residency\": \"60634 Steven Extension\\\\nSarahtown, WA 17473\"}]",
         "created_at": "2021-03-27T13:55:01.689Z",
         "updated_at": "2021-03-27T13:55:01.689Z",
-        "is_submitted": true
+        "is_submitted": true,
+        "is_editable": false
     }
 }
 ]

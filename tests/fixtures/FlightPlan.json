@@ -4,7 +4,10 @@
     "pk": "6b24b125-5bbe-4cb7-998f-24ec31cd05d2",
     "fields": {
         "name": "Flight first",
-        "geo_json": "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{},\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[6.328125,25.16517336866393],[29.53125,25.16517336866393],[29.53125,41.50857729743935],[6.328125,41.50857729743935],[6.328125,25.16517336866393]]]}}]}",
+        "kml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>",
+        "start_datetime": "2021-03-27T13:51:29.738Z",
+        "end_datetime": "2021-03-27T14:21:29.738Z",
+        "is_editable": false,
         "created_at": "2021-03-27T13:51:29.740Z",
         "updated_at": "2021-03-27T13:51:29.740Z"
     }

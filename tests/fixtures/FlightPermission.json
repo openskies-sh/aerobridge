@@ -4,10 +4,9 @@
     "pk": "d3adc5ed-42df-4411-ad61-b0160d3f4233",
     "fields": {
         "operation": "628cf2ae-d03e-4a83-85ac-6e140836780b",
-        "is_successful": false,
+        "json": "[{\"name\": \"Jennifer Brown PhD\", \"residency\": \"Unit 9291 Box 2239\\\\nDPO AE 38894\"}, {\"name\": \"Denise Weber\", \"residency\": \"PSC 3498, Box 3632\\\\nAPO AE 94831\"}, {\"name\": \"Michael Thomas\", \"residency\": \"4700 Church Terrace\\\\nRichardfurt, RI 78738\"}, {\"name\": \"Jeremy Page\", \"residency\": \"2396 Lisa Island Suite 713\\\\nBuchananside, NY 58063\"}, {\"name\": \"Samantha Smith\", \"residency\": \"091 Alexis Mountain Apt. 438\\\\nNorth Teresa, HI 12459\"}, {\"name\": \"Heather Walker\", \"residency\": \"1698 Megan Trafficway\\\\nGriffinberg, MO 80331\"}, {\"name\": \"Tristan Stevens\", \"residency\": \"Unit 1938 Box 4851\\\\nDPO AA 26987\"}, {\"name\": \"Mrs. Sarah Perry\", \"residency\": \"960 Miller Orchard\\\\nNew Marychester, NE 31951\"}, {\"name\": \"Lisa Scott\", \"residency\": \"11548 Barnett Trail\\\\nNorth Angela, VT 30669\"}, {\"name\": \"Steven Garcia\", \"residency\": \"7889 Sanchez Crossing\\\\nLarryton, OR 79193\"}]",
         "created_at": "2021-03-27T13:54:33.978Z",
-        "updated_at": "2021-03-27T13:54:33.978Z",
-        "artefact": "Concern establish some. Under note catch the. Artist quality treatment."
+        "updated_at": "2021-03-27T13:54:33.978Z"
     }
 }
 ]
