@@ -39,9 +39,20 @@ Aerobridge is a Django server and is python based. To setup a local instance wit
 2. Install dependencies, we recommend creating a virtual environment via a tool like [Anaconda](https://docs.conda.io/en/latest/)
 3. Install Aerobridge specific dependencies via `pip install -r requirements.txt`
 4. Copy the `.env.sample` file and create a `.env` file, you need to put in a strong password for the Django secret
-5. Migrate the database `python manage.py migrate` , this will create a SQLlite database called `aerobridge.sqlite3`
-6. Load sample data `python manage.py loadddata registry/defaultregistrydata.json`
-7. Launch server via `python manange.py runserver`
+
+Now you can use the Docker or non-Docker methods to run the installation, if you just want to test it we recommend you use Docker, use non-Docker setup for debugging / contributing.
+
+### Docker
+
+1. Create a Docker Container via the following command `./build_aerobridge_docker.sh`
+2. Then run the containers using `docker-compose up` 
+3. Finally login to the container and run the `aerobridge_entrypoint.sh` to populate with initial data.
+
+#### Non-Docker
+
+1. Migrate the database `python manage.py migrate` , this will create a SQLlite database called `aerobridge.sqlite3`
+2. Load sample data `python manage.py loadddata registry/defaultregistrydata.json`
+3. Launch server via `python manange.py runserver`
 
 ## Additional Dependencies
 
@@ -71,7 +82,7 @@ As of May 2021, Aerobridge provides the following toolset:
 
 - **Management Server**
   - __Flight log management__: Store Bundled Logs on the server
-  - __Permission Artefact management__: Submission of flight plans and fetching permission artefacts
+  - __Public Key Rotation and storage__: Submission of flight plans and fetching permission artefacts
 
 - **GCS Module**
   - [QGCS Aerobridge Guardian](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
@@ -95,7 +106,7 @@ Aerobridge is licensed under a BSL license popularized by other products such as
 - You cannot offer a version of Aerobridge as a service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 24 months, the code becomes Apache-2.0 licensed (the conversion period)
 
-In other words, if you want to host / run Aerobridge inside your company for your own operations, you are free to do so without any concerns or restrictions. If you want to offer services to third parties using a release of Aerobridge the opensource project that is less than two years old, you will need an agreement  from Openskies.
+In other words, if you want to host / run Aerobridge inside your company for your own operations, you are free to do so without any concerns or restrictions. If you want to offer services to third parties using a release of Aerobridge the opensource project that is less than two years old, you will need an agreement from Openskies.
 
 ## Logo source / Credit
 
