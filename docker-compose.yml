@@ -1,0 +1,37 @@
+version: "3"
+services:  
+  redis:
+    command: [ "redis-server", "/redis.conf" ]
+    image: "redis:latest"
+    ports:
+        - "6379:6379"
+    volumes:
+      - ./config/redis.conf:/redis.conf
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+        
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    env_file:
+      - ".env"
+
+  web:    
+    env_file:
+      - ".env"      
+    build: . 
+    image: openskies-sh/aerobridge
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - redis    
+      - db
+    volumes:
+      - .:/app
+      
+volumes:
+  app:
+  db_data:
+  
