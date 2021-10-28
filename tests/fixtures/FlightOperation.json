@@ -1,16 +1,17 @@
 [
 {
     "model": "gcs_operations.flightoperation",
-    "pk": "628cf2ae-d03e-4a83-85ac-6e140836780b",
+    "pk": "31c7c5fb-02b6-48b5-882c-7f32aefd8efd",
     "fields": {
         "name": "factor",
-        "drone": "92464cea-cfb7-4698-96b2-26ee25d6fb6e",
-        "flight_plan": "6b24b125-5bbe-4cb7-998f-24ec31cd05d2",
-        "purpose": "c93134c8-123f-4ede-ada5-db8fe083fad5",
+        "drone": "dcc5682c-2540-40d0-91e8-b65f9498387c",
+        "flight_plan": "19fa9349-1aa1-4d27-afe5-8c95fa3f7071",
+        "operator": "66ff7549-5737-495d-965b-2d93c0bc5b5e",
+        "purpose": "a682b6a5-726e-4433-92e9-8c58b3505e05",
         "type_of_operation": 0,
-        "start_datetime": "2021-03-27T13:51:29.738Z",
-        "end_datetime": "2021-03-27T14:21:29.738Z",
-        "created_at": "2021-03-27T13:53:45.110Z"
+        "pilot": "7983148d-07ff-44f0-9183-eb83648746b5",
+        "is_editable": false,
+        "created_at": "2021-10-24T13:05:35.877Z"
     }
 }
 ]

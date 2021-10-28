@@ -5,7 +5,7 @@ from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transa
     SignedFlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
-    Manufacturer, Firmware, Pilot, TestValidity, Aircraft
+    Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft, AircraftDetail
 from .test_setup import TestModels
 
 
@@ -122,12 +122,12 @@ class TestModelsCreate(TestModels):
         self.assertIn(authorization, Authorization.objects.all())
 
     def test_registry_operator_create(self):
-        operator = Operator(company_name=self.faker.company(), website=self.faker.url(), email=self.faker.company_email,
+        operator = Operator(company_name=self.faker.company(), website=self.faker.url(), email=self.faker.company_email(),
                             phone_number=self.faker.numerify('+' + '#' * 9),
                             operator_type=self.faker.pyint(min_value=0, max_value=len(
                                 Operator.OPTYPE_CHOICES) - 1), address=Address.objects.first(),
-                            vat_number=self.faker.numerify('+' + '#' * 24),
-                            insurance_number=self.faker.numerify('+' + '#' * 24), country='IN')
+                            vat_number=self.faker.numerify('#' * 10),
+                            insurance_number=self.faker.numerify('#' * 15), country='IN')
         self.assertNotIn(operator, Operator.objects.all())
         operator.save()
         self.assertIn(operator, Operator.objects.all())

@@ -1,12 +1,12 @@
 [
 {
     "model": "registry.activity",
-    "pk": "c93134c8-123f-4ede-ada5-db8fe083fad5",
+    "pk": "a682b6a5-726e-4433-92e9-8c58b3505e05",
     "fields": {
-        "name": "videotaping",
-        "activity_type": 0,
-        "created_at": "2021-03-26T20:50:45.122Z",
-        "updated_at": "2021-03-26T20:50:45.122Z"
+        "name": "increase",
+        "activity_type": 1,
+        "created_at": "2021-10-24T13:05:35.798Z",
+        "updated_at": "2021-10-24T13:05:35.798Z"
     }
 }
 ]

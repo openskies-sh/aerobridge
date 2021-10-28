@@ -1,14 +1,14 @@
 [
 {
     "model": "gcs_operations.flightlog",
-    "pk": "3ee346a4-32ca-457d-90d7-cc4f9a3acd61",
+    "pk": "21440c5b-fccd-4eaf-ac94-a01a6f537254",
     "fields": {
-        "operation": "628cf2ae-d03e-4a83-85ac-6e140836780b",
-        "raw_log": "[{\"name\": \"Cole Hart\", \"residency\": \"386 Guerrero Heights\\\\nLake Tracy, RI 55489\"}, {\"name\": \"Brooke Fuller\", \"residency\": \"951 Stewart Ridge\\\\nNorth Ashleyland, CT 66073\"}, {\"name\": \"Carolyn Peterson\", \"residency\": \"602 George Park Suite 618\\\\nWest Jeffreyburgh, ID 23282\"}, {\"name\": \"Tara Morris\", \"residency\": \"852 Long Burgs Suite 963\\\\nNew Thomaston, OH 80648\"}, {\"name\": \"Dana Castro\", \"residency\": \"6188 Patrick Terrace Suite 414\\\\nSouth Nancymouth, AZ 94284\"}, {\"name\": \"Jeffrey Hess\", \"residency\": \"313 Lisa Walks Suite 920\\\\nLeahchester, VA 22127\"}, {\"name\": \"Joseph Wade\", \"residency\": \"5464 Knight Trace Suite 392\\\\nValeriestad, OK 25889\"}, {\"name\": \"Erika Clark\", \"residency\": \"298 Jennifer Rest\\\\nPort Kelly, MD 12236\"}, {\"name\": \"Karen Kramer\", \"residency\": \"0952 Brown Creek Suite 873\\\\nEast Michaelland, MI 12440\"}, {\"name\": \"Wayne Smith\", \"residency\": \"60634 Steven Extension\\\\nSarahtown, WA 17473\"}]",
-        "created_at": "2021-03-27T13:55:01.689Z",
-        "updated_at": "2021-03-27T13:55:01.689Z",
+        "operation": "31c7c5fb-02b6-48b5-882c-7f32aefd8efd",
+        "raw_log": "[{\"name\": \"Victor Graham\", \"residency\": \"Unit 3888 Box 2453\\nDPO AP 56345\"}, {\"name\": \"Lisa Roberts\", \"residency\": \"786 Sandoval Isle Apt. 745\\nCarlosland, WA 59205\"}, {\"name\": \"Mr. Jeffery Howard Jr.\", \"residency\": \"Unit 0387 Box 6128\\nDPO AA 61524\"}, {\"name\": \"Jessica Hooper\", \"residency\": \"253 Nixon Extensions\\nMorrisonmouth, NJ 17788\"}, {\"name\": \"Tim Yang\", \"residency\": \"4257 Christopher Port Apt. 133\\nNew Justin, MS 06899\"}, {\"name\": \"Dr. Joshua Tanner III\", \"residency\": \"6812 Collins Key\\nEast Adam, DC 18527\"}, {\"name\": \"Austin Patel\", \"residency\": \"2643 Maldonado Garden Apt. 216\\nLisaview, FL 54289\"}, {\"name\": \"Wesley Spencer\", \"residency\": \"364 Heather Manor\\nNorth Kimberlyton, NJ 27494\"}, {\"name\": \"Rhonda Diaz\", \"residency\": \"6765 Hudson Parkway Apt. 408\\nWilsonburgh, WV 23838\"}, {\"name\": \"Jessica Ross\", \"residency\": \"236 Mccann Rapids Apt. 976\\nNew Heather, NJ 13320\"}]",
+        "created_at": "2021-10-24T13:05:35.885Z",
+        "updated_at": "2021-10-24T13:05:35.885Z",
         "is_submitted": true,
-        "is_editable": false
+        "is_editable": true
     }
 }
 ]

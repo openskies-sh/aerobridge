@@ -1,26 +1,26 @@
 [
 {
     "model": "registry.operator",
-    "pk": "712b0506-8b1d-4381-b9bc-a476aea0425f",
+    "pk": "66ff7549-5737-495d-965b-2d93c0bc5b5e",
     "fields": {
-        "company_name": "Lynch-Drake",
-        "website": "http://www.robinson-robinson.org/",
+        "company_name": "Dyer and Sons",
+        "website": "https://www.martin-garcia.com/",
         "email": "anthonysmith@king-mason.net",
-        "phone_number": "+568030917",
-        "expiration": "2023-03-26T00:00:00Z",
-        "operator_type": 3,
-        "address": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
-        "created_at": "2021-03-26T20:50:45.140Z",
-        "updated_at": "2021-03-26T20:50:45.140Z",
+        "phone_number": "+083193462",
+        "expiration": "2023-10-24T00:00:00Z",
+        "operator_type": 0,
+        "address": "1cddc1fb-7c20-4847-8e39-78f80ee7d58f",
         "vat_number": "IE5895475T",
-        "insurance_number": 985049991,
-        "company_number": "489434",
+        "insurance_number": "985049991",
+        "company_number": "CO-TMP",
         "country": "IN",
+        "created_at": "2021-10-24T13:05:35.811Z",
+        "updated_at": "2021-10-24T13:05:35.811Z",
         "operational_authorizations": [
-            "431934c5-7817-412f-b630-e026b7135a99"
+            "6163aa23-0856-48ee-975f-acea348a1dbe"
         ],
         "authorized_activities": [
-            "c93134c8-123f-4ede-ada5-db8fe083fad5"
+            "a682b6a5-726e-4433-92e9-8c58b3505e05"
         ]
     }
 }
