@@ -294,7 +294,7 @@ class FlightPlanCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
-                        "geo_json",
+                        "kml",
                         "start_datetime",
                         "end_datetime",
                         ),
