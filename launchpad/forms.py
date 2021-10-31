@@ -611,6 +611,7 @@ class TokenCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
                         FloatingField("token_type"),
+                        FloatingField("extension"),
                         FloatingField("association"),
                         "credential"
                     ),

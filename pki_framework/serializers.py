@@ -38,7 +38,7 @@ class AerobridgeCredentialSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AerobridgeCredential
-        fields = ('token', 'name', 'token_type', 'association','is_active', 'id','aircraft','manufacturer','operator',)
+        fields = ('token', 'name', 'token_type','extension', 'association','is_active', 'id','aircraft','manufacturer','operator',)
 
 class TokenField(serializers.Field):
 
@@ -88,7 +88,7 @@ class AerobridgeCredentialPostSerializer(serializers.ModelSerializer):
             
     class Meta:
         model = AerobridgeCredential
-        fields = ('token', 'name', 'token_type', 'association','is_active', 'id','aircraft','manufacturer','operator',)
+        fields = ('token', 'name', 'token_type', 'extension','association','is_active', 'id','aircraft','manufacturer','operator',)
 
 class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
     # token = serializers.SerializerMethodField()
@@ -114,7 +114,7 @@ class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AerobridgeCredential
-        fields = ('created_at', 'name', 'token_type', 'association','is_active', 'id','aircraft','manufacturer','operator',)
+        fields = ('created_at', 'name', 'token_type', 'extension','association','is_active', 'id','aircraft','manufacturer','operator',)
         # extra_kwargs = {
         #     'token': {'write_only': True}
         # }

@@ -12,16 +12,18 @@ no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No 
 class AerobridgeCredential(models.Model):
     ''' A class to store tokens from Digital Sky '''
     
-    KEY_ENVIRONMENT = ((0, _('Operator')),(1, _('Manufacturer')),(2, _('Pilot')),(3, _('RFM')),(4, _('Company')),)
-    
+    KEY_ENVIRONMENT = ((0, _('Operator')),(1, _('Manufacturer')),(2, _('Pilot')),(3, _('RFM')),(4, _('Company')),(5, _('Management Server')),)
     TOKEN_TYPE= ((0, _('Public Key')),(1, _('Private Key')),(2, _('Authentication Token')),(3, _('Other')),(4, _('x509 Digital Certificate')),)
+    FILE_EXTENSION = ((0, _('other')),(1, _('.der')),(2, _('.csr')),(3, _('.key')),(4, _('.cer')),(5, _('.pem'),))
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100, help_text="Enter a friendly name / description for the type of credential you are storing", validators = [no_special_characters_regex,])
-    token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is, e.g Public / Private Key")
+    name = models.CharField(max_length=100, help_text="Provide a friendly name / description for the type of credential you are storing e.g. eBee Public Key", validators = [no_special_characters_regex,])
+    
+    token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is, e.g Public / Private Key etc.")
     association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling external servers.")
     token = models.BinaryField()
-
+    
+    extension = models.IntegerField(choices=FILE_EXTENSION, help_text="Specify the data format for this data, if known", default = 0)
     aircraft = models.ForeignKey(Aircraft,blank=True, null=True, on_delete = models.CASCADE)
     manufacturer = models.ForeignKey(Manufacturer,blank=True, null=True, on_delete = models.CASCADE)
     operator = models.ForeignKey(Operator,blank=True, null=True, on_delete = models.CASCADE)

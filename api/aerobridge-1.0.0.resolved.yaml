@@ -1062,6 +1062,16 @@ components:
             you are storing
           pattern: ^[-, ,_\w]*$
           maxLength: 100
+        extension:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          type: integer
+          description: Specify the data format for this data, if known
         token_type:
           enum:
           - 0
