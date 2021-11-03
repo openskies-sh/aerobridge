@@ -1,35 +1,69 @@
+import logging
 from django.core.exceptions import ObjectDoesNotExist
 from gcs_operations.models import FlightLog, SignedFlightLog
 from pki_framework import encrpytion_util
 from Crypto.Hash import SHA256
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5
-from django.conf import settings
-from pki_framework.models import AerobridgeCredential
-import base64
-import json
 
-def get_SignedFlightLog(pk):
-    created = 0
-    try:        
-        fl = FlightLog.objects.get(id=pk)              
-        signed_fl, created = SignedFlightLog.objects.get_or_create(raw_flight_log= fl)
-    except Exception as e:
-        return None, created
-    else:        
-        return signed_fl, created
+import json
+import requests
+
+
+from os import environ as env
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
+
+class SigningHelper():
+    ''' A class to sign data using Flight Passport '''
+    def __init__(self):
+        
+        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID')
+        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET')
+        
+        
+    def sign_json(self, data_to_sign):      
+        signed_json = None
+        try:
+            assert self.signing_client_id is not None
+            assert self.signing_client_secret is not None
+        except AssertionError as ae:
+            logging.warn("Client ID and Secret not set in the environment")
+        else:            
+            payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
+
+            url = env.get('FLIGHT_PASSPORT_SIGNING_URL')
+            signed_json = requests.post(url, json = payload)
+            signed_json = signed_json.json() 
+            
+        return signed_json
+
+
+def signed_flight_log_exists(flight_log):
+    
+    return SignedFlightLog.objects.filter(raw_flight_log= flight_log).exists()
+
 
 def sign_log(flightlog_id):
-
     status = 0
-    signed_flight_log, created = get_SignedFlightLog(flightlog_id)        
-    if signed_flight_log is None:
+    try:       
+         
+        flight_log = FlightLog.objects.get(id=flightlog_id)    
+    except ObjectDoesNotExist as oe:        
         status = 2
-        return {"status":status, "signed_flight_log":signed_flight_log, "message":"Invalid Flight Log referenced in the request"}
+        return {"status":status, "signed_flight_log":None, "message":"Invalid Flight Log referenced in the request"}
     
-    if created:                           
+    sfl_exists = signed_flight_log_exists(flight_log = flight_log)
+    
+    if sfl_exists: # Signed flight log does not exist        
+        signed_flight_log = SignedFlightLog.objects.get(raw_flight_log= flight_log)        
+        status = 2
+        return {"status":status, "signed_flight_log":signed_flight_log, "message":"Signed flight log already exist for that operation"}
+
+    else:                           
+        
         # get the raw log
-        flight_log = signed_flight_log.raw_flight_log
+        
         flight_operation = flight_log.operation
         flight_plan = flight_operation.flight_plan
         raw_log = flight_log.raw_log
@@ -39,31 +73,23 @@ def sign_log(flightlog_id):
         # IF log chaining is required
         #hs = hashlib.sha256(minified_raw_log.encode('utf-8')).hexdigest()
         # add signature to JSON
-        operator = flight_log.operation.operator
-        try: 
-            credential_obj = AerobridgeCredential.objects.get(operator=operator, token_type = 1,association = 0, is_active = True)
-        except ObjectDoesNotExist as oe:             
-            signed_flight_log.delete()
-            return {"status":status, "signed_flight_log":None, "message": "Credentials for the operator not found, please upload public and private keys for the operator of this operation via the Tokens Manager Interface"}
-
         
-        secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')            
-        f = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
-        operator_private_key_raw = f.decrypt(credential_obj.token).decode('utf-8')
-        
-        try:
-            key = RSA.importKey(operator_private_key_raw)
+        my_signing_helper = SigningHelper()
+        try:        
             hasher = SHA256.new(minified_raw_log.encode('utf-8').strip())
-            signer = PKCS1_v1_5.new(key)
-            signature = signer.sign(hasher)
+            
+            json_to_sign = {"raw_log_id": str(flight_log.id), "digest":hasher.hexdigest()}
+            signed_data = my_signing_helper.sign_json(json_to_sign)
+            if signed_data is None:
+                raise Exception
         except Exception as e:
-            signed_flight_log.delete()
+            
+            status = 2
             return {"status":status, "signed_flight_log":None,  "message":"Error in signing your log, please contact your administrator"}
-        else:
-            sign = base64.b64encode(signature).decode()
-            raw_log['signature'] = sign
-            signed_flight_log.signed_log = raw_log
-            signed_flight_log.save()            
+        else:            
+            raw_log['signature'] = signed_data
+            sfl = SignedFlightLog(raw_flight_log = flight_log, signed_log= raw_log)
+            sfl.save()
             flight_operation.is_editable = False
             flight_operation.save()
             flight_log.is_editable = False
@@ -71,7 +97,5 @@ def sign_log(flightlog_id):
             flight_plan.is_editable = False
             flight_plan.save()
         status = 1
-        return {"status":status, "signed_flight_log":signed_flight_log,  "message":"Successfully signed raw log"}
-    else:
-        status = 2
-        return {"status":status, "signed_flight_log":signed_flight_log, "message":"Signed flight logs already exist"}
+        return {"status":status, "signed_flight_log":sfl,  "message":"Successfully signed raw log"}
+    

@@ -14,8 +14,7 @@ from django.shortcuts import get_object_or_404
 from pki_framework.utils import requires_scopes
 from . import permissions_issuer
 import tempfile
-from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings
+
 import logging
 
 import os, json
@@ -26,7 +25,7 @@ from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
-from gcs_operations import serializers
+
 
 
 
@@ -196,23 +195,6 @@ class FlightLogDetail(mixins.RetrieveModelMixin,
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightLogSign(APIView):
     
-
-    def get_SignedFlightLog(self, pk):
-        result = log_signer.sign_log(pk)
-        
-        created = 0
-        try:
-            
-            fl = FlightLog.objects.get(id=pk)              
-            signed_fl, created = SignedFlightLog.objects.get_or_create(raw_flight_log= fl)
-        except ObjectDoesNotExist:
-            raise Http404
-        except ObjectDoesNotExist:
-            raise Http404
-        else:
-           
-            return signed_fl, created
-
     def put(self, request, pk, format=None):
         sign_result = log_signer.sign_log(pk)
         if sign_result['status'] ==1:
@@ -224,7 +206,7 @@ class FlightLogSign(APIView):
             return Response({"message":"Signed log object already exists"}, status=status.HTTP_409_CONFLICT)
 
         else:
-            return Response({"message":"No flight Log found to sign "}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message":"No flight Log found to sign"}, status=status.HTTP_404_NOT_FOUND)
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class SignedFlightLogList(mixins.ListModelMixin,                  

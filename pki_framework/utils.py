@@ -63,7 +63,8 @@ def requires_scopes(required_scopes):
                 
                 jsonurl = req.urlopen(PASSPORT_DOMAIN)
                 
-                jwks = json.loads(jsonurl.read())   
+                jwks = json.loads(jsonurl.read())  
+                
                 # cert = '-----BEGIN CERTIFICATE-----\n' + \
                     # jwks['keys'][0]['x5c'][0] + '\n-----END CERTIFICATE-----'
                 # certificate = load_pem_x509_certificate(cert.encode('utf-8'), default_backend())
