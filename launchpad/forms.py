@@ -414,6 +414,7 @@ class FlightOperationCreateForm(forms.ModelForm):
                         FloatingField("drone"),
                         FloatingField("flight_plan"),
                         FloatingField("purpose"),
+                        FloatingField("operator"),
                         FloatingField("pilot")
                         ),
                     AccordionGroup("Optional Information",

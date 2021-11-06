@@ -307,7 +307,7 @@ paths:
       - Flight Operations
     put:
       operationId: updateFlightOperation
-      summary: Create a new operation
+      summary: Create a new operation via the GCS
       description: 'Create a new Flight Operation'
       requestBody:
         content:
@@ -1324,35 +1324,35 @@ components:
           type: string
           format: uuid
           readOnly: true
+          example: 78bd066a-f8d4-4c4d-b45c-53f2aa53ee8c
         name:
           type: string
-          description: Give a friendly name for this operation
+          description: Give a friendly name for this operation e.g. Medical Deliery Operation
           maxLength: 140
         type_of_operation:
           enum:
           - 0
           - 1
           type: integer
-          description: At the moment, only VLOS and BVLOS operations are supported,
-            for other types of operations, please issue a pull-request
+          description: Specify if the operation is VLOS or BVLOS. 
         created_at:
           type: string
           format: date-time
           readOnly: true
         drone:
           type: string
-          description: Pick the drone that will be used to fly this opreation
+          description: Pick the drone that will be used to fly this opreation, a drone has to be active and registered in Aerobridge.
           format: uuid
           example: 01e27e8a-351c-4fa9-83b1-f243c6595e88
         operator:
           type: string          
-          description: Assign a operator for this drone
+          description: Assign a operator for this operation, you may use multiple companies in Aerobridge, assign the appropriate operator
           format: uuid
           example: 0adaf595-9267-4ddc-8d77-58bbafae79d0
         flight_plan:
           type: string
           format: uuid
-          description: A ID of a flight plan added to Aerobridge
+          description: A operation must have a flight plan associated with it. 
           example: 15e1e37d-abe1-42b7-a7d4-a05ae2eb21d4
         purpose:
           type: string          
