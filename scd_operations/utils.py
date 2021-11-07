@@ -3,8 +3,13 @@ from itertools import cycle
 class UAVSerialNumberValidator():
     ''' A class to validate the Serial number of a UAV per the ANSI/CTA-2063-A standard '''
 
-    def code_contains_O_or_I(manufacturer_code):
-        if 
+    def code_contains_O_or_I(self, manufacturer_code):
+        
+        m_code = [c for c in manufacturer_code]
+        if 'O' in m_code or  'I' in m_code:    
+            return True
+        else: 
+            return False
 
     def __init__(self, serial_number):
         self.serial_number = serial_number
@@ -15,13 +20,16 @@ class UAVSerialNumberValidator():
     def is_valid(self):
         
         manufacturer_code = self.serial_number[:4]
+        
         # Check if the string is four characters
         if not len(manufacturer_code):
+            return False
+        if self.code_contains_O_or_I(manufacturer_code = manufacturer_code): 
             return False
 
         character_length_code = self.serial_number[4:5]
         # Length code can only be 1-9, A-F
-        if character_length_code not in self.serial_number_code_points.keys():
+        if character_length_code not in self.serial_number_length_code_points.keys():
             return False
         #Get the rest of the string 
         manufacturers_code = self.serial_number[5:]

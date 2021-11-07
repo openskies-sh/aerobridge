@@ -107,7 +107,7 @@ class IDTechnology(str, enum.Enum):
     Broadcast = 'broadcast'
 
 @dataclass
-class PartialOperatorDataPayload:
+class FlightAuthorizationOperatorDataPayload:
     '''A class to hold information about Flight Authorization Test'''
     uas_serial_number: str
     operation_mode: Literal[OperationCategory.Vlos, OperationCategory.Bvlos]
@@ -120,6 +120,11 @@ class PartialOperatorDataPayload:
     endurance_minutes: int
     emergency_procedure_url: str
     operator_id: str
+@dataclass
+class OperatorDataPayload:
+    priority: int
+    flight_authorisation: FlightAuthorizationOperatorDataPayload
+
 
 @dataclass
 class ExpectedTestResult:
