@@ -876,6 +876,35 @@ paths:
       tags:
       - Manufacturer       
 
+  /operator_auth_test:
+    summary: Create a Test and process data
+    
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperatorDataFormat'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatorDataProcessingResponseFormat'
+          description: Requested test was created successfully.
+          
+      operationId: createTest
+      summary: Create a test and process data
+      description: >-
+        Request the creation of one or more operational intents based on injection of the provided Volume4D data.
+        These fields may not be modified.
+      security:
+        - TestAuth:
+            - scd.inject_test_data
+      tags:
+        - Strategic Deconfliction Operator Data
+
 tags:
   - name: Files
     description: "Aerobridge provides functionality to upload files to your favourite cloud provider, use these endpoints to manage files, you will have to configure the cloud provider during installion / configuration of Aerobridge"
@@ -927,6 +956,98 @@ components:
             aerobridge.read: "Read data from Aerobridge"
 
   schemas:
+    OperatorDataFormat:
+      description: |-
+        Parameters for a request to start a negotiation request.
+      type: object
+      properties:
+        uas_serial_number:
+          type: string
+          example: "T4S6BBMSZV4H0650"
+          description: Serial number of the UAS per the CTA-2063-A standard
+        operation_mode:   
+          type: string      
+          anyOf:
+            - $ref: '#/components/schemas/OperationMode'
+        operation_category:
+          type: string
+          example: "normal"
+          description: |-
+            Specify if the flight is "special" or has a specific priority.
+        uas_class: 
+          type: string
+          anyOf:
+            - $ref: '#/components/schemas/UASClass'
+        identification_technologies: 
+          type: string
+          anyOf:
+            - $ref: '#/components/schemas/IdentificationTechnology'
+        connectivity_methods:
+          type: array
+          $ref: '#/components/schemas/ArrayOfConnectivityMethods'
+        endurance_minutes: 
+          type: integer
+          description: A number to specify the endurance of the drone in minutes
+        emergency_procedure_url:
+          type: string
+          format: url
+        operator_id:
+          type: string
+          example: "CHE0n4fujx7nwanb-fwi"
+          description: ID assigned to the operator per the EN4709-02 standard
+      required:
+      - uas_serial_number
+      - operation_mode
+      - uas_class
+      - identification_technologies
+      - operator_id
+
+
+    OperationMode:
+      type: string
+      enum:
+        - vlos
+        - bvlos
+      description: Specify if the operation is `vlos` or `bvlos` operations
+
+    UASClass:
+      type: string
+      enum:
+        - C0
+        - C1
+        - C2
+        - C3
+        - C4
+      description: Specify the class of the UAS to be flown, for classes bey
+
+    IdentificationTechnology:
+      type: string
+      enum:
+        - network
+        - broadcast
+      description: Specify a Identification technology
+
+  
+    ArrayOfConnectivityMethods:
+      type: array
+      items:
+        type: string
+      example: ['http://ussp.com/emergency']
+
+    OperatorDataProcessingResponseFormat:
+      type: object
+      properties:
+        result:
+          type: string 
+          anyOf:
+            - $ref: '#/components/schemas/ProcessingPassorFail'
+    ProcessingPassorFail:
+      type: string
+      enum:
+        - pass
+        - fail
+      description: Specify if the operator data posted passed or failed processing
+
     Operator:
       type: object
       properties:
@@ -1689,3 +1810,4 @@ components:
       minItems: 2
       items:
         type: number
+
