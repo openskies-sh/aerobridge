@@ -3,7 +3,7 @@ openapi: "3.0.2"
 info:
   title: "Aerobrige Server API specification"
   description: |-
-    All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. 
+    All the interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. 
     
     The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create some entries in the database.
 
@@ -31,11 +31,11 @@ paths:
           
   /pki/credentials/:
     get:
-      summary: "List all credentials stored"
+      summary: "List all stored credentials "
       security:
         - AuthFromPassport: [aerobridge.read]    
       operationId: listCredentials
-      description: List all credentials in the server. Aerobridge stores credentials securely and this API decrypts 
+      description: List all credentials stored in the server. Aerobridge stores credentials securely and this API decrypts them on the fly. 
       parameters: []
       responses:
         '200':
@@ -54,7 +54,7 @@ paths:
         - AuthFromPassport: [aerobridge.write]    
 
       operationId: createCredentials
-      description: Upload details to create a new credential object and store it securely
+      description: Create a new credential object and store it securely on the management server. 
       parameters: []
       requestBody:
         content:
@@ -73,7 +73,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AerobridgeCredential'
-          description: ''
+          description: 'Credentials successfully retrieved'
       tags:
         - Credentials
 
@@ -120,7 +120,7 @@ paths:
         '200':
           description: Deleted
         '404':
-          description: id not found
+          description: Credential ID not found
         '401':
           description: Unauthorized
           
@@ -129,7 +129,7 @@ paths:
 
   /gcs/firmware:
     get:
-      summary: "A list of all Firmware stored"
+      summary: "A list of all Firmware releases stored in the Aerobridge management server"
       operationId: listFirmwares
       description: 'Get a list of all Firmware stored in Aerobridge'
       parameters: []
@@ -141,7 +141,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Firmware'
-          description: ''
+          description: 'Successfully retrieved firmwares stored'
       tags:
       - Firmware
     put:
@@ -149,7 +149,7 @@ paths:
       security:
         - AuthFromPassport: [aerobridge.read]    
       operationId: createFirmware
-      description: 'Update the server with a new Firmware version'
+      description: 'Update the server with a new Firmware version and its details'
       parameters: []
       requestBody:
         content:
@@ -174,7 +174,7 @@ paths:
 
   /gcs/firmware/{firmware_id}:
     get:
-      summary: "Get a single firmware download details"
+      summary: "Get a details of a single firmware release"
       security:
         - AuthFromPassport: [aerobridge.read]    
       operationId: retrieveFirmware
@@ -192,7 +192,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Firmware'
-          description: ''
+          description: 'Firmware details successfully retrieved'
       tags:
       - Firmware
 
@@ -218,7 +218,7 @@ paths:
     post:
       operationId: createFlightPlan
       summary: Create new Flight Plan
-      description: 'Upload a new flight plan in Aerobridge'
+      description: 'Upload a new flight plan KML in Aerobridge'
       parameters: []
       requestBody:
         content:
@@ -264,7 +264,7 @@ paths:
     put:
       operationId: updateFlightPlan
       summary: Update details of a Flight Plan
-      description: 'Update existing flight plan'
+      description: 'Update existing flight plan with a new KML'
       security:
         - AuthFromPassport: [aerobridge.write]    
       parameters:
@@ -335,7 +335,7 @@ paths:
     get:
       operationId: retrieveFlightOperation
       summary: Get a single Flight Operation
-      description: ''
+      description: 'Use this endpont to retrieve details of a signle flight operation'
       parameters:
       - name: flightoperation_id
         in: path
@@ -353,19 +353,21 @@ paths:
       tags:
       - Flight Operations
       
-  /gcs/flight-operations/{id}/permission:
+  /gcs/flight-operations/{operation_id}/permission:
     put:
-      operationId: Get or Create permission for a operation
-      description: 'Generate a permission for operation'
+      operationId: Get or Create permission object for an operation
+      description: 'Generate a permission object for an operation, once a flight operation is created, a permission is automatically generated, you can use this endpoint to generate it manually'
       security:
         - AuthFromPassport: [aerobridge.privileged]    
       parameters:
-      - name: id
+      - name: operation_id
         in: path
         required: true
         description: A UUID string identifying this flight operation.
         schema:
           type: string
+          format: uuid
+          example: d41bb883-fcd4-47a8-8c05-dbeb44877887
           
       responses:
         '200':
@@ -374,7 +376,7 @@ paths:
               schema:
                   $ref: '#/components/schemas/FlightPermission'
                 
-          description: 'Flight permission object retrieved'
+          description: 'Flight permission object successfully created / retrieved'
           
         '400':
           content:
@@ -384,9 +386,9 @@ paths:
                 properties: 
                   message:
                     type: string
-                    example: "Error in your request"
+                    example: "Error in processing your request"
                 
-          description: 'Error in your request'
+          description: 'Error in processing your request'
       tags:
       - Flight Operations
 
@@ -394,7 +396,7 @@ paths:
     get:
       summary: List all Flight Logs
       operationId: listFlightLogs
-      description: 'List of all raw logs and details of signed flight logs stored in Aerobridge'
+      description: 'List of all raw logs flight logs stored in Aerobridge'
       security:
         - AuthFromPassport: [aerobridge.read]    
       parameters: []
@@ -412,7 +414,7 @@ paths:
     post:    
       operationId: createFlightLog
       summary: Create a new Flight Log
-      description: 'Upload a new flight log object, you will need a URL for a Cloud File first'
+      description: 'Upload a new flight log object, you can upload a flight log file using this endpoint'
       security:
         - AuthFromPassport: [aerobridge.write]    
       parameters: []
@@ -444,7 +446,7 @@ paths:
       - name: flightlog_id
         in: path
         required: true
-        description: ''
+        description: 'ID of the '
         schema:
           type: string
       responses:
@@ -487,7 +489,7 @@ paths:
     delete:
       operationId: destroyFlightLog
       summary: Remove Flight Log 
-      description: 'Remove flight log from Aerobridge'
+      description: 'Remove flight log object from Aerobridge'
       security:
         - AuthFromPassport: [aerobridge.write] 
       parameters:
@@ -506,12 +508,12 @@ paths:
   /gcs/flight-logs/{id}/sign:
     put:
       operationId: Sign a Flight Log
-      description: 'Sign a Flight Log with the private key of the drone, a new signed flight log object is created'
+      description: 'Sign a Flight Log, a hash of the log is created and the hash signed and the log is updated'
       parameters:
       - name: id
         in: path
         required: true
-        description: 'ID of the raw log '
+        description: 'ID of the raw log object'
         schema:
           type: string
       responses:
@@ -549,7 +551,7 @@ paths:
   /gcs/signed-flight-logs:
     get:
       operationId: List all Signed logs
-      description: 'A list of all logs signed using the private key of the drone'
+      description: 'A list of all signed logs on the server'
       parameters: []
       responses:
         '200':
@@ -559,7 +561,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SignedFlightLog'
-          description: 'All signed flight log details successfully retrieved'
+          description: 'Signed flight log details successfully retrieved'
       tags:
       - Signed Flight Logs
   /gcs/signed-flight-logs/{id}:
@@ -586,7 +588,7 @@ paths:
     get:
       summary: "A list of all uploaded files"
       operationId: listCloudFiles
-      description: 'Get a list of all Files stored in the cloud via Aerobridge, you can configure multiple S3 like cloud providers to host your files.'
+      description: 'Get a list of all Files stored in the cloud via Aerobridge, you can configure multiple S3 like cloud providers to host your files securely on the cloud.'
       parameters: []
       responses:
         '200':
@@ -611,7 +613,7 @@ paths:
       - name: file_id
         in: path
         required: true
-        description: 'A UUID of the file object'
+        description: 'A UUID of the uploaded file object'
         schema:
           type: string
       responses:
@@ -620,7 +622,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CloudFile'
-          description: 'Successfully retrieved single cloud files'
+          description: 'Successfully retrieved a single cloud file'
       tags:
       - Files
 
@@ -658,7 +660,7 @@ paths:
       security:
         - AuthFromPassport: [aerobridge.write]    
       operationId: createCloudFileDocument
-      description: 'Upload a photo to Aerobridge, use this endpoint to upload jpgs etc.'
+      description: 'Upload a photo to Aerobridge, use this endpoint to upload jpgs, photos, scans etc.'
       requestBody:
         content:
           multipart/form-data:
@@ -669,21 +671,20 @@ paths:
                 file:
                   type: string
                   format: binary
-
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CloudFile'
-          description: ''
+          description: 'Cloud file successfully created'
       tags:
       - Files
 
   /gcs/flight-permissions:
     get:
       summary: "Get all flight permissions"
-      description: 'Use this endpoint to retrieve all flight permissions'
+      description: 'Use this endpoint to retrieve all flight permission objects to be processed in the GCS'
       security:
         - AuthFromPassport: [aerobridge.read]    
       operationId: listFlightPermissions
@@ -696,7 +697,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FlightPermission'
-          description: ''
+          description: 'Flight Permission successfully retrieved'
       tags:
       - Flight Permissions
   /gcs/flight-permissions/{id}:
@@ -720,7 +721,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FlightPermission'
-          description: ''
+          description: 'Flight Permission object successfully retrieved'
       tags:
       - Flight Permissions
 
@@ -740,7 +741,7 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Aircraft'
-            description: ''
+            description: 'Aircraft details successfully retrieved'
         tags:
         - Aircrafts
           
@@ -764,7 +765,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Aircraft'
-          description: ''
+          description: 'Single aircraft details successfully retrieved'
       tags:
         - Aircrafts
 
@@ -787,13 +788,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Aircraft'
-          description: ''
+          description: 'Aircraft details successfully retireved'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aircraft'
+          description: 'Aircraft details could not be found'
       tags:
         - Aircrafts
 
   /registry/operators/:
     get:
-
       security:
         - AuthFromPassport: [aerobridge.read]        
       operationId: Get all Operators
@@ -812,7 +818,6 @@ paths:
       - Operator
   /registry/operators/{id}:
     get:
-
       security:
         - AuthFromPassport: [aerobridge.read]        
       operationId: Get single Operator
@@ -835,11 +840,10 @@ paths:
       - Operator
   /registry/manufacturers/:
     get:
-
       security:
         - AuthFromPassport: [aerobridge.read]        
       operationId: List all Manufacturers
-      description: List all manufacturers in Aerobridge, use this endpoint to link specific manufacturer detail and their public / signing key.
+      description: List all manufacturers in Aerobridge.
       parameters: []
       responses:
         '200':
@@ -863,7 +867,7 @@ paths:
       - name: id
         in: path
         required: true
-        description: A UUID string identifying this operator.
+        description: A UUID string identifying this manufacturer.
         schema:
           type: string
       responses:
@@ -877,8 +881,7 @@ paths:
       - Manufacturer       
 
   /operator_auth_test:
-    summary: Create a Test and process data
-    
+    summary: Create a test and process data related to operator authorization
     put:
       requestBody:
         content:
@@ -909,9 +912,9 @@ tags:
   - name: Files
     description: "Aerobridge provides functionality to upload files to your favourite cloud provider, use these endpoints to manage files, you will have to configure the cloud provider during installion / configuration of Aerobridge"
   - name: Manufacturer
-    description: "Aerobridge stores details of aircraft manufacturers, manufacturers are linked to aircraft and control release of firmware"
+    description: "Aerobridge stores details of aircraft manufacturers. Manufacturers are linked to aircraft and control release of firmware"
   - name: Operator
-    description: "Operators have a very specific definition and are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
+    description: "Operators have a very specific definition in the context of drone operations. Usually they are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
   - name: Aircrafts
     description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft"    
   # - name: Digital Sky
@@ -927,9 +930,9 @@ tags:
   - name: Flight Plans
     description: "Flight plans are KML objects that can be stored in the server, usually flight plans are generated on the GCS as KML files and stored on the management server. A operation is created against the plan and permission artefacts retrieved for the operation."
   - name: Firmware
-    description: "Manufacturer can  sign and release firmwares and these endpoints help in downloading firmware to the GCS"
+    description: "Manufacturer can sign and release firmwares and these endpoints help in downloading the latest firmware to the GCS and / or check if the firmware is the latest one"
   - name: Credentials
-    description: "Aerobrdige can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials."
+    description: "Aerobrdige can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials. Read [the documentation](https://aerobridgetestflight.herokuapp.com/launchpad/credentials-read-first) for more details."
 
 components:
 
@@ -958,7 +961,7 @@ components:
   schemas:
     OperatorDataFormat:
       description: |-
-        Parameters for a request to start a negotiation request.
+        Parameters for a request to start a authorization request.
       type: object
       properties:
         uas_serial_number:
@@ -1001,7 +1004,6 @@ components:
       - uas_class
       - identification_technologies
       - operator_id
-
 
     OperationMode:
       type: string
@@ -1251,27 +1253,6 @@ components:
           example: edcbafed-edc7-47bb-96ee-5ed972bb977c
       required:
       - name
-    Transaction:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        prefix:
-          type: string
-          maxLength: 12
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        aircraft:
-          type: string
-          nullable: true
     Firmware:
       type: object
       properties:
@@ -1334,6 +1315,7 @@ components:
           - other
           type: string
           example: documents
+          description: Specify the type of document that is being uploaded
         created_at:
           type: string
           format: date-time
@@ -1406,7 +1388,6 @@ components:
           description: Set whether the flight plan can be edited. Once the flight
             log has been signed a flight plan cannot be edited.
           readOnly: true
-          
         start_datetime:
           type: string
           format: date-time
@@ -1436,7 +1417,6 @@ components:
       type: array
       items:         
           $ref: "#/components/schemas/FlightOperation"
-
 
     FlightOperation:
       type: object
@@ -1473,24 +1453,24 @@ components:
         flight_plan:
           type: string
           format: uuid
-          description: A operation must have a flight plan associated with it. 
+          description: A operation must have a flight plan associated with it
           example: 15e1e37d-abe1-42b7-a7d4-a05ae2eb21d4
         purpose:
           type: string          
-          description: By default the purpose of the operation is related to authorized activities
+          description: By default the purpose of the operation is related to authorized activities table
           format: uuid
           example: 57f92cc6-f1fb-42d0-a19d-f777c31eb44e
         pilot:
           type: string
           format: uuid
           example: 5178fd83-34bf-4721-bc53-291b0e6f05f8
-          description: Assign a pilot to this operation
+          description: Assign a pilot for this operation
       required:
       - drone
       - flight_plan
       - pilot
       - operator
-
+      - purpose
 
     FlightLog:
       type: object
@@ -1502,7 +1482,7 @@ components:
                  
         raw_log:
           type: object
-
+          description: A JSON file from the drone that has the raw log. Once the log has been uploaded, it is recommended that the file be deleted from the RFM / SD card on the drone. 
         created_at:
           type: string
           format: date-time
@@ -1515,6 +1495,7 @@ components:
           type: string
           format: uuid
           example: 29ec06cb-c6fb-4578-aea6-56fa438f4f82
+          description: Specify the operation object that this log deals with
 
       required:
       - raw_log
@@ -1566,6 +1547,7 @@ components:
           readOnly: true
         json:
           type: object
+          description: A sgined permission object
         created_at:
           type: string
           format: date-time
@@ -1584,21 +1566,19 @@ components:
           readOnly: true
         operator:
           type: string
+          format: uuid
+          example: a04aaf0e-d6c6-4767-93dd-8666900a0cf0
           description: Associate a operator to this Aircraft
         manufacturer:
           type: string
           description: Associate a manufacturer in the database to this aircraft
+          format: uuid 
+          example: 9d570d9f-97a4-40d5-9ba7-eef62d852f03
         model:
           type: string
           description: Set the model of the aircraft
           maxLength: 280
-        status:
-          enum:
-          - 0
-          - 1
-          type: integer
-          description: Set the status of this drone, if it is set as inactive, the
-            GCS might fail and flight plans might not be able to load on the drone
+          example: eBee X1
         category:
           enum:
           - 0
@@ -1611,8 +1591,29 @@ components:
           - 7
           - 8
           type: integer
-          description: Set the category for this aircraft, use the closest aircraft
-            type
+          description: >
+            Set the category for this aircraft, use the closest aircraft types:
+             * `0` - Other
+             * `1` - Fixed Wing
+             * `2` - Rotorcraft
+             * `3` - Lighter than air
+             * `4` - Hybrid lift
+             * `5` - Micro
+             * `6` - Small
+             * `7` - Medium
+             * `8` - Large
+             
+        status:
+          enum:
+          - 0
+          - 1
+          type: integer
+          description: >
+            Set the status of this drone, if it is set as inactive, the
+            GCS might fail and flight plans might not be able to load on the drone
+             * `0` - Inactive
+             * `1` - Active
+             
         photo:
           type: string
           format: uri
@@ -1629,6 +1630,7 @@ components:
           description: This is the Drone ID from the RFM, if there are spaces in the
             ID, remove them
           maxLength: 140
+          example: 0ER03F9DCE343D
       required:
       - operator
       - manufacturer
@@ -1636,73 +1638,6 @@ components:
       - flight_controller_id
       
 
-    AircraftFull:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        model:
-          type: string
-          description: Set the model of the aircraft
-          maxLength: 280
-        flight_controller_id:
-          type: string
-          description: This is the Drone ID from the RFM, if there are spaces in the
-            ID, remove them
-          maxLength: 140
-        category:
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          type: integer
-          description: Set the category for this aircraft, use the closest aircraft
-            type
-        status:
-          enum:
-          - 0
-          - 1
-          type: integer
-          description: Set the status of this drone, if it is set as inactive, the
-            GCS might fail and flight plans might not be able to load on the drone
-        photo:
-          type: string
-          format: uri
-          description: A URL of a photo of the drone
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        operator:
-          type: string
-          description: Associate a operator to this Aircraft
-        manufacturer:
-          type: string
-          description: Associate a manufacturer in the database to this aircraft
-      required:
-      - model
-      - flight_controller_id
-      - operator
-      - manufacturer
     SignedFlightLog:
           type: object
           properties:
@@ -1786,28 +1721,3 @@ components:
           type: string
           description: e.g. Reseller, distributor, OEM etc.
           maxLength: 140
-
-    GeoJSON:
-      type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          enum:
-            - Polygon
-            - MultiPolygon
-            - LineString
-
-        coordinates:
-          type: array
-          items:
-            $ref: "#/components/schemas/Point2D"
-
-    Point2D:
-      type: array
-      maxItems: 2
-      minItems: 2
-      items:
-        type: number
-
