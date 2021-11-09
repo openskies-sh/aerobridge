@@ -3,7 +3,7 @@ openapi: "3.0.2"
 info:
   title: "Aerobrige Server API specification"
   description: |-
-    All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans and manage keys. 
+    All the Interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. 
     
     The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create some entries in the database.
 
