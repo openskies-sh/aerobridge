@@ -77,7 +77,6 @@ def sign_log(flightlog_id):
         my_signing_helper = SigningHelper()
         try:        
             hasher = SHA256.new(minified_raw_log.encode('utf-8').strip())
-            
             json_to_sign = {"raw_log_id": str(flight_log.id), "digest":hasher.hexdigest()}
             signed_data = my_signing_helper.sign_json(json_to_sign)
             if signed_data is None:

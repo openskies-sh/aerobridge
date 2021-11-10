@@ -19,7 +19,7 @@ import logging
 
 import os, json
 import boto3
-from . import log_signer
+from . import data_signer
 from botocore.exceptions import ClientError
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
@@ -144,7 +144,7 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
     # def delete(self, request, *args, **kwargs):
     #     return self.destroy(request, *args, **kwargs)
 
-@method_decorator(requires_scopes(['aerobridge.administration']), name='dispatch')
+@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
 class FlightPermissionApplicationGenerate(APIView):
 
     def put(self, request, operation_id,format=None):	
@@ -153,9 +153,10 @@ class FlightPermissionApplicationGenerate(APIView):
         if permission:
             f_p = FlightPermission.objects.get(operation = flight_operation)            
         else:
-            f_p = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)            
+            f_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)            
+            f_p = f_permission['permission']
                     
-        serializer = FlightPermissionSerializer(f_p['permission'])
+        serializer = FlightPermissionSerializer(f_p)
         
         return Response(serializer.data, status = status.HTTP_200_OK)
                 
@@ -196,7 +197,7 @@ class FlightLogDetail(mixins.RetrieveModelMixin,
 class FlightLogSign(APIView):
     
     def put(self, request, pk, format=None):
-        sign_result = log_signer.sign_log(pk)
+        sign_result = data_signer.sign_log(pk)
         if sign_result['status'] ==1:
             signed_flight_log = sign_result['signed_flight_log']
             serializer = SignedFlightLogSerializer(signed_flight_log)

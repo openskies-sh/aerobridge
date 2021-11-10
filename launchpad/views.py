@@ -28,7 +28,7 @@ from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSeri
 import tempfile
 from rest_framework.parsers import MultiPartParser
 import boto3
-from gcs_operations import log_signer, permissions_issuer
+from gcs_operations import data_signer, permissions_issuer
 from botocore.exceptions import ClientError
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError
@@ -1026,7 +1026,7 @@ class FlightLogsSign(APIView):
     template_name = 'launchpad/flight_log/flightlog_sign_thanks.html'
 
     def get(self, request, flightlog_id):
-        sign_result = log_signer.sign_log(flightlog_id)
+        sign_result = data_signer.sign_log(flightlog_id)
         return Response(sign_result)
     
 
