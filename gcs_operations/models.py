@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import arrow
 # Create your models here.
 from datetime import date
 from datetime import datetime
@@ -15,6 +16,10 @@ def make_random_plan_common_name():
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
+def ten_minutes_from_now():
+    now = arrow.now()
+    return now.shift(minutes=15)
+
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 # Create your models here.
 class FlightPlan(models.Model):
@@ -23,8 +28,6 @@ class FlightPlan(models.Model):
     name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")    
     kml = models.TextField("Paste flight plan geometry as KML String", default = "")
     
-    start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
-    end_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight plan can be edited. Once the flight log has been signed a flight plan cannot be edited.")
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -51,6 +54,8 @@ class FlightOperation(models.Model):
     pilot = models.ForeignKey(Pilot, models.CASCADE)
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight operation can be edited. Once the flight log has been signed a flight operation cannot be edited.")
     
+    start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
+    end_datetime = models.DateTimeField(default=ten_minutes_from_now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

@@ -295,8 +295,6 @@ class FlightPlanCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
                         "kml",
-                        "start_datetime",
-                        "end_datetime",
                         ),
                     
                     HTML("""
@@ -308,16 +306,6 @@ class FlightPlanCreateForm(forms.ModelForm):
                     )
                 )     
         )
-
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        s_date = cleaned_data.get("start_datetime")
-        e_date = cleaned_data.get("end_datetime")
-        start_date = arrow.get(s_date)
-        end_date = arrow.get(e_date)
-        if end_date < start_date:
-            raise forms.ValidationError("End date should be greater than start date.")
 
     def clean_kml(self):
         raw_kml = self.cleaned_data.get('kml', False)    
@@ -333,10 +321,6 @@ class FlightPlanCreateForm(forms.ModelForm):
     class Meta:
         model = FlightPlan
         exclude = ('is_editable',)
-        widgets = {            
-            'start_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
-            'end_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time ', 'type':'datetime-local'}),
-        }
 
 class FlightPermissionCreateForm(forms.ModelForm):
     # def __init__(self, *args, **kwargs):
@@ -415,7 +399,9 @@ class FlightOperationCreateForm(forms.ModelForm):
                         FloatingField("flight_plan"),
                         FloatingField("purpose"),
                         FloatingField("operator"),
-                        FloatingField("pilot")
+                        FloatingField("pilot"),
+                        "start_datetime",
+                        "end_datetime",
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("type_of_operation")                                 
@@ -425,14 +411,28 @@ class FlightOperationCreateForm(forms.ModelForm):
                         """),
                     ButtonHolder(
                                 Submit('submit', '+ Add Operation'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'flightplans-list' %}" role="button">Cancel</a>""")
+                                HTML("""<a class="btn btn-secondary" href="{% url 'flightoperations-list' %}" role="button">Cancel</a>""")
                     )
                 )     
         )
      
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        s_date = cleaned_data.get("start_datetime")
+        e_date = cleaned_data.get("end_datetime")
+        start_date = arrow.get(s_date)
+        end_date = arrow.get(e_date)
+        if end_date < start_date:
+            raise forms.ValidationError("End date should be greater than start date.")
+
     class Meta:
         model = FlightOperation
         exclude = ('is_editable',)
+        widgets = {            
+            'start_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
+            'end_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time ', 'type':'datetime-local'}),
+        }
         help_texts = {
             'flight_plan': 'If a flight log is signed and is associated with a plan, that plan will not show here',
         }

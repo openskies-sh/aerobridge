@@ -28,14 +28,7 @@ class FlightPlanSerializer(serializers.ModelSerializer):
         Check flight plan is  valid KML        
         """
         
-        s_date = data.get("start_datetime")
-        e_date = data.get("end_datetime")
-        start_date = arrow.get(s_date)
-        end_date = arrow.get(e_date)
-
-        if end_date < start_date:
-            raise serializers.ValidationError("End date should be greater than start date.")
-
+        
         try:
             k = kml.KML()            
             k.from_string(data['kml'])
@@ -53,6 +46,19 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
 class FlightOperationListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
+    def validate(self, data):
+        """
+        Check flight plan is  valid KML        
+        """
+        
+        s_date = data.get("start_datetime")
+        e_date = data.get("end_datetime")
+        start_date = arrow.get(s_date)
+        end_date = arrow.get(e_date)
+
+        if end_date < start_date:
+            raise serializers.ValidationError("End date should be greater than start date.")
+
     class Meta:
         model = FlightOperation	
         fields = '__all__'

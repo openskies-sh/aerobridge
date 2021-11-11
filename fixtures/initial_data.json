@@ -440,8 +440,6 @@
     "fields": {
         "name": "Flight Plan A",
         "kml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>",
-        "start_datetime": "2021-04-07T06:38:44Z",
-        "end_datetime": "2021-04-07T06:38:44Z",
         "created_at": "2021-04-07T06:38:47.418Z",
         "updated_at": "2021-04-07T06:38:47.429Z"
     }
@@ -456,6 +454,8 @@
         "operator":"41174c3f-e86c-4e5a-a629-32d4d9da6011",
         "type_of_operation": 0,
         "is_editable":1, 
+        "start_datetime": "2021-04-07T06:38:44Z",
+        "end_datetime": "2021-04-07T06:38:44Z",
         "pilot":"2f15a395-65a3-4a73-a492-57c7c470d527",
         "created_at": "2021-02-04T09:45:22.646Z"
     }
