@@ -14,13 +14,13 @@ from django.core.validators import RegexValidator
 
 
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
-# Create your models here.
+
 class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")    
     kml = models.TextField("Paste flight plan geometry as KML String", default = "")
-    
+    geo_json = models.JSONField(default=dict, help_text="Paste the flight plan as GeoJSON")
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight plan can be edited. Once the flight log has been signed a flight plan cannot be edited.")
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -28,11 +28,9 @@ class FlightPlan(models.Model):
 
     def __unicode__(self):
        return self.name
-
     def __str__(self):
         return self.name 
 
-    
 class FlightOperation(models.Model):
     ''' A flight operation object for NPNT permission ''' 
     OPERATION_TYPES = ((0, _('VLOS')),(1, _('BVLOS')),)

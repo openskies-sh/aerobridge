@@ -26,9 +26,6 @@ from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
 
-
-
-
 load_dotenv(find_dotenv())
 # Create your views here.
 

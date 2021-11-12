@@ -309,7 +309,6 @@ class FlightPlanCreateForm(forms.ModelForm):
 
     def clean_kml(self):
         raw_kml = self.cleaned_data.get('kml', False)    
-        
         try:
             k = kml.KML()
             k.from_string(raw_kml)            
@@ -317,16 +316,12 @@ class FlightPlanCreateForm(forms.ModelForm):
             raise ValidationError(_("Not a valid KML, please enter a valid KML string"))
         else:
             return raw_kml
-
+        
     class Meta:
         model = FlightPlan
-        exclude = ('is_editable',)
+        exclude = ('is_editable','geo_json')
 
 class FlightPermissionCreateForm(forms.ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #    super(FlightPermissionCreateForm, self).__init__(*args, **kwargs)
-    #    self.fields['is_successful'].widget.attrs['disabled'] = True
-    #    self.fields['artefact'].widget.attrs['disabled'] = True
     def __init__(self,*args,**kwargs):
         super(FlightPermissionCreateForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
@@ -350,7 +345,7 @@ class FlightPermissionCreateForm(forms.ModelForm):
     class Meta:
         model = FlightPermission
         fields = ('operation',)
-        
+    
 
 class FlightLogCreateForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):

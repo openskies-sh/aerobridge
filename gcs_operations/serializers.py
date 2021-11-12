@@ -13,13 +13,12 @@ class FirmwareSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['-created_at']
         
-class   FlightPlanListSerializer(serializers.ModelSerializer):
+class FlightPlanListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     class Meta:
         model = FlightPlan	
-        fields = '__all__'
+        exclude = ('is_editable','geo_json',)
         ordering = ['-created_at']
-    
 
 class FlightPlanSerializer(serializers.ModelSerializer):
 
@@ -27,13 +26,10 @@ class FlightPlanSerializer(serializers.ModelSerializer):
         """
         Check flight plan is  valid KML        
         """
-        
-        
         try:
             k = kml.KML()            
             k.from_string(data['kml'])
             data['kml'] = k.to_string()
-
         except Exception as ve:
             raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
         
@@ -41,7 +37,7 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlightPlan		
-        exclude = ('is_editable',)
+        exclude = ('is_editable','geo_json',)
         ordering = ['-created_at']
 
 class FlightOperationListSerializer(serializers.ModelSerializer):
@@ -50,12 +46,10 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
         """
         Check flight plan is  valid KML        
         """
-        
         s_date = data.get("start_datetime")
         e_date = data.get("end_datetime")
         start_date = arrow.get(s_date)
         end_date = arrow.get(e_date)
-
         if end_date < start_date:
             raise serializers.ValidationError("End date should be greater than start date.")
 
@@ -65,7 +59,6 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
         ordering = ['-created_at']
 
      
- 
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     # drone = AircraftDetailSerializer(read_only=True)
@@ -95,7 +88,6 @@ class FlightOperationPermissionSerializer(serializers.ModelSerializer):
         fields = ('operation_id', 'permission')
         ordering = ['-created_at']
     
-        
 # class TransactionSerializer(serializers.ModelSerializer):
 #     ''' A serializer to the transaction view '''
 
@@ -109,7 +101,6 @@ class FlightLogSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """
         Check flight log already exists for the operation  """
-
         raw_log = data.get("raw_log")
         try: 
             json.loads(raw_log)
@@ -117,7 +108,6 @@ class FlightLogSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A raw flight log must be a valid JSON object")        
         return data
 
-        
     class Meta:
         model = FlightLog	
         exclude = ('is_submitted','is_editable',)

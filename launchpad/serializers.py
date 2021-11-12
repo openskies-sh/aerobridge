@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from registry.models import Activity, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Authorization
+from gcs_operations.models import FlightPlan
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
@@ -76,3 +77,10 @@ class AircraftDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftDetail
         fields = '__all__'
+
+class FlightPlanReadSerializer(serializers.ModelSerializer):
+    ''' A serializer for Flight Operations '''
+    class Meta:
+        model = FlightPlan	
+        exclude = '__all__'
+        ordering = ['-created_at']

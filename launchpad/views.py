@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
@@ -710,7 +710,7 @@ class FlightPlansDetail(APIView):
 
     def get(self, request, flightplan_id):
         flightplan = get_object_or_404(FlightPlan, pk=flightplan_id)
-        serializer = FlightPlanSerializer(flightplan)
+        serializer = FlightPlanReadSerializer(flightplan)
         return Response({'serializer': serializer, 'flightplan': flightplan})
 
 
