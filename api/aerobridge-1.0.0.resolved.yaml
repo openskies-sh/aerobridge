@@ -1353,7 +1353,6 @@ components:
             Set whether the flight plan can be edited. Once the flight
             log has been signed a flight plan cannot be edited.
           readOnly: true
-
         created_at:
           type: string
           format: date-time
