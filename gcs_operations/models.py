@@ -1,24 +1,17 @@
 from django.db import models
 import uuid
-import arrow
+
 # Create your models here.
-from datetime import date
-from datetime import datetime
+from django.utils import timezone as tz
+from dateutil.relativedelta import relativedelta
+
 from django.utils.translation import ugettext_lazy as _
 import string, random 
 import os, random, string
 from registry.models import Aircraft,Activity, Operator, Pilot
 from django.core.validators import RegexValidator
 
-def make_random_plan_common_name():
-    length = 6
-    letters = string.ascii_lowercase
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
 
-def ten_minutes_from_now():
-    now = arrow.now()
-    return now.shift(minutes=15)
 
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 # Create your models here.
@@ -54,8 +47,8 @@ class FlightOperation(models.Model):
     pilot = models.ForeignKey(Pilot, models.CASCADE)
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight operation can be edited. Once the flight log has been signed a flight operation cannot be edited.")
     
-    start_datetime = models.DateTimeField(default=datetime.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
-    end_datetime = models.DateTimeField(default=ten_minutes_from_now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
+    start_datetime = models.DateTimeField(default= tz.now, help_text="Specify Flight start date and time in Indian Standard Time (IST)")
+    end_datetime = models.DateTimeField(default=tz.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

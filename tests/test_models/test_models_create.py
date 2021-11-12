@@ -27,8 +27,7 @@ class TestModelsCreate(TestModels):
         self.assertIn(cloud_file, CloudFile.objects.all())
 
     def test_gcs_operations_flight_plan_create(self):
-        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json(), start_datetime=timezone.now(),
-                                 end_datetime=timezone.now() + timezone.timedelta(minutes=30))
+        flight_plan = FlightPlan(name=self.faker.word(), geo_json=self.faker.json())
         self.assertNotIn(flight_plan, FlightPlan.objects.all())
         flight_plan.save()
         self.assertIn(flight_plan, FlightPlan.objects.all())
@@ -37,7 +36,8 @@ class TestModelsCreate(TestModels):
         flight_operation = FlightOperation(name=self.faker.word(), drone=Aircraft.objects.first(),
                                            flight_plan=FlightPlan.objects.first(), purpose=Activity.objects.first(),
                                            type_of_operation=self.faker.pyint(min_value=0, max_value=len(
-                                               FlightOperation.OPERATION_TYPES) - 1))
+                                               FlightOperation.OPERATION_TYPES) - 1),start_datetime=timezone.now(),
+                                 end_datetime=timezone.now() + timezone.timedelta(minutes=30))
         self.assertNotIn(flight_operation, FlightOperation.objects.all())
         flight_operation.save()
         self.assertIn(flight_operation, FlightOperation.objects.all())
