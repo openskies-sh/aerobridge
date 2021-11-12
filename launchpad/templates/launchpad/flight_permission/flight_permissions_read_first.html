@@ -8,11 +8,14 @@
 </div>
 <div class="row mb-3">
     <ol class="list-group list-group-numbered">
-        <li class="list-group-item">Create a Flight Plan in the GCS and upload a co-ordinates file as GeoJSON in Aerobridge</li>
-        <li class="list-group-item">In Aerobridge, create a Flight Operation, assign a flight plan to a operation and a drone, you will have to input additional fields around the operation.</li>
-        <li class="list-group-item">Generate a permission artefact by looking at a operation  in the <a href="/launchpad/flightoperations">Flight Operations</a> menu.</li>
+        <li class="list-group-item">Create a Flight Plan in the GCS and upload a co-ordinates file as KML in Aerobridge</li>
+        <li class="list-group-item">In Aerobridge, create a Flight Operation, assign a flight plan to a operation and a drone, you will have to input additional fields around the operation (or you can use the GCS).</li>
+        <li class="list-group-item">Flight permissions are generated automatically and you can see them <a href="/launchpad/flightoperations">Flight Operations</a> menu.</li>
         <li class="list-group-item">Once the flight permission isssued, you can see the permission artefact at in the <a href="/launchpad/flightpermissions">Flight Permissions</a> menu.</li>
         <li class="list-group-item">After the operation is complete the signed flight logs from the drone can be uploaded to the server.</li>
+        <li class="list-group-item">The following image demonstrates how the permissioning system works, see higher resolution <a href="https://i.imgur.com/biRCocx.png">image</a>.
+            <img src="{% static "jetway/images/flight-permissions-authorization.png" %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy">
+        </li>
     </ol>
 </div>
 
