@@ -2,7 +2,7 @@ import dataclasses
 from gcs_operations.models import FlightOperation, FlightPermission
 import json
 import hashlib
-
+from .data_definitions import PermissionObject
 from . import data_signer
 
 def issue_permission(flight_operation_id):

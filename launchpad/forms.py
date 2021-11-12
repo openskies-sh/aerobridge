@@ -69,7 +69,8 @@ class AddressCreateForm(forms.ModelForm):
                         FloatingField("address_line_1"),
                         FloatingField("address_line_2"),
                         FloatingField("address_line_3"),
-                        FloatingField("postcode"),
+                        FloatingField("postcode"),                        
+                        FloatingField("city"),
                         FloatingField("state"),
                         FloatingField("country"),
                         ),                                
@@ -428,7 +429,7 @@ class FlightOperationCreateForm(forms.ModelForm):
 
     class Meta:
         model = FlightOperation
-        exclude = ('is_editable',)
+        exclude = ('is_editable','created_at',)
         widgets = {            
             'start_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
             'end_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time ', 'type':'datetime-local'}),

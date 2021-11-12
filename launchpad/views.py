@@ -733,10 +733,10 @@ class FlightPlansUpdate(APIView):
 
 class FlightPlanCreateView(CreateView):
     
-    model = FlightPlan
-    form_class = FlightPlanCreateForm        
-    template_name = 'launchpad/flight_plan/flightplan_create.html'    
-    
+    def get(self, request, *args, **kwargs):
+        context = {'form': FlightPlanCreateForm()}
+        return render(request, 'launchpad/flight_plan/flightplan_create.html', context)
+
     def post(self, request, *args, **kwargs):
         form = FlightPlanCreateForm(request.POST)
         context = {'form': form}
