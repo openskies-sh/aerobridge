@@ -1,12 +1,12 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity, Authorization, AircraftDetail
-from digitalsky_provider.models import DigitalSkyLog
-from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission, Transaction, CloudFile
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail
+
+from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
-from django.forms import widgets, Textarea
+
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
-from django.core.validators import URLValidator
+
 
 from fastkml import kml
 import arrow
@@ -197,7 +197,6 @@ class AircraftDetailCreateForm(forms.ModelForm):
                         FloatingField("dot_permission_document"),
                         FloatingField("operations_manual_document"),
                         FloatingField("type_certificate"),
-                        FloatingField("engine"),
                         FloatingField("identification_photo"),
                         ),                                 
                     ),
@@ -514,34 +513,6 @@ class PilotCreateForm(forms.ModelForm):
 #     class Meta:
 #         model = Transaction
 #         fields = '__all__'
-
-class EngineCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.help_text_inline = True   
-        
-        self.helper.layout = Layout(
-                BS5Accordion(
-                    AccordionGroup("Mandatory Information",
-                        FloatingField("power"),
-                        FloatingField("count"),
-                        FloatingField("engine_type"),
-                        FloatingField("propellor")
-                    ),
-                    HTML("""
-                            <br>
-                        """),
-                    ButtonHolder(
-                                Submit('submit', '+ Add Engine'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'engines-list' %}" role="button">Cancel</a>""")
-                    )
-                )     
-        )
-    class Meta:
-        model = Engine
-        fields = '__all__'
-        
 
 class AuthorizationCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

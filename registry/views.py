@@ -3,8 +3,8 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Operator, Aircraft, Manufacturer, AircraftDetail
-from .serializers import (AircraftDetailSerializer, OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer)
+from .models import Operator, Aircraft, Manufacturer
+from .serializers import ( OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer)
 
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes

@@ -2,12 +2,12 @@ from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
-    Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
+    Manufacturer, Firmware, Pilot, TestValidity, Aircraft
 from .test_setup import TestModels
 
 
 class TestModelsDelete(TestModels):
-    fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
+    fixtures = ['Activity', 'Address', 'Authorization', 'Manufacturer', 'Operator', 'Person', 'Test',
                 'TypeCertificate', 'Pilot', 'CloudFile', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction',
                 'Contact', 'DigitalSkyLog', 'Firmware', 'FlightLog', 'FlightPermission',
                 'TestValidity', 'AerobridgeCredential']
@@ -120,11 +120,6 @@ class TestModelsDelete(TestModels):
         manufacturer.delete()
         self.assertNotIn(manufacturer, Manufacturer.objects.all())
 
-    def test_registry_engine_delete(self):
-        engine = Engine.objects.first()
-        self.assertIsNotNone(engine)
-        engine.delete()
-        self.assertNotIn(engine, Engine.objects.all())
 
     def test_registry_firmware_delete(self):
         firmware = Firmware.objects.first()

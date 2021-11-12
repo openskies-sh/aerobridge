@@ -4,7 +4,7 @@ from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
-from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Engine, Activity
+from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
 from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, SignedFlightLog
@@ -14,13 +14,13 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, EngineSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer
+from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm,EngineCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -1204,47 +1204,6 @@ class SignedFlightLogsDetail(APIView):
   
     
     
-### Engine Views
-    
-class EnginesList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/engine/engine_list.html'
-
-    def get(self, request):
-        queryset = Engine.objects.all()
-        return Response({'engines': queryset})
-    
-class EnginesDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/engine/engine_detail.html'
-
-    def get(self, request, engine_id):
-        engine = get_object_or_404(Engine, pk=engine_id)
-        serializer = EngineSerializer(engine)
-        return Response({'serializer': serializer, 'engine': engine})
-
-    def post(self, request, engine_id):
-        engine = get_object_or_404(Manufacturer, pk=engine_id)
-        serializer = EngineSerializer(engine, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'engine': engine,'errors':serializer.errors})
-        serializer.save()
-        return redirect('engines-list')
-
-class EngineCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': EngineCreateForm()}
-        return render(request, 'launchpad/engine/engine_create.html', context)
-
-    def post(self, request, *args, **kwargs):
-        form = EngineCreateForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            return redirect('engines-list')
-
-        return render(request, 'launchpad/engine/engine_create.html', context)
-  
 # Aerobridge Credentials View
 class CredentialsReadFirst(TemplateView):    
     template_name = 'launchpad/credential/credentials_read_first.html'

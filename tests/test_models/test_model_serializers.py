@@ -16,7 +16,7 @@ from .test_setup import TestModels
 class TestModelSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
-                'FlightPlan', 'Engine', 'TypeCertificate', 'FlightOperation', 'Transaction']
+                'FlightPlan',  'TypeCertificate', 'FlightOperation', 'Transaction']
 
     def _get_data_for_model(self, model_name):
         filepath = '%s%s.json' % (self.data_path, model_name)

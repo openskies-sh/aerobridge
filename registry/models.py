@@ -242,18 +242,6 @@ class Manufacturer(models.Model):
     def __str__(self):
        return self.common_name
 
-class Engine(models.Model):
-
-    power = models.DecimalField(decimal_places = 2, max_digits=10, default=0.00, help_text="Specify the engine power")
-    count = models.IntegerField(default =1, help_text="Set the number of engines normally present")
-    engine_type = models.CharField(max_length=15, help_text="Specify the type of engine")
-    propellor = models.IntegerField(help_text="Specify number of propellors")
-    
-    def __unicode__(self):
-       return self.engine_type 
-
-    def __str__(self):
-       return self.engine_type 
   
 class Firmware(models.Model):
     ''' A model for custom firmware '''
@@ -334,7 +322,7 @@ class AircraftDetail(models.Model):
     dot_permission_document = models.URLField(blank=True, null=True, help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
     operations_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document", default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',validators=[validate_url])
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank= True, null= True, help_text="Set the type certificate if available for the drone")
-    engine = models.ForeignKey(Engine, models.CASCADE,blank=True, null=True, help_text="Associate a engine with this aircraft")
+    
     identification_photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the drone ID or other identifying image of the drone.")
     history = HistoricalRecords()
 

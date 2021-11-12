@@ -4,12 +4,12 @@ from digitalsky_provider.models import DigitalSkyLog
 from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transaction, FlightPermission, FlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
-    Manufacturer, Engine, Firmware, Pilot, TestValidity, Aircraft
+    Manufacturer, Firmware, Pilot, TestValidity, Aircraft
 from .test_setup import TestModels
 
 
 class TestModelsCreate(TestModels):
-    fixtures = ['Activity', 'Address', 'Authorization', 'Engine', 'Manufacturer', 'Operator', 'Person', 'Test',
+    fixtures = ['Activity', 'Address', 'Authorization', 'Manufacturer', 'Operator', 'Person', 'Test',
                 'TypeCertificate', 'Pilot', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction']
 
     def test_digitalsky_provider_digitalsky_log_create(self):
@@ -188,13 +188,6 @@ class TestModelsCreate(TestModels):
         manufacturer.save()
         self.assertIn(manufacturer, Manufacturer.objects.all())
 
-    def test_registry_engine_create(self):
-        engine = Engine(power=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
-                        count=self.faker.pyint(min_value=0, max_value=50), engine_type=self.faker.word(),
-                        propellor=self.faker.pyint(min_value=0, max_value=4))
-        self.assertNotIn(engine, Engine.objects.all())
-        engine.save()
-        self.assertIn(engine, Engine.objects.all())
 
     def test_registry_firmware_create(self):
         firmware = Firmware(binary_file_url=self.faker.uri(), public_key=self.faker.text(),
@@ -237,7 +230,7 @@ class TestModelsCreate(TestModels):
                             operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00, right_digits=2),
                             status=self.faker.pyint(min_value=0, max_value=len(Aircraft.STATUS_CHOICES) - 1),
                             photo=self.faker.uri(), identification_photo=self.faker.uri(),
-                            engine=Engine.objects.first(),
+                            
                             is_registered=True,
                             max_endurance=self.faker.pyfloat(min_value=0, max_value=20, right_digits=2),
                             max_range=self.faker.pyfloat(min_value=0, max_value=100.00, right_digits=2),
@@ -250,7 +243,7 @@ class TestModelsCreate(TestModels):
                             )
         self.assertIn(aircraft, Aircraft.objects.all())
         self.assertEqual(aircraft.type_certificate, TypeCertificate.objects.first())
-        self.assertEqual(aircraft.engine, Engine.objects.first())
+        
     def test_pki_framework_aerobridge_credentials_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),
                                                       token_type=self.faker.pyint(min_value=0, max_value=len(
