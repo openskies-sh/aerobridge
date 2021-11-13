@@ -6,8 +6,8 @@ from django import forms
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
-
-
+import json
+import geojson
 from fastkml import kml
 import arrow
 from crispy_forms.helper import FormHelper
@@ -294,7 +294,7 @@ class FlightPlanCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
-                        "kml",
+                        "geo_json",
                         ),
                     
                     HTML("""
@@ -306,6 +306,21 @@ class FlightPlanCreateForm(forms.ModelForm):
                     )
                 )     
         )
+
+    def clean_geo_json(self):
+        gj = self.cleaned_data.get('geo_json', False)  
+        
+        try:
+            parsed_geojson = geojson.loads(json.dumps(gj))
+        except Exception as ve:      
+            raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+        try: 
+            assert parsed_geojson.is_valid
+        except AssertionError as ae: 
+            
+            raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+        else:
+            return gj
 
     def clean_kml(self):
         raw_kml = self.cleaned_data.get('kml', False)    
@@ -319,7 +334,7 @@ class FlightPlanCreateForm(forms.ModelForm):
         
     class Meta:
         model = FlightPlan
-        exclude = ('is_editable','geo_json')
+        exclude = ('is_editable','kml')
 
 class FlightPermissionCreateForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):

@@ -2,6 +2,8 @@ from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
+import tempfile
+import kml2geojson
 import json
 import arrow
 from fastkml import kml
@@ -15,16 +17,9 @@ class FirmwareSerializer(serializers.ModelSerializer):
         
 class FlightPlanListSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
-    class Meta:
-        model = FlightPlan	
-        exclude = ('is_editable','geo_json',)
-        ordering = ['-created_at']
-
-class FlightPlanSerializer(serializers.ModelSerializer):
-
     def validate(self, data):
         """
-        Check flight plan is  valid KML        
+        Check flight plan is valid KML        
         """
         try:
             k = kml.KML()            
@@ -35,9 +30,49 @@ class FlightPlanSerializer(serializers.ModelSerializer):
         
         return data
 
+    def create(self, validated_data):
+        kml = validated_data['kml']
+        tmp = tempfile.NamedTemporaryFile()
+        with open(tmp.name, 'w') as f:
+                f.write(kml) # where `stuff` is, y'know... stuff to write (a string)
+    
+        geo_json = kml2geojson.main.convert(tmp)
+        print(geo_json)
+        return super(FlightPlanSerializer, self).create(validated_data)
+    class Meta:
+        model = FlightPlan	
+        exclude = ('is_editable',)
+        read_only_fields = ('geo_json',)
+        ordering = ['-created_at']
+
+class FlightPlanSerializer(serializers.ModelSerializer):
+
+    def validate(self, data):
+        """
+        Check flight plan is valid KML        
+        """
+        try:
+            k = kml.KML()            
+            k.from_string(data['kml'])
+            data['kml'] = k.to_string()
+        except Exception as ve:
+            raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
+        
+        return data
+
+    def create(self, validated_data):
+        kml = validated_data['kml']
+        tmp = tempfile.NamedTemporaryFile()
+        with open(tmp.name, 'w') as f:
+                f.write(kml) # where `stuff` is, y'know... stuff to write (a string)
+    
+        geo_json = kml2geojson.main.convert(tmp)
+        print(geo_json)
+        return super(FlightPlanSerializer, self).create(validated_data)
     class Meta:
         model = FlightPlan		
-        exclude = ('is_editable','geo_json',)
+        exclude = ('is_editable',)
+        read_only_fields = ('geo_json',)
         ordering = ['-created_at']
 
 class FlightOperationListSerializer(serializers.ModelSerializer):
