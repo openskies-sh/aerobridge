@@ -45,16 +45,15 @@
         trackResize: false,
         touchZoom: false,
         scrollWheelZoom: false});        
-        let raw_kml = '{{ flightplan.kml|safe }}';
-        // Create new kml overlay
-        const parser = new DOMParser();
-        const kml = parser.parseFromString(raw_kml, 'text/xml');
-        const track = new L.KML(kml);
-        map.addLayer(track);
-        map.fitBounds(track.getBounds());
+        var fg = L.featureGroup().addTo(map);
+        let geo_json = {{ flightplan.geo_json|safe }};
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+        
+        L.geoJSON(geo_json).addTo(fg);
+        map.fitBounds(fg.getBounds());
+    
 
 </script>
 

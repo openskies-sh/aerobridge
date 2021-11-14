@@ -3,10 +3,12 @@ from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
 import tempfile
-import kml2geojson
+import fiona
+import geopandas as gpd
 import json
 import arrow
 from fastkml import kml
+gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
 
 class FirmwareSerializer(serializers.ModelSerializer):
     ''' A serializer for saving Firmware ''' 
@@ -24,7 +26,7 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
         try:
             k = kml.KML()            
             k.from_string(data['kml'])
-            data['kml'] = k.to_string()
+            
         except Exception as ve:
             raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
         
@@ -32,13 +34,17 @@ class FlightPlanListSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         kml = validated_data['kml']
-        tmp = tempfile.NamedTemporaryFile()
-        with open(tmp.name, 'w') as f:
-                f.write(kml) # where `stuff` is, y'know... stuff to write (a string)
-    
-        geo_json = kml2geojson.main.convert(tmp)
-        print(geo_json)
-        return super(FlightPlanSerializer, self).create(validated_data)
+        f =  fiona.BytesCollection(bytes(kml, encoding='utf-8'))
+        df = gpd.GeoDataFrame()
+
+        # iterate over layers
+        for layer in fiona.listlayers(f.path):
+            s = gpd.read_file(f.path, driver='KML', layer=layer)
+            df = df.append(s, ignore_index=True)
+            
+        validated_data['geo_json'] = json.loads(df.to_json())
+        print(type(df.to_json()))
+        return super(FlightPlanListSerializer, self).create(validated_data)
     class Meta:
         model = FlightPlan	
         exclude = ('is_editable',)
