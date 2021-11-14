@@ -8,6 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 import json
 import geojson
+import tempfile
+import fiona 
+import geopandas as gpd
 from fastkml import kml
 import arrow
 from crispy_forms.helper import FormHelper
@@ -307,34 +310,59 @@ class FlightPlanCreateForm(forms.ModelForm):
                 )     
         )
 
-    def clean_geo_json(self):
-        gj = self.cleaned_data.get('geo_json', False)  
+    # def clean_geo_json(self):
+    #     gj = self.cleaned_data.get('geo_json', False)  
         
+    #     try:
+    #         parsed_geojson = geojson.loads(json.dumps(gj))
+    #     except Exception as ve:      
+    #         raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+    #     try: 
+    #         assert parsed_geojson.is_valid
+    #     except AssertionError as ae: 
+            
+    #         raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+    #     else:
+    #         return gj
+
+    # def clean_kml(self):
+    #     raw_kml = self.cleaned_data.get('kml', False)    
+    #     try:
+    #         k = kml.KML()
+    #         k.from_string(raw_kml)            
+    #     except Exception as ve:            
+    #         raise ValidationError(_("Not a valid KML, please enter a valid KML string"))
+    #     else:
+    #         return raw_kml
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        ## convert GeoJSON to KML
+        gj = cleaned_data.get('geo_json', False)  
         try:
             parsed_geojson = geojson.loads(json.dumps(gj))
+            
         except Exception as ve:      
             raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
+        
         try: 
-            assert parsed_geojson.is_valid
+            assert parsed_geojson and parsed_geojson.is_valid 
         except AssertionError as ae: 
-            
             raise ValidationError(_("Not a valid GeoJSON, please enter a valid GeoJSON object"))
-        else:
-            return gj
 
-    def clean_kml(self):
-        raw_kml = self.cleaned_data.get('kml', False)    
-        try:
-            k = kml.KML()
-            k.from_string(raw_kml)            
-        except Exception as ve:            
-            raise ValidationError(_("Not a valid KML, please enter a valid KML string"))
-        else:
-            return raw_kml
+        df = gpd.GeoDataFrame.from_features(gj)
+        t = tempfile.NamedTemporaryFile(suffix='.kml')
+        df.to_file(t.name, driver='KML')
+        with open(t.name, 'r') as f: 
+            kml_data = f.read()
+            cleaned_data['kml'] = kml_data             
+        
+        return cleaned_data
         
     class Meta:
         model = FlightPlan
-        exclude = ('is_editable','kml')
+        exclude = ('is_editable',)
+        read_only= ('kml',)
+        
 
 class FlightPermissionCreateForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
