@@ -6,7 +6,7 @@ urlpatterns = [
     path('firmware', gcs_views.FirmwareList.as_view(), name='firmware-list'),
     path('firmware/<uuid:pk>', gcs_views.FirmwareDetail.as_view(), name='firmware-detail'),
     
-    path('flight-plans', gcs_views.FlightPlanList.as_view(), name='flight-plan-list'),
+    path('flight-plans', gcs_views.FlightPlanList.as_view(), name='flight-plan-list'),    
     path('flight-plans/<uuid:pk>', gcs_views.FlightPlanDetail.as_view(), name='flight-plan-detail'),
     
     path('flight-operations', gcs_views.FlightOperationList.as_view(), name='flight-operation-list'),

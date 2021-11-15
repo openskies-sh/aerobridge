@@ -218,7 +218,7 @@ paths:
     post:
       operationId: createFlightPlan
       summary: Create new Flight Plan
-      description: "Upload a new flight plan KML in Aerobridge"
+      description: "Upload a new flight plan from QGCS in Aerobridge, a GeoJSON is automatically created once a Plan File is uploaded"
       parameters: []
       requestBody:
         content:
@@ -1332,7 +1332,7 @@ components:
       required:
         - location
         - name
-    FlightPlan:
+    FlightPlanCreateUpdate:
       type: object
       properties:
         id:
@@ -1341,12 +1341,13 @@ components:
           readOnly: true
         name:
           type: string
-          maxLength: 30
+          description: Give this flight plan a friendly name
+          maxLength: 140
           example: North West Medical Delivery
-        kml:
-          type: string
-          description: Flight Plan Geometry as KML
-          example: <?xml version='1.0' encoding='UTF-8'?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>
+        plan_file_json:
+          type: object
+          description: 'Paste the QGCS flight plan JSON, for more information about
+            the Plan File Format see: https://dev.qgroundcontrol.com/master/en/file_formats/plan.html'          
         is_editable:
           type: boolean
           description:
@@ -1361,10 +1362,10 @@ components:
           format: date-time
           readOnly: true
       required:
-        - kml
+        - plan_file_json
         - name
 
-    FlightPlanCreateUpdate:
+    FlightPlan:
       type: object
       properties:
         id:
@@ -1375,10 +1376,15 @@ components:
           type: string
           maxLength: 30
           example: North West Medical Delivery
-        kml:
-          type: string
-          description: Paste flight plan geometry as a KML String
-          example: <?xml version='1.0' encoding='UTF-8'?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>
+        plan_file_json:
+          type: object
+          description: 'Paste the QGCS flight plan JSON, for more information about
+            the Plan File Format see: https://dev.qgroundcontrol.com/master/en/file_formats/plan.html'      
+        geo_json: 
+          type: object
+          $ref: '#/components/schemas/GeoJSON'
+          nullable: true
+          description: Paste flight plan geometry
         is_editable:
           type: boolean
           description:
@@ -1721,3 +1727,27 @@ components:
           type: string
           description: e.g. Reseller, distributor, OEM etc.
           maxLength: 140
+
+    GeoJSON:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - Polygon
+            - MultiPolygon
+            - LineString
+
+        coordinates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Point2D"
+
+    Point2D:
+      type: array
+      maxItems: 2
+      minItems: 2
+      items:
+        type: number

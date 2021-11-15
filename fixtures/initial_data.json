@@ -437,7 +437,7 @@
     "pk": "12818e87-4c96-4e4c-8c63-82b8e12c3b73",
     "fields": {
         "name": "Flight Plan A",
-        "kml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document><Placemark><ExtendedData></ExtendedData><LineString><coordinates>78.00850868225098,21.051942210577003 78.00895929336548,21.052222567078136 78.00981760025024,21.052482897642115 78.01002144813538,21.052573011962025</coordinates></LineString></Placemark></Document></kml>",
+        "geo_json":{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[77.22328662872314,19.11285327990211],[77.23731994628906,19.116381062389312],[77.24822044372559,19.120598082896315],[77.2489070892334,19.120800821556116]]}}]},
         "created_at": "2021-04-07T06:38:47.418Z",
         "updated_at": "2021-04-07T06:38:47.429Z"
     }

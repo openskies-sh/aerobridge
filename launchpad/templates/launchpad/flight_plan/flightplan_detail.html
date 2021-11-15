@@ -6,30 +6,26 @@
 <!-- Bootstrap core CSS -->
 <link href="{% static "jetway/leafletjs/leaflet.css" %}" rel="stylesheet">    
 
-
 <div>
 <h2>Flight Plan Detail - {{ flightplan.name }}</h2>
 <br>
-<br>
-<table  class="table">
+<p>Details of the flight plan as GeoJSON are shown below with a Openstreetmap as a basemap background</p>
+<table class="table">
     <thead>
         <tr>
-            <th></th>
+            
             <th></th>
         </tr>
     </thead>
     <tr>
-        <td>Map</td>
+        
         <td><div id="flight_plan" class="map"></div></td>    
-    </tr>
-
-    
+    </tr>    
 </table>
 <br>
 {% if flightplan.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightplans/{{flightplan.id}}"><b>Update Details</b></a></p>
-    {% else %}
-    
+    {% else %}    
     <p class='text-muted'>The operation against this plan is signed and cannot be edited, create a new plan to update it.</p>
     {% endif %}
     
@@ -37,7 +33,7 @@
 </div>
 
 <script src="{% static "jetway/leafletjs/leaflet.js" %}" type="text/javascript"></script>
-<script src="{% static "jetway/leafletjs/L.KML.js" %}" type="text/javascript"></script>
+
 <script type="text/javascript">
     var map = L.map('flight_plan', {zoomControl: false,   doubleClickZoom: false, 
         closePopupOnClick: false, 

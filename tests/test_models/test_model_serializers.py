@@ -3,7 +3,7 @@ import os
 
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
-    FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
+    FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
     TransactionSerializer, FlightLogSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
@@ -47,16 +47,9 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(firmware_serializer.validated_data, dict)
         self.assertEqual(firmware_serializer.errors, dict())
 
-    def test_gcs_operations_flight_plan_serializer(self):
-        data = self._get_data_for_model('FlightPlan')
-        flight_plan_serializer = FlightPlanSerializer(data=data)
-        self.assertTrue(flight_plan_serializer.is_valid())
-        self.assertNotEqual(flight_plan_serializer.validated_data, dict)
-        self.assertEqual(flight_plan_serializer.errors, dict())
-
     def test_gcs_operations_flight_plan_list_serializer(self):
         data = self._get_data_for_model('FlightPlan')
-        flight_plan_list_serializer = FlightPlanListSerializer(data=data)
+        flight_plan_list_serializer = FlightPlanSerializer(data=data)
         self.assertTrue(flight_plan_list_serializer.is_valid())
         self.assertNotEqual(flight_plan_list_serializer.validated_data, dict)
         self.assertEqual(flight_plan_list_serializer.errors, dict())

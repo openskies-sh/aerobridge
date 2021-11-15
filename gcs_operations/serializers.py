@@ -2,13 +2,9 @@ from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 from .models import Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission, CloudFile, SignedFlightLog
 from registry.models import Firmware
-import tempfile
-import fiona
-import geopandas as gpd
 import json
 import arrow
-from fastkml import kml
-gpd.io.file.fiona.drvsupport.supported_drivers['KML'] = 'rw'
+
 
 class FirmwareSerializer(serializers.ModelSerializer):
     ''' A serializer for saving Firmware ''' 
@@ -17,68 +13,24 @@ class FirmwareSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['-created_at']
         
-class FlightPlanListSerializer(serializers.ModelSerializer):
+class FlightPlanSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
     def validate(self, data):
         """
         Check flight plan is valid KML        
         """
-        try:
-            k = kml.KML()            
-            k.from_string(data['kml'])
-            
-        except Exception as ve:
-            raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
+        # TODO: Validate a Flight Plan JSON
         
         return data
 
     def create(self, validated_data):
-        kml = validated_data['kml']
-        f =  fiona.BytesCollection(bytes(kml, encoding='utf-8'))
-        df = gpd.GeoDataFrame()
 
-        # iterate over layers
-        for layer in fiona.listlayers(f.path):
-            s = gpd.read_file(f.path, driver='KML', layer=layer)
-            df = df.append(s, ignore_index=True)
-            
-        validated_data['geo_json'] = json.loads(df.to_json())
-        print(type(df.to_json()))
-        return super(FlightPlanListSerializer, self).create(validated_data)
-    class Meta:
-        model = FlightPlan	
-        exclude = ('is_editable',)
-        read_only_fields = ('geo_json',)
-        ordering = ['-created_at']
+        # TODO: Convert a FlightPlan JSON to a GeoJSON
 
-class FlightPlanSerializer(serializers.ModelSerializer):
-
-    def validate(self, data):
-        """
-        Check flight plan is valid KML        
-        """
-        try:
-            k = kml.KML()            
-            k.from_string(data['kml'])
-            data['kml'] = k.to_string()
-        except Exception as ve:
-            raise serializers.ValidationError("Not a valid KML, please enter a valid KML object")            
-        
-        return data
-
-    def create(self, validated_data):
-        kml = validated_data['kml']
-        tmp = tempfile.NamedTemporaryFile()
-        with open(tmp.name, 'w') as f:
-                f.write(kml) # where `stuff` is, y'know... stuff to write (a string)
-    
-        geo_json = kml2geojson.main.convert(tmp)
-        print(geo_json)
         return super(FlightPlanSerializer, self).create(validated_data)
     class Meta:
-        model = FlightPlan		
-        exclude = ('is_editable',)
-        read_only_fields = ('geo_json',)
+        model = FlightPlan	
+        exclude = ('is_editable','geo_json',)
         ordering = ['-created_at']
 
 class FlightOperationListSerializer(serializers.ModelSerializer):

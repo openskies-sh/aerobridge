@@ -815,7 +815,7 @@ class FlightOperationsDetail(APIView):
             flightpermission = FlightPermission.objects.get(operation = flightoperation)
         except ObjectDoesNotExist:
             flightpermission = 0 
-        serializer = FlightPlanSerializer(flightoperation)
+        serializer = FlightOperationSerializer(flightoperation)
         return Response({'serializer': serializer, 'flightoperation': flightoperation, 'flightpermission':flightpermission})
 
 
@@ -865,8 +865,8 @@ class FlightOperationPermissionCreateView(APIView):
             flight_permission = FlightPermission.objects.get(operation = flight_operation)
         else:
             flight_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)
-            flight_permission = flight_permission['permission']
-        
+            flight_permission = flight_permission['flight_permission']
+                    
         return Response({'flightpermissions': flight_permission})
     
         

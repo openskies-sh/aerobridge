@@ -19,7 +19,7 @@ class FlightPlan(models.Model):
     ''' This is a model to hold flight plan in a GeoJSON format '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=140, default=  "Delivery Plan", help_text="Give this flight plan a friendly name")    
-    kml = models.TextField("Paste flight plan geometry as KML String", default = "")
+    plan_file_json = models.JSONField(help_text = "Paste the QGCS flight plan JSON, for more information about the Plan File Format see: https://dev.qgroundcontrol.com/master/en/file_formats/plan.html", default = dict)
     geo_json = models.JSONField(default=dict, help_text="Paste the flight plan as GeoJSON")
     is_editable = models.BooleanField(default=True, help_text="Set whether the flight plan can be edited. Once the flight log has been signed a flight plan cannot be edited.")
     

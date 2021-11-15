@@ -11,7 +11,7 @@ def issue_permission(flight_operation_id):
     
     flight_plan = flight_operation.flight_plan
     # sign the flight plan 
-    h_digest = hashlib.sha256(flight_plan.kml.encode('utf-8')).hexdigest()
+    h_digest = hashlib.sha256(flight_plan.geo_json.encode('utf-8')).hexdigest()
     
     my_data_signer = data_signer.SigningHelper()
     
@@ -22,4 +22,4 @@ def issue_permission(flight_operation_id):
     flight_permission = FlightPermission(operation = flight_operation, json = signed_json)
     flight_permission.save()
     
-    return {"permission": flight_permission}
+    return {"flight_permission": flight_permission}
