@@ -67,6 +67,7 @@ class ComplexMissionItem:
     EntryLocation: int
     FlyAlternateTransects: bool
     Polygon: List[LatLng]
+    Polyline: List[LatLng]
     Type: str
     Version: int
     EntryPoint: int

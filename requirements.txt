@@ -22,5 +22,4 @@ crispy-bootstrap5==0.5
 faker===8.12.1
 django-simple-history==3.0.0
 boto3==1.18.31
-fiona==1.8.20
-geopandas==0.10.2
+geojson==2.5.0
