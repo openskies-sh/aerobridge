@@ -17,10 +17,10 @@ class FirmwareSerializer(serializers.ModelSerializer):
         ordering = ['-created_at']
         
 class FlightPlanSerializer(serializers.ModelSerializer):
-    ''' A serializer for Flight Operations '''
+    ''' A serializer for Flight Plan data from the GCS '''
 
     def process_simple_item(self, mission_item):         
-        ''' A class to generate a simple mission ite,'''       
+        ''' A class to generate a simple mission item of the Flight Plan file '''       
         try:
             amsl_alt = mission_item['AMSLAltAboveTerrain']
         except KeyError as ke:
@@ -194,7 +194,7 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        # TODO: Convert a FlightPlan JSON to a GeoJSON
+
         plan_file_json = validated_data['plan_file_json']
         plan_file = self.parse_and_validate_plan_file(plan_file_json= plan_file_json)
         all_geo_json_features = []
