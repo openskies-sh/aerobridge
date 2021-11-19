@@ -12,7 +12,7 @@ from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
-
+logger = logging.getLogger(__name__)
 
 class SigningHelper():
     ''' A class to sign data using Flight Passport '''
@@ -28,7 +28,7 @@ class SigningHelper():
             assert self.signing_client_id is not None
             assert self.signing_client_secret is not None
         except AssertionError as ae:
-            logging.warn("Client ID and Secret not set in the environment")
+            logger.warn("Client ID and Secret not set in the environment")
         else:            
             payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
 
@@ -50,6 +50,7 @@ def sign_log(flightlog_id):
          
         flight_log = FlightLog.objects.get(id=flightlog_id)    
     except ObjectDoesNotExist as oe:        
+        logger.warning("Flight Log Object Does not exist: %s" % oe)
         status = 2
         return {"status":status, "signed_flight_log":None, "message":"Invalid Flight Log referenced in the request"}
     
@@ -82,7 +83,7 @@ def sign_log(flightlog_id):
             if signed_data is None:
                 raise Exception
         except Exception as e:
-            
+            logger.error("Error in signing JSON %s" % e)
             status = 2
             return {"status":status, "signed_flight_log":None,  "message":"Error in signing your log, please contact your administrator"}
         else:            

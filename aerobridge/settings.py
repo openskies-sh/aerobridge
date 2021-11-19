@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'jetway',
     'launchpad',
     'pki_framework',
-    'crispy_forms',    
+    'crispy_forms',
     "crispy_bootstrap5",
     "simple_history"
 ]
@@ -177,9 +177,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-SIMPLE_HISTORY_REVERT_DISABLED=True
+SIMPLE_HISTORY_REVERT_DISABLED = True
 
-CRYPTOGRAPHY_SALT=env.get("CRYPTOGRAPHY_SALT","__SET_AS_A_VERY_STRONG_PASSWORD__")
+CRYPTOGRAPHY_SALT = env.get(
+    "CRYPTOGRAPHY_SALT", "__SET_AS_A_VERY_STRONG_PASSWORD__")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -188,5 +189,26 @@ STATIC_URL = '/static/'
 # Directory path to look for data fixture to load data into database before running tests
 FIXTURE_DIRS = [os.getcwd() + '/tests/fixtures/']
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+    }, 'formatters': {
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
+        }, 'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+
+    }, 
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
 
 django_heroku.settings(locals())

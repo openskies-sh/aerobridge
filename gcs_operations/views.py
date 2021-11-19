@@ -26,6 +26,8 @@ from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
 
+logger = logging.getLogger(__name__)
+
 load_dotenv(find_dotenv())
 # Create your views here.
 
@@ -48,7 +50,7 @@ def upload_file(file_name, bucket, object_name=None):
     try:
         response = s3_client.upload_file(file_name, bucket, object_name)
     except ClientError as e:
-        logging.error(e)
+        logger.error("Error in S3 upload %s" %e)
         return False
     return True
 
@@ -293,10 +295,12 @@ class CloudFileUpload(APIView):
                 try:
                     
                     s3.upload_fileobj(f, BUCKET_NAME, os.path.join(file_type, file_name))
-                except NoCredentialsError as ne:                                        
+                except NoCredentialsError as ne:     
+                    logger.error("S3 Error, credentails not found / supplied %s" % ne)                                   
                     return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)
                 except Exception as e: 
-                    return Response({"detail":"File not uploaded, problem  with Cloud Bucket credentials"}, status=status.HTTP_400_BAD_REQUEST)
+                    logger.error("S3 Error during upload %s" % e)   
+                    return Response({"detail":"File not uploaded, see your administrator for logs / resolving this issue"}, status=status.HTTP_400_BAD_REQUEST)
                 else:
                     location = endpoint_url + '/' + file_type + file_name
                     cf = CloudFile(location= location,upload_type = file_type,  name = friendly_name)

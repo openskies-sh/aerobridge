@@ -1,4 +1,8 @@
 from itertools import cycle
+import logging
+logger = logging.getLogger(__name__)
+
+
 
 class UAVSerialNumberValidator():
     ''' A class to validate the Serial number of a UAV per the ANSI/CTA-2063-A standard '''
