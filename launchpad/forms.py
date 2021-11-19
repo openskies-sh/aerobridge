@@ -8,10 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 import json
 import geojson
-import tempfile
-import fiona 
-import geopandas as gpd
-from fastkml import kml
 import arrow
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
