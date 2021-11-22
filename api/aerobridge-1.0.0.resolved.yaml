@@ -355,8 +355,8 @@ paths:
 
   /gcs/flight-operations/{operation_id}/permission:
     put:
-      operationId: getOrCreateOperationPermission
       summary: Get or Create a Permission for this Operation
+      operationId: getOrCreateOperationPermission
       description: "Generate a permission object for an operation, once a flight operation is created, a permission is automatically generated, you can use this endpoint to generate it manually"
       security:
         - AuthFromPassport: [aerobridge.privileged]
