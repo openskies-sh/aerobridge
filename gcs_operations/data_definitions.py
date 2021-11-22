@@ -12,7 +12,7 @@ class PermissionObject:
     '''A class to hold information about Flight Permission '''
     flight_plan_id: uuid
     flight_operation_id: uuid
-    flight_plan_kml_hash: str
+    flight_plan_geo_json_hash: str
 
 @dataclass
 class Circle:

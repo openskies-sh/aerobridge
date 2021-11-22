@@ -153,7 +153,7 @@ class FlightPermissionApplicationGenerate(APIView):
             f_p = FlightPermission.objects.get(operation = flight_operation)            
         else:
             f_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)            
-            f_p = f_permission['permission']
+            f_p = f_permission['flight_permission']
                     
         serializer = FlightPermissionSerializer(f_p)
         

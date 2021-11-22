@@ -23,6 +23,7 @@ class SigningHelper():
         
         
     def sign_json(self, data_to_sign):      
+        
         signed_json = None
         try:
             assert self.signing_client_id is not None
@@ -31,6 +32,7 @@ class SigningHelper():
             logger.warn("Client ID and Secret not set in the environment")
         else:            
             payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
+            print(type(data_to_sign))
 
             url = env.get('FLIGHT_PASSPORT_SIGNING_URL')
             signed_json = requests.post(url, json = payload)
