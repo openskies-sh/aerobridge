@@ -879,6 +879,8 @@ paths:
 
   /registry/pilots/:
     get:
+      security:
+        - AuthFromPassport: [aerobridge.read]
       operationId: listPilots
       description: List all pilots in the database, a pilot is 
       summary: List all Pilots
@@ -896,6 +898,8 @@ paths:
       - Pilot
   /registry/pilots/{id}:
     get:
+      security:
+        - AuthFromPassport: [aerobridge.read]
       operationId: retrievePilot
       description: Retrieve, update or delete a Pilot instance.
       summary: Get details of a single pilot
@@ -918,6 +922,8 @@ paths:
 
   /registry/activities/:
     get:
+      security:
+        - AuthFromPassport: [aerobridge.read]
       operationId: listActivitys
       summary: Get all activities in the registry
       description: List all activities in the database
@@ -935,6 +941,8 @@ paths:
       - Activitiy
   /registry/activities/{id}:
     get:
+      security:
+        - AuthFromPassport: [aerobridge.read]
       operationId: retrieveActivity
       summary: Get details of a single activity
       description: Retrieve, update or delete a Activity instance.
