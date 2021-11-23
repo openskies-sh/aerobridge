@@ -149,8 +149,8 @@ class TestModelsCreate(TestModels):
 
     def test_registry_pilot_create(self):
         pilot = Pilot(operator=Operator.objects.first(), person=Person.objects.first(), photo=self.faker.uri(),
-                      photo_small=self.faker.uri(), address=Address.objects.first(),
-                      identification_photo=self.faker.uri(), identification_photo_small=self.faker.uri())
+                       address=Address.objects.first(),
+                      identification_photo=self.faker.uri(), )
         self.assertNotIn(pilot, Pilot.objects.all())
         pilot.save()
         self.assertIn(pilot, Pilot.objects.all())

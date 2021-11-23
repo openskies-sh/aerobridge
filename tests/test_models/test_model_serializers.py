@@ -159,12 +159,6 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(pilot_serializer.validated_data, dict)
         self.assertEqual(pilot_serializer.errors, dict())
 
-    def test_registry_pilot_detail_serializer(self):
-        data = self._get_data_for_model('Pilot')
-        pilot_detail_serializer = PilotDetailSerializer(data=data)
-        self.assertTrue(pilot_detail_serializer.is_valid())
-        self.assertNotEqual(pilot_detail_serializer.validated_data, dict)
-        self.assertEqual(pilot_detail_serializer.errors, dict())
 
     def test_registry_testValidity_serializer(self):
         data = self._get_data_for_model('TestValidity')

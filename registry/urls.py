@@ -19,6 +19,12 @@ from . import views as registryviews
 from django.urls import path
 
 urlpatterns = [
+    
+    path('pilots/', registryviews.PilotList.as_view()),        
+    path('pilots/<uuid:pk>', registryviews.PilotDetail.as_view()),
+
+    path('activities/', registryviews.ActivityList.as_view()),        
+    path('activities/<uuid:pk>', registryviews.ActivityDetail.as_view()),
 
     path('aircraft/', registryviews.AircraftList.as_view()),        
     path('aircraft/<uuid:pk>', registryviews.AircraftDetail.as_view()),

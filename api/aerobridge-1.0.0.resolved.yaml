@@ -877,6 +877,83 @@ paths:
       tags:
         - Manufacturer
 
+  /registry/pilots/:
+    get:
+      operationId: listPilots
+      description: List all pilots in the database, a pilot is 
+      summary: List all Pilots
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pilot'
+          description: 'All Pilots successfully retrieved'
+      tags:
+      - Pilot
+  /registry/pilots/{id}:
+    get:
+      operationId: retrievePilot
+      description: Retrieve, update or delete a Pilot instance.
+      summary: Get details of a single pilot
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pilot'
+          description: 'Details of a single pilot retrieved successfully'
+      tags:
+      - Pilot
+
+  /registry/activities/:
+    get:
+      operationId: listActivitys
+      summary: Get all activities in the registry
+      description: List all activities in the database
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+          description: 'All activities retrieved successfully'
+      tags:
+      - Activitiy
+  /registry/activities/{id}:
+    get:
+      operationId: retrieveActivity
+      summary: Get details of a single activity
+      description: Retrieve, update or delete a Activity instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this activity.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+          description: 'Activity Details successfully retrieved'
+      tags:
+      - Activitiy
   /operator_auth_test:
     summary: Create a test and process data related to operator authorization
     put:
@@ -955,6 +1032,172 @@ components:
             aerobridge.read: "Read data from Aerobridge"
 
   schemas:
+    Pilot:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        operator:
+          type: string
+          description: Assign this pilot to a operator
+          format: uuid
+          example: 75ea38ae-e3c1-4b8c-a09e-9644f6d651a7
+        person:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            first_name:
+              type: string
+              description: The first name of the person added to the database
+              maxLength: 30
+              example: Rajesh
+            middle_name:
+              type: string
+              nullable: true
+              maxLength: 30
+              example: M
+            last_name:
+              type: string
+              maxLength: 30
+              example: Singh
+            email:
+              type: string
+              format: email
+              description: Associate a email address with the person, this field is
+                required
+              maxLength: 254
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - first_name
+          - last_name
+          - email
+          readOnly: true
+        photo:
+          type: string
+          format: uri
+          nullable: true
+          description: A URL to link to a photo of the pilot
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        address:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              readOnly: true
+            address_line_1:
+              type: string
+              maxLength: 140
+              example: Ispat Bhavan
+            address_line_2:
+              type: string
+              nullable: true
+              maxLength: 140
+              example: Lodhi Road
+            address_line_3:
+              type: string
+              nullable: true
+              maxLength: 140
+            postcode:
+              type: string
+              maxLength: 10
+              example: 160003
+            city:
+              type: string
+              description: Set a city for this address
+              maxLength: 140
+              example: Raipur
+            country:
+              enum:
+              - IN
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+          - address_line_1
+          - postcode
+          - city
+          readOnly: true
+        is_active:
+          type: boolean
+          description: Is this pilot active? If he is not working for the company
+            or has moved on, set it as inactive
+        identification_photo:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
+            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            s]*)?\\z"
+        tests:
+          type: array
+          readOnly: true
+      required:
+      - operator
+      - address
+      - person
+    Activity:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          description: Set a name for this activity
+          maxLength: 140
+          example: Videotaping
+        activity_type:
+          enum:
+          - 0
+          - 1
+          - 2
+          type: integer
+          description: >
+            Set the activity type and the airspace
+             * `0` - NA
+             * `1` - Open
+             * `2` - Specific
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name
+
+
     OperatorDataFormat:
       description: |-
         Parameters for a request to start a authorization request.

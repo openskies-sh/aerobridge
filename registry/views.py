@@ -3,12 +3,68 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Operator, Aircraft, Manufacturer
-from .serializers import ( OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer)
+from .models import Operator, Aircraft, Manufacturer, Pilot, Activity
+from .serializers import (OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer,PilotSerializer,ActivitySerializer,)
 
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes
 # Create your views here.
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class ActivityList(mixins.ListModelMixin,
+                  generics.GenericAPIView):
+    """
+    List all activities in the database
+    """
+
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class ActivityDetail(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Activity instance.
+    """
+    
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class PilotList(mixins.ListModelMixin,
+                  generics.GenericAPIView):
+    """
+    List all pilots in the database
+    """
+
+    queryset = Pilot.objects.all()
+    serializer_class = PilotSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class PilotDetail(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Pilot instance.
+    """
+    
+    queryset = Pilot.objects.all()
+    serializer_class = PilotSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
@@ -53,9 +109,6 @@ class AircraftList(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-
-
-
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
