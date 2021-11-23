@@ -11,14 +11,14 @@ def issue_permission(flight_operation_id):
     
     flight_plan = flight_operation.flight_plan
     
-    geo_json = flight_plan.geo_json
+    plan_file = flight_plan.plan_file_json
     # sign the flight plan 
-    h_digest = hashlib.sha256(json.dumps(geo_json).encode('utf-8')).hexdigest()
+    h_digest = hashlib.sha256(json.dumps(plan_file).encode('utf-8')).hexdigest()
 
     
     my_data_signer = data_signer.SigningHelper()
     
-    data_to_sign = PermissionObject(flight_operation_id= str(flight_operation.id), flight_plan_id= str(flight_plan.id), flight_plan_geo_json_hash = h_digest)
+    data_to_sign = PermissionObject(flight_operation_id= str(flight_operation.id), flight_plan_id= str(flight_plan.id), plan_file_hash = h_digest)
     
     json_to_sign = json.loads(json.dumps(dataclasses.asdict(data_to_sign)))
     
