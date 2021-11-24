@@ -19,12 +19,15 @@
             <td><a href="/launchpad/flightoperations/{{ flightpermission.operation.id }}/detail">{{ flightpermission.operation.name }}</a>
             </td>
         </tr>
-        
         <tr>
-            <td>Permission Artefact</td>
+            <td>Status Code</td>
+            <td><mark>{{ flightpermission.status_code }}</mark></a>
+            </td>
+        </tr>        
+        <tr>
+            <td>Signed Permission Details</td>
             <td> 
-                <code class="text-break">{{ flightpermission.json }}</code>
-                
+                <code class="text-break">{{ flightpermission.json }}</code>                
             </td>
         </tr>
     </table>

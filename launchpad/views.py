@@ -26,6 +26,7 @@ from django.http import Http404
 from django.conf import settings
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, FlightLogSerializer
 import tempfile
+import arrow
 from rest_framework.parsers import MultiPartParser
 import boto3
 from gcs_operations import data_signer, permissions_issuer
@@ -815,6 +816,7 @@ class FlightOperationsDetail(APIView):
             flightpermission = FlightPermission.objects.get(operation = flightoperation)
         except ObjectDoesNotExist:
             flightpermission = 0 
+        
         serializer = FlightOperationSerializer(flightoperation)
         return Response({'serializer': serializer, 'flightoperation': flightoperation, 'flightpermission':flightpermission})
 
@@ -856,7 +858,7 @@ class FlightOperationCreateView(CreateView):
 class FlightOperationPermissionCreateView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_operation/flightoperation_permission_thanks.html'
-
+    
     def get(self, request, flightoperation_id):
         
         flight_operation = get_object_or_404(FlightOperation,pk = flightoperation_id)
@@ -864,12 +866,20 @@ class FlightOperationPermissionCreateView(APIView):
         if flight_permission:
             flight_permission = FlightPermission.objects.get(operation = flight_operation)
         else:
+            now = arrow.now()
+            start_datetime = flight_operation.start_datetime
+            operation_start_time_delta = start_datetime - now         
+            
+            if not (operation_start_time_delta.total_seconds() < 3600 and operation_start_time_delta.total_seconds() > 60):
+                
+                return Response({'errors': "Cannot issue permissions for operations whose start time is in the past or more than a hour from now"})
+            
             flight_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)
             flight_permission = flight_permission['flight_permission']
                     
         return Response({'flightpermissions': flight_permission})
-    
-        
+
+
 ### Flight Permission Views
     
 class FlightPermissionsList(APIView):

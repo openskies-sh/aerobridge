@@ -1,11 +1,19 @@
 from dataclasses import dataclass
 import uuid
 from typing import List, NamedTuple, Union
-
+import enum
+from typing import Literal,List
 
 class LatLng(NamedTuple):
     latitude:float
     longitude: float
+
+
+class PermissionObjectState(str, enum.Enum):
+    ''' A enum to hold all states ofa permission object '''
+    Granted = 'granted'
+    Denied = 'denied'
+   
 
 @dataclass
 class PermissionObject:

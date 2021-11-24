@@ -57,7 +57,7 @@
     <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
     
 {% else %}    
-    <p class='text-muted'>This flight operation had a log associated with it that has been signed and cannot be edited, create a new plan, and a new operation .</p>
+    <p class='text-muted'>This Flight Operation has a permission associated with it and therefore it cannot be edited.</p><p>{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
 {% endif %}
 
 

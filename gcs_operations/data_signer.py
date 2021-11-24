@@ -18,9 +18,9 @@ class SigningHelper():
     ''' A class to sign data using Flight Passport '''
     def __init__(self):
         
-        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID')
-        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET')
-        
+        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID', None)
+        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET', None)
+        self.signing_url = env.get('FLIGHT_PASSPORT_SIGNING_URL', None)
         
     def sign_json(self, data_to_sign):      
         
@@ -28,14 +28,18 @@ class SigningHelper():
         try:
             assert self.signing_client_id is not None
             assert self.signing_client_secret is not None
+            assert self.signing_url is not None
         except AssertionError as ae:
-            logger.warn("Client ID and Secret not set in the environment")
+            logger.error("Client ID and Secret or the Signing URL not set in the environment %s" % ae)
+            return False
         else:            
-            payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
-
-            url = env.get('FLIGHT_PASSPORT_SIGNING_URL')
-            signed_json = requests.post(url, json = payload)
-            signed_json = signed_json.json() 
+            payload = {"client_id":self.signing_client_id,"client_secret": self.signing_client_secret ,"raw_data":data_to_sign }            
+            signed_json = requests.post(self.signing_url, json = payload)
+        if signed_json.status_code == 200:
+            signed_json = signed_json.json()             
+        else: 
+            logger.error("Error in signing JSON from Auth server: %s" % signed_json.text)
+            return False
             
         return signed_json
 
@@ -87,9 +91,11 @@ def sign_log(flightlog_id):
             logger.error("Error in signing JSON %s" % e)
             status = 2
             return {"status":status, "signed_flight_log":None,  "message":"Error in signing your log, please contact your administrator"}
-        else:            
-            raw_log['signature'] = signed_data
-            sfl = SignedFlightLog(raw_flight_log = flight_log, signed_log= raw_log)
+        else:      
+            signed_log = raw_log
+                  
+            signed_log['signature'] = signed_data['signature']
+            sfl = SignedFlightLog(raw_flight_log = flight_log, signed_log= signed_log)
             sfl.save()
             flight_operation.is_editable = False
             flight_operation.save()

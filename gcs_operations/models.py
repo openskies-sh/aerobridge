@@ -72,12 +72,24 @@ class Transaction(models.Model):
         return txn_id
     
 class FlightPermission(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation')
+    GRANTED = 'granted'
+    DENIED = 'denied'
     
+    PERMISSION_STATUS_CHOICES = [
+        (GRANTED, 'granted'),
+        (DENIED, 'denied'),        
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation')    
     json = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    status_code = models.CharField(
+        max_length=20,
+        choices=PERMISSION_STATUS_CHOICES,
+        default=DENIED, help_text="Permissions")
     
     def __unicode__(self):
        return self.operation.name

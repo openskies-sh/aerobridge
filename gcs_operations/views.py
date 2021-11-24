@@ -3,8 +3,7 @@ from rest_framework import generics
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
-from .serializers import FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer, FlightOperationPermissionSerializer
+from .serializers import FlightPlanSerializer, FlightOperationSerializer, FlightLogSerializer,FirmwareSerializer, FlightPermissionSerializer,CloudFileSerializer, SignedFlightLogSerializer
 from .models import SignedFlightLog, Transaction, FlightOperation, FlightPlan, FlightLog, FlightPermission
 from registry.models import Firmware
 from gcs_operations.models import CloudFile
@@ -16,8 +15,9 @@ from . import permissions_issuer
 import tempfile
 
 import logging
-
-import os, json
+from rest_framework import serializers
+import arrow
+import os
 import boto3
 from . import data_signer
 from botocore.exceptions import ClientError
@@ -147,15 +147,25 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
 class FlightPermissionApplicationGenerate(APIView):
 
     def put(self, request, operation_id,format=None):	
-        flight_operation = get_object_or_404(FlightOperation, pk=operation_id)
+        flight_operation = get_object_or_404(FlightOperation, pk=operation_id)       
+
         permission = FlightPermission.objects.filter(operation = flight_operation).exists()
         if permission:
             f_p = FlightPermission.objects.get(operation = flight_operation)            
         else:
+            now = arrow.now()
+            start_datetime = flight_operation.start_datetime
+            operation_start_time_delta = start_datetime - now         
+
+            if not (operation_start_time_delta.total_seconds() < 3600 and operation_start_time_delta.total_seconds() > 60):
+                raise serializers.ValidationError("Cannot issue permissions for operations whose start time is in the past or more than a hour from now")
+            
             f_permission = permissions_issuer.issue_permission(flight_operation_id = flight_operation.id)            
-            f_p = f_permission['flight_permission']
-                    
-        serializer = FlightPermissionSerializer(f_p)
+            f_p = f_permission['flight_permission']            
+        if not f_p: 
+            raise serializers.ValidationError("Error in creating / issuing a permission object, please see server logs")
+        else:         
+            serializer = FlightPermissionSerializer(f_p)
         
         return Response(serializer.data, status = status.HTTP_200_OK)
                 
