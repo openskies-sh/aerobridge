@@ -3,8 +3,6 @@ djangorestframework==3.12.4
 pycryptodome==3.11.0
 drf-jwt==1.19.1
 pyjwt==2.3.0
-fastkml==0.12
-lxml==4.6.2
 requests===2.26.0
 python-dotenv==0.19.1
 django-heroku==0.3.1
