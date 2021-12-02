@@ -80,7 +80,7 @@ def requires_scopes(required_scopes):
                     public_key = public_keys[kid]
                 except Exception as e: 
                     
-                    response = JsonResponse({'detail': 'Missing Public Keys'})
+                    response = JsonResponse({'detail': 'Incorrect Bearer token provided, please get a new one and try again'})
                     response.status_code = 401
                     return response
 
