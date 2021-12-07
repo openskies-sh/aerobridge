@@ -288,6 +288,20 @@ class Aircraft(models.Model):
     def __str__(self):
         return self.operator.company_name +' ' + self.model
 
+# class AircraftComponent(models.Model):
+#     COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),)
+
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     name = models.CharField(max_length=140, null=True, blank=True)
+#     photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
+#     purchased_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was purchased")
+
+#     history = HistoricalRecords()
+
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)        
+
+
 
 
 class AircraftDetail(models.Model):
