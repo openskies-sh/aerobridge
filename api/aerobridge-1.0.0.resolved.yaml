@@ -92,6 +92,7 @@ paths:
           description: A UUID string identifying this credential.
           schema:
             type: string
+            format: uuid
       responses:
         "200":
           content:
