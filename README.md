@@ -8,19 +8,19 @@ Aerobridge is server to help you with your drone flights and operations. With Ae
 
 If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack:
 
-- Store and approve flight plans
+- Store and approve missions
+- Prevent unauthorized use
 - Manage Drone fleet
 - Integration with Ardupilot
-- Manage permission artefacts and flight logs
-- RFM integration
+- Give flight permissions
 
 ## Webinar and pilot program ✨
 
-We work with drone manufacturers to enable them to become compliant with NPNT by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](https://webinar.aerobridge.in).
+We work with drone manufacturers and operators to enable them to become compliant by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](https://webinar.aerobridge.in).
 
 ## Get Involved
 
-Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights in India. There are many benefits of participation:
+Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights. There are many benefits of participation:
 
 - You can shape the future of this software
 - Join the community of fellow professionals interested in an open flexible drone eco-system in India
