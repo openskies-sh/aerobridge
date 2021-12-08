@@ -2,7 +2,7 @@
 
 # Introduction
 
-Aerobridge is server to help you with your drone flights and operations. . Aerobridge is a server that helps you interface with the APIs in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
+Aerobridge is server to help you with your drone flights and operations. With Aerobridge your GCS, Pilots interface with your company's digital infrastructure in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
 
 ## How can Aerobridge help you?
 
