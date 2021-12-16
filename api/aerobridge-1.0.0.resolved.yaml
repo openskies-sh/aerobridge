@@ -91,8 +91,7 @@ paths:
           required: true
           description: A UUID string identifying this credential.
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -113,9 +112,9 @@ paths:
         - name: id
           in: path
           required: true
-          description: A UUID string identifying this credential.
+          description: A UUID string identifying this credential.          
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
 
       responses:
         "200":
@@ -367,9 +366,8 @@ paths:
           required: true
           description: A UUID string identifying this flight operation.
           schema:
-            type: string
-            format: uuid
-            example: d41bb883-fcd4-47a8-8c05-dbeb44877887
+            $ref: '#/components/schemas/UUIDv4Format'
+            
 
       responses:
         "200":
@@ -575,7 +573,7 @@ paths:
           required: true
           description: A UUID string identifying this signed flight log.
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -616,7 +614,7 @@ paths:
           required: true
           description: "A UUID of the uploaded file object"
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -715,7 +713,7 @@ paths:
           required: true
           description: A UUID string identifying this flight permission.
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -757,7 +755,7 @@ paths:
           required: true
           description: A UUID string identifying this aircraft.
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -827,7 +825,7 @@ paths:
           required: true
           description: A UUID string identifying this operator.
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -867,7 +865,7 @@ paths:
           required: true
           description: A UUID string identifying this manufacturer.
           schema:
-            type: string
+            $ref: '#/components/schemas/UUIDv4Format'
       responses:
         "200":
           content:
@@ -910,7 +908,7 @@ paths:
         required: true
         description: A UUID string identifying this pilot.
         schema:
-          type: string
+          $ref: '#/components/schemas/UUIDv4Format'
       responses:
         '200':
           content:
@@ -953,7 +951,7 @@ paths:
         required: true
         description: A UUID string identifying this activity.
         schema:
-          type: string
+          $ref: '#/components/schemas/UUIDv4Format'
       responses:
         '200':
           content:
@@ -1045,20 +1043,16 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         operator:
-          type: string
-          description: Assign this pilot to a operator
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           example: 75ea38ae-e3c1-4b8c-a09e-9644f6d651a7
         person:
           type: object
           properties:
             id:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/UUIDv4Format'
               readOnly: true
             first_name:
               type: string
@@ -1109,8 +1103,7 @@ components:
           type: object
           properties:
             id:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/UUIDv4Format'
               readOnly: true
             address_line_1:
               type: string
@@ -1175,9 +1168,8 @@ components:
     Activity:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
+        id:        
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         name:
           type: string
@@ -1300,9 +1292,8 @@ components:
     Operator:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
+        id:        
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         company_name:
           type: string
@@ -1371,8 +1362,7 @@ components:
           type: object
           properties:
             id:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/UUIDv4Format'
               readOnly: true
             address_line_1:
               type: string
@@ -1444,7 +1434,7 @@ components:
             - 5
           type: integer
           description: >
-            Sort order:
+            The type of data that can be stored is the following: 
              * `0` - Other
              * `1` - .der
              * `2` - .csr
@@ -1459,7 +1449,7 @@ components:
             - 3
             - 4
           description: >
-            Sort order:
+            Specify the type of data stored:
              * `0` - Public Key
              * `1` - Private Key
              * `2` - Authentication Token
@@ -1473,8 +1463,7 @@ components:
             - 3
             - 4
           description: >
-            Set the entity this credential is associated with. The association will be used when calling other external servers
-            Sort order:
+            Set the entity this credential is associated with. The association will be used when calling other external servers:
              * `0` - Operator
              * `1` - Manufacturer
              * `2` - Pilot
@@ -1484,26 +1473,22 @@ components:
         is_active:
           type: boolean
           description: Set whether the credential is still active
-        id:
-          type: string
-          format: uuid
+        id:        
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
           example: 5d84afc6-47e1-4b92-ad9e-541b8ebc54b1
         aircraft:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           nullable: true
           description: A UUID of the aircraft in the system that is associated with this token, optional
           example: 846ddb6c-2fcf-4617-8f3b-b6dcf86ceeb0
         manufacturer:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           nullable: true
           description: A UUID of the manufacturer in the system that is associated with this token, optional
           example: 94fa5ad6-e82e-4f65-be93-07b62fb89195
         operator:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           nullable: true
           description: A UUID of the operator in the system that is associated with this token, optional
           example: edcbafed-edc7-47bb-96ee-5ed972bb977c
@@ -1513,8 +1498,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         binary_file_url:
           type: string
@@ -1550,8 +1534,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         location:
           type: string
@@ -1589,8 +1572,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         name:
           type: string
@@ -1622,8 +1604,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
         name:
           type: string
@@ -1671,8 +1652,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           readOnly: true
           example: 78bd066a-f8d4-4c4d-b45c-53f2aa53ee8c
         name:
@@ -1695,29 +1675,24 @@ components:
           type: string
           format: date-time
           readOnly: true
-        drone:
-          type: string
+        drone:        
           description: Pick the drone that will be used to fly this opreation, a drone has to be active and registered in Aerobridge.
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'
           example: 01e27e8a-351c-4fa9-83b1-f243c6595e88
         operator:
-          type: string
-          description: Assign a operator for this operation, you may use multiple companies in Aerobridge, assign the appropriate operator
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'          
+          description: Assign a operator for this operation, you may use multiple companies in Aerobridge, assign the appropriate operator          
           example: 0adaf595-9267-4ddc-8d77-58bbafae79d0
         flight_plan:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           description: A operation must have a flight plan associated with it
           example: 15e1e37d-abe1-42b7-a7d4-a05ae2eb21d4
         purpose:
-          type: string
-          description: By default the purpose of the operation is related to authorized activities table
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'           
+          description: By default the purpose of the operation is related to authorized activities table          
           example: 57f92cc6-f1fb-42d0-a19d-f777c31eb44e
         pilot:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           example: 5178fd83-34bf-4721-bc53-291b0e6f05f8
           description: Assign a pilot for this operation
       required:
@@ -1733,8 +1708,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
 
         raw_log:
@@ -1762,15 +1736,13 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
         operation:
           type: object
           properties:
             id:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/UUIDv4Format' 
               readOnly: true
             name:
               type: string
@@ -1830,21 +1802,18 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
         operator:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           example: a04aaf0e-d6c6-4767-93dd-8666900a0cf0
           description: Associate a operator to this Aircraft
         manufacturer:
-          type: string
-          description: Associate a manufacturer in the database to this aircraft
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format'           
+          description: Associate a manufacturer in the database to this aircraft          
           example: 9d570d9f-97a4-40d5-9ba7-eef62d852f03
         model:
-          type: string
+          $ref: '#/components/schemas/UUIDv4Format'           
           description: Set the model of the aircraft
           maxLength: 280
           example: eBee X1
@@ -1912,8 +1881,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
         signed_log:
           type: string
@@ -1937,8 +1905,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
         full_name:
           type: string
@@ -1950,8 +1917,7 @@ components:
           type: object
           properties:
             id:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/UUIDv4Format' 
               readOnly: true
             address_line_1:
               type: string
@@ -2015,3 +1981,14 @@ components:
       minItems: 2
       items:
         type: number
+    
+    UUIDv4Format:
+      description: >-
+        String whose format matches a version-4 UUID according to RFC 4122.
+      maxLength: 36
+      minLength: 36
+      type: string
+      format: uuid
+      pattern: >-
+        ^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$
+      example: 03e5572a-f733-49af-bc14-8a18bd53ee39
