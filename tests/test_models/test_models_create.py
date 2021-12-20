@@ -53,8 +53,8 @@ class TestModelsCreate(TestModels):
         self.assertEqual(transaction.aircraft, Aircraft.objects.first())
 
     def test_gcs_operations_flight_permission_create(self):
-        flight_permission = FlightPermission(operation=FlightOperation.objects.first(), is_successful=True,
-                                             artefact=self.faker.text())
+        flight_permission = FlightPermission(operation=FlightOperation.objects.first(), statu_code='granted',
+                                             token=self.faker.text())
         self.assertNotIn(flight_permission, FlightPermission.objects.all())
         flight_permission.save()
         self.assertIn(flight_permission, FlightPermission.objects.all())
