@@ -24,18 +24,7 @@ class CredentialsList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        # token = form.instance.token
-        # form.instance.token = encrpytion_util.encrypt(token)
-        # return super(CredentialsList, self).form_valid(form)
         
-        # secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
-        
-        # my_encryptor = encrpytion_util.EncrpytionHelper(secret_key=secret_key)
-        # token = request.data['token'].encode('utf-8')
-        # enc_token = my_encryptor.encrypt(message=token)
-        # request.data['token'] = enc_token
-        # print(request.data)
-
         serializer = AerobridgeCredentialPostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
