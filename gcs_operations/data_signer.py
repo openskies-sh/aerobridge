@@ -18,30 +18,41 @@ class SigningHelper():
     ''' A class to sign data using Flight Passport '''
     def __init__(self):
         
-        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID', None)
-        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET', None)
-        self.signing_url = env.get('FLIGHT_PASSPORT_SIGNING_URL', None)
+        self.token_client_id = env.get('FLIGHT_PASSPORT_PERMISSION_CLIENT_ID', None)
+        self.token_client_secret = env.get('FLIGHT_PASSPORT_PERMISSION_CLIENT_SECRET', None)
+        self.passport_url = env.get('PASSPORT_URL', None) 
+        self.token_url = env.get('PASSPORT_TOKEN_URL', None)
         
-    def sign_json(self, data_to_sign):      
+    def sign_json(self, data_payload):      
         
         signed_json = None
         try:
-            assert self.signing_client_id is not None
-            assert self.signing_client_secret is not None
-            assert self.signing_url is not None
+            assert self.token_client_id is not None
+            assert self.token_client_secret is not None
+            assert self.passport_url is not None
+            assert self.token_url is not None
         except AssertionError as ae:
             logger.error("Client ID and Secret or the Signing URL not set in the environment %s" % ae)
             return False
         else:            
-            payload = {"client_id":self.signing_client_id,"client_secret": self.signing_client_secret ,"raw_data":data_to_sign }            
-            signed_json = requests.post(self.signing_url, json = payload)
+            # headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+            data_payload["client_id"] = self.token_client_id
+            data_payload["client_secret"]= self.token_client_secret
+            data_payload["grant_type"]= "client_credentials"            
+            signed_json = requests.post(self.passport_url + self.token_url, data = data_payload)
+            
         if signed_json.status_code == 200:
             signed_json = signed_json.json()             
         else: 
-            logger.error("Error in signing JSON from Auth server: %s" % signed_json.text)
+            logger.error("Error in getting JWT from Auth server: %s" % signed_json.text)
             return False
-            
-        return signed_json
+        try:            
+            assert 'access_token' in signed_json.keys()
+        except AssertionError as ae:
+            logger.error("Error in getting JWT from Auth server: %s" % signed_json.text)
+            return False
+        else: 
+            return signed_json
 
 
 def signed_flight_log_exists(flight_log):
