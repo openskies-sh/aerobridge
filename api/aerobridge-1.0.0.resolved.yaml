@@ -1,7 +1,7 @@
 ---
 openapi: "3.0.2"
 info:
-  title: "Aerobrige Server API specification"
+  title: "Aerobridge Server API specification"
   description: |-
     All the interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. We recommend using a authorised GCS e.g. Aerobridge Guardian with Aerobridge management server. 
 
