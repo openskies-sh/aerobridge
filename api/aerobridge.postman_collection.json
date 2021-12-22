@@ -1876,7 +1876,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "   {        \r\n        \"name\": \"Flight Operation \",\r\n        \"type_of_operation\": 0,        \r\n        \"drone\": \"0797d9ef-02d9-41cf-93ff-439aaf1609ae\",\r\n        \"flight_plan\": \"12818e87-4c96-4e4c-8c63-82b8e12c3b73\",\r\n        \"purpose\": \"26b6a66d-5e77-4a43-94e9-630e141a1087\",\r\n        \"operator\":\"41174c3f-e86c-4e5a-a629-32d4d9da6011\",\r\n        \"pilot\": \"2f15a395-65a3-4a73-a492-57c7c470d527\"\r\n    }",
+							"raw": "   {        \r\n        \"name\": \"Flight Operation \",\r\n        \"type_of_operation\": 0,        \r\n        \"drone\": \"0797d9ef-02d9-41cf-93ff-439aaf1609ae\",\r\n        \"flight_plan\": \"12818e87-4c96-4e4c-8c63-82b8e12c3b73\",\r\n        \"purpose\": \"26b6a66d-5e77-4a43-94e9-630e141a1087\",\r\n        \"operator\":\"41174c3f-e86c-4e5a-a629-32d4d9da6011\",\r\n        \"pilot\": \"2f15a395-65a3-4a73-a492-57c7c470d527\", \r\n        \"start_datetime\":\"2021-12-22T20:10:18.383944Z\", \r\n        \"end_datetime\":\"2021-12-22T20:20:18.383944Z\" \r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
