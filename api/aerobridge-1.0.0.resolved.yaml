@@ -3,13 +3,13 @@ openapi: "3.0.2"
 info:
   title: "Aerobrige Server API specification"
   description: |-
-    All the interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. 
+    All the interfaces for the Aerobridge server are defined here, using these APIs, you can interact with management server, store flight plans, issue flight permissions. We recommend using a authorised GCS e.g. Aerobridge Guardian with Aerobridge management server. 
 
-    The API is a limited subset of all the functionality of the Management server. Aerobridge provides a user interface as well and it is recommended that you use the user interface to create some entries in the database.
+    The API is a limited subset of all the functionality of the Management server and focuses on interactions with GCS / external software. Aerobridge server also provides a user interface as well and this API works in conjunction with that user interace. 
 
     Unless otherwise specified, fields specified in a message but not declared in the API shall be ignored.
 
-  version: "1.5.0"
+  version: "1.6.0"
 servers:
   - url: "https://virtserver.swaggerhub.com/cygnus2936/aerobridge/1.0.0"
     description: "Aerobridge Server API"
@@ -991,29 +991,29 @@ paths:
 
 tags:
   - name: Files
-    description: "Aerobridge provides functionality to upload files to your favourite cloud provider, use these endpoints to manage files, you will have to configure the cloud provider during installion / configuration of Aerobridge"
+    description: "Aerobridge provides functionality to upload files such as logs, id documents etc. to your favourite cloud provider, use these endpoints to manage thse files, you will have to configure the cloud provider during instalation / configuration of Aerobridge"
   - name: Manufacturer
     description: "Aerobridge stores details of aircraft manufacturers. Manufacturers are linked to aircraft and control release of firmware"
   - name: Operator
     description: "Operators have a very specific definition in the context of drone operations. Usually they are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
   - name: Aircrafts
-    description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft"
+    description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft and associate extended details with the aircraft"
   # - name: Digital Sky
   #   description: "Aerobridge can communicate with Digital Sky and all endpoints related to Digital Sky are here. As of September-2021 Digital Sky is changing and some commands and endpoints are not supported."
   - name: Flight Permissions
-    description: "Flight Permissions are issued by Digital Sky and you can use these endpoints to download permission objects."
+    description: "Flight Permissions are issued by the Guardian system and you can use these endpoints to download permission objects."
   - name: Signed Flight Logs
     description: "Flights logs can be signed on the management server use these enpoints to interact with the flight logs signed on the server"
   - name: Flight Logs
     description: "After the mission is complete use these endpoints to upload flight logs to the management server."
   - name: Flight Operations
-    description: "Flight Operations depend on flight plans and specify details about operation that will enable the drone to fly the plan. Use these endpoints to interact with operations stored in the management server."
+    description: "Flight Operations depend on flight plans and specify details about operation that will enable the drone to fly the plan. Use these endpoints to interact with operations stored in the management server. Permissions are issued against Flight Operation objects."
   - name: Flight Plans
-    description: "Flight plans are KML objects that can be stored in the server, usually flight plans are generated on the GCS as KML files and stored on the management server. A operation is created against the plan and permission artefacts retrieved for the operation."
+    description: "Flight plans are .plan files from GCS that can be stored in the server, usually flight plans are generated on the GCS and popular GCS like QGCS and MissionPlanner support them. An operation is created against the plan and permission artefacts retrieved for the operation. A plan can be reused for multiple operations."
   - name: Firmware
     description: "Manufacturer can sign and release firmwares and these endpoints help in downloading the latest firmware to the GCS and / or check if the firmware is the latest one"
   - name: Credentials
-    description: "Aerobrdige can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials. Read [the documentation](https://aerobridgetestflight.herokuapp.com/launchpad/credentials-read-first) for more details."
+    description: "Aerobridge server can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials. Read [the documentation](https://aerobridgetestflight.herokuapp.com/launchpad/credentials-read-first) for more details."
 
 components:
   securitySchemes:
@@ -1066,6 +1066,7 @@ components:
               example: M
             last_name:
               type: string
+              description: The last name of the person added to the database
               maxLength: 30
               example: Singh
             email:
@@ -1618,12 +1619,11 @@ components:
           type: object
           $ref: '#/components/schemas/GeoJSON'
           nullable: true
-          description: Paste flight plan geometry
+          description: Flight plan geometry as GeoJSON, Aerobridge converts the plan file in to GeoJSON automatically so that it can be displayed on a map. 
         is_editable:
           type: boolean
           description:
-            Set whether the flight plan can be edited. Once the flight
-            log has been signed a flight plan cannot be edited.
+            Set whether the flight plan can be edited. Once the flight log has been signed a flight plan cannot be edited. 
           readOnly: true
           
         created_at:
@@ -1635,7 +1635,7 @@ components:
           format: date-time
           readOnly: true
       required:
-        - kml
+        - plan_file_json
         - name
 
     FlightPlanList:
@@ -1710,7 +1710,6 @@ components:
         id:
           $ref: '#/components/schemas/UUIDv4Format' 
           readOnly: true
-
         raw_log:
           type: object
           description: A JSON file from the drone that has the raw log. Once the log has been uploaded, it is recommended that the file be deleted from the RFM / SD card on the drone.

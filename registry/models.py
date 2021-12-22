@@ -182,7 +182,7 @@ class Pilot(models.Model):
     photo = models.URLField(blank=True, null=True,validators=[validate_url,], help_text="A URL to link to a photo of the pilot")
     
     address = models.ForeignKey(Address, models.CASCADE, help_text="Assign a address to this Pilot")
-    identification_photo = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg',validators=[validate_url,])
+    identification_photo = models.URLField(default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg',validators=[validate_url,], help_text = "A URL to link to a photo of and ID document of the pilot")
         
     tests = models.ManyToManyField(Test, through ='TestValidity', help_text="Specify the tests if any the pilot has taken")
     created_at = models.DateTimeField(auto_now_add=True)
