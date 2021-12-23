@@ -722,7 +722,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FlightPermissionGranted"
+                oneOf:
+                  - $ref: '#/components/schemas/FlightPermissionGranted'
+                  - $ref: '#/components/schemas/FlightPermissionDenied'
+                  - $ref: '#/components/schemas/FlightPermissionPending'
           description: "Flight Permission object successfully retrieved"
       tags:
         - Flight Permissions
