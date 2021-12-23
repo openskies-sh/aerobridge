@@ -74,10 +74,12 @@ class Transaction(models.Model):
 class FlightPermission(models.Model):
     GRANTED = 'granted'
     DENIED = 'denied'
+    PENDING = 'pending'
     
     PERMISSION_STATUS_CHOICES = [
         (GRANTED, 'granted'),
         (DENIED, 'denied'),        
+        (PENDING, 'pending'),  
     ]
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

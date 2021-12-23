@@ -374,9 +374,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FlightPermission"
+                oneOf:
+                  - $ref: '#/components/schemas/FlightPermissionGranted'
+                  - $ref: '#/components/schemas/FlightPermissionDenied'
+                  - $ref: '#/components/schemas/FlightPermissionPending'
 
-          description: "Flight permission object successfully created / retrieved"
+          description: "Flight permission object status successfully created / retrieved"
 
         "400":
           content:
@@ -695,7 +698,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/FlightPermission"
+                  $ref: "#/components/schemas/FlightPermissionGranted"
           description: "Flight Permission successfully retrieved"
       tags:
         - Flight Permissions
@@ -719,7 +722,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FlightPermission"
+                $ref: "#/components/schemas/FlightPermissionGranted"
           description: "Flight Permission object successfully retrieved"
       tags:
         - Flight Permissions
@@ -1731,7 +1734,21 @@ components:
         - raw_log
         - operation
 
-    FlightPermission:
+    FlightPermissionStatus: 
+        type: string
+        enum:
+        - granted
+        - denied
+        - pending
+        
+        description: >
+          All different statuses of a permission object:
+            * `granted` - Permission has been succesfully granted
+            * `denied` - Permission could not be granted for this operation
+            * `pending` - Permission could not be granted for this operation at this time, please check again at a later time
+
+
+    FlightPermissionGranted:
       type: object
       properties:
         id:
@@ -1779,15 +1796,8 @@ components:
           description: JWT of a permission object
           example: {"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjZWUE1sdkI0S2pldEpMWGs3Sm5qVG1CaS1ZVUd0NXFXN1M2eGRZNnYzMDgifQ.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2NDAwMDYwNDksImlhdCI6MTY0MDAwMjQ0OSwic3ViIjoiQXM5QUpseVd3d3lyZnFZV2lOQ0duVTUzcmFGUXBpRVV0RkFjUElzRkBjbGllbnRzIiwic2NvcGUiOiIiLCJ0eXAiOiJCZWFyZXIiLCJmbGlnaHRfcGxhbl9pZCI6IjEyODE4ZTg3LTRjOTYtNGU0Yy04YzYzLTgyYjhlMTJjM2I3MyIsImZsaWdodF9vcGVyYXRpb25faWQiOiIzNDA4YmNlOS1kYmFiLTQ2NjUtYWJmYy04ZWEwM2IwYWQ4NzEiLCJwbGFuX2ZpbGVfaGFzaCI6IjJlMjYyMTdkYTg2YjJiYzYwMTM3ODg0NDYyNTdjZmI1ZDU5MGM5ZGU2NDJhODE2YmJkNjhmMDNjOWQ2MDc0MGYifQ.q1Jv1TFvCC7Pto8k2FCuEI-iikI5asRLOMneTOdFng1_8xnjybEE0gLjEyxGmG0g-vmLgGYc5R5Lv3XecMyTXhpppD2wpZLXvI_jbTg0IkxzPMWBFLcSMW4ywxoWaa7JYbJK3nbYFpmzEKQi5kUiFV-BsT6pD0ABcBW34j104DPCduddWnVDGdRqZHSAU9za_sczfawM-UEjCADvOfm0JIbp9GJ5M0NN_87wtRO91pz6o8GFehlSX9Hqw1BQWVAj2fP8RZAAmcbx15qOS5LnwFWoH8MUUqRLin-1nlZNm5LWmb2BBqm7DMFEK3c8RUQnlHj9rSbw8adtpSKda-yvCb06GHxMg_ixUPHFI-vOWQaxrL0zwQP1RpMm0HYq06F0RWYRpqAhW3Hyz8qgv-55yHbVk8PBLtsvb146xP8orHVRMulWA_uWghtNIQew41cPDWqaukzycIwIe_WFjBvX01QRLWVDdJTGNQvmJ9qM4qK40jygJR40Z36nCrfyrp-iJYWk7Wf1szr9PGRQQ22-UYYXIBbk1qzu2jNMAxpCN8hvKVOnc_BsHj7Uy8y8YtA9CBAZAsUzltvNnRN88krsyvCeuJc40paFkok2Pr4J1NF4Fu680tzUzgdA8AW803A7p_LYXskkl4vVSR3WOe5zP44_FZMmD6bvQoEuq2iBrMo","expires_in": 3600,"token_type": "Bearer","scope": ""}
         status_code:
-          enum:
-          - granted
-          - denied
-          type: string
-          
-          description: >
-            All different statuses of a permission object:
-             * `granted` - Permission has been succesfully granted
-             * `denied` - Permission could not be granted for this operation
+          $ref: '#/components/schemas/FlightPermissionStatus' 
+          example: granted
         created_at:
           type: string
           format: date-time
@@ -1796,6 +1806,122 @@ components:
           type: string
           format: date-time
           readOnly: true
+
+    FlightPermissionDenied:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/UUIDv4Format' 
+          readOnly: true
+        operation:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/UUIDv4Format' 
+              readOnly: true
+            name:
+              type: string
+              description: Give a friendly name for this operation
+              maxLength: 140
+            type_of_operation:
+              enum:
+                - 0
+                - 1
+              type: integer
+              description:
+                At the moment, only VLOS and BVLOS operations are supported,
+                for other types of operations, please issue a pull-request
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            drone:
+              type: string
+              description: Pick the drone that will be used to fly this operation
+            flight_plan:
+              type: string
+            purpose:
+              type: string
+              description: To add additional categories, please add entries to the Activities table
+            pilot:
+              type: string
+          required:
+            - drone
+            - flight_plan
+            - pilot
+          readOnly: true
+        token:
+          type: object          
+          example: {}
+        status_code:
+          type: string
+          example: denied          
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true          
+
+    FlightPermissionPending:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/UUIDv4Format' 
+          readOnly: true
+        operation:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/UUIDv4Format' 
+              readOnly: true
+            name:
+              type: string
+              description: Give a friendly name for this operation
+              maxLength: 140
+            type_of_operation:
+              enum:
+                - 0
+                - 1
+              type: integer
+              description:
+                At the moment, only VLOS and BVLOS operations are supported,
+                for other types of operations, please issue a pull-request
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            drone:
+              type: string
+              description: Pick the drone that will be used to fly this operation
+            flight_plan:
+              type: string
+            purpose:
+              type: string
+              description: To add additional categories, please add entries to the Activities table
+            pilot:
+              type: string
+          required:
+            - drone
+            - flight_plan
+            - pilot
+          readOnly: true
+        token:
+          type: object          
+          example: {}
+        status_code:
+          type: string
+          example: pending
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true          
 
     Aircraft:
       type: object

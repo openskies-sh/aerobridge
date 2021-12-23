@@ -14,8 +14,7 @@ def issue_permission(flight_operation_id):
     flight_operation = FlightOperation.objects.get(id = flight_operation_id)    
     ## Check airspace via the DSS
     airspace_clearance = True   
-
-
+    
     if airspace_clearance: 
         status_code  = 'granted'
         flight_plan = flight_operation.flight_plan    
@@ -35,7 +34,7 @@ def issue_permission(flight_operation_id):
 
     if not signed_json: 
         status_code = 'denied'
-
+        signed_json = {}
     
     flight_permission = FlightPermission(operation = flight_operation, token = signed_json,status_code=status_code)
     flight_permission.save()
