@@ -16,14 +16,14 @@ class TestDigitalSkyLog(TestApiEndpoints):
 
         res = self.client.get(url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.json()[0]['id'], self.get_pk_for_modal('DigitalSkyLog'))
+        self.assertEqual(res.json()[0]['id'], self.get_pk_for_model('DigitalSkyLog'))
 
     def test_digitalsky_log_detail_returns_200(self):
-        url = reverse('digitalsky-log-detail', kwargs={'pk': self.get_pk_for_modal('DigitalSkyLog')})
+        url = reverse('digitalsky-log-detail', kwargs={'pk': self.get_pk_for_model('DigitalSkyLog')})
 
         res = self.client.get(url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.json()['id'], self.get_pk_for_modal('DigitalSkyLog'))
+        self.assertEqual(res.json()['id'], self.get_pk_for_model('DigitalSkyLog'))
 
     def test_digitalsky_log_detail_returns_404(self):
         url = reverse('digitalsky-log-detail', kwargs={'pk': self.faker.uuid4()})

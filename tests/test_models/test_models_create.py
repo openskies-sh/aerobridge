@@ -65,8 +65,8 @@ class TestModelsCreate(TestModels):
         self.assertEqual(flight_permission.operation, FlightOperation.objects.first())
 
     def test_gcs_operations_flight_log_create(self):
-        flight_log = FlightLog(operation=FlightOperation.objects.first(), raw_log=self.faker.json(), is_submitted=True,
-                               is_editable=self.faker.boolean())
+        flight_log = FlightLog(operation=FlightOperation.objects.first(), raw_log=self.faker.pydict(value_types=str),
+                               is_submitted=True, is_editable=self.faker.boolean())
         self.assertNotIn(flight_log, FlightLog.objects.all())
         flight_log.save()
         self.assertIn(flight_log, FlightLog.objects.all())

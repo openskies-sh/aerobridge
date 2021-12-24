@@ -296,10 +296,15 @@ class FlightLogSerializer(serializers.ModelSerializer):
         """
         Check flight log already exists for the operation  """
         raw_log = data.get("raw_log")
-        try: 
-            json.loads(raw_log)
-        except TypeError as te:
-            raise serializers.ValidationError("A raw flight log must be a valid JSON object")        
+
+        # JSON is already loaded (to dict/ list format) by now and not in a string format.
+        # Thus no need to check try loading json
+
+        # try:
+        #     json.loads(raw_log)
+        # except TypeError as te:
+        #     print(str(te))
+        #     raise serializers.ValidationError("A raw flight log must be a valid JSON object")
         return data
 
     class Meta:

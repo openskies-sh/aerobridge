@@ -13,15 +13,15 @@ class TestManufacturer(TestApiEndpoints):
 
         res = self.client.get(url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.json()[0]['id'], self.get_pk_for_modal('Manufacturer'))
+        self.assertEqual(res.json()[0]['id'], self.get_pk_for_model('Manufacturer'))
 
     def test_manufacturer_detail_returns_200(self):
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
-        url = reverse('manufacturer-detail', kwargs={'pk': self.get_pk_for_modal('Manufacturer')})
+        url = reverse('manufacturer-detail', kwargs={'pk': self.get_pk_for_model('Manufacturer')})
 
         res = self.client.get(url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.json()['id'], self.get_pk_for_modal('Manufacturer'))
+        self.assertEqual(res.json()['id'], self.get_pk_for_model('Manufacturer'))
 
     def test_manufacturer_detail_returns_404(self):
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
