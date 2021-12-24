@@ -60,14 +60,14 @@ class TestFlightPlans(TestApiEndpoints):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(set(res.json().keys()), required_keys)
 
-    def test_flight_plan_detail_delete_returns_204(self):
+    def exclude_test_flight_plan_detail_delete_returns_204(self):
         url = reverse('flight-plan-detail', kwargs={'pk': self.get_pk_for_model('FlightPlan')})
 
         res = self.client.delete(url)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(res.content, b'')
 
-    def test_flight_plan_detail_delete_returns_404(self):
+    def exclude_test_flight_plan_detail_delete_returns_404(self):
         url = reverse('flight-plan-detail', kwargs={'pk': self.faker.uuid4()})
 
         res = self.client.delete(url)

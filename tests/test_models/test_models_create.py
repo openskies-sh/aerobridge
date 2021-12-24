@@ -72,7 +72,7 @@ class TestModelsCreate(TestModels):
         self.assertIn(flight_log, FlightLog.objects.all())
         self.assertEqual(flight_log.operation, FlightOperation.objects.first())
 
-    def test_gcs_operations_signedFlightLog_create(self):
+    def test_gcs_operations_signed_flight_log_create(self):
         signed_flight_log = SignedFlightLog(raw_flight_log=FlightLog.objects.first(), signed_log=self.faker.text())
         self.assertNotIn(signed_flight_log, SignedFlightLog.objects.all())
         signed_flight_log.save()
@@ -173,7 +173,7 @@ class TestModelsCreate(TestModels):
         pilot.tests.add(Test.objects.first())
         self.assertIn(Test.objects.first(), pilot.tests.all())
 
-    def test_registry_testValidity_create(self):
+    def test_registry_test_validity_create(self):
         test_validity = TestValidity(test=Test.objects.first(), pilot=Pilot.objects.first(), taken_at=timezone.now(),
                                      expiration=timezone.now() + timezone.timedelta(days=365 * 5))
 
@@ -183,7 +183,7 @@ class TestModelsCreate(TestModels):
         self.assertEqual(test_validity.test, Test.objects.first())
         self.assertEqual(test_validity.pilot, Pilot.objects.first())
 
-    def test_registry_typeCertificate_create(self):
+    def test_registry_type_certificate_create(self):
         type_certificate = TypeCertificate(type_certificate_id=self.faker.numerify('#' * 100),
                                            type_certificate_issuing_country=self.faker.country(),
                                            type_certificate_holder=self.faker.name(),
@@ -267,7 +267,7 @@ class TestModelsCreate(TestModels):
         self.assertEqual(aircraft_detail.type_certificate, TypeCertificate.objects.first())
         self.assertEqual(aircraft_detail.engine, Engine.objects.first())
 
-    def test_pki_framework_aerobridgeCredentials_create(self):
+    def test_pki_framework_aerobridge_credential_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),
                                                       token_type=self.faker.pyint(min_value=0, max_value=len(
                                                           AerobridgeCredential.TOKEN_TYPE) - 1),
