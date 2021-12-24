@@ -3,15 +3,16 @@ import os
 
 from django.core.management import call_command
 
-#from digitalsky_provider.serializers import DigitalSkyLogSerializer
+from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
     FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
-    FlightLogSerializer#, TransactionSerializer
-from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer, AerobridgeCredentialPostSerializer
+    FlightLogSerializer, TransactionSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer, \
+    AerobridgeCredentialPostSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
     TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
-    PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftFullSerializer#, AircraftSigningSerializer
+    PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftFullSerializer
 from .test_setup import TestModels
 
 
@@ -38,14 +39,12 @@ class TestModelSerializers(TestModels):
             filepath = '%s%s.json' % (self.data_path, model_name)
             call_command('loaddata', filepath, verbosity=0)
 
-    """
     def test_digitalsky_provider_digitalsky_log_serializer(self):
         data = self._get_data_for_model('DigitalSkyLog')
         digitalsky_log_serializer = DigitalSkyLogSerializer(data=data)
         self.assertTrue(digitalsky_log_serializer.is_valid())
         self.assertNotEqual(digitalsky_log_serializer.validated_data, dict)
         self.assertEqual(digitalsky_log_serializer.errors, dict())
-    """
 
     def test_gcs_operations_cloud_file_serializer(self):
         data = self._get_data_for_model('CloudFile')
@@ -91,14 +90,12 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(flight_operation_list_serializer.validated_data, dict)
         self.assertEqual(flight_operation_list_serializer.errors, dict())
 
-    """
     def test_gcs_operations_transaction_serializer(self):
         data = self._get_data_for_model('Transaction')
         transaction_serializer = TransactionSerializer(data=data)
         self.assertTrue(transaction_serializer.is_valid())
         self.assertNotEqual(transaction_serializer.validated_data, dict)
         self.assertEqual(transaction_serializer.errors, dict())
-    """
 
     def test_gcs_operations_flight_permission_serializer(self):
         data = self._get_data_for_model('FlightPermission')

@@ -10,12 +10,13 @@ from .data_definitions import PlanFile, PlanFileMission, SimpleMissionItem, Comp
 
 
 class FirmwareSerializer(serializers.ModelSerializer):
-    ''' A serializer for saving Firmware ''' 
-    class Meta: 
+    ''' A serializer for saving Firmware '''
+
+    class Meta:
         model = Firmware
         fields = '__all__'
         ordering = ['-created_at']
-        
+
 class FlightPlanSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Plan data from the GCS '''
 
@@ -252,9 +253,9 @@ class FlightOperationListSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ['-created_at']
 
-     
 class FlightOperationSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
+
     # drone = AircraftDetailSerializer(read_only=True)
     # flight_plan = FlightPlanSerializer(read_only=True)
     class Meta:
@@ -295,6 +296,7 @@ class FlightLogSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """
         Check flight log already exists for the operation  """
+
         raw_log = data.get("raw_log")
 
         # JSON is already loaded (to dict/ list format) by now and not in a string format.
@@ -307,6 +309,7 @@ class FlightLogSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("A raw flight log must be a valid JSON object")
         return data
 
+        
     class Meta:
         model = FlightLog	
         exclude = ('is_submitted','is_editable',)

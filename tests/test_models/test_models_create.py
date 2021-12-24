@@ -40,7 +40,7 @@ class TestModelsCreate(TestModels):
                                            flight_plan=FlightPlan.objects.first(), operator=Operator.objects.first(),
                                            pilot=Pilot.objects.first(), purpose=Activity.objects.first(),
                                            is_editable=self.faker.boolean(), type_of_operation=self.faker.pyint(
-                                                    min_value=0, max_value=len(FlightOperation.OPERATION_TYPES) - 1))
+                min_value=0, max_value=len(FlightOperation.OPERATION_TYPES) - 1))
         self.assertNotIn(flight_operation, FlightOperation.objects.all())
         flight_operation.save()
         self.assertIn(flight_operation, FlightOperation.objects.all())
@@ -122,7 +122,8 @@ class TestModelsCreate(TestModels):
         self.assertIn(authorization, Authorization.objects.all())
 
     def test_registry_operator_create(self):
-        operator = Operator(company_name=self.faker.company(), website=self.faker.url(), email=self.faker.company_email(),
+        operator = Operator(company_name=self.faker.company(), website=self.faker.url(),
+                            email=self.faker.company_email(),
                             phone_number=self.faker.numerify('+' + '#' * 9),
                             operator_type=self.faker.pyint(min_value=0, max_value=len(
                                 Operator.OPTYPE_CHOICES) - 1), address=Address.objects.first(),

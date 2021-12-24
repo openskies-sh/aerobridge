@@ -4,7 +4,7 @@ from rest_framework import status
 from .test_setup import TestApiEndpoints
 
 
-class TestDigitalSkyLog(TestApiEndpoints):
+class TestDigitalSkyLog():
     fixtures = ['DigitalSkyLog', 'Transaction', 'Aircraft', 'Engine', 'Operator', 'Manufacturer', 'TypeCertificate',
                 'Address', 'Authorization', 'Activity']
 

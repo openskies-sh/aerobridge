@@ -33,7 +33,6 @@ urlpatterns = [
     path('pki/', include('pki_framework.urls')),
     path('gcs/', include('gcs_operations.urls')),
     path('registry/', include('registry.urls')),
-    path('digitalsky/', include('digitalsky_provider.urls'))
     # YOUR PATTERNS
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
