@@ -2,7 +2,7 @@
 
 # Introduction
 
-Aerobridge is server to help you with your drone flights and operations. With Aerobridge your GCS, Pilots interface with your company's digital infrastructure in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
+Aerobridge is management server to help you with your drone flights and operations. With Aerobridge your GCS, Drones and Pilots interface with your company's digital infrastructure in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
 
 ## How can Aerobridge help you?
 
@@ -10,7 +10,7 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 
 - Store and approve missions
 - Prevent unauthorized use
-- Manage Drone fleet
+- Manage Personnel and Drone fleet
 - Integration with Ardupilot
 - Give flight permissions
 
@@ -20,7 +20,7 @@ We work with drone manufacturers and operators to enable them to become complian
 
 ## Get Involved
 
-Aerobridge is fully open source and you can get involved by participating in our weekly calls (details shortly) and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights. There are many benefits of participation:
+Aerobridge is fully open source and you can get involved by participating in our weekly calls and our Slack channel: [Request access here](https://forms.gle/qdUgjJHiFQn2Yuhg6). Whether you are a drone enthusiast or an expert, join our community to shape the future of drone flights. There are many benefits of participation:
 
 - You can shape the future of this software
 - Join the community of fellow professionals interested in an open flexible drone eco-system in India
@@ -63,7 +63,7 @@ sudo apt install python3-pygraphviz # Graphviz for automatically generating data
 
 ## Usage commands
 
-1. Run the server locally 
+1. Run the server locally
    ```
    DJANGO_SECRET=<YOUR_DJANGO_SECRET_KEY> python manage.py runserver
    ```
@@ -78,17 +78,19 @@ sudo apt install python3-pygraphviz # Graphviz for automatically generating data
 
 ## Aerobridge Stack
 
-As of May 2021, Aerobridge provides the following toolset:
+Aerobridge provides the following toolset:
 
 - **Management Server**
   - __Flight log management__: Store Bundled Logs on the server
   - __Public Key Rotation and storage__: Submission of flight plans and fetching permission artefacts
+  - __Approve Missions__: Digitally sign mission approvals and verify on GCS and RFM side.
+  - __Maintain equipment and personnel__: Manage drone parts and people operating them in the company.
 
 - **GCS Module**
   - [QGCS Aerobridge Guardian](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
 
 - **RFM Module**
-  - A customized Flight Controller Firmware and Bootloader (coming soon)
+  - A customized Flight Controller Firmware and Bootloader: ([Guardian RFM](https://github.com/openskies-sh/ardupilot))
 
 ## References
 
