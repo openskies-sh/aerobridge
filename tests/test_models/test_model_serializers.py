@@ -5,21 +5,21 @@ from django.core.management import call_command
 
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
-    FlightPlanListSerializer, FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
-    FlightLogSerializer, TransactionSerializer
+    FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, FlightLogSerializer, \
+    TransactionSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer, \
     AerobridgeCredentialPostSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
-    TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
-    PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftFullSerializer
+    TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PrivilegedOperatorSerializer, \
+    OperatorSelectRelatedSerializer, AircraftFullSerializer
 from .test_setup import TestModels
 
 
 class TestModelSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
-                'FlightPlan', 'Engine', 'TypeCertificate', 'Transaction']
+                'FlightPlan', 'TypeCertificate', 'Transaction']
 
     def _get_data_for_model(self, model_name, index=0):
         filepath = '%s%s.json' % (self.data_path, model_name)
@@ -66,13 +66,6 @@ class TestModelSerializers(TestModels):
         self.assertTrue(flight_plan_serializer.is_valid())
         self.assertNotEqual(flight_plan_serializer.validated_data, dict)
         self.assertEqual(flight_plan_serializer.errors, dict())
-
-    def test_gcs_operations_flight_plan_list_serializer(self):
-        data = self._get_data_for_model('FlightPlan')
-        flight_plan_list_serializer = FlightPlanListSerializer(data=data)
-        self.assertTrue(flight_plan_list_serializer.is_valid())
-        self.assertNotEqual(flight_plan_list_serializer.validated_data, dict)
-        self.assertEqual(flight_plan_list_serializer.errors, dict())
 
     def test_gcs_operations_flight_operation_serializer(self):
         self._load_data_per_test('Pilot')
@@ -181,13 +174,6 @@ class TestModelSerializers(TestModels):
         self.assertTrue(pilot_serializer.is_valid())
         self.assertNotEqual(pilot_serializer.validated_data, dict)
         self.assertEqual(pilot_serializer.errors, dict())
-
-    def test_registry_pilot_detail_serializer(self):
-        data = self._get_data_for_model('Pilot')
-        pilot_detail_serializer = PilotDetailSerializer(data=data)
-        self.assertTrue(pilot_detail_serializer.is_valid())
-        self.assertNotEqual(pilot_detail_serializer.validated_data, dict)
-        self.assertEqual(pilot_detail_serializer.errors, dict())
 
     def test_registry_testValidity_serializer(self):
         data = self._get_data_for_model('TestValidity')
