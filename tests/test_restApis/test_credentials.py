@@ -22,16 +22,15 @@ class TestCredentials(TestApiEndpoints):
         url = reverse('pki-credentials-list')
 
         data = dict()
-        data['token'] = self.faker.text()
+        data['token'] = self.faker.json()
         data['name'] = self.faker.name()
-        data['token_type'] = 1
+        data['token_type'] = 3
         data['association'] = 0
         data['operator'] = Operator.objects.first().id
 
         required_keys = {'token', 'name', 'token_type', 'association', 'is_active', 'id', 'aircraft', 'manufacturer',
-                         'operator'}
+                         'operator', 'extension'}
         res = self.client.post(url, data)
-
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(set(res.json().keys()), required_keys)
 

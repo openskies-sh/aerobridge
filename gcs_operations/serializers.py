@@ -67,7 +67,6 @@ class FlightPlanSerializer(serializers.ModelSerializer):
 
     def parse_and_validate_plan_file(self, plan_file_json):
 
-        plan_file_json = json.loads(plan_file_json)
         mission = plan_file_json['mission']
 
         mission_items = mission['items']
@@ -317,7 +316,6 @@ class FlightOperationPermissionSerializer(serializers.ModelSerializer):
         ordering = ['-created_at']
 
 
-# Enabling it only for the unit tests
 class TransactionSerializer(serializers.ModelSerializer):
     ''' A serializer to the transaction view '''
 
@@ -335,15 +333,6 @@ class FlightLogSerializer(serializers.ModelSerializer):
         Check flight log already exists for the operation  """
 
         raw_log = data.get("raw_log")
-
-        # JSON is already loaded (to dict/ list format) by now and not in a string format.
-        # Thus no need to check try loading json
-
-        # try:
-        #     json.loads(raw_log)
-        # except TypeError as te:
-        #     print(str(te))
-        #     raise serializers.ValidationError("A raw flight log must be a valid JSON object")
         return data
 
     class Meta:

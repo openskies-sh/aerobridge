@@ -23,11 +23,10 @@ class TestFlightPlans(TestApiEndpoints):
 
         data = dict()
         data['name'] = self.faker.word()
-        data['kml'] = self.faker.text()
-        data['start_datetime'] = timezone.now()
-        data['end_datetime'] = timezone.now() + timezone.timedelta(minutes=45)
+        data['plan_file_json'] = self.get_key_for_model('FlightPlan', 'plan_file_json')
+        data['geo_json'] = self.get_key_for_model('FlightPlan', 'geo_json')
 
-        required_keys = {'id', 'name', 'kml', 'start_datetime', 'end_datetime', 'created_at', 'updated_at', 'is_editable'}
+        required_keys = {'id', 'name', 'plan_file_json', 'created_at', 'updated_at'}
         res = self.client.post(url, data=data)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(set(res.json().keys()), required_keys)
@@ -51,15 +50,17 @@ class TestFlightPlans(TestApiEndpoints):
 
         data = dict()
         data['name'] = self.faker.name()
-        data['kml'] = self.get_key_for_model('FlightPlan', 'kml', 1)
+        data['plan_file_json'] = self.get_key_for_model('FlightPlan', 'plan_file_json', 1)
+        data['geo_json'] = self.get_key_for_model('FlightPlan', 'geo_json', 1)
         data['start_datetime'] = timezone.now()
         data['end_datetime'] = timezone.now() + timezone.timedelta(minutes=20)
 
-        required_keys = {'id', 'name', 'kml', 'start_datetime', 'end_datetime', 'created_at', 'updated_at'}
+        required_keys = {'id', 'name', 'plan_file_json', 'created_at', 'updated_at'}
         res = self.client.put(url, data=data)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(set(res.json().keys()), required_keys)
 
+    # TODO: Include this test
     def exclude_test_flight_plan_detail_delete_returns_204(self):
         url = reverse('flight-plan-detail', kwargs={'pk': self.get_pk_for_model('FlightPlan')})
 
@@ -67,6 +68,7 @@ class TestFlightPlans(TestApiEndpoints):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(res.content, b'')
 
+    # TODO: Include this test
     def exclude_test_flight_plan_detail_delete_returns_404(self):
         url = reverse('flight-plan-detail', kwargs={'pk': self.faker.uuid4()})
 

@@ -16,16 +16,13 @@ class TestApiEndpoints(APITransactionTestCase):
     data_path = os.getcwd() + '/tests/fixtures/'
     READ_SCOPE = "aerobridge.read"
     WRITE_SCOPE = "aerobridge.write"
-    ADMIN_SCOPE = "aerobridge.administration"
 
     @classmethod
     def setUpClass(cls):
         cls.faker = Faker()
 
-    def setUpClientCredentials(self, scopes=[]):
-        # SECURE_API_ENDPOINTS is set to False
-        return
-        if self.READ_SCOPE not in scopes and self.WRITE_SCOPE not in scopes:
+    def setUpClientCredentials(self, scopes=None):
+        if scopes.__class__ == list and self.READ_SCOPE not in scopes and self.WRITE_SCOPE not in scopes:
             return
 
         data = dict()

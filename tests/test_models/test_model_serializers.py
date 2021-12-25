@@ -62,6 +62,9 @@ class TestModelSerializers(TestModels):
 
     def test_gcs_operations_flight_plan_serializer(self):
         data = self._get_data_for_model('FlightPlan')
+        # plan_file_json and geo_json are JSONFields
+        data['plan_file_json'] = json.loads(data['plan_file_json'])
+        data['geo_json'] = json.loads(data['geo_json'])
         flight_plan_serializer = FlightPlanSerializer(data=data)
         self.assertTrue(flight_plan_serializer.is_valid())
         self.assertNotEqual(flight_plan_serializer.validated_data, dict)

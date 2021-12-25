@@ -213,16 +213,19 @@ class FlightLogSign(APIView):
 
     def put(self, request, pk, format=None):
         sign_result = data_signer.sign_log(pk)
-        if sign_result['status'] == 1:
+        if sign_result['status'] == data_signer.DataSigningStatus.SUCCESSFUL:
             signed_flight_log = sign_result['signed_flight_log']
             serializer = SignedFlightLogSerializer(signed_flight_log)
             return Response(serializer.data)
 
-        elif sign_result['status'] == 2:
+        elif sign_result['status'] == data_signer.DataSigningStatus.CONFLICT:
             return Response({"message": "Signed log object already exists"}, status=status.HTTP_409_CONFLICT)
 
-        else:
+        elif sign_result['status'] == data_signer.DataSigningStatus.NOT_FOUND:
             return Response({"message": "No flight Log found to sign"}, status=status.HTTP_404_NOT_FOUND)
+
+        else:
+            return Response({"message": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')

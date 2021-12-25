@@ -10,5 +10,17 @@
         "is_submitted": true,
         "is_editable": true
     }
+},
+{
+    "model": "gcs_operations.flightlog",
+    "pk": "531bc3a2-6bca-4bf0-b1df-93c49dca77d9",
+    "fields": {
+        "operation": "31c7c5fb-02b6-48b5-882c-7f32aefd8efd",
+        "raw_log": "{\"with\": \"VaCoUpAZirWEBWnFUcCQ\", \"rock\": \"joykpHCjHCNewWnURiMH\", \"serve\": \"jCamzNHFplgpntWMcOqh\", \"source\": \"mrcfZiymMZpPEvSgymRn\", \"truth\": \"FxDZrvcWrTeEUHTfDoxd\", \"occur\": \"ZSacuprQQvGXzbmVYtoo\", \"sell\": \"BKduUVUtyOGkiduAAtwD\", \"once\": \"FpWaJbeiFoqwYZUpNyqR\", \"report\": \"dOYwJtvwBlNcYLDnaxtc\", \"structure\": \"kFHjwFxiPwMcrbQrIHNI\"}",
+        "created_at": "2021-10-24T13:05:36.894Z",
+        "updated_at": "2021-10-24T13:05:36.894Z",
+        "is_submitted": true,
+        "is_editable": true
+    }
 }
 ]

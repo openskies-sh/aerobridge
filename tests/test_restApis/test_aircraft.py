@@ -5,8 +5,7 @@ from .test_setup import TestApiEndpoints
 
 
 class TestAircraft(TestApiEndpoints):
-    fixtures = ['Aircraft', 'Engine', 'Operator', 'Manufacturer', 'TypeCertificate', 'Address', 'Authorization',
-                'Activity']
+    fixtures = ['Aircraft', 'Operator', 'Manufacturer', 'TypeCertificate', 'Address', 'Authorization', 'Activity']
 
     def test_aircraft_list_returns_200(self):
         self.setUpClientCredentials([self.READ_SCOPE])
