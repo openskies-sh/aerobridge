@@ -19,7 +19,7 @@ from .test_setup import TestModels
 class TestModelSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
-                'FlightPlan', 'TypeCertificate', 'Transaction']
+                'FlightPlan', 'TypeCertificate', 'Transaction', 'Pilot', 'FlightOperation']
 
     def _get_data_for_model(self, model_name, index=0):
         filepath = '%s%s.json' % (self.data_path, model_name)
@@ -28,16 +28,6 @@ class TestModelSerializers(TestModels):
             return data[index]['fields']
         else:
             raise AssertionError("File %s.json does not exists in fixtures" % model_name)
-
-    def _load_data_per_test(self, *models):
-        """
-        Method to load test data into database for a specific test.
-        For some tests it's not possible to load data globally using fixtures due to foreign key and unique constraints.
-        Models will be loaded in the same order of arguments.
-        """
-        for model_name in models:
-            filepath = '%s%s.json' % (self.data_path, model_name)
-            call_command('loaddata', filepath, verbosity=0)
 
     def test_digitalsky_provider_digitalsky_log_serializer(self):
         data = self._get_data_for_model('DigitalSkyLog')
@@ -71,7 +61,6 @@ class TestModelSerializers(TestModels):
         self.assertEqual(flight_plan_serializer.errors, dict())
 
     def test_gcs_operations_flight_operation_serializer(self):
-        self._load_data_per_test('Pilot')
         data = self._get_data_for_model('FlightOperation')
         flight_operation_serializer = FlightOperationSerializer(data=data)
         self.assertTrue(flight_operation_serializer.is_valid())
@@ -79,7 +68,6 @@ class TestModelSerializers(TestModels):
         self.assertEqual(flight_operation_serializer.errors, dict())
 
     def test_gcs_operations_flight_operation_list_serializer(self):
-        self._load_data_per_test('Pilot')
         data = self._get_data_for_model('FlightOperation')
         flight_operation_list_serializer = FlightOperationListSerializer(data=data)
         self.assertTrue(flight_operation_list_serializer.is_valid())
@@ -101,7 +89,6 @@ class TestModelSerializers(TestModels):
         self.assertEqual(flight_permission_serializer.errors, dict())
 
     def test_gcs_operations_flight_log_serializer(self):
-        self._load_data_per_test('Pilot', 'FlightOperation')
         data = self._get_data_for_model('FlightLog')
         flight_log_serializer = FlightLogSerializer(data=data)
         self.assertTrue(flight_log_serializer.is_valid())
