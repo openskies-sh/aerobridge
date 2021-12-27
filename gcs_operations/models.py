@@ -12,7 +12,6 @@ from registry.models import Aircraft,Activity, Operator, Pilot
 from django.core.validators import RegexValidator
 
 
-
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 
 class FlightPlan(models.Model):

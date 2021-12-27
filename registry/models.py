@@ -263,7 +263,6 @@ class Firmware(models.Model):
         return self.version 
     
   
-  
 class Aircraft(models.Model):
     AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),(5, _('MICRO')),(6, _('SMALL')),(7, _('MEIDUM')),(8, _('Large')),)
     STATUS_CHOICES = ((0, _('Inactive')),(1, _('Active')),)  
@@ -289,6 +288,7 @@ class Aircraft(models.Model):
         return self.operator.company_name +' ' + self.model
 
 # class AircraftComponent(models.Model):
+# ''' This class stores details of componentes of a aircraft ''' 
 #     COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),)
 
 #     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -302,9 +302,8 @@ class Aircraft(models.Model):
 #     updated_at = models.DateTimeField(auto_now=True)        
 
 
-
-
-class AircraftDetail(models.Model):
+class AircraftDetail(models.Model): 
+    ''' This model holds extended details of an aircraft '''
     AIRCRAFT_SUB_CATEGORY = ((0, _('Other')),(1, _('AIRPLANE')),(2, _('NONPOWERED GLIDER')),(3, _('POWERED GLIDER')),(4, _('HELICOPTER')),(5, _('GYROPLANE')),(6, _('BALLOON')),(7, _('AIRSHIP')),(8, _('UAV')),(9, _('Multirotor')),(10, _('Hybrid')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
