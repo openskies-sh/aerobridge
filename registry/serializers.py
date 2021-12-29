@@ -222,7 +222,7 @@ class AircraftFullSerializer(serializers.ModelSerializer):
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
-        fields = ('id', 'operator', 'manufacturer', 'model','status', 
+        fields = ('id', 'operator', 'manufacturer', 'name','status', 
                   'category', "photo",
                   "flight_controller_id")
 

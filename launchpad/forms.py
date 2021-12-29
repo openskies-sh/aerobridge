@@ -142,7 +142,7 @@ class AircraftCreateForm(forms.ModelForm):
                         FloatingField("flight_controller_id"),
                         FloatingField("status"),
                         FloatingField("photo"),
-                        FloatingField("model")
+                        FloatingField("name")
                     ),
                     HTML("""
                             <br>
@@ -157,7 +157,7 @@ class AircraftCreateForm(forms.ModelForm):
 
     class Meta:
         model = Aircraft
-        fields = ('operator','manufacturer', 'model','flight_controller_id', 'category','status','photo',)
+        fields = ('operator','manufacturer', 'name','flight_controller_id', 'category','status','photo',)
 
 class AircraftDetailCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

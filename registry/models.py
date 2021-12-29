@@ -270,7 +270,7 @@ class Aircraft(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE, help_text= "Associate a manufacturer in the database to this aircraft")
-    model = models.CharField(max_length = 280, help_text="Set the model of the aircraft")
+    name = models.CharField(max_length = 280, help_text="Set the model of the aircraft")
     flight_controller_id = models.CharField(help_text= "This is the Drone ID from the RFM, if there are spaces in the ID, remove them",max_length=140, validators=[validate_flight_controller_id])    
     category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default = 0, help_text="Set the category for this aircraft, use the closest aircraft type")
     status = models.IntegerField(choices=STATUS_CHOICES, default = 1, help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
@@ -287,20 +287,32 @@ class Aircraft(models.Model):
     def __str__(self):
         return self.operator.company_name +' ' + self.model
 
-# class AircraftComponent(models.Model):
-# ''' This class stores details of componentes of a aircraft ''' 
-#     COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),)
+class AircraftComponent(models.Model):
+    ''' This class stores details of components for an aircraft ''' 
 
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=140, null=True, blank=True)
-#     photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
-#     purchased_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was purchased")
+    COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),(9, _('Batter Charger')),(10, _('Telemetry Link')),(11, _('Remote Controller')),(12, _('Landing Gear')),(13, _('GPS')),(14, _('Companion Computer')),)
 
-#     history = HistoricalRecords()
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=280)
+    photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
+    custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
+    is_active = models.BooleanField(default= True)
 
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)        
+    history = HistoricalRecords()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)  
+
+class AircraftComponentSignature(models.Model):
+    ''' This model saves information about the component signature on a the block chain '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    component = models.OneToOneField(AircraftComponent,on_delete=models.CASCADE)
+    signature = models.TextField(help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
+    
+    history = HistoricalRecords()
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)    
 
 class AircraftDetail(models.Model): 
     ''' This model holds extended details of an aircraft '''

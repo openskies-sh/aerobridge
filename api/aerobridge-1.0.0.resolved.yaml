@@ -1940,9 +1940,9 @@ components:
           $ref: '#/components/schemas/UUIDv4Format'           
           description: Associate a manufacturer in the database to this aircraft          
           example: 9d570d9f-97a4-40d5-9ba7-eef62d852f03
-        model:
-          $ref: '#/components/schemas/UUIDv4Format'           
-          description: Set the model of the aircraft
+        name:
+          format: string 
+          description: Set the name of the aircraft
           maxLength: 280
           example: eBee X1
         category:
@@ -2002,7 +2002,7 @@ components:
       required:
         - operator
         - manufacturer
-        - model
+        - name
         - flight_controller_id
 
     SignedFlightLog:
