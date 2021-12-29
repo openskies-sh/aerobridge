@@ -287,32 +287,32 @@ class Aircraft(models.Model):
     def __str__(self):
         return self.operator.company_name +' ' + self.model
 
-class AircraftComponent(models.Model):
-    ''' This class stores details of components for an aircraft ''' 
+# class AircraftComponent(models.Model):
+#     ''' This class stores details of components for an aircraft ''' 
 
-    COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),(9, _('Batter Charger')),(10, _('Telemetry Link')),(11, _('Remote Controller')),(12, _('Landing Gear')),(13, _('GPS')),(14, _('Companion Computer')),)
+#     COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),(9, _('Batter Charger')),(10, _('Telemetry Link')),(11, _('Remote Controller')),(12, _('Landing Gear')),(13, _('GPS')),(14, _('Companion Computer')),)
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=280)
-    photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
-    custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
-    is_active = models.BooleanField(default= True)
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     name = models.CharField(max_length=280)
+#     photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
+#     custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
+#     is_active = models.BooleanField(default= True)
 
-    history = HistoricalRecords()
+#     history = HistoricalRecords()
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)  
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)  
 
-class AircraftComponentSignature(models.Model):
-    ''' This model saves information about the component signature on a the block chain '''
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    component = models.OneToOneField(AircraftComponent,on_delete=models.CASCADE)
-    signature = models.TextField(help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
+# class AircraftComponentSignature(models.Model):
+#     ''' This model saves information about the component signature on a the block chain '''
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     component = models.OneToOneField(AircraftComponent,on_delete=models.CASCADE)
+#     signature = models.TextField(help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
     
-    history = HistoricalRecords()
+#     history = HistoricalRecords()
     
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)    
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)    
 
 class AircraftDetail(models.Model): 
     ''' This model holds extended details of an aircraft '''
