@@ -208,7 +208,7 @@ class TestModelsCreate(TestModels):
 
     def test_registry_aircraft_create(self):
         aircraft = Aircraft(operator=Operator.objects.first(), manufacturer=Manufacturer.objects.first(),
-                            model=self.faker.first_name(), flight_controller_id=self.faker.numerify('#' * 60),
+                            name=self.faker.first_name(), flight_controller_id=self.faker.numerify('#' * 60),
                             category=self.faker.pyint(min_value=0, max_value=len(Aircraft.AIRCRAFT_CATEGORY) - 1),
                             status=self.faker.pyint(min_value=0, max_value=len(Aircraft.STATUS_CHOICES) - 1),
                             photo=self.faker.uri())

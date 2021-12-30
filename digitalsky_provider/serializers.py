@@ -4,7 +4,7 @@ from .models import DigitalSkyLog
 
 
 class DigitalSkyLogSerializer(serializers.ModelSerializer):
-    ''' A serializer to the drone create view '''
+    ''' A serializer for Digital Sky logs '''
 
     class Meta:
         model = DigitalSkyLog

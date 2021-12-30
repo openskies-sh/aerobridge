@@ -5,7 +5,7 @@
     "fields": {
         "operator": "66ff7549-5737-495d-965b-2d93c0bc5b5e",
         "manufacturer": "31fd7ede-c617-4f8a-8bb8-a69e304a21e9",
-        "model": "Jonathan",
+        "name": "Jonathan",
         "flight_controller_id": "792649780666800020452937288158914751566980618086014268969865",
         "category": 3,
         "status": 1,
