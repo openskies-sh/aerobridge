@@ -1,12 +1,22 @@
 [
 {
     "model": "registry.testvalidity",
-    "pk": "63335e62-11bb-4690-8991-bd2b6a6f0dc9",
+    "pk": "66bb1f27-6a93-443c-85c9-5507a7dab29b",
     "fields": {
-        "test": "da6cdfb5-0672-40e7-af51-7d2211df3e94",
-        "pilot": "bc50da23-a38f-4ac7-b7cf-bff1d056d237",
-        "taken_at": "2021-03-26T20:50:46.960Z",
-        "expiration": "2026-03-25T20:50:46.960Z"
+        "test": "a596afce-8e7c-47fe-a3c6-2bbdf5ce32b1",
+        "pilot": "7983148d-07ff-44f0-9183-eb83648746b5",
+        "taken_at": "2021-10-24T13:05:35.864Z",
+        "expiration": "2026-10-23T13:05:35.864Z"
+    }
+},
+{
+    "model": "registry.testvalidity",
+    "pk": "c32c91fc-ec6f-49c5-87f2-3e7577bc5f9d",
+    "fields": {
+        "test": "a596afce-8e7c-47fe-a3c6-2bbdf5ce32b1",
+        "pilot": "7983148d-07ff-44f0-9183-eb83648746b5",
+        "taken_at": null,
+        "expiration": null
     }
 }
 ]

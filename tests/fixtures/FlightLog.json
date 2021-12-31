@@ -1,14 +1,26 @@
 [
 {
     "model": "gcs_operations.flightlog",
-    "pk": "3ee346a4-32ca-457d-90d7-cc4f9a3acd61",
+    "pk": "21440c5b-fccd-4eaf-ac94-a01a6f537254",
     "fields": {
-        "operation": "628cf2ae-d03e-4a83-85ac-6e140836780b",
-        "signed_log": "https://galvan.com/category/posts/category/signed_log.html",
-        "raw_log": "https://galvan.com/category/posts/category/raw_log.html",
-        "created_at": "2021-03-27T13:55:01.689Z",
-        "updated_at": "2021-03-27T13:55:01.689Z",
-        "is_submitted": true
+        "operation": "31c7c5fb-02b6-48b5-882c-7f32aefd8efd",
+        "raw_log": "{\"race\": \"odtGBZIYBhtUjsfCbhtI\", \"himself\": \"EFvVZdkkNhNYBWwBsjci\", \"science\": \"EXmHStdETljTAJGIyfdo\", \"hit\": \"ieqmzERXKtEExfITEFlA\", \"evidence\": \"sBcGZUIhavxddmZGxYRp\", \"central\": \"DVaIookqCNAthcMdTonH\", \"already\": \"vSNbIFZgYiPKqmmGhNlI\", \"ago\": \"eoEGPeRFvwnxnlzdPKSR\", \"until\": \"GOdCVZkCbQNKEQtCUMzF\", \"start\": \"BzansuwNNcSAEMPlSqfK\", \"may\": \"bMvYofvBtfnYNYBashZZ\", \"could\": \"EbHSgJfSTMxVeZyLmblY\", \"return\": \"gQraoGOHSdQLZcdIRBQD\"}",
+        "created_at": "2021-10-24T13:05:35.885Z",
+        "updated_at": "2021-10-24T13:05:35.885Z",
+        "is_submitted": true,
+        "is_editable": true
+    }
+},
+{
+    "model": "gcs_operations.flightlog",
+    "pk": "531bc3a2-6bca-4bf0-b1df-93c49dca77d9",
+    "fields": {
+        "operation": "31c7c5fb-02b6-48b5-882c-7f32aefd8efd",
+        "raw_log": "{\"with\": \"VaCoUpAZirWEBWnFUcCQ\", \"rock\": \"joykpHCjHCNewWnURiMH\", \"serve\": \"jCamzNHFplgpntWMcOqh\", \"source\": \"mrcfZiymMZpPEvSgymRn\", \"truth\": \"FxDZrvcWrTeEUHTfDoxd\", \"occur\": \"ZSacuprQQvGXzbmVYtoo\", \"sell\": \"BKduUVUtyOGkiduAAtwD\", \"once\": \"FpWaJbeiFoqwYZUpNyqR\", \"report\": \"dOYwJtvwBlNcYLDnaxtc\", \"structure\": \"kFHjwFxiPwMcrbQrIHNI\"}",
+        "created_at": "2021-10-24T13:05:36.894Z",
+        "updated_at": "2021-10-24T13:05:36.894Z",
+        "is_submitted": true,
+        "is_editable": true
     }
 }
 ]

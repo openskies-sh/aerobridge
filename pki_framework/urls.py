@@ -20,7 +20,7 @@ from django.urls import path
 
 urlpatterns = [
     
-    path('credentials/', pki_views.CredentialsList.as_view()),
-    path('credentials/<uuid:pk>', pki_views.CredentialsDetail.as_view()),    
+    path('credentials/', pki_views.CredentialsList.as_view(), name='pki-credentials-list'),
+    path('credentials/<uuid:pk>', pki_views.CredentialsDetail.as_view(), name='pki-credentials-detail'),
     
 ]

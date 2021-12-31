@@ -1,16 +1,16 @@
 [
 {
     "model": "registry.pilot",
-    "pk": "bc50da23-a38f-4ac7-b7cf-bff1d056d237",
+    "pk": "7983148d-07ff-44f0-9183-eb83648746b5",
     "fields": {
-        "operator": "712b0506-8b1d-4381-b9bc-a476aea0425f",
+        "operator": "66ff7549-5737-495d-965b-2d93c0bc5b5e",
         "person": "ceb52659-977e-4b67-82b7-809c7090b120",
-        "photo": "https://i.imgur.com/3j5jWDt.png",        
-        "address": "3618160d-cd9e-4b9e-b535-a9dfda6b6e3e",
-        "identification_photo": "https://i.imgur.com/iyabToB.jpg",        
-        "created_at": "2021-03-26T20:52:48.768Z",
-        "updated_at": "2021-03-26T20:52:48.768Z",
-        "is_active": true
+        "photo": "http://meyers.com/list/index.php",
+        "address": "1cddc1fb-7c20-4847-8e39-78f80ee7d58f",
+        "identification_photo": "http://turner.biz/main.html",
+        "created_at": "2021-10-24T13:05:35.829Z",
+        "updated_at": "2021-10-24T13:05:35.829Z",
+        "is_active": false
     }
 }
 ]

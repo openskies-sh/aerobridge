@@ -1,13 +1,13 @@
 [
 {
     "model": "registry.test",
-    "pk": "da6cdfb5-0672-40e7-af51-7d2211df3e94",
+    "pk": "a596afce-8e7c-47fe-a3c6-2bbdf5ce32b1",
     "fields": {
-        "test_type": 1,
-        "taken_at": 0,
-        "name": "Advanced RPAS flying in Urban Environments",
-        "created_at": "2021-03-26T20:50:45.153Z",
-        "updated_at": "2021-03-26T20:50:45.153Z"
+        "test_type": 0,
+        "taken_at": 1,
+        "name": "Laura Brown",
+        "created_at": "2021-10-24T13:05:35.825Z",
+        "updated_at": "2021-10-24T13:05:35.825Z"
     }
 }
 ]
