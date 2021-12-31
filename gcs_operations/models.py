@@ -55,7 +55,6 @@ class FlightOperation(models.Model):
         return self.name + ' ' + self.flight_plan.name
 
 
-
 class Transaction(models.Model):
     ''' This model provides a view of all transactions in the system ''' 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -262,6 +262,42 @@ class Firmware(models.Model):
     def __str__(self):
         return self.version 
     
+class AircraftComponent(models.Model):
+    ''' This class stores details of components for an aircraft ''' 
+
+    COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),(9, _('Battery Charger')),(10, _('Telemetry Link')),(11, _('Remote Controller')),(12, _('Landing Gear')),(13, _('GPS')),(14, _('Companion Computer')),)
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    supplier_part_id = models.CharField(max_length=280, help_text="The part ID provided by the supplier / contract manufacturer")
+    name = models.CharField(max_length=280)
+    photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
+    custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
+    is_active = models.BooleanField(default= True)
+
+    history = HistoricalRecords()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)  
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class AircraftComponentSignature(models.Model):
+    ''' This model saves information about the component signature on a the block chain '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    component = models.OneToOneField(AircraftComponent,on_delete=models.CASCADE, limit_choices_to={'is_active': True},help_text="Select a component to link to")
+    signature_url = models.URLField(help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")    
+    history = HistoricalRecords()    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)    
+
+    def __unicode__(self):
+        return self.component.name 
+
+    def __str__(self):
+        return self.component.name
   
 class Aircraft(models.Model):
     AIRCRAFT_CATEGORY = ((0, _('Other')),(1, _('FIXED WING')),(2, _('ROTORCRAFT')),(3, _('LIGHTER-THAN-AIR')),(4, _('HYBRID LIFT')),(5, _('MICRO')),(6, _('SMALL')),(7, _('MEIDUM')),(8, _('Large')),)
@@ -278,6 +314,8 @@ class Aircraft(models.Model):
     photo = models.URLField(help_text="A URL of a photo of the drone", default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    components = models.ManyToManyField(AircraftComponent, related_name = 'aircraft_components',help_text="Set the components for this aircraft")
     
     history = HistoricalRecords()
 
@@ -286,33 +324,6 @@ class Aircraft(models.Model):
 
     def __str__(self):
         return self.operator.company_name +' ' + self.model
-
-# class AircraftComponent(models.Model):
-#     ''' This class stores details of components for an aircraft ''' 
-
-#     COMPONENT_TYPE = ((0, _('Frame')),(1, _('Motors')),(2, _('Electronic Speed Controller')),(3, _('Flight Controller')),(4, _('Power Distribution Board')),(5, _('Battery')),(6, _('Propellors')),(7, _('Camera')),(8, _('GPS')),(9, _('Batter Charger')),(10, _('Telemetry Link')),(11, _('Remote Controller')),(12, _('Landing Gear')),(13, _('GPS')),(14, _('Companion Computer')),)
-
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=280)
-#     photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
-#     custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
-#     is_active = models.BooleanField(default= True)
-
-#     history = HistoricalRecords()
-
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)  
-
-# class AircraftComponentSignature(models.Model):
-#     ''' This model saves information about the component signature on a the block chain '''
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     component = models.OneToOneField(AircraftComponent,on_delete=models.CASCADE)
-#     signature = models.TextField(help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
-    
-#     history = HistoricalRecords()
-    
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)    
 
 class AircraftDetail(models.Model): 
     ''' This model holds extended details of an aircraft '''
