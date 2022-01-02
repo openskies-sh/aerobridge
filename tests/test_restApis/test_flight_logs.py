@@ -97,8 +97,7 @@ class TestFlightLogs(TestApiEndpoints):
         self.assertEqual(res.status_code, status.HTTP_409_CONFLICT)
         self.assertEqual(res.json(), {'message': 'Signed log object already exists'})
 
-    # TODO: Include this test when bug in sign_log fixed
-    def exclude_test_log_sign_put_returns_200(self):
+    def test_log_sign_put_returns_200(self):
         url = reverse('log-sign', kwargs={'pk': self.get_pk_for_model('FlightLog', 1)})
 
         required_keys = {'id', 'signed_log', 'created_at', 'updated_at', 'raw_flight_log'}

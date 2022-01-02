@@ -34,7 +34,6 @@ class AerobridgeTestsBase(object):
         helper method to fix corrupted tokens during load data
         """
         for i in range(AerobridgeCredential.objects.count()):
-            # TODO: read token from AerobridgeCredential.json file
             token = self.get_key_for_model('AerobridgeCredential', 'token', i)
             pk = self.get_pk_for_model('AerobridgeCredential', i)
             cred = AerobridgeCredential.objects.get(pk=pk)
