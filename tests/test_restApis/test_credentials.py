@@ -10,7 +10,7 @@ class TestCredentials(TestApiEndpoints):
                 'Authorization', 'Activity']
 
     def setUp(self):
-        self.fixAerobridgeCredentialData()
+        self.fix_fixtures_data()
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
 
     def test_credentials_list_get_returns_200(self):

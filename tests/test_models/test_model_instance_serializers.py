@@ -24,7 +24,7 @@ class TestModelInstanceSerializers(TestModels):
                 'AerobridgeCredential', 'SignedFlightLog', 'AircraftDetail', 'AircraftComponent']
 
     def setUp(self):
-        self.fixAerobridgeCredentialData()
+        self.fix_fixtures_data()
 
     def test_digitalsky_provider_digitalsky_log_instance_serializer(self):
         digitalsky_log_serializer = DigitalSkyLogSerializer(instance=DigitalSkyLog.objects.first())
