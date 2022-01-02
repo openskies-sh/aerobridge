@@ -20,8 +20,8 @@ from .test_setup import TestModels
 class TestModelInstanceSerializers(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Manufacturer', 'Operator', 'Person', 'Test',
                 'TypeCertificate', 'Pilot', 'CloudFile', 'FlightPlan', 'FlightOperation', 'Aircraft', 'Transaction',
-                'Contact', 'DigitalSkyLog', 'Firmware', 'FlightLog', 'FlightPermission',
-                'TestValidity', 'AerobridgeCredential', 'SignedFlightLog', 'AircraftDetail']
+                'Contact', 'DigitalSkyLog', 'Firmware', 'FlightLog', 'FlightPermission', 'TestValidity',
+                'AerobridgeCredential', 'SignedFlightLog', 'AircraftDetail', 'AircraftComponent']
 
     def setUp(self):
         self.fixAerobridgeCredentialData()
@@ -165,13 +165,13 @@ class TestModelInstanceSerializers(TestModels):
     def test_registry_aircraft_instance_serializer(self):
         aircraft_serializer = AircraftSerializer(instance=Aircraft.objects.first())
         required_keys = {'id', 'flight_controller_id', 'operator', 'photo', 'category', 'flight_controller_id',
-                         'status', 'manufacturer', 'model'}
+                         'status', 'manufacturer', 'name'}
         self.assertEqual(set(aircraft_serializer.data.keys()), required_keys)
 
     def test_registry_aircraft_full_instance_serializer(self):
         aircraft_full_serializer = AircraftFullSerializer(instance=Aircraft.objects.first())
-        required_keys = {'id', 'model', 'manufacturer', 'operator', 'updated_at', 'flight_controller_id', 'photo',
-                         'category', 'status', 'created_at'}
+        required_keys = {'id', 'name', 'manufacturer', 'operator', 'updated_at', 'flight_controller_id', 'photo',
+                         'category', 'status', 'components', 'created_at'}
         self.assertEqual(set(aircraft_full_serializer.data.keys()), required_keys)
 
     def test_registry_aircraft_detail_instance_serializer(self):

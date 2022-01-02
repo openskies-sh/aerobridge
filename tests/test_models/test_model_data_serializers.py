@@ -18,7 +18,7 @@ class TestModelDataSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
                 'FlightPlan', 'TypeCertificate', 'Transaction', 'Pilot', 'FlightOperation', 'FlightLog',
-                'FlightPermission']
+                'FlightPermission', 'AircraftComponent']
 
     def _get_data_for_model(self, model_name, index=0):
         filepath = '%s%s.json' % (self.data_path, model_name)
@@ -266,7 +266,7 @@ class TestModelDataSerializers(TestModels):
         data = self._get_data_for_model('Aircraft')
         aircraft_serializer = AircraftSerializer(data=data)
         required_keys = {'flight_controller_id', 'operator', 'photo', 'category', 'flight_controller_id', 'status',
-                         'manufacturer', 'model'}
+                         'manufacturer', 'name'}
 
         self.assertTrue(aircraft_serializer.is_valid())
         self.assertEqual(set(aircraft_serializer.validated_data.keys()), required_keys)
@@ -275,7 +275,8 @@ class TestModelDataSerializers(TestModels):
     def test_registry_aircraft_full_data_serializer(self):
         data = self._get_data_for_model('Aircraft')
         aircraft_full_serializer = AircraftFullSerializer(data=data)
-        required_keys = {'model', 'manufacturer', 'operator', 'flight_controller_id', 'photo', 'category', 'status'}
+        required_keys = {'name', 'manufacturer', 'operator', 'flight_controller_id', 'photo', 'category', 'status',
+                         'components'}
 
         self.assertTrue(aircraft_full_serializer.is_valid())
         self.assertEqual(set(aircraft_full_serializer.validated_data.keys()), required_keys)

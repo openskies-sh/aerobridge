@@ -6,7 +6,7 @@ from .test_setup import TestApiEndpoints
 
 class TestSignedFlightLogs(TestApiEndpoints):
     fixtures = ['SignedFlightLog', 'FlightLog', 'FlightOperation', 'FlightPlan', 'Activity', 'Authorization', 'Pilot',
-                'Person', 'Operator', 'Address', 'Aircraft', 'Manufacturer']
+                'Person', 'Operator', 'Address', 'Aircraft', 'AircraftComponent', 'Manufacturer']
 
     def setUp(self):
         self.setUpClientCredentials([self.READ_SCOPE])

@@ -6,7 +6,8 @@ from .test_setup import TestApiEndpoints
 
 
 class TestCredentials(TestApiEndpoints):
-    fixtures = ['AerobridgeCredential', 'Aircraft', 'Manufacturer', 'Operator', 'Address', 'Authorization', 'Activity']
+    fixtures = ['AerobridgeCredential', 'Aircraft', 'AircraftComponent', 'Manufacturer', 'Operator', 'Address',
+                'Authorization', 'Activity']
 
     def setUp(self):
         self.fixAerobridgeCredentialData()
