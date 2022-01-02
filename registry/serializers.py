@@ -1,6 +1,5 @@
 from rest_framework import serializers
-import re
-from digitalsky_provider.models import Transaction
+
 from registry.models import Activity, Authorization, Operator, Contact, Aircraft, Pilot, Address, Person, Test, \
     TypeCertificate, Manufacturer, TestValidity, AircraftDetail, AircraftComponent, AircraftComponentSignature
 
@@ -18,7 +17,9 @@ class AircraftComponentSignature(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ('id', 'address_line_1', 'address_line_2', 'address_line_3', 'postcode', 'city', 'country','created_at', 'updated_at')
+        fields = ('id', 'address_line_1', 'address_line_2', 'address_line_3', 'postcode', 'city', 'country',
+                  'created_at', 'updated_at')
+
 
 class ManufacturerSerializer(serializers.ModelSerializer):
     address = AddressSerializer(read_only=True)
@@ -26,6 +27,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
         fields = ('id', 'full_name', 'common_name', 'address', 'role')
+
 
 class AuthorizationSerializer(serializers.ModelSerializer):
     risk_type = serializers.SerializerMethodField()
@@ -49,12 +51,15 @@ class AuthorizationSerializer(serializers.ModelSerializer):
 class TypeCertificateSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeCertificate
-        fields = ('id', 'type_certificate_id', 'type_certificate_issuing_country', 'type_certificate_holder','type_certificate_holder_country',)
+        fields = ('id', 'type_certificate_id', 'type_certificate_issuing_country', 'type_certificate_holder',
+                  'type_certificate_holder_country',)
+
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ('id', 'first_name', 'middle_name', 'last_name', 'email', 'created_at', 'updated_at')
+
 
 class TestsSerializer(serializers.ModelSerializer):
     test_type = serializers.SerializerMethodField()
@@ -69,6 +74,7 @@ class TestsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fields = ('id', 'test_type', 'taken_at', 'created_at', 'updated_at')
+
 
 class OperatorSerializer(serializers.ModelSerializer):
     ''' This is the default serializer for Operator '''
@@ -104,6 +110,7 @@ class PrivilegedOperatorSerializer(serializers.ModelSerializer):
         model = Operator
         fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
                   'operational_authorizations', 'authorized_activities', 'created_at', 'updated_at')
+
 
 class OperatorSelectRelatedSerializer(serializers.ModelSerializer):
     ''' This is the privileged serializer for Operator specially for law enforcement and other privileged operators '''
@@ -171,7 +178,11 @@ class OperatorSelectRelatedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Operator
-        fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address','operational_authorizations', 'authorized_activities', 'contacts', 'phone_number', 'company_number','country', 'pilots', 'aircrafts', 'created_at', 'updated_at')
+        fields = (
+            'id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
+            'operational_authorizations',
+            'authorized_activities', 'contacts', 'phone_number', 'company_number', 'country', 'pilots', 'aircrafts',
+            'created_at', 'updated_at')
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -194,6 +205,7 @@ class PilotSerializer(serializers.ModelSerializer):
     tests = serializers.SerializerMethodField()
     address = AddressSerializer(read_only=True)
     person = PersonSerializer(read_only=True)
+
     def get_tests(self, response):
         p = Pilot.objects.get(id=response.id)
         tests_validity = TestValidity.objects.filter(pilot=p)
@@ -205,13 +217,13 @@ class PilotSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pilot
-        fields = ('id', 'operator', 'person', 'photo', 'address', 'is_active','identification_photo', 'tests',)
+        fields = ('id', 'operator', 'person', 'photo', 'address', 'is_active', 'identification_photo', 'tests',)
 
-class ActivitySerializer(serializers.ModelSerializer):    
+
+class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = '__all__'
-
 
 
 class TestsValiditySerializer(serializers.ModelSerializer):
@@ -223,23 +235,21 @@ class TestsValiditySerializer(serializers.ModelSerializer):
         fields = ('id', 'tests', 'pilot', 'taken_at', 'expiration')
 
 
-
 class AircraftFullSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
         fields = '__all__'
 
+
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
-        fields = ('id', 'operator', 'manufacturer', 'name','status', 
+        fields = ('id', 'operator', 'manufacturer', 'name', 'status',
                   'category', "photo",
                   "flight_controller_id")
 
 
 class AircraftDetailSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = AircraftDetail
         fields = '__all__'

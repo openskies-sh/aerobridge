@@ -304,11 +304,15 @@ class FlightPermissionSerializer(serializers.ModelSerializer):
 
 class FlightOperationPermissionSerializer(serializers.ModelSerializer):
     ''' A serializer for Flight Operations '''
+    operation_id = serializers.SerializerMethodField()
     permission = serializers.SerializerMethodField()
 
     def get_permission(self, obj):
         permission = FlightPermission.objects.get(operation_id=obj.id)
-        return permission.json
+        return permission.token
+
+    def get_operation_id(self, obj):
+        return obj.id
 
     class Meta:
         model = FlightOperation
