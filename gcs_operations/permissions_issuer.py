@@ -24,7 +24,7 @@ def issue_permission(flight_operation_id):
         data_to_sign = PermissionObject(flight_operation_id= str(flight_operation.id), flight_plan_id= str(flight_plan.id), plan_file_hash = h_digest)    
         permission_payload = json.loads(json.dumps(dataclasses.asdict(data_to_sign)))        
         try:
-            signed_json = my_data_signer.sign_json(data_payload= permission_payload)    
+            signed_json = my_data_signer.issue_jwt_permission(data_payload= permission_payload)    
         except Exception as e: 
             logger.error("Error in getting permission JSON from Auth server %s" % e)            
             signed_json = {'error': "Permission was granted but could not sign permission object"}
