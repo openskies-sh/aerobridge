@@ -31,8 +31,13 @@ class SigningHelper():
         self.passport_url = env.get('PASSPORT_URL', None)
         self.token_url = env.get('PASSPORT_TOKEN_URL', None)
 
-    def sign_json(self, data_payload):
-
+        
+        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID')
+        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET')
+        
+        
+    def issue_jwt_permission(self, data_payload):              
+        ''' This is a method to issue a JWT token for a flight permision '''
         signed_json = None
         try:
             assert self.token_client_id is not None
@@ -61,6 +66,24 @@ class SigningHelper():
             return False
         else:
             return signed_json
+
+        
+    def sign_json(self, data_to_sign):      
+        
+        signed_json = None
+        try:
+            assert self.signing_client_id is not None
+            assert self.signing_client_secret is not None
+        except AssertionError as ae:
+            logger.warn("Client ID and Secret not set in the environment")
+        else:            
+            payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
+
+            url = env.get('FLIGHT_PASSPORT_SIGNING_URL')
+            signed_json = requests.post(url, json = payload)
+            signed_json = signed_json.json() 
+            
+        return signed_json
 
 
 def signed_flight_log_exists(flight_log):
