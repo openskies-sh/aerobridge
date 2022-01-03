@@ -1,28 +1,31 @@
 import json
 import os
 
+from django.core.management import call_command
+
 from digitalsky_provider.serializers import DigitalSkyLogSerializer
 from gcs_operations.serializers import CloudFileSerializer, FirmwareSerializer, FlightPlanSerializer, \
-    FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, \
-    TransactionSerializer, FlightLogSerializer
-from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
+    FlightOperationSerializer, FlightOperationListSerializer, FlightPermissionSerializer, FlightLogSerializer, \
+    TransactionSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer, \
+    AerobridgeCredentialPostSerializer
 from registry.serializers import PersonSerializer, ManufacturerSerializer, AddressSerializer, AuthorizationSerializer, \
     OperatorSerializer, ContactSerializer, ContactDetailSerializer, TestsSerializer, PilotSerializer, \
-    TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PilotDetailSerializer, \
-    AircraftSigningSerializer, PrivilegedOperatorSerializer, OperatorSelectRelatedSerializer, AircraftFullSerializer
+    TestsValiditySerializer, TypeCertificateSerializer, AircraftSerializer, PrivilegedOperatorSerializer, \
+    OperatorSelectRelatedSerializer, AircraftFullSerializer
 from .test_setup import TestModels
 
 
 class TestModelSerializers(TestModels):
     data_path = os.getcwd() + '/tests/fixtures/'
     fixtures = ['Activity', 'Authorization', 'Address', 'Person', 'Operator', 'Test', 'Manufacturer', 'Aircraft',
-                'FlightPlan',  'TypeCertificate', 'FlightOperation', 'Transaction']
+                'FlightPlan', 'TypeCertificate', 'Transaction', 'Pilot', 'FlightOperation']
 
-    def _get_data_for_model(self, model_name):
+    def _get_data_for_model(self, model_name, index=0):
         filepath = '%s%s.json' % (self.data_path, model_name)
         if os.path.exists(filepath):
             data = json.loads(open(filepath, 'r').read())
-            return data[0]['fields']
+            return data[index]['fields']
         else:
             raise AssertionError("File %s.json does not exists in fixtures" % model_name)
 
@@ -47,12 +50,15 @@ class TestModelSerializers(TestModels):
         self.assertNotEqual(firmware_serializer.validated_data, dict)
         self.assertEqual(firmware_serializer.errors, dict())
 
-    def test_gcs_operations_flight_plan_list_serializer(self):
+    def test_gcs_operations_flight_plan_serializer(self):
         data = self._get_data_for_model('FlightPlan')
-        flight_plan_list_serializer = FlightPlanSerializer(data=data)
-        self.assertTrue(flight_plan_list_serializer.is_valid())
-        self.assertNotEqual(flight_plan_list_serializer.validated_data, dict)
-        self.assertEqual(flight_plan_list_serializer.errors, dict())
+        # plan_file_json and geo_json are JSONFields
+        data['plan_file_json'] = json.loads(data['plan_file_json'])
+        data['geo_json'] = json.loads(data['geo_json'])
+        flight_plan_serializer = FlightPlanSerializer(data=data)
+        self.assertTrue(flight_plan_serializer.is_valid())
+        self.assertNotEqual(flight_plan_serializer.validated_data, dict)
+        self.assertEqual(flight_plan_serializer.errors, dict())
 
     def test_gcs_operations_flight_operation_serializer(self):
         data = self._get_data_for_model('FlightOperation')
@@ -153,12 +159,11 @@ class TestModelSerializers(TestModels):
         self.assertEqual(test_serializer.errors, dict())
 
     def test_registry_pilot_serializer(self):
-        data = self._get_data_for_model('Pilot')
+        data = self._get_data_for_model('Pilot', index=0)
         pilot_serializer = PilotSerializer(data=data)
         self.assertTrue(pilot_serializer.is_valid())
         self.assertNotEqual(pilot_serializer.validated_data, dict)
         self.assertEqual(pilot_serializer.errors, dict())
-
 
     def test_registry_testValidity_serializer(self):
         data = self._get_data_for_model('TestValidity')
@@ -208,3 +213,10 @@ class TestModelSerializers(TestModels):
         self.assertTrue(aerobridge_credentials_get_serializer.is_valid())
         self.assertNotEqual(aerobridge_credentials_get_serializer.validated_data, dict)
         self.assertEqual(aerobridge_credentials_get_serializer.errors, dict())
+
+    def test_pki_framweork_digitalsky_post_credentials_serializer(self):
+        data = self._get_data_for_model('AerobridgeCredential')
+        aerobridge_credentials_post_serializer = AerobridgeCredentialPostSerializer(data=data)
+        self.assertTrue(aerobridge_credentials_post_serializer.is_valid())
+        self.assertNotEqual(aerobridge_credentials_post_serializer.validated_data, dict)
+        self.assertEqual(aerobridge_credentials_post_serializer.errors, dict())
