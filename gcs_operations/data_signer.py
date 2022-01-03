@@ -30,7 +30,8 @@ class SigningHelper():
         self.token_client_secret = env.get('FLIGHT_PASSPORT_PERMISSION_CLIENT_SECRET', None)
         self.passport_url = env.get('PASSPORT_URL', None)
         self.token_url = env.get('PASSPORT_TOKEN_URL', None)
-
+        
+        self.signing_url = env.get('FLIGHT_PASSPORT_SIGNING_URL', None)
         
         self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID')
         self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET')
@@ -74,13 +75,13 @@ class SigningHelper():
         try:
             assert self.signing_client_id is not None
             assert self.signing_client_secret is not None
+            assert self.signing_url is not None
         except AssertionError as ae:
-            logger.warn("Client ID and Secret not set in the environment")
+            logger.warn("Client ID and Secret or signing URL not set in the environment")
         else:            
             payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
 
-            url = env.get('FLIGHT_PASSPORT_SIGNING_URL')
-            signed_json = requests.post(url, json = payload)
+            signed_json = requests.post(self.passport_url + self.signing_url, json = payload)
             signed_json = signed_json.json() 
             
         return signed_json
