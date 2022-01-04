@@ -271,7 +271,7 @@ class AircraftComponent(models.Model):
     supplier_part_id = models.CharField(max_length=280, help_text="The part ID provided by the supplier / contract manufacturer")
     name = models.CharField(max_length=280)
     photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")   
-    custody_on =  models.DateTimeField(blank= True, null= True, help_text="Enter a date when this component was in custody of the manufacturer")
+    custody_on =  models.DateTimeField(help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default= True)
 
     history = HistoricalRecords()
@@ -320,10 +320,10 @@ class Aircraft(models.Model):
     history = HistoricalRecords()
 
     def __unicode__(self):
-        return self.operator.company_name +' ' + self.model
+        return self.operator.company_name +' ' + self.name
 
     def __str__(self):
-        return self.operator.company_name +' ' + self.model
+        return self.operator.company_name +' ' + self.name
 
 class AircraftDetail(models.Model): 
     ''' This model holds extended details of an aircraft '''

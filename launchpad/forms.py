@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail
+from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent
 
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
@@ -210,6 +210,35 @@ class AircraftDetailCreateForm(forms.ModelForm):
     
     class Meta:
         model = AircraftDetail
+        fields = '__all__'
+
+class AircraftComponentCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("supplier_part_id"),
+                        FloatingField("name"),
+                        FloatingField("custody_on"),
+                        ),
+                    AccordionGroup("Optional Information",
+                        FloatingField("photo")                                 
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft Component Details'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-list' %}" role="button">Cancel</a>""")
+                    )
+                )     
+    
+    class Meta:
+        model = AircraftComponentSignature
         fields = '__all__'
 
 class ManufacturerCreateForm(forms.ModelForm):

@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 from registry.models import Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
+from registry.models import AircraftComponent ,  AircraftComponentSignature
 from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
@@ -20,7 +21,7 @@ from pki_framework.serializers import AerobridgeCredentialSerializer, Aerobridge
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -498,7 +499,6 @@ class AircraftCreateView(CreateView):
 
         return render(request, 'launchpad/aircraft/aircraft_create.html', context)
   
-    
 
 ### Aircraft Extended Views
     
@@ -550,6 +550,112 @@ class AircraftExtendedCreateView(CreateView):
             return redirect('aircraft-extended-list')
 
         return render(request, 'launchpad/aircraft_extended/aircraft_extended_create.html', context)
+  
+    
+
+### Aircraft Component Views
+    
+class AircraftComponentsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_components/aircraft_components_list.html'
+
+    def get(self, request):
+        queryset = AircraftComponent.objects.all()
+        return Response({'aircraft_components': queryset})
+    
+class AircraftComponentsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_components/aircraft_components_detail.html'
+
+    def get(self, request, aircraft_component_id):
+        aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+        
+        serializer = AircraftDetailSerializer(aircraft_component)
+        return Response({'serializer': serializer, 'aircraft_components': aircraft_component})
+
+class AircraftComponentsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_components/aircraft_components_update.html'
+
+    def get(self, request, aircraft_component_id):
+        aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+        serializer = AircraftDetailSerializer(aircraft_component)
+        return Response({'serializer': serializer, 'aircraft_components': aircraft_component})
+
+    def post(self, request, aircraft_detail_id):
+        aircraft_detail = get_object_or_404(AircraftComponent, pk=aircraft_detail_id)
+        serializer = AircraftDetailSerializer(aircraft_detail, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraft_components': aircraft_detail,'errors':serializer.errors})
+        serializer.save()
+        return redirect('aircraft-components-list')
+
+class AircraftComponentsCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AircraftComponentCreateForm()}
+        return render(request, 'launchpad/aircraft_components/aircraft_components_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AircraftComponentCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('aircraft-components-list')
+
+        return render(request, 'launchpad/aircraft_components/aircraft_components_create.html', context)
+  
+    
+
+### Aircraft Component Signature Views
+    
+class AircraftComponentSignaturessList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component_signatures/aircraft_component_signatures_list.html'
+
+    def get(self, request):
+        queryset = AircraftComponentSignature.objects.all()
+        return Response({'aircraft_component_signatures': queryset})
+    
+class AircraftComponentSignaturesDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component_signatures/aircraft_component_signatures_detail.html'
+
+    def get(self, request, aircraft_component_signature_id):
+        aircraft_component_signature = get_object_or_404(AircraftComponentSignature, pk=aircraft_component_signature_id)
+        
+        serializer = AircraftDetailSerializer(aircraft_component_signature)
+        return Response({'serializer': serializer, 'aircraft_component_signatures': aircraft_component_signature})
+
+class AircraftComponentSignaturesUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component_signatures/aircraft_component_signatures_update.html'
+
+    def get(self, request, aircraft_component_signature_id):
+        aircraft_component_signature = get_object_or_404(AircraftComponentSignature, pk=aircraft_component_signature_id)
+        serializer = AircraftDetailSerializer(aircraft_component_signature)
+        return Response({'serializer': serializer, 'aircraft_component_signatures': aircraft_component_signature})
+
+    def post(self, request, aircraft_component_signature_id):
+        aircraft_component_signature = get_object_or_404(AircraftComponentSignature, pk=aircraft_component_signature_id)
+        serializer = AircraftDetailSerializer(aircraft_component_signature, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraft_component_signatures': aircraft_component_signature,'errors':serializer.errors})
+        serializer.save()
+        return redirect('aircraft-component-signaturess-list')
+
+class AircraftComponentSignaturesCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AircraftDetailCreateForm()}
+        return render(request, 'launchpad/aircraft_component_signatures/aircraft_component_signatures_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AircraftDetailCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('aircraft-components-signatures-list')
+
+        return render(request, 'launchpad/aircraft_component_signatures/aircraft_component_signatures_create.html', context)
   
     
 
