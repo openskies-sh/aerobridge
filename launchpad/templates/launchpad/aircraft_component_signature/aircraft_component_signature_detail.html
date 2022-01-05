@@ -1,0 +1,41 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Component Signatures
+      </li>
+    </ol>
+  </nav>
+<div>
+<h2>Signature Details for - <a href="/launchpad/aircraft-components/{{aircraft_component_signature.component.id}}/detail">{{ aircraft_component_signature.component.name }}</a></h2>
+<br>
+<p><img src="{{aircraft_component_signature.component.photo}}" class="thumbnail"></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Component</td>
+        <td>{{ aircraft_component_signature.component.name }}</td>
+    </tr>
+    <tr>
+        <td>Signature URL</td>
+        <td><a href="{{ aircraft_component_signature.signature_url}}">{{ aircraft_component_signature.signature_url}}</a></td>    
+    </tr>
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-components-signature/{{aircraft_component_signature.id}}"><b>Update Details</b></a></p>
+
+</div>
+{% endblock %}

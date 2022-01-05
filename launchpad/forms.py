@@ -235,8 +235,36 @@ class AircraftComponentCreateForm(forms.ModelForm):
                                 Submit('submit', '+ Add Aircraft Component Details'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-list' %}" role="button">Cancel</a>""")
                     )
-                )     
-    
+                )
+        )     
+
+    class Meta:
+        model = AircraftComponent
+        fields = '__all__'
+
+class AircraftComponentSignatureCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("component"),
+                        FloatingField("signature_url"),
+                    
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft Component Signature Details'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-signature-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )     
+        )
+
     class Meta:
         model = AircraftComponentSignature
         fields = '__all__'

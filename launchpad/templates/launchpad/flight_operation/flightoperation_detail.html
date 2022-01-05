@@ -2,6 +2,16 @@
 {% load rest_framework %}
 {% load static %}{% load i18n %}
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Flights
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+       Flight Operation Detail
+      </li>
+    </ol>
+  </nav>
 <!-- Bootstrap core CSS -->
 <link href="{% static "jetway/leafletjs/leaflet.css" %}" rel="stylesheet">    
 

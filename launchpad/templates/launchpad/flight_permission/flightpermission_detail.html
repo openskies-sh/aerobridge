@@ -1,6 +1,17 @@
 {% extends "launchpad/layout.html" %}
 {% load rest_framework %}
 {% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Flights
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Flight Permission Details
+      </li>
+    </ol>
+  </nav>
 <div class="row mb-3">
     <h1>Permission Details</h1>
     <p>Please find below the details of flight permission artefacts applied downloaded from Digital Sky.</p>

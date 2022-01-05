@@ -47,15 +47,15 @@ urlpatterns = [
     path('aircraft-extended/<uuid:aircraft_detail_id>/detail', launchpad_views.AircraftExtendedDetail.as_view(), name='aircraft-extended-detail'),
     path('aircraft-extended/new', launchpad_views.AircraftExtendedCreateView.as_view(), name='aircraft-extended-create'),
  
+    path('aircraft-components-signature', launchpad_views.AircraftComponentSignaturesList.as_view(), name='aircraft-components-signature-list'),
+    path('aircraft-components-signature/<uuid:aircraft_component_signature_id>', launchpad_views.AircraftComponentSignaturesUpdate.as_view(), name='aircraft-components-signature-update'),
+    path('aircraft-components-signature/<uuid:aircraft_component_signature_id>/detail', launchpad_views.AircraftComponentSignaturesDetail.as_view(), name='aircraft-components-signature-detail'),
+    path('aircraft-components-signature/new', launchpad_views.AircraftComponentSignaturesCreateView.as_view(), name='aircraft-components-signature-create'),
+ 
     path('aircraft-components', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list'),
     path('aircraft-components/<uuid:aircraft_component_id>', launchpad_views.AircraftComponentsUpdate.as_view(), name='aircraft-components-update'),
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),
     path('aircraft-components/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
- 
-    path('aircraft-components-signature', launchpad_views.AircraftComponentSignaturesList.as_view(), name='aircraft-components-signature-list'),
-    path('aircraft-components/<uuid:aircraft_component_signature_id>', launchpad_views.AircraftComponentSignaturesUpdate.as_view(), name='aircraft-components-signature-update'),
-    path('aircraft-components-signature/<uuid:aircraft_component_signature_id>/detail', launchpad_views.AircraftComponentSignaturesDetail.as_view(), name='aircraft-components-signature-detail'),
-    path('aircraft-components-signature/new', launchpad_views.AircraftComponentSignaturesCreateView.as_view(), name='aircraft-components-signature-create'),
  
     path('manufacturers', launchpad_views.ManufacturersList.as_view(), name='manufacturers-list'),
     path('manufacturers/<uuid:manufacturer_id>', launchpad_views.ManufacturersUpdate.as_view(), name='manufacturers-update'),

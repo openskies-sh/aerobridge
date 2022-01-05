@@ -394,7 +394,7 @@
         "supplier_part_id": "x-5",
         "name": "Battery Lithium Polymer (LiPo)",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:01.164Z",
         "updated_at": "2021-12-31T13:18:01.164Z"
@@ -407,7 +407,7 @@
         "supplier_part_id": "x-10",
         "name": "Lithium Polymer Battery Charger",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:37.488Z",
         "updated_at": "2021-12-31T13:18:37.488Z"
@@ -420,7 +420,7 @@
         "supplier_part_id": "x-7",
         "name": "Companion Computer Pi Zero 2",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:16.020Z",
         "updated_at": "2021-12-31T13:18:16.020Z"
@@ -433,7 +433,7 @@
         "supplier_part_id": "x-6",
         "name": "Flight Controller Pixhawk",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:08.828Z",
         "updated_at": "2021-12-31T13:18:08.828Z"
@@ -472,7 +472,7 @@
         "supplier_part_id": "x-12",
         "name": "Remote Controller",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:55.669Z",
         "updated_at": "2021-12-31T13:18:55.669Z"
@@ -485,7 +485,7 @@
         "supplier_part_id": "x-11",
         "name": "Telemetry Link",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:47.794Z",
         "updated_at": "2021-12-31T13:18:47.794Z"
@@ -498,7 +498,7 @@
         "supplier_part_id": "x-4",
         "name": "Propellers Orange 1045",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:17:51.726Z",
         "updated_at": "2021-12-31T13:17:51.726Z"
@@ -511,7 +511,7 @@
         "supplier_part_id": "x-13",
         "name": "Landing Gear",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:19:02.717Z",
         "updated_at": "2021-12-31T13:19:02.717Z"
@@ -524,7 +524,7 @@
         "supplier_part_id": "x-8",
         "name": "Camera Arducam 2.1",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:23.160Z",
         "updated_at": "2021-12-31T13:18:23.160Z"
@@ -537,7 +537,7 @@
         "supplier_part_id": "x-9",
         "name": "GPS Ublox M8N",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:18:30.947Z",
         "updated_at": "2021-12-31T13:18:30.947Z"
@@ -550,7 +550,7 @@
         "supplier_part_id": "x-3",
         "name": "Electronic Speed Controller (ESC) 4-in-one",
         "photo": null,
-        "custody_on": null,
+        "custody_on":"2021-12-31T13:18:01.164Z" ,
         "is_active": true,
         "created_at": "2021-12-31T13:13:10.829Z",
         "updated_at": "2021-12-31T13:13:10.829Z"

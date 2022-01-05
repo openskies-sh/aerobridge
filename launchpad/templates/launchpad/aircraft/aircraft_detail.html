@@ -1,8 +1,18 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircrafts
+      </li>
+    </ol>
+  </nav>
 <div>
-<h2>Aircraft - {{ aircraft.model }}</h2>
+<h2>Aircraft - {{ aircraft.name }}</h2>
 <br>
 <p><img src="{{aircraft.photo}}" class="thumbnail"></p>
 <br>

@@ -1,6 +1,17 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
 {% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Extended Details
+      </li>
+    </ol>
+  </nav>
 <div>
 <h2>Extended detail for Aircraft - <a href="/launchpad/aircrafts/{{aircraft_extended.aircraft.id}}/detail">{{ aircraft_extended.aircraft.model }}</a></h2>
 <br>

@@ -1,23 +1,10 @@
 from rest_framework import serializers
-from registry.models import Activity, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Authorization
+from registry.models import Activity, AircraftComponentSignature, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Authorization, AircraftComponent
 from gcs_operations.models import FlightPlan
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 
-class PersonSerializer(serializers.ModelSerializer):
-         
-    # def validate(self, data):
-    #     """
-    #     Check flight plan is  valid alphanumeric
-    #     """
-        
-    #     id_isalnum = data['identification_document'].isalnum()
-    #     try:
-    #         assert id_isalnum
-    #     except AssertionError as ae:        
-    #         raise serializers.ValidationError("ID must be alpha numeric")            
-    #     else:
-    #         return data
+class PersonSerializer(serializers.ModelSerializer):         
     class Meta:
         model = Person
         fields = '__all__'
@@ -39,21 +26,16 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class OperatorSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = Operator
         fields = '__all__'
-
 
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
         fields = '__all__'
 
-
-class ManufacturerSerializer(serializers.ModelSerializer):
-    
+class ManufacturerSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Manufacturer
         fields = '__all__'
@@ -84,3 +66,13 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
         model = FlightPlan	
         exclude = '__all__'
         ordering = ['-created_at']
+
+class AircraftComponentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AircraftComponent
+        exclude = ('is_active', 'supplier_part_id', 'name',)
+
+class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AircraftComponentSignature
+        fields = '__all__'

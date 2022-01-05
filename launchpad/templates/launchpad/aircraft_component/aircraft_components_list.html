@@ -1,0 +1,40 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Components
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Aircraft Components</h2>
+    <p>A list of all the components in the company, a component can be linked to an aircraft. Below are a list of components in the management server.</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if aircraft_components %}
+            {% for aircraft_c in aircraft_components %}
+            <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_c.created_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>
+        {% endif %}
+    </ul>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Add new aircraft components</b></a></p>
+    
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}
