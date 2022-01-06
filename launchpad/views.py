@@ -468,6 +468,17 @@ class AircraftDetail(APIView):
         return Response({'serializer': serializer, 'aircraft': aircraft,'aircraft_extended':aircraft_extended})
 
 
+class AircraftComponents(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft/aircraft_components.html'
+
+    def get(self, request, aircraft_id):
+        aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
+        
+
+        serializer = AircraftFullSerializer(aircraft)
+        return Response({'serializer': serializer, 'aircraft': aircraft})
+
 class AircraftUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft/aircraft_update.html'

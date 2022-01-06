@@ -1,0 +1,37 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Extended Details
+      </li>
+    </ol>
+  </nav>
+<div>
+<h2>Compontents for <a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a></h2>
+<br>
+<p><img src="{{aircraft.photo}}" class="thumbnail"></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+
+    {% for component in aircraft.components.all %}
+    <tr>
+        <td><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.name }}</a></td>
+    </tr>
+    {% endfor %}
+    
+</table>
+<br>
+
+</div>
+{% endblock %}

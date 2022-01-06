@@ -46,7 +46,7 @@
     </tr>
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_extended %}<a class="btn btn-secondary" href="/launchpad/aircraft-extended/{{aircraft_extended.id}}/detail"><b>See extended details</b></a>{% endif %}&nbsp;&nbsp;{% if aircraft_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail"><b>See aircraft components</b></a>{% endif %}</p>
+<p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_extended %}<a class="btn btn-secondary" href="/launchpad/aircraft-extended/{{aircraft_extended.id}}/detail"><b>See extended details</b></a>{% endif %}&nbsp;&nbsp;{% if aircraft.components.all %}<a class="btn btn-secondary" href="/launchpad/aircrafts/{{aircraft.id}}/components"><b>See aircraft components</b></a>{% endif %}</p>
 
 </div>
 {% endblock %}
