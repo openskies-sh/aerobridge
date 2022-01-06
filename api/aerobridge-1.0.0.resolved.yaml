@@ -305,7 +305,7 @@ paths:
           description: "Operations retrieved successfully"
       tags:
         - Flight Operations
-    put:
+    post:
       operationId: updateFlightOperation
       summary: Create a new operation via the GCS
       description: "Create a new Flight Operation"
