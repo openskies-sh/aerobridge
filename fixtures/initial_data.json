@@ -349,26 +349,6 @@
     },
     {
       "model": "registry.manufacturer",
-      "pk": "6f9cd973-15b9-4066-b4d0-1e8bbd0f279d",
-      "fields": {
-        "full_name": "DJI Holdings Inc",
-        "common_name": "DJI",
-        "address": null,
-        "acronym": "DJI",
-        "role": "Manufacturer",
-        "country": "IRE",
-        "digital_sky_id": "",
-        "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "created_at": "2021-02-04T09:18:00.473Z",
-        "updated_at": "2021-02-04T09:18:00.493Z"
-      }
-    },
-    {
-      "model": "registry.manufacturer",
       "pk": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
       "fields": {
         "full_name": "Aerobridge Drones",
