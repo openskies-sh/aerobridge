@@ -6,10 +6,11 @@ from .test_setup import TestApiEndpoints
 
 
 class TestCredentials(TestApiEndpoints):
-    fixtures = ['AerobridgeCredential', 'Aircraft', 'Manufacturer', 'Operator', 'Address', 'Authorization', 'Activity']
+    fixtures = ['AerobridgeCredential', 'Aircraft', 'AircraftComponent', 'Manufacturer', 'Operator', 'Address',
+                'Authorization', 'Activity']
 
     def setUp(self):
-        self.fixAerobridgeCredentialData()
+        self.fix_fixtures_data()
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
 
     def test_credentials_list_get_returns_200(self):

@@ -6,9 +6,11 @@ from .test_setup import TestApiEndpoints
 
 class TestFlightLogs(TestApiEndpoints):
     fixtures = ['AerobridgeCredential', 'FlightLog', 'FlightOperation', 'FlightPlan', 'Activity', 'Operator',
-                'Authorization', 'Address', 'Pilot', 'Person', 'Aircraft', 'Manufacturer', 'SignedFlightLog']
+                'Authorization', 'Address', 'Pilot', 'Person', 'Aircraft', 'AircraftComponent', 'Manufacturer',
+                'SignedFlightLog']
 
     def setUp(self):
+        self.fix_fixtures_data()
         self.setUpClientCredentials([self.READ_SCOPE, self.WRITE_SCOPE])
 
     def test_flight_log_list_get_returns_200(self):
@@ -89,16 +91,13 @@ class TestFlightLogs(TestApiEndpoints):
         self.assertEqual(res.json(), {'message': 'No flight Log found to sign'})
 
     def test_log_sign_put_returns_409(self):
-        self.fixAerobridgeCredentialData()
         url = reverse('log-sign', kwargs={'pk': self.get_pk_for_model('FlightLog')})
 
         res = self.client.put(url)
         self.assertEqual(res.status_code, status.HTTP_409_CONFLICT)
         self.assertEqual(res.json(), {'message': 'Signed log object already exists'})
 
-    # TODO: Include this test when bug in sign_log fixed
-    def exclude_test_log_sign_put_returns_200(self):
-        self.fixAerobridgeCredentialData()
+    def test_log_sign_put_returns_200(self):
         url = reverse('log-sign', kwargs={'pk': self.get_pk_for_model('FlightLog', 1)})
 
         required_keys = {'id', 'signed_log', 'created_at', 'updated_at', 'raw_flight_log'}

@@ -9,8 +9,8 @@ from .test_setup import TestApiEndpoints
 
 
 class TestFlightOperations(TestApiEndpoints):
-    fixtures = ['FlightOperation', 'Aircraft', 'FlightPlan', 'Activity', 'Operator', 'Manufacturer', 'Address',
-                'Authorization', 'Pilot', 'Person']
+    fixtures = ['FlightOperation', 'Aircraft', 'AircraftComponent', 'FlightPlan', 'Activity', 'Operator',
+                'Manufacturer', 'Address', 'Authorization', 'Pilot', 'Person']
 
     @staticmethod
     def _patch_datetime(flight_operation):
