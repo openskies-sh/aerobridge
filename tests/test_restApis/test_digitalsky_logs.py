@@ -6,8 +6,8 @@ from .test_setup import TestApiEndpoints
 
 # TODO: Add following tests when digitalsky endpoints enabled
 class TestDigitalSkyLog(TestApiEndpoints):
-    fixtures = ['DigitalSkyLog', 'Transaction', 'Aircraft', 'Operator', 'Manufacturer', 'TypeCertificate',
-                'Address', 'Authorization', 'Activity']
+    fixtures = ['DigitalSkyLog', 'Transaction', 'Aircraft', 'AircraftComponent', 'Operator', 'Manufacturer',
+                'TypeCertificate', 'Address', 'Authorization', 'Activity']
 
     def setUp(self):
         self.setUpClientCredentials([self.READ_SCOPE])

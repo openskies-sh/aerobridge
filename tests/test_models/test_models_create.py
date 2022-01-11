@@ -1,3 +1,4 @@
+import pytz
 from django.utils import timezone
 
 from digitalsky_provider.models import DigitalSkyLog
@@ -5,13 +6,14 @@ from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transa
     SignedFlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
-    Manufacturer, Firmware, Pilot, TestValidity, Aircraft, AircraftDetail
+    Manufacturer, Firmware, Pilot, TestValidity, Aircraft, AircraftDetail, AircraftComponent, AircraftComponentSignature
 from .test_setup import TestModels
 
 
 class TestModelsCreate(TestModels):
     fixtures = ['Activity', 'Address', 'Authorization', 'Person', 'Test', 'TypeCertificate', 'Operator', 'Pilot',
-                'Manufacturer', 'Aircraft', 'FlightPlan', 'FlightOperation', 'Transaction', 'FlightLog']
+                'Manufacturer', 'Aircraft', 'FlightPlan', 'FlightOperation', 'Transaction', 'FlightLog',
+                'AircraftComponent']
 
     def test_digitalsky_provider_digitalsky_log_create(self):
         digitalsky_log = DigitalSkyLog(txn=Transaction.objects.first(), response_code=self.faker.numerify('###'),
@@ -217,6 +219,9 @@ class TestModelsCreate(TestModels):
         self.assertIn(aircraft, Aircraft.objects.all())
         self.assertEqual(aircraft.operator, Operator.objects.first())
         self.assertEqual(aircraft.manufacturer, Manufacturer.objects.first())
+        self.assertNotIn(AircraftComponent.objects.first(), aircraft.components.all())
+        aircraft.components.add(AircraftComponent.objects.first())
+        self.assertIn(AircraftComponent.objects.first(), aircraft.components.all())
 
     def test_registry_aircraft_detail_create(self):
         aircraft_detail = AircraftDetail(aircraft=Aircraft.objects.first(),
@@ -241,7 +246,7 @@ class TestModelsCreate(TestModels):
                                          master_series=self.faker.sentence(), series=self.faker.sentence(),
                                          icao_aircraft_type_designator=self.faker.numerify('#' * 4),
                                          registration_mark=self.faker.numerify('#' * 10),
-                                         commission_date=timezone.now(),
+                                         commission_date=self.faker.date_time(tzinfo=pytz.UTC),
                                          digital_sky_uin_number=self.faker.numerify('#' * 30),
                                          operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00,
                                                                                 right_digits=2),
@@ -255,6 +260,21 @@ class TestModelsCreate(TestModels):
         self.assertIn(aircraft_detail, AircraftDetail.objects.all())
         self.assertEqual(aircraft_detail.aircraft, Aircraft.objects.first())
         self.assertEqual(aircraft_detail.type_certificate, TypeCertificate.objects.first())
+
+    def test_registry_aircraft_component_create(self):
+        aircraft_component = AircraftComponent(name=self.faker.name(), supplier_part_id=self.faker.numerify('#' * 18),
+                                               photo=self.faker.uri(), custody_on=self.faker.date_time(tzinfo=pytz.UTC))
+        self.assertNotIn(aircraft_component, AircraftComponent.objects.all())
+        aircraft_component.save()
+        self.assertIn(aircraft_component, AircraftComponent.objects.all())
+
+    def test_registry_aircraft_component_signature_create(self):
+        aircraft_component_signature = AircraftComponentSignature(component=AircraftComponent.objects.first(),
+                                                                  signature_url=self.faker.uri())
+        self.assertNotIn(aircraft_component_signature, AircraftComponentSignature.objects.all())
+        aircraft_component_signature.save()
+        self.assertIn(aircraft_component_signature, AircraftComponentSignature.objects.all())
+        self.assertEqual(aircraft_component_signature.component, AircraftComponent.objects.first())
 
     def test_pki_framework_aerobridge_credential_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),

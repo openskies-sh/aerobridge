@@ -1,0 +1,15 @@
+[
+{
+    "model": "registry.aircraftcomponent",
+    "pk": "5686cff1-21aa-49a8-a47b-879badd5dae3",
+    "fields": {
+        "supplier_part_id": "598476883749395747",
+        "name": "Bethany Smith",
+        "photo": "http://www.le-humphrey.com/app/categories/list/register.htm",
+        "custody_on": "2020-10-05T18:06:40Z",
+        "is_active": true,
+        "created_at": "2022-01-02T17:22:06.387Z",
+        "updated_at": "2022-01-02T17:22:06.387Z"
+    }
+}
+]
