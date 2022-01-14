@@ -24,7 +24,7 @@
     <ul class="list-group list-group-flush">
         {% if aircraft_component_signatures %}
             {% for aircraft_cs in aircraft_component_signatures %}
-            <li class="list-group-item">Signature for <a href="/launchpad/aircraft-components/{{aircraft_cs.id}}/detail">{{ aircraft_cs.component.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_cs.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/aircraft-components-signature/{{aircraft_cs.id}}/detail"> Signature for {{ aircraft_cs.component.master_component.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_cs.updated_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any component signatures, once added the list of the components will be displayed here.</i></p></li>
