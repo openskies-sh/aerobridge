@@ -26,7 +26,7 @@
 
     {% for component in aircraft.components.all %}
     <tr>
-        <td><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.name }}</a></td>
+        <td><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.master_component.name }}</a></td>
     </tr>
     {% endfor %}
     

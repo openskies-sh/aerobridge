@@ -13,9 +13,8 @@
     </ol>
   </nav>
 <div>
-<h2>Signature Details for - <a href="/launchpad/aircraft-components/{{aircraft_component_signature.component.id}}/detail">{{ aircraft_component_signature.component.name }}</a></h2>
-<br>
-<p><img src="{{aircraft_component_signature.component.photo}}" class="thumbnail"></p>
+<h2>Signature Details for - <a href="/launchpad/aircraft-components/{{aircraft_component_signature.component.id}}/detail">{{ aircraft_component_signature.component.master_component.name }}</a></h2>
+
 <br>
 <table  class="table">
     <thead>
@@ -26,7 +25,7 @@
     </thead>
     <tr>
         <td>Component</td>
-        <td>{{ aircraft_component_signature.component.name }}</td>
+        <td>{{ aircraft_component_signature.component.master_component.name }}</td>
     </tr>
     <tr>
         <td>Signature URL</td>

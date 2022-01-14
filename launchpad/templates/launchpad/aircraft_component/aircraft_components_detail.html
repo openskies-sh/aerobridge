@@ -13,8 +13,7 @@
   </nav>
 <div>
 <h2>Component Detail</h2>
-<br>
-<p><img src="{{aircraft_component.photo}}" class="thumbnail"></p>
+
 <br>
 <table  class="table">
     <thead>
@@ -29,7 +28,7 @@
     </tr>
     <tr>
         <td>Name</td>
-        <td>{{ aircraft_component.name }}</td>    
+        <td>{{ aircraft_component.master_component.name }}</td>    
     </tr>
     <tr>
         <td>Custody on</td>

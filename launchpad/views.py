@@ -625,6 +625,7 @@ class AircraftComponentsDetail(APIView):
 
     def get(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+        
         aircraft_component_signature = AircraftComponentSignature.objects.get(component = aircraft_component)
         serializer = AircraftComponentSerializer(aircraft_component)
         return Response({'serializer': serializer, 'aircraft_component': aircraft_component,'aircraft_component_signature':aircraft_component_signature})
