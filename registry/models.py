@@ -403,7 +403,6 @@ class AircraftComponent(models.Model):
     supplier_part_id = models.CharField(max_length=280,
                                         help_text="The part ID provided by the supplier / contract manufacturer")
     
-    aircraft_model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Set the aircraft model associated with this component")
     master_component = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE, help_text="Set the master component associated with this component")
     custody_on = models.DateTimeField(blank=True, null=True,
                                       help_text="Enter a date when this component was in custody of the manufacturer")
