@@ -26,7 +26,7 @@
     <ul class="list-group list-group-flush">
         {% if aircrafts.results %}
             {% for aircraft in aircrafts.results %}
-            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.updated_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></li>
@@ -50,7 +50,7 @@
           {% if aircrafts.pages %}  
           <li class="page-item" aria-current="page">
             
-            <small>Page  {{aircrafts.page}} of {{ aircrafts.total }} </small>
+            <small>Page  {{aircrafts.page}} of {{ aircrafts.pages }} </small>
           </li>        
               <small></small>
           {% endif %}
