@@ -87,10 +87,10 @@ class Address(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.address_line_1
+        return self.address_line_1 + ', ' + self.city + ' ' + self.country
 
     def __str__(self):
-        return self.address_line_1
+        return self.address_line_1 + ', ' + self.city + ' ' + self.country
 
     # Create your models here.
 
@@ -339,8 +339,8 @@ class Firmware(models.Model):
         return self.version
 
 
-class AircraftComponent(models.Model):
-    ''' This class stores details of components for an aircraft '''
+class AircraftMasterComponent(models.Model):
+    ''' '''
 
     COMPONENT_TYPE = (
     (0, _('Frame')), (1, _('Motors')), (2, _('Electronic Speed Controller')), (3, _('Flight Controller')),
@@ -348,11 +348,63 @@ class AircraftComponent(models.Model):
     (9, _('Battery Charger')), (10, _('Telemetry Link')), (11, _('Remote Controller')), (12, _('Landing Gear')),
     (13, _('GPS')), (14, _('Companion Computer')),)
 
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=280)
+    family = models.IntegerField(choices=COMPONENT_TYPE, default=1,
+                                 help_text="Set the component status ")
+    drawing = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component drawing.")
+
+    history = HistoricalRecords()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class AircraftModel(models.Model):
+    ''' This is the primary bill of materials for a aircraft '''
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=280)
+    popular_name = models.CharField(max_length=140)
+    master_components = models.ManyToManyField(AircraftMasterComponent)   
+    series = models.IntegerField(default=1, help_text="Define the production series for this Aircraft MOdel") 
+    max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                        help_text="Set the endurance in minutes")
+    max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                    help_text="Set the range in kms for the drone")
+    max_speed = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                    help_text="Set the maximum speed in km/hr.")
+    dimension_length = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                           help_text="Set the length of the drone in cms")
+    dimension_breadth = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                            help_text="Set the breadth of the drone in cms")
+    dimension_height = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
+                                           help_text="Set the height of the drone in cms")
+
+    history = HistoricalRecords()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __unicode__(self):
+        return self.name + ' ' + str(self.series)
+
+    def __str__(self):
+        return self.name + ' : Series ' + str(self.series)
+
+
+class AircraftComponent(models.Model):
+    ''' This class stores details of components for an aircraft '''
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier_part_id = models.CharField(max_length=280,
                                         help_text="The part ID provided by the supplier / contract manufacturer")
-    name = models.CharField(max_length=280)
-    photo = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component.")
+    
+    aircraft_model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Set the aircraft model associated with this component")
+    master_component = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE, help_text="Set the master component associated with this component")
     custody_on = models.DateTimeField(blank=True, null=True,
                                       help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
@@ -363,10 +415,10 @@ class AircraftComponent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return self.master_component.name
 
     def __str__(self):
-        return self.name
+        return self.master_component.name
 
 
 class AircraftComponentSignature(models.Model):
@@ -381,10 +433,10 @@ class AircraftComponentSignature(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.component.name
+        return self.component.master_component.name
 
     def __str__(self):
-        return self.component.name
+        return self.component.master_component.name
 
 
 class Aircraft(models.Model):
@@ -397,7 +449,7 @@ class Aircraft(models.Model):
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE,
                                      help_text="Associate a manufacturer in the database to this aircraft")
-    name = models.CharField(max_length=280, help_text="Set the model of the aircraft")
+    name = models.CharField(max_length=280, help_text="Set the internal name of the aircraft e.g. F1 #2")
     flight_controller_id = models.CharField(
         help_text="This is the Drone ID from the RFM, if there are spaces in the ID, remove them", max_length=140,
         validators=[validate_flight_controller_id])
@@ -408,20 +460,19 @@ class Aircraft(models.Model):
 
     photo = models.URLField(help_text="A URL of a photo of the drone",
                             default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
+    model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
     components = models.ManyToManyField(AircraftComponent, related_name='aircraft_components',
                                         help_text="Set the components for this aircraft")
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
     def __unicode__(self):
-        return self.operator.company_name + ' ' + self.model
+        return self.name
 
     def __str__(self):
-        return self.operator.company_name + ' ' + self.model
-
+        return self.name
 
 class AircraftDetail(models.Model):
     ''' This model holds extended details of an aircraft '''
@@ -440,26 +491,6 @@ class AircraftDetail(models.Model):
                                                 help_text="Set the max attainable height in meters")
     is_registered = models.BooleanField(default=False,
                                         help_text="Set if the aircraft is registred with the Civil Aviation Authority")
-    max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                        help_text="Set the endurance in minutes")
-    max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                    help_text="Set the range in kms for the drone")
-    max_speed = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                    help_text="Set the maximum speed in km/hr.")
-    dimension_length = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                           help_text="Set the length of the drone in cms")
-    dimension_breadth = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                            help_text="Set the breadth of the drone in cms")
-    dimension_height = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                           help_text="Set the height of the drone in cms")
-
-    popular_name = models.CharField(max_length=280, blank=True, null=True,
-                                    help_text="Enter popular name for this aircraft")
-    make = models.CharField(max_length=280, blank=True, null=True, help_text="Enter aircraft make ")
-    master_series = models.CharField(max_length=280, blank=True, null=True,
-                                     help_text="Specify the master series, if available")
-    series = models.CharField(max_length=280, blank=True, null=True,
-                              help_text="Enter aircraft production series, if available")
     icao_aircraft_type_designator = models.CharField(blank=True, null=True, max_length=4, default='0000',
                                                      help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
     registration_mark = models.CharField(max_length=10, blank=True, null=True,

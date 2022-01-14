@@ -182,12 +182,8 @@ class AircraftDetailCreateForm(forms.ModelForm):
                         FloatingField("dimension_height"),
                         
                         ),
-                    AccordionGroup("Optional Information",
-                        FloatingField("popular_name"),
+                    AccordionGroup("Optional Information",                        
                         FloatingField("commission_date"),
-                        FloatingField("make"),
-                        FloatingField("master_series"),
-                        FloatingField("series"),
                         FloatingField("icao_aircraft_type_designator"),
                         FloatingField("registration_mark"),
                         FloatingField("digital_sky_uin_number"),

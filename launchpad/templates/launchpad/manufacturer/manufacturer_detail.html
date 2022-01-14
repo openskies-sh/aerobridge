@@ -2,7 +2,7 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Aircraft - {{ manufacturer.common_name }}</h1>
+<h1>Manufacturer - {{ manufacturer.common_name }}</h1>
 <br>
 <p></p>
 <br>
@@ -14,8 +14,16 @@
         </tr>
     </thead>
     <tr>
+        <td>Company Name</td>
+        <td>{{ manufacturer.full_name}} ({{ manufacturer.common_name}})</td>    
+    </tr>
+    <tr>
         <td>Role</td>
         <td>{{ manufacturer.role}}</td>    
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{ manufacturer.address}}</td>    
     </tr>
     <tr>
         <td>CIN Document</td>

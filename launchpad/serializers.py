@@ -70,7 +70,7 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
 class AircraftComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponent
-        exclude = ('is_active', 'supplier_part_id', 'name',)
+        exclude = ('is_active',)
 
 class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,12 +4,12 @@ from registry.models import Activity, Authorization, Operator, Contact, Aircraft
     TypeCertificate, Manufacturer, TestValidity, AircraftDetail, AircraftComponent, AircraftComponentSignature
 
 
-class AircraftComponent(serializers.ModelSerializer):
+class AircraftComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponent
         fields = '__all__'
 
-class AircraftComponentSignature(serializers.ModelSerializer):
+class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponentSignature
         fields = '__all__'

@@ -474,8 +474,6 @@ class AircraftComponents(APIView):
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        
-
         serializer = AircraftFullSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
 
@@ -570,10 +568,57 @@ class AircraftComponentsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft_component/aircraft_components_list.html'
 
-    def get(self, request):
-        queryset = AircraftComponent.objects.all()
-        return Response({'aircraft_components': queryset})
-    
+    pagination_class = StandardResultsSetPagination
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_aircraft_components(self):
+        try:
+            return AircraftComponent.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_aircraft_components()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = AircraftComponentSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = AircraftComponentSerializer(queryset, many=True)
+            data = serializer.data        
+        
+        payload = {'aircraft_components': data}
+        
+        return Response(payload)
+
+        
 class AircraftComponentsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft_component/aircraft_components_detail.html'

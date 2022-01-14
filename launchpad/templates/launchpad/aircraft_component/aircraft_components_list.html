@@ -24,13 +24,50 @@
 
     <ul class="list-group list-group-flush">
         {% if aircraft_components %}
-            {% for aircraft_c in aircraft_components %}
+            {% for aircraft_c in aircraft_components.results %}
             <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_c.updated_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>
         {% endif %}
     </ul>
+    <br>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          {% if aircraft_components.links.previous %}
+          
+          <li class="page-item">
+            <a class="page-link" href="{{ aircraft_components.links.previous }}">Previous</a>
+          </li>  
+            
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if aircraft_components.pages %}  
+          <li class="page-item" aria-current="page">
+            
+            <small>Page  {{aircraft_components.page}} of {{ aircraft_components.pages }} </small>
+          </li>        
+              <small></small>
+          {% endif %}
+          &nbsp;&nbsp;
+          {% if aircraft_components.links.next %}   
+          <li class="page-item">
+            <a class="page-link" href="{{ aircraft_components.links.next }}">Next</a>
+          </li>         
+          
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">Next</a>
+          </li>
+          {% endif %}
+      </ul>
+    </nav>
+
+    <br><br>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Add new aircraft components</b></a></p>
     
