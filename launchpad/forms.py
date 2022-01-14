@@ -122,7 +122,6 @@ class OperatorCreateForm(forms.ModelForm):
                     )
                 )     
      
-
     class Meta:
         model = Operator
         exclude = ('expiration',)
@@ -174,12 +173,6 @@ class AircraftDetailCreateForm(forms.ModelForm):
                         FloatingField("max_certified_takeoff_weight"),
                         FloatingField("max_height_attainable"),
                         FloatingField("is_registered"),
-                        FloatingField("max_endurance"),
-                        FloatingField("max_range"),
-                        FloatingField("max_speed"),
-                        FloatingField("dimension_length"),
-                        FloatingField("dimension_breadth"),
-                        FloatingField("dimension_height"),
                         
                         ),
                     AccordionGroup("Optional Information",                        
