@@ -1,4 +1,4 @@
-from registry.models import Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel
 
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
@@ -10,8 +10,8 @@ import json
 import geojson
 import arrow
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
-from crispy_forms.bootstrap import Accordion, AccordionGroup, StrictButton
+from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
+from crispy_forms.bootstrap import AccordionGroup
 from crispy_bootstrap5.bootstrap5 import FloatingField, BS5Accordion
 
 
@@ -212,11 +212,9 @@ class AircraftComponentCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("supplier_part_id"),
                         FloatingField("name"),
+                        FloatingField("master_component"),
                         FloatingField("custody_on"),
                         ),
-                    AccordionGroup("Optional Information",
-                        FloatingField("photo")                                 
-                    ),
                     HTML("""
                             <br>
                         """),
@@ -229,6 +227,70 @@ class AircraftComponentCreateForm(forms.ModelForm):
 
     class Meta:
         model = AircraftComponent
+        fields = '__all__'
+
+class AircraftMasterComponentCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("name"),
+                        FloatingField("family"),
+                        FloatingField("drawing"),
+                        ),
+                  
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft Master Component'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-master-components-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )     
+
+    class Meta:
+        model = AircraftMasterComponent
+        fields = '__all__'
+
+class AircraftModelCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("name"),
+                        FloatingField("popular_name"),
+                        FloatingField("master_components"),
+                        FloatingField("max_endurance"),
+                        FloatingField("max_range"),
+                        FloatingField("max_speed"),
+                        FloatingField("dimension_length"),
+                        FloatingField("dimension_breadth"),
+                        FloatingField("dimension_height"),
+                        ),
+                    AccordionGroup("Optional Information",
+                        FloatingField("series"),            
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft Model'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-models-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )     
+
+    class Meta:
+        model = AircraftModel
         fields = '__all__'
 
 class AircraftComponentSignatureCreateForm(forms.ModelForm):

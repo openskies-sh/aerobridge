@@ -52,7 +52,18 @@ urlpatterns = [
     path('aircraft-components-signature/<uuid:aircraft_component_signature_id>', launchpad_views.AircraftComponentSignaturesUpdate.as_view(), name='aircraft-components-signature-update'),
     path('aircraft-components-signature/<uuid:aircraft_component_signature_id>/detail', launchpad_views.AircraftComponentSignaturesDetail.as_view(), name='aircraft-components-signature-detail'),
     path('aircraft-components-signature/new', launchpad_views.AircraftComponentSignaturesCreateView.as_view(), name='aircraft-components-signature-create'),
+     
+    path('aircraft-models', launchpad_views.AircraftModelsList.as_view(), name='aircraft-models-list'),
+    path('aircraft-models/<uuid:aircraft_model_id>', launchpad_views.AircraftModelsUpdate.as_view(), name='aircraft-models-update'),
+    path('aircraft-models/<uuid:aircraft_model_id>/detail', launchpad_views.AircraftModelsDetail.as_view(), name='aircraft-models-detail'),
+    path('aircraft-models/new', launchpad_views.AircraftModelsCreateView.as_view(), name='aircraft-models-create'),
+    path('aircraft-models/<uuid:aircraft_model_id>/master-components', launchpad_views.AircraftModelMasterComponents.as_view(), name='aircraft-models-detail'),
  
+    path('aircraft-master-components', launchpad_views.AircraftMasterComponentsList.as_view(), name='aircraft-master-components-list'),
+    path('aircraft-master-components/<uuid:aircraft_master_component_id>', launchpad_views.AircraftMasterComponentsUpdate.as_view(), name='aircraft-master-components-update'),
+    path('aircraft-master-components/<uuid:aircraft_master_component_id>/detail', launchpad_views.AircraftMasterComponentsDetail.as_view(), name='aircraft-master-components-detail'),
+    path('aircraft-master-components/new', launchpad_views.AircraftMasterComponentsCreateView.as_view(), name='aircraft-master-components-create'),
+  
     path('aircraft-components', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list'),
     path('aircraft-components/<uuid:aircraft_component_id>', launchpad_views.AircraftComponentsUpdate.as_view(), name='aircraft-components-update'),
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),

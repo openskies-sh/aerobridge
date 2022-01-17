@@ -371,7 +371,7 @@ class AircraftModel(models.Model):
     name = models.CharField(max_length=280)
     popular_name = models.CharField(max_length=140)
     master_components = models.ManyToManyField(AircraftMasterComponent)   
-    series = models.IntegerField(default=1, help_text="Define the production series for this Aircraft MOdel") 
+    series = models.IntegerField(default=1, help_text="Define the production series for this Aircraft Model") 
     max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
                                         help_text="Set the endurance in minutes")
     max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,

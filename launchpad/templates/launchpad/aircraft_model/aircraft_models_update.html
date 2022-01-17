@@ -1,0 +1,29 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div class="row mb-3">
+<h2>Update details for {{ aircraft_model.name }}</h2>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+
+
+<form action="{% url 'aircraft-models-update' aircraft_model_id=aircraft_model.pk %}" method="POST">
+  
+    {% csrf_token %}
+    {% if errors %}
+
+    {% for err, val in errors.items %}
+        {% for v in val %}
+        <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    
+    {% endif %}
+    {% render_form serializer %}
+    <br>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'aircraft-models-list' %}" role="button">Cancel</a>
+</form>
+</div>
+</div>
+{% endblock %}

@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from registry.models import Activity, AircraftComponentSignature, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Authorization, AircraftComponent
+from registry.models import Activity, AircraftComponentSignature, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Manufacturer, Firmware, Contact, Pilot, Authorization, AircraftComponent
 from gcs_operations.models import FlightPlan
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
+
 
 class PersonSerializer(serializers.ModelSerializer):         
     class Meta:
@@ -75,4 +74,14 @@ class AircraftComponentSerializer(serializers.ModelSerializer):
 class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponentSignature
+        fields = '__all__'
+
+class AircraftModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AircraftModel
+        fields = '__all__'
+
+class AircraftMasterComponentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AircraftMasterComponent
         fields = '__all__'

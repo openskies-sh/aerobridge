@@ -1,0 +1,60 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Aircraft
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Model Details
+      </li>
+    </ol>
+  </nav>
+<div>
+<h2>Aircraft Model Detail</h2>
+
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Name</td>
+        <td>{{aircraft_model.name }}</td>
+    </tr>
+    <tr>
+        <td>Popular name</td>
+        <td>{{ aircraft_model.popular_name }}</td>
+    </tr>
+    <tr>
+        <td>Max. endurance</td>
+        <td>{{ aircraft_model.max_endurance}}</td>    
+    </tr>
+    <tr>
+        <td>Max. endurance</td>
+        <td>{{ aircraft_model.max_range}}</td>    
+    </tr>
+    <tr>
+        <td>Max. endurance</td>
+        <td>{{ aircraft_model.max_speed}}</td>    
+    </tr>
+    <tr>
+        <td>Dimensions</td>
+        <td>Length: {{ aircraft_model.dimension_length}}<br>
+            Breadth: {{ aircraft_model.dimension_breadth}}<br>
+            Height:  {{ aircraft_model.dimension_height}}
+
+        </td>    
+    </tr>
+    
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-models/{{aircraft_model.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_master_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-models/{{aircraft_model.id}}/master-components"><b>See master components</b></a>{% endif %}</p>
+
+</div>
+{% endblock %}

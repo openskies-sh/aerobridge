@@ -1,0 +1,43 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Components
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Aircraft Models</h2>
+    <p>A list of all the aircraft models in the company, a model have a list of master components.</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if aircraft_models %}
+            {% for aircraft_model in aircraft_models.results %}
+            <li class="list-group-item"><a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_model.updated_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>You have not added any models to assemble / manufacture, once added the list of the models will be displayed here.</i></p></li>
+        {% endif %}
+    </ul>
+    
+
+    <br><br>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/aircraft-models/new"><b>&#43; Add new aircraft models</b></a></p>
+    
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

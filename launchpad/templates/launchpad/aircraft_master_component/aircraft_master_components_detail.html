@@ -1,0 +1,44 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Aircraft
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Master Component Details
+      </li>
+    </ol>
+  </nav>
+<div>
+<h2>Master Component Detail</h2>
+
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Name</td>
+        <td>{{aircraft_master_component.name }}</td>
+    </tr>
+    <tr>
+        <td>Supplier Part ID</td>
+        <td>{{ aircraft_master_component.family }}</td>
+    </tr>
+    <tr>
+        <td>Drawing</td>
+        <td>{{ aircraft_master_component.master_component.drawing }}</td>    
+    </tr>
+    
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}"><b>Update Details</b></a></p>
+
+</div>
+{% endblock %}
