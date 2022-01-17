@@ -49,6 +49,9 @@ class DigitalSkyReadFirst(TemplateView):
     
 class FlightPermissionsReadFirst(TemplateView):
     template_name = 'launchpad/flight_permission/flight_permissions_read_first.html'
+    
+class ManufacturingReadFirst(TemplateView):
+    template_name = 'launchpad/manufacturer/manufacturing_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
