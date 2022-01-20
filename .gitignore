@@ -140,7 +140,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-aerobridge.sqlite3
+*.sqlite3
 
 # Pycharm
 .idea/

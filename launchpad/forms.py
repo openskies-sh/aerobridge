@@ -211,8 +211,8 @@ class AircraftComponentCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("supplier_part_id"),
-                        FloatingField("name"),
                         FloatingField("master_component"),
+                        FloatingField("custody_status"),
                         FloatingField("custody_on"),
                         ),
                     HTML("""

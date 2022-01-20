@@ -348,11 +348,10 @@ class AircraftMasterComponent(models.Model):
     (9, _('Battery Charger')), (10, _('Telemetry Link')), (11, _('Remote Controller')), (12, _('Landing Gear')),
     (13, _('GPS')), (14, _('Companion Computer')),)
 
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=280)
     family = models.IntegerField(choices=COMPONENT_TYPE, default=1,
-                                 help_text="Set the component status ")
+                                 help_text="Set the component family")
     drawing = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component drawing.")
 
     history = HistoricalRecords()
@@ -399,6 +398,8 @@ class AircraftModel(models.Model):
 class AircraftComponent(models.Model):
     ''' This class stores details of components for an aircraft '''
 
+    CUSTODY_STATUS = ((0, _('Created')), (1, _('Ordered')), (2, _('In Transit')), (3, _('Received')),(4, _('Installed'),))
+    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier_part_id = models.CharField(max_length=280,
                                         help_text="The part ID provided by the supplier / contract manufacturer")
@@ -408,6 +409,8 @@ class AircraftComponent(models.Model):
                                       help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
 
+    custody_status = models.IntegerField(choices=CUSTODY_STATUS, default=0,
+                                 help_text="Set the component status as it moves through the supply chain")
     history = HistoricalRecords()
 
     created_at = models.DateTimeField(auto_now_add=True)

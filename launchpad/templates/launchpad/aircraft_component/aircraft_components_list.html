@@ -24,8 +24,8 @@
 
     <ul class="list-group list-group-flush">
         {% if aircraft_components %}
-            {% for aircraft_c in aircraft_components.results %}
-            <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.supplier_part_id }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_c.updated_at }} </small></li>
+            {% for aircraft_c in aircraft_components.results %}            
+              <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.supplier_part_id }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_c.updated_at }} </small> <mark>{{ aircraft_c.get_custody_status_display }}</mark></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>
@@ -69,7 +69,7 @@
 
     <br><br>
     <br>
-    <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Add new aircraft components</b></a></p>
+    <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Create new aircraft component</b></a></p>
     
 </div>
 <div class="col-md-4 themed-grid-col"></div>
