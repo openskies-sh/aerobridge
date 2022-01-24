@@ -35,13 +35,17 @@
         <td>{{ aircraft_component.master_component.name }}</td>    
     </tr>
     <tr>
+        <td>Custody Status</td>
+        <td>{{ aircraft_component.get_custody_status_display }}</td>    
+    </tr>
+    <tr>
         <td>Custody on</td>
         <td>{{ aircraft_component.custody_on}}</td>    
     </tr>
-    <tr>
+    <!-- <tr>
         <td>Is Active:</td>
         <td>{{ aircraft_component.is_active}}</td>    
-    </tr>
+    </tr> -->
     
 </table>
 <br>
