@@ -3,10 +3,10 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        Equipment
+        Manufacturing
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Aircraft Components
+        Aircraft Master Components (BOM)
       </li>
     </ol>
   </nav>
@@ -17,15 +17,15 @@
 <div class="row mb-3">
     
     <h2>Aircraft Master Components</h2>
-    <p>A list of all the master components in the company, a master component can be linked to an aircraft model. Below are a list of master components in the management server.</p>
+    <p>A list of all the master components in the company, a master component can be linked to an aircraft model. Below are a list of master components in the management server. To see a component list for a specific model, use the Manufacturing > Models menu.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-
     <ul class="list-group list-group-flush">
         {% if aircraft_master_components %}
-            {% for aircraft_master_component in aircraft_master_components.results %}
-            <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_master_component.updated_at }} </small></li>
+
+            {% for aircraft_master_component in aircraft_master_components.results %}            
+              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>

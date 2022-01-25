@@ -13,24 +13,20 @@
     </ol>
   </nav>
 <div>
-<h2>Master Components for <a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }}</a></h2>
-<p>Below is a list of master components for the F1 drone: </p> 
+<h2>Master Components list for <a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }}</a></h2>
 <br>
+<p>Below is a list of master components for the F1 drone: </p> 
 
-<table  class="table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
 
+<div class="row mb-3">
+  <div class="col-md-8 themed-grid-col">
+  <ol class="list-group list-group-flush list-group-numbered">
     {% for component in aircraft_model.master_components.all %}
-    <tr>
-        <td><a href="/launchpad/aircraft-master-components/{{component.id}}/detail">{{ component.name }}</a></td>
-    </tr>
+      <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{component.id}}/detail">{{ component.name }}</a></li>
     {% endfor %}
-    
-</table>
+  </ol>
+</div>
+</div>
 <br>
 
 </div>

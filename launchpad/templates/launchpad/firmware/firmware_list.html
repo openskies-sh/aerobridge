@@ -3,7 +3,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        Equipment
+        Manufacturing
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         Firmwares
@@ -17,7 +17,7 @@
 <div class="row mb-3">
     
     <h2>Firmware</h2>
-    <p>Use these pages to store or link to firmwares from manufacturers, their public keys</p>
+    <p>Use these pages to store or link to released firmwares, and their hashes</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
@@ -29,9 +29,7 @@
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no firmwares added in Aerobridge, once added the list of firmwares will be displayed here.</i></p></li>
-        {% endif %}
-
-        
+        {% endif %}        
     </ul>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/firmwares/new"><b>&#43; Add a firmware</b></a></p>
