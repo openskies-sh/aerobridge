@@ -44,103 +44,105 @@
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand" aria-label="Aerobridge.io">
-            <a class="navbar-brand" href="/launchpad">Bharat Drones Ltd.</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#aerobridge_navigation" aria-controls="aerobridge_navigation" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="aerobridge_navigation">
-                <ul class="nav nav-pills">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" id="operator_dd" href="#">Operators</a>
-                        <ul class="dropdown-menu" aria-labelledby="operator_dd">
-                            <li><a class="dropdown-item" href="/launchpad/people">People</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/addresses">Addresses</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/operators">Operators</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/contacts">Contacts</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/pilots">Pilots</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/activities">Activities</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/authorizations">Authorizations</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="https://github.com/openskies-sh/qgroundcontrol">Gudardian GCS</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" href="#" id="equipment_dd">Equipment</a>
-                        <ul class="dropdown-menu" aria-labelledby="equipment_dd">
-                            <li><a class="dropdown-item" href="/launchpad/aircrafts">Aircraft</a></li>      
-                            <li><a class="dropdown-item" href="/launchpad/aircraft-components">Assembly</a></li>
-                            
-                        </ul>
-                    </li>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" id="plans_operations_dd" href="#">Trusted Flights</a>
-                        <ul class="dropdown-menu" aria-labelledby="plans_operations_dd">
-                            <li><a class="dropdown-item" href="/launchpad/flightpermissions-read-first">Read first</a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/launchpad/flightplans">Plans</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/flightoperations">Operations</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/flightpermissions">Permissions</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/launchpad/flightlogs">Flight Logs</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/signed-flightlogs">Signed Flight Logs</a></li>
-                        </ul>
-                    </li>
-                   
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" href="#" id="credentials_dd">Credentials</a>
-                        <ul class="dropdown-menu" aria-labelledby="credentials_dd">
-                            <li><a class="dropdown-item" href="/launchpad/credentials-read-first">Read First</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/launchpad/credentials">Tokens Manager</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" href="#" id="cloudfiles_dd">Files</a>
-                        <ul class="dropdown-menu" aria-labelledby="cloudfiles_dd">
-                            <li><a class="dropdown-item" href="/launchpad/cloud-files">Upload Files</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false" href="#" id="manufacturing_dd">Manufacturing</a>
-                        <ul class="dropdown-menu" aria-labelledby="manufacturing_dd">
-                            <li><a class="dropdown-item" href="/launchpad/manufacturing-read-first">Read first</a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/launchpad/manufacturers">Manufacturers</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/aircraft-models">Models</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/aircraft-master-components">BOM</a></li>
-                            <li><a class="dropdown-item" href="/launchpad/firmwares">Firmware</a></li>  
-                            
-                        </ul>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" aria-label="Aerobridge.io">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/launchpad">Bharat Drones Ltd.</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#aerobridge_navigation" aria-controls="aerobridge_navigation" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="aerobridge_navigation">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" id="operator_dd" href="#">Operators</a>
+                            <ul class="dropdown-menu" aria-labelledby="operator_dd">
+                                <li><a class="dropdown-item" href="/launchpad/people">People</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/addresses">Addresses</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/operators">Operators</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/contacts">Contacts</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/pilots">Pilots</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/activities">Activities</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/authorizations">Authorizations</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="https://github.com/openskies-sh/qgroundcontrol">Gudardian GCS</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" href="#" id="equipment_dd">Equipment</a>
+                            <ul class="dropdown-menu" aria-labelledby="equipment_dd">
+                                <li><a class="dropdown-item" href="/launchpad/aircrafts">Aircraft</a></li>      
+                                <li><a class="dropdown-item" href="/launchpad/aircraft-components">Assembly</a></li>
+                                
+                            </ul>
+                        </li>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" id="plans_operations_dd" href="#">Trusted Flights</a>
+                            <ul class="dropdown-menu" aria-labelledby="plans_operations_dd">
+                                <li><a class="dropdown-item" href="/launchpad/flightpermissions-read-first">Read first</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/launchpad/flightplans">Plans</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/flightoperations">Operations</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/flightpermissions">Permissions</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/launchpad/flightlogs">Flight Logs</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/signed-flightlogs">Signed Flight Logs</a></li>
+                            </ul>
+                        </li>
+                    
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" href="#" id="credentials_dd">Credentials</a>
+                            <ul class="dropdown-menu" aria-labelledby="credentials_dd">
+                                <li><a class="dropdown-item" href="/launchpad/credentials-read-first">Read First</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/launchpad/credentials">Tokens Manager</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" href="#" id="cloudfiles_dd">Files</a>
+                            <ul class="dropdown-menu" aria-labelledby="cloudfiles_dd">
+                                <li><a class="dropdown-item" href="/launchpad/cloud-files">Upload Files</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false" href="#" id="manufacturing_dd">Manufacturing</a>
+                            <ul class="dropdown-menu" aria-labelledby="manufacturing_dd">
+                                <li><a class="dropdown-item" href="/launchpad/manufacturing-read-first">Read first</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/launchpad/manufacturers">Manufacturers</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/aircraft-models">Models</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/aircraft-master-components">BOM</a></li>
+                                <li><a class="dropdown-item" href="/launchpad/firmwares">Firmware</a></li>  
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-
-
-        {% block navbreadcrumb %}
-        {% endblock %}
         
-        <h2 class="mt-4">&nbsp;</h2>
-        <div class="row mb-3">
-           
-            {% block content %}
+        <div class="container">
+
+
+            {% block navbreadcrumb %}
             {% endblock %}
+            
+            <h2 class="mt-4">&nbsp;</h2>
+            <div class="row mb-3">
+            
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <footer class="pt-5 my-5 text-muted border-top">
+                <p>Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our homepage</a></p>
+            </footer>
         </div>
-
-    
-
-    <footer class="pt-5 my-5 text-muted border-top">
-        <p>Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our homepage</a></p>
-    </footer>
-    </div>
 </body>
 
 <script src="{% static "jetway/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
