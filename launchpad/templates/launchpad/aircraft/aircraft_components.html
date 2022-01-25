@@ -8,29 +8,25 @@
         Equipment
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Aircraft Extended Details
+        Aircraft Assembly Details
       </li>
     </ol>
   </nav>
 <div>
-<h2>Compontents for <a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a></h2>
+<br>
+<h2>Assembly for <a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a></h2>
 <br>
 <p><img src="{{aircraft.photo}}" class="thumbnail"></p>
 <br>
-<table  class="table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
+<div class="col-md-8 themed-grid-col">
+
+  <ol class="list-group list-group-numbered list-group-flush">
 
     {% for component in aircraft.components.all %}
-    <tr>
-        <td><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.master_component.name }}</a></td>
-    </tr>
+      <li class="list-group-item"><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.master_component.name }}</a></li>
     {% endfor %}
-    
-</table>
+  </ol>
+  </div>
 <br>
 
 </div>
