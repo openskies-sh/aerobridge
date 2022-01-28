@@ -45,6 +45,7 @@
         <td> <div class="alert {% if aircraft.status == 1 %}alert-success{% else %}alert-danger{% endif %}" role="alert"> {{ aircraft.get_status_display }}</div></td>    
     </tr>
 </table>
+<p class="text-muted">Last Updated at {{aircraft.updated_at }} </p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircrafts/{{aircraft.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_extended %}<a class="btn btn-secondary" href="/launchpad/aircraft-extended/{{aircraft_extended.id}}/detail"><b>See extended details</b></a>{% endif %}&nbsp;&nbsp;{% if aircraft.components.all %}<a class="btn btn-secondary" href="/launchpad/aircrafts/{{aircraft.id}}/components"><b>See aircraft assembly</b></a>{% endif %}</p>
 

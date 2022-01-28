@@ -66,6 +66,7 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
         exclude = '__all__'
         ordering = ['-created_at']
 
+
 class AircraftComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponent

@@ -33,6 +33,8 @@
         <td><div id="flight_plan" class="map"></div></td>    
     </tr>    
 </table>
+
+<p class="text-muted">Last Updated at {{ flightplan.updated_at }} </p>
 <br>
 {% if flightplan.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightplans/{{flightplan.id}}"><b>Update Details</b></a></p>

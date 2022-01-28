@@ -23,7 +23,7 @@
   <ol class="list-group list-group-numbered list-group-flush">
 
     {% for component in aircraft.components.all %}
-      <li class="list-group-item"><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.master_component.name }}</a></li>
+      <li class="list-group-item"><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component.master_component.name }}</a> <mark>{{ component.get_custody_status_display }}</mark> <small class="text-muted">- last updated on {{ component.updated_at }}</small></li>
     {% endfor %}
   </ol>
   </div>

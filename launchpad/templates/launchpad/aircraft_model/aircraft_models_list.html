@@ -24,7 +24,7 @@
       <ul class="list-group list-group-flush">
           {% if aircraft_models %}
               {% for aircraft_model in aircraft_models.results %}
-              <li class="list-group-item"><a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_model.updated_at }} </small></li>
+              <li class="list-group-item"><a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }}</a></li>
               {% endfor %}
           {% else %}
               <li class="list-group-item"><p class="text-muted"><i>You have not added any models to assemble / manufacture, once added the list of the models will be displayed here.</i></p></li>

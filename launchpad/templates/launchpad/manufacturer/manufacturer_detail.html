@@ -2,7 +2,7 @@
 {% load rest_framework %}
 {% block content %}
 <div>
-<h1>Manufacturer - {{ manufacturer.common_name }}</h1>
+<h1>Manufacturer Details - {{ manufacturer.common_name }}</h1>
 <br>
 <p></p>
 <br>
@@ -39,6 +39,7 @@
     </tr>
 
 </table>
+<p class="text-muted">Last Updated at {{manufacturer.updated_at }} </p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/manufacturers/{{manufacturer.id}}"><b>Update Details</b></a></p>
 

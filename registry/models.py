@@ -398,7 +398,7 @@ class AircraftModel(models.Model):
 class AircraftComponent(models.Model):
     ''' This class stores details of components for an aircraft '''
 
-    CUSTODY_STATUS = ((0, _('Created')), (1, _('Ordered')), (2, _('In Transit')), (3, _('Received')),(4, _('Installed'),))
+    CUSTODY_STATUS = ((0, _('Created')), (1, _('Ordered')), (2, _('In Transit')), (3, _('Received')),(4, _('Installed'),),(5, _('Discarded / Removed'),))
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier_part_id = models.CharField(max_length=280,
@@ -502,7 +502,7 @@ class AircraftDetail(models.Model):
                                               help_text="Get a UIN number for this aircraft using the Digital Sky Portal",
                                               blank=True, null=True)
     operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)
-    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was manufactured", blank=True,
+    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was assembled / manufactured", blank=True,
                                            null=True)
     dot_permission_document = models.URLField(blank=True, null=True,
                                               help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model",
