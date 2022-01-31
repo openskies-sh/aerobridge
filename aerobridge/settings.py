@@ -139,8 +139,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DATETIME_FORMAT': "%d-%b-%Y %H:%M:%S",
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSES': (             
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
