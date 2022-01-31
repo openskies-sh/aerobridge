@@ -1,6 +1,6 @@
 Django==4.0.1
 djangorestframework==3.12.4
-pycryptodome==3.11.0
+cryptography==36.0.1
 pyjwt==2.3.0
 requests===2.26.0
 python-dotenv==0.19.1
