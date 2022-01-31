@@ -4,7 +4,7 @@ from enum import Enum
 from os import environ as env
 
 import requests
-from Crypto.Hash import SHA256
+import hashlib
 from django.core.exceptions import ObjectDoesNotExist
 from dotenv import load_dotenv, find_dotenv
 
@@ -124,8 +124,9 @@ def sign_log(flightlog_id):
 
         my_signing_helper = SigningHelper()
         try:
-            hasher = SHA256.new(minified_raw_log.encode('utf-8').strip())
-            json_to_sign = {"raw_log_id": str(flight_log.id), "digest": hasher.hexdigest()}
+            
+            sha_signature = hashlib.sha256(minified_raw_log.encode('utf-8').strip()).hexdigest()
+            json_to_sign = {"raw_log_id": str(flight_log.id), "digest": sha_signature.hexdigest()}
             signed_data = my_signing_helper.sign_json(json_to_sign)
             if signed_data is None:
                 raise Exception
