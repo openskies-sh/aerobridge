@@ -3,9 +3,7 @@ import uuid
 
 # Create your models here.
 from django.utils import timezone as tz
-from dateutil.relativedelta import relativedelta
-
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 import string, random 
 import os, random, string
 from registry.models import Aircraft,Activity, Operator, Pilot

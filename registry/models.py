@@ -5,7 +5,7 @@ from datetime import date
 from datetime import datetime
 from datetime import timezone
 from dateutil.relativedelta import relativedelta
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 from . import countries
 from simple_history.models import HistoricalRecords

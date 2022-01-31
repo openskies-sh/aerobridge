@@ -4,7 +4,7 @@ from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, Flight
 from pki_framework.models import AerobridgeCredential
 from django import forms
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 import json
 import geojson

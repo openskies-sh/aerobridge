@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.db.models.deletion import CASCADE
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from registry.models import Aircraft, Manufacturer, Operator
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError

@@ -1,8 +1,6 @@
 
 from rest_framework.decorators import api_view
-import json
 from rest_framework import status
-from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .data_definitions import FlightAuthorizationOperatorDataPayload, OperatorDataPayload
