@@ -353,9 +353,9 @@
     "fields": {
       "name": "Battery Lithium Polymer (LiPo)",
       "family": 5,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
       "created_at": "2021-12-31T13:18:01.164Z",
-      "updated_at": "2021-12-31T13:18:01.164Z"
+      "updated_at": "2022-02-07T14:57:38.764Z"
     }
   },
   {
@@ -375,9 +375,9 @@
     "fields": {
       "name": "Companion Computer Pi Zero 2",
       "family": 14,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/raspberry-pi-4-model-b-3",
       "created_at": "2021-12-31T13:18:16.020Z",
-      "updated_at": "2021-12-31T13:18:16.020Z"
+      "updated_at": "2022-02-07T14:57:27.084Z"
     }
   },
   {
@@ -386,9 +386,9 @@
     "fields": {
       "name": "Flight Controller Pixhawk",
       "family": 3,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/pixhawk-2-1-cube-1",
       "created_at": "2021-12-31T13:18:08.828Z",
-      "updated_at": "2021-12-31T13:18:08.828Z"
+      "updated_at": "2022-02-07T14:57:16.034Z"
     }
   },
   {
@@ -397,9 +397,9 @@
     "fields": {
       "name": "BLDC Motor Ready to Sky 2212 920KV",
       "family": 1,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/brushless-motor-bldc_2212-6t-2200kv-1",
       "created_at": "2021-12-31T13:12:37.688Z",
-      "updated_at": "2021-12-31T13:12:37.688Z"
+      "updated_at": "2022-02-07T14:57:08.779Z"
     }
   },
   {
@@ -408,9 +408,9 @@
     "fields": {
       "name": "Frame F450 Quad, Integrated Power Distribution Board (PDB)",
       "family": 0,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/matek-xt60-pdb-1",
       "created_at": "2021-12-31T13:12:47.739Z",
-      "updated_at": "2021-12-31T13:13:20.717Z"
+      "updated_at": "2022-02-07T14:57:59.766Z"
     }
   },
   {
@@ -463,9 +463,9 @@
     "fields": {
       "name": "Camera Arducam 2.1",
       "family": 7,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/raspberry-pi-camera-4",
       "created_at": "2021-12-31T13:18:23.160Z",
-      "updated_at": "2021-12-31T13:18:23.160Z"
+      "updated_at": "2022-02-07T14:56:38.297Z"
     }
   },
   {
@@ -474,9 +474,9 @@
     "fields": {
       "name": "GPS Ublox M8N",
       "family": 8,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/here-gps-1",
       "created_at": "2021-12-31T13:18:30.947Z",
-      "updated_at": "2021-12-31T13:18:30.947Z"
+      "updated_at": "2022-02-07T14:56:30.254Z"
     }
   },
   {
@@ -485,9 +485,9 @@
     "fields": {
       "name": "Electronic Speed Controller (ESC) 4-in-one",
       "family": 2,
-      "drawing": null,
+      "drawing": "https://grabcad.com/library/30a-esc-with-simonk-firmware-1",
       "created_at": "2021-12-31T13:13:10.829Z",
-      "updated_at": "2021-12-31T13:13:10.829Z"
+      "updated_at": "2022-02-07T14:56:21.222Z"
     }
   },
   {
@@ -529,8 +529,8 @@
       "supplier_part_id": "x-12",
       "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
       "custody_on": "2022-01-14T13:59:30Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:59:30.541Z",
       "updated_at": "2022-01-14T13:59:30.541Z"
     }
@@ -542,8 +542,8 @@
       "supplier_part_id": "x-6",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:58:43Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:58:44.030Z",
       "updated_at": "2022-01-14T13:58:44.030Z"
     }
@@ -555,8 +555,8 @@
       "supplier_part_id": "x-11",
       "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
       "custody_on": "2022-01-14T13:59:42Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:59:42.987Z",
       "updated_at": "2022-01-14T13:59:42.987Z"
     }
@@ -568,8 +568,8 @@
       "supplier_part_id": "x-5",
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "custody_on": "2022-01-14T13:55:42Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:57:27.249Z",
       "updated_at": "2022-01-14T13:57:27.249Z"
     }
@@ -581,8 +581,8 @@
       "supplier_part_id": "x-13",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "custody_on": "2022-01-14T13:47:38Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:47:38.892Z",
       "updated_at": "2022-01-14T13:47:38.892Z"
     }
@@ -594,8 +594,8 @@
       "supplier_part_id": "x-2",
       "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
       "custody_on": "2022-01-14T13:59:18Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:59:18.553Z",
       "updated_at": "2022-01-14T13:59:18.553Z"
     }
@@ -607,8 +607,8 @@
       "supplier_part_id": "x-13",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "custody_on": "2022-01-14T14:00:06Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T14:00:06.780Z",
       "updated_at": "2022-01-14T14:00:06.780Z"
     }
@@ -620,8 +620,8 @@
       "supplier_part_id": "x-3",
       "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "custody_on": "2022-01-14T13:48:11Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:48:11.376Z",
       "updated_at": "2022-01-14T13:48:11.377Z"
     }
@@ -633,8 +633,8 @@
       "supplier_part_id": "x-1",
       "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
       "custody_on": "2022-01-14T13:59:03Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:59:04.034Z",
       "updated_at": "2022-01-14T13:59:04.034Z"
     }
@@ -646,8 +646,8 @@
       "supplier_part_id": "x-6",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:58:02Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:58:02.610Z",
       "updated_at": "2022-01-14T13:58:02.610Z"
     }
@@ -659,8 +659,8 @@
       "supplier_part_id": "x-9",
       "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "custody_on": "2022-01-14T13:47:58Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:48:00.961Z",
       "updated_at": "2022-01-14T13:48:00.961Z"
     }
@@ -672,8 +672,8 @@
       "supplier_part_id": "x-5",
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "custody_on": "2022-01-14T13:45:12Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:45:13.094Z",
       "updated_at": "2022-01-14T13:45:13.094Z"
     }
@@ -685,8 +685,8 @@
       "supplier_part_id": "x-4",
       "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
       "custody_on": "2022-01-14T13:47:28Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:47:28.632Z",
       "updated_at": "2022-01-14T13:47:28.632Z"
     }
@@ -698,8 +698,8 @@
       "supplier_part_id": "x-6",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:45:57Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:45:57.959Z",
       "updated_at": "2022-01-14T13:45:57.959Z"
     }
@@ -711,8 +711,8 @@
       "supplier_part_id": "x-10",
       "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
       "custody_on": "2022-01-14T13:45:33Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:45:33.728Z",
       "updated_at": "2022-01-14T13:45:33.728Z"
     }
@@ -724,8 +724,8 @@
       "supplier_part_id": "x-10",
       "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
       "custody_on": "2022-01-14T13:57:47Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:57:47.119Z",
       "updated_at": "2022-01-14T13:57:47.119Z"
     }
@@ -737,8 +737,8 @@
       "supplier_part_id": "x-7",
       "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
       "custody_on": "2022-01-14T13:58:14Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:58:14.595Z",
       "updated_at": "2022-01-14T13:58:14.595Z"
     }
@@ -750,8 +750,8 @@
       "supplier_part_id": "x-12",
       "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
       "custody_on": "2022-01-14T13:47:00Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:47:00.285Z",
       "updated_at": "2022-01-14T13:47:00.285Z"
     }
@@ -763,8 +763,8 @@
       "supplier_part_id": "x-8",
       "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
       "custody_on": "2022-01-14T13:47:48Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:47:51.637Z",
       "updated_at": "2022-01-14T13:47:51.637Z"
     }
@@ -776,8 +776,8 @@
       "supplier_part_id": "x-4",
       "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
       "custody_on": "2022-01-14T13:59:54Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:59:54.684Z",
       "updated_at": "2022-01-14T13:59:54.684Z"
     }
@@ -789,8 +789,8 @@
       "supplier_part_id": "x-11",
       "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
       "custody_on": "2022-01-14T13:47:13Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:47:14.387Z",
       "updated_at": "2022-01-14T13:47:14.387Z"
     }
@@ -802,8 +802,8 @@
       "supplier_part_id": "x-7",
       "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
       "custody_on": "2022-01-14T13:45:46Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:45:46.334Z",
       "updated_at": "2022-01-14T13:45:46.334Z"
     }
@@ -815,8 +815,8 @@
       "supplier_part_id": "x-2",
       "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
       "custody_on": "2022-01-14T13:46:49Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:46:49.014Z",
       "updated_at": "2022-01-14T13:46:49.014Z"
     }
@@ -828,8 +828,8 @@
       "supplier_part_id": "x-1",
       "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
       "custody_on": "2022-01-14T13:46:10Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T13:46:10.397Z",
       "updated_at": "2022-01-14T13:46:10.397Z"
     }
@@ -841,8 +841,8 @@
       "supplier_part_id": "x-9",
       "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "custody_on": "2022-01-14T14:00:34Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T14:00:34.334Z",
       "updated_at": "2022-01-14T14:00:34.334Z"
     }
@@ -854,8 +854,8 @@
       "supplier_part_id": "x-8",
       "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
       "custody_on": "2022-01-14T14:00:19Z",
-      "custody_status":4,
       "is_active": true,
+      "custody_status": 4,
       "created_at": "2022-01-14T14:00:19.755Z",
       "updated_at": "2022-01-14T14:00:19.755Z"
     }
