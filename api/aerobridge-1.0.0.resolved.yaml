@@ -1044,37 +1044,35 @@ components:
             aerobridge.write: "Write data into Aerobridge"
             aerobridge.read: "Read data from Aerobridge"
 
-  schemas:
+  schemas:    
     Pilot:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUIDv4Format'
+          type: string
+          format: uuid
           readOnly: true
         operator:
-          $ref: '#/components/schemas/UUIDv4Format'
-          example: 75ea38ae-e3c1-4b8c-a09e-9644f6d651a7
+          type: string
+          description: Assign this pilot to a operator
         person:
           type: object
           properties:
             id:
-              $ref: '#/components/schemas/UUIDv4Format'
+              type: string
+              format: uuid
               readOnly: true
             first_name:
               type: string
               description: The first name of the person added to the database
               maxLength: 30
-              example: Rajesh
             middle_name:
               type: string
               nullable: true
               maxLength: 30
-              example: M
             last_name:
               type: string
-              description: The last name of the person added to the database
               maxLength: 30
-              example: Singh
             email:
               type: string
               format: email
@@ -1104,23 +1102,22 @@ components:
             d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
             [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{1,5})?(?:[/?#][^\\\
             s]*)?\\z"
         address:
           type: object
           properties:
             id:
-              $ref: '#/components/schemas/UUIDv4Format'
+              type: string
+              format: uuid
               readOnly: true
             address_line_1:
               type: string
               maxLength: 140
-              example: Ispat Bhavan
             address_line_2:
               type: string
               nullable: true
               maxLength: 140
-              example: Lodhi Road
             address_line_3:
               type: string
               nullable: true
@@ -1128,12 +1125,10 @@ components:
             postcode:
               type: string
               maxLength: 10
-              example: 160003
             city:
               type: string
               description: Set a city for this address
               maxLength: 140
-              example: Raipur
             country:
               enum:
               - IN
@@ -1154,24 +1149,12 @@ components:
         is_active:
           type: boolean
           description: Is this pilot active? If he is not working for the company
-            or has moved on, set it as inactive
-        identification_photo:
-          type: string
-          format: uri
-          maxLength: 200
-          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
-            d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
-            [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
-            -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
-            s]*)?\\z"
+            or has moved on, set it as inactive        
         tests:
-          type: array
+          type: string
           readOnly: true
       required:
       - operator
-      - address
-      - person
     Activity:
       type: object
       properties:
@@ -2033,19 +2016,23 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUIDv4Format' 
+          type: string
+          format: uuid
           readOnly: true
         full_name:
           type: string
+          description: Full legal name of the manufacturing entity
           maxLength: 140
         common_name:
           type: string
+          description: Common name for the manufacturer e.g. Skydio
           maxLength: 140
         address:
           type: object
           properties:
             id:
-              $ref: '#/components/schemas/UUIDv4Format' 
+              type: string
+              format: uuid
               readOnly: true
             address_line_1:
               type: string
@@ -2063,10 +2050,11 @@ components:
               maxLength: 10
             city:
               type: string
+              description: Set a city for this address
               maxLength: 140
             country:
               enum:
-                - IN
+              - IN
               type: string
             created_at:
               type: string
@@ -2077,14 +2065,18 @@ components:
               format: date-time
               readOnly: true
           required:
-            - address_line_1
-            - postcode
-            - city
+          - address_line_1
+          - postcode
+          - city
           readOnly: true
         role:
           type: string
           description: e.g. Reseller, distributor, OEM etc.
           maxLength: 140
+      required:
+      - full_name
+      - common_name
+      - role
 
     GeoJSON:
       type: object

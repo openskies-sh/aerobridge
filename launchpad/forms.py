@@ -38,8 +38,7 @@ class PersonCreateForm(forms.ModelForm):
                         FloatingField("country"),
                         ),
                     AccordionGroup("Optional Information",
-                        FloatingField("identification_document"),
-                        FloatingField("social_security_number"),
+                        FloatingField("documents"),                        
                         FloatingField("date_of_birth")
                         ),                                 
                     ),
@@ -182,8 +181,7 @@ class AircraftDetailCreateForm(forms.ModelForm):
                         FloatingField("digital_sky_uin_number"),
                         FloatingField("operating_frequency"),
                         FloatingField("manufactured_at"),
-                        FloatingField("dot_permission_document"),
-                        FloatingField("operations_manual_document"),
+                        FloatingField("documents"),                        
                         FloatingField("type_certificate"),
                         FloatingField("identification_photo"),
                         ),                                 
@@ -338,11 +336,7 @@ class ManufacturerCreateForm(forms.ModelForm):
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("digital_sky_id"),
-                        FloatingField("cin_document"),
-                        FloatingField("gst_document"),
-                        FloatingField("pan_card_document"),
-                        FloatingField("security_clearance_document"),
-                        FloatingField("eta_document"),
+                        FloatingField("documents"),
                         ),                                 
                     ),
                     HTML("""
@@ -356,7 +350,7 @@ class ManufacturerCreateForm(forms.ModelForm):
      
     class Meta:
         model = Manufacturer
-        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country','digital_sky_id', 'cin_document', 'gst_document','pan_card_document','security_clearance_document', 'eta_document')
+        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country','digital_sky_id', 'documents')
 
 class FirmwareCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

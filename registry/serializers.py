@@ -217,7 +217,7 @@ class PilotSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pilot
-        fields = ('id', 'operator', 'person', 'photo', 'address', 'is_active', 'identification_photo', 'tests',)
+        fields = ('id', 'operator', 'person', 'photo', 'address', 'is_active','tests',)
 
 
 class ActivitySerializer(serializers.ModelSerializer):

@@ -38,6 +38,19 @@ phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$',
                                              message="No special characters allowed in this field.")
 
+class AerobridgeDocument(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.TextField(help_text="Give a name for this document")
+    url = models.URLField(blank=True, null=True, validators=[validate_url,],
+                                              default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
 class Person(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -47,10 +60,11 @@ class Person(models.Model):
     email = models.EmailField(help_text="Associate a email address with the person, this field is required")
     phone_number = models.CharField(validators=[phone_regex], max_length=17,
                                     help_text="Associate a phone number with this person")
-    identification_document = models.URLField(blank=True, null=True, validators=[validate_url, ],
-                                              default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
+
+    documents = models.ManyToManyField(AerobridgeDocument)   
     social_security_number = models.CharField(max_length=25, blank=True, null=True,
                                               help_text="If social security / identification number is avaialble associate it with a person")
+                                
     date_of_birth = models.DateField(blank=True, null=True, help_text="Assign a date of birth with this person")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -239,10 +253,9 @@ class Pilot(models.Model):
                             help_text="A URL to link to a photo of the pilot")
 
     address = models.ForeignKey(Address, models.CASCADE, help_text="Assign a address to this Pilot")
-    identification_photo = models.URLField(
-        default='https://github.com/openskies-sh/aerobridge/blob/master/sample-data/id-card-sample.jpeg',
-        validators=[validate_url, ], help_text="A URL to link to a photo of and ID document of the pilot")
-
+    
+    documents = models.ManyToManyField(AerobridgeDocument)   
+                                
     tests = models.ManyToManyField(Test, through='TestValidity',
                                    help_text="Specify the tests if any the pilot has taken")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -292,22 +305,9 @@ class Manufacturer(models.Model):
                                help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
     digital_sky_id = models.CharField(max_length=140, default="NA",
                                       help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
-
-    cin_document = models.URLField(help_text='Link to certificate of Incorporation issued by ROC, MCA',
-                                   default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf')
-    gst_document = models.URLField(help_text='Link to GST certification document',
-                                   default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                   validators=[validate_url])
-    pan_card_document = models.URLField(help_text='URL of Manufacturers PAN Card scan',
-                                        default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                        validators=[validate_url])
-    security_clearance_document = models.URLField(help_text='Link to Security Clearance from Ministry of Home Affairs',
-                                                  default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                                  validators=[validate_url])
-    eta_document = models.URLField(help_text='Link to Equipment Type Approval (ETA) from WPC Wing',
-                                   default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                   validators=[validate_url])
-
+    
+    documents = models.ManyToManyField(AerobridgeDocument)   
+                                
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -504,13 +504,10 @@ class AircraftDetail(models.Model):
     operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)
     manufactured_at = models.DateTimeField(help_text="Set the date when the drone was assembled / manufactured", blank=True,
                                            null=True)
-    dot_permission_document = models.URLField(blank=True, null=True,
-                                              help_text="Link to Purchased RPA has ETA from WPC Wing, DoT for operating in the de-licensed frequency band(s). Such approval shall be valid for a particular make and model",
-                                              default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                              validators=[validate_url])
-    operations_manual_document = models.URLField(blank=True, null=True, help_text="Link to Operation Manual Document",
-                                                 default='https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf',
-                                                 validators=[validate_url])
+
+    
+    documents = models.ManyToManyField(AerobridgeDocument)   
+                                                                
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank=True, null=True,
                                          help_text="Set the type certificate if available for the drone")
 

@@ -83,7 +83,6 @@ class TestModelsCreate(TestModels):
     def test_registry_person_create(self):
         person = Person(first_name=self.faker.first_name(), last_name=self.faker.last_name(), email=self.faker.email(),
                         phone_number=self.faker.numerify('+' + '#' * 9),
-                        identification_document=self.faker.url(),
                         social_security_number=self.faker.ssn(), date_of_birth=self.faker.date_of_birth())
         self.assertNotIn(person, Person.objects.all())
         person.save()
@@ -248,8 +247,7 @@ class TestModelsCreate(TestModels):
                                          digital_sky_uin_number=self.faker.numerify('#' * 30),
                                          operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00,
                                                                                 right_digits=2),
-                                         manufactured_at=timezone.now(), dot_permission_document=self.faker.uri(),
-                                         operations_manual_document=self.faker.uri(),
+                                         manufactured_at=timezone.now(), 
                                          type_certificate=TypeCertificate.objects.first(),
                                          identification_photo=self.faker.uri())
 

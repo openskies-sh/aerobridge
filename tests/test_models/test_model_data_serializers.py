@@ -285,13 +285,12 @@ class TestModelDataSerializers(TestModels):
     def test_registry_aircraft_detail_data_serializer(self):
         data = self._get_data_for_model('AircraftDetail')
         aircraft_detail_serializer = AircraftDetailSerializer(data=data)
-        required_keys = {'mass', 'commission_date', 'max_speed','dot_permission_document',
+        required_keys = {'mass', 'commission_date', 'max_speed',
                          'manufactured_at', 'max_endurance', 'digital_sky_uin_number', 
                          'icao_aircraft_type_designator', 'aircraft', 'type_certificate',
                          'max_certified_takeoff_weight', 'is_registered', 'registration_mark', 'dimension_length',
                          'identification_photo', 'operating_frequency', 'max_range', 
-                         'max_height_attainable', 'dimension_height', 'sub_category', 'dimension_breadth',
-                         'operations_manual_document'}
+                         'max_height_attainable', 'dimension_height', 'sub_category', 'dimension_breadth'}
 
         self.assertTrue(aircraft_detail_serializer.is_valid())
         self.assertEqual(set(aircraft_detail_serializer.validated_data.keys()), required_keys)

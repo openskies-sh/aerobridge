@@ -176,13 +176,12 @@ class TestModelInstanceSerializers(TestModels):
 
     def test_registry_aircraft_detail_instance_serializer(self):
         aircraft_detail_serializer = AircraftDetailSerializer(instance=AircraftDetail.objects.first())
-        required_keys = {'id', 'mass', 'commission_date', 'max_speed', 'dot_permission_document',
+        required_keys = {'id', 'mass', 'commission_date', 'max_speed',
                          'created_at', 'manufactured_at', 'max_endurance', 'digital_sky_uin_number', 
                          'icao_aircraft_type_designator', 'aircraft', 'updated_at', 'type_certificate',
                          'max_certified_takeoff_weight', 'is_registered', 'registration_mark', 'dimension_length',
                          'identification_photo',  'operating_frequency', 'max_range',
-                         'max_height_attainable', 'dimension_height', 'sub_category', 'dimension_breadth',
-                         'operations_manual_document'}
+                         'max_height_attainable', 'dimension_height', 'sub_category', 'dimension_breadth'}
         self.assertEqual(set(aircraft_detail_serializer.data.keys()), required_keys)
 
     def test_pki_framework_aerobridge_credentials_instance_serializer(self):

@@ -10,11 +10,6 @@
         "role": "election",
         "country": "FR",
         "digital_sky_id": "60181456752561240989",
-        "cin_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "gst_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "pan_card_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "security_clearance_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-        "eta_document": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
         "created_at": "2021-10-24T13:05:35.822Z",
         "updated_at": "2021-10-24T13:05:35.822Z"
     }
