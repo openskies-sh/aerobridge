@@ -49,7 +49,7 @@ class TestModelDataSerializers(TestModels):
     def test_gcs_operations_firmware_data_serializer(self):
         data = self._get_data_for_model('Firmware')
         firmware_serializer = FirmwareSerializer(data=data)
-        required_keys = {'is_active', 'manufacturer', 'friendly_name', 'version', 'binary_file_url', 'public_key'}
+        required_keys = {'is_active', 'manufacturer', 'friendly_name', 'version', 'binary_file_url', 'binary_file_hash'}
 
         self.assertTrue(firmware_serializer.is_valid())
         self.assertEqual(set(firmware_serializer.validated_data.keys()), required_keys)

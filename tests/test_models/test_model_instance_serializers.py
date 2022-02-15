@@ -39,7 +39,7 @@ class TestModelInstanceSerializers(TestModels):
     def test_gcs_operations_firmware_instance_serializer(self):
         firmware_serializer = FirmwareSerializer(instance=Firmware.objects.first())
         required_keys = {'id', 'is_active', 'updated_at', 'manufacturer', 'friendly_name', 'created_at', 'version',
-                         'binary_file_url', 'public_key'}
+                         'binary_file_url', 'binary_file_hash'}
         self.assertEqual(set(firmware_serializer.data.keys()), required_keys)
 
     def test_gcs_operations_flight_plan_instance_serializer(self):

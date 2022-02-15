@@ -7,11 +7,12 @@
       "middle_name": "Taral",
       "last_name": "Pavani",
       "email": "niteesh@teleworm.us",
-      "phone_number": "+9141112232",      
+      "phone_number": "+9141112232",
       "social_security_number": null,
       "date_of_birth": null,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -22,11 +23,12 @@
       "middle_name": "Kirtikumar",
       "last_name": "Kankipati",
       "email": "Rakeshk@posterous.com",
-      "phone_number": "+919122992107",      
+      "phone_number": "+919122992107",
       "social_security_number": null,
       "date_of_birth": null,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -37,11 +39,12 @@
       "middle_name": "S",
       "last_name": "Dhatri",
       "email": "rachna@hotmail.com",
-      "phone_number": "+917037380857",      
+      "phone_number": "+917037380857",
       "social_security_number": null,
       "date_of_birth": null,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -56,7 +59,8 @@
       "social_security_number": "79464412258",
       "date_of_birth": "1979-09-12",
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -205,9 +209,7 @@
       "country": "NA",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": [
-        "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
-      ],
+      "operational_authorizations": ["e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"],
       "authorized_activities": [
         "26b6a66d-5e77-4a43-94e9-630e141a1087",
         "7a875ff9-79ee-460e-816f-30360e0ac645"
@@ -231,12 +233,8 @@
       "country": "NA",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": [
-        "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
-      ],
-      "authorized_activities": [
-        "7a875ff9-79ee-460e-816f-30360e0ac645"
-      ]
+      "operational_authorizations": ["6be25abc-a43d-44d2-9c16-b8dee47bb64d"],
+      "authorized_activities": ["7a875ff9-79ee-460e-816f-30360e0ac645"]
     }
   },
   {
@@ -292,10 +290,11 @@
       "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
       "person": "5434e29a-d7e6-4462-ab30-73c7a074915c",
       "photo": "https://i.imgur.com/3j5jWDt.png",
-      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",      
+      "address": "1888d6a4-166c-47b3-b519-d78a5ca7b25d",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "is_active": true
+      "is_active": true,
+      "documents": []
     }
   },
   {
@@ -308,7 +307,8 @@
       "address": "28b2f84c-6798-49b9-9114-97d1d14f49f2",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "is_active": true
+      "is_active": true,
+      "documents": []
     }
   },
   {
@@ -331,9 +331,24 @@
       "acronym": "Aerobridge",
       "role": "OEM",
       "country": "IN",
-      "digital_sky_id": "NA",      
+      "digital_sky_id": "NA",
       "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z"
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.firmware",
+    "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
+    "fields": {
+      "binary_file_url": "https://firmware.ardupilot.org/Copter/stable-3.2.1/apm2-quad/ArduCopter.hex",
+      "binary_file_hash": "36b405fb0b2b3ef77952e8c9f170dbcf1976cb30",
+      "version": "3.2.1",
+      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
+      "friendly_name": "December-2021 release",
+      "is_active": true,
+      "created_at": "2022-02-15T21:44:29.648Z",
+      "updated_at": "2022-02-15T21:44:29.648Z"
     }
   },
   {
@@ -1180,7 +1195,8 @@
       "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
       "identification_photo": null,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -1202,7 +1218,8 @@
       "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
       "identification_photo": null,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
+      "updated_at": "2018-09-04T12:20:30Z",
+      "documents": []
     }
   },
   {
@@ -1212,11 +1229,7 @@
       "name": "Flight Plan A",
       "plan_file_json": {
         "fileType": "Plan",
-        "geoFence": {
-          "circles": [],
-          "polygons": [],
-          "version": 2
-        },
+        "geoFence": { "circles": [], "polygons": [], "version": 2 },
         "groundStation": "QGroundControl",
         "mission": {
           "cruiseSpeed": 15,
@@ -1232,15 +1245,7 @@
               "command": 22,
               "doJumpId": 1,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                50
-              ],
+              "params": [0, 0, 0, 0, 0, 0, 50],
               "type": "SimpleItem"
             },
             {
@@ -1251,15 +1256,7 @@
               "command": 16,
               "doJumpId": 2,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.73587276,
-                76.70696148,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.73587276, 76.70696148, 50],
               "type": "SimpleItem"
             },
             {
@@ -1270,15 +1267,7 @@
               "command": 16,
               "doJumpId": 3,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.72907509,
-                76.74222819,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.72907509, 76.74222819, 50],
               "type": "SimpleItem"
             },
             {
@@ -1289,30 +1278,15 @@
               "command": 16,
               "doJumpId": 4,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.71832644,
-                76.7144423,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.71832644, 76.7144423, 50],
               "type": "SimpleItem"
             }
           ],
-          "plannedHomePosition": [
-            30.74762977,
-            76.70172491,
-            325.3076307562436
-          ],
+          "plannedHomePosition": [30.74762977, 76.70172491, 325.3076307562436],
           "vehicleType": 0,
           "version": 2
         },
-        "rallyPoints": {
-          "points": [],
-          "version": 2
-        },
+        "rallyPoints": { "points": [], "version": 2 },
         "version": 1
       },
       "geo_json": {
@@ -1322,10 +1296,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.706961,
-                30.735873
-              ]
+              "coordinates": [76.706961, 30.735873]
             },
             "properties": {}
           },
@@ -1333,10 +1304,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.742228,
-                30.729075
-              ]
+              "coordinates": [76.742228, 30.729075]
             },
             "properties": {}
           },
@@ -1344,10 +1312,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.714442,
-                30.718326
-              ]
+              "coordinates": [76.714442, 30.718326]
             },
             "properties": {}
           }

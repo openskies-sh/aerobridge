@@ -322,7 +322,7 @@ class Firmware(models.Model):
     ''' A model for custom firmware '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     binary_file_url = models.URLField(help_text="Enter a url from where the firmware can be downloaded")
-    public_key = models.TextField(help_text="Enter a SHA / Digest or public key to test used to secure the firmware")
+    binary_file_hash = models.TextField(help_text="Enter a SHA / Digest for the firmware, used to secure the firmware")
     version = models.CharField(max_length=25, help_text="Set a semantic version for the firmware version")
     manufacturer = models.ForeignKey(Manufacturer, models.CASCADE, help_text="Associate a manufacturer to the firmware")
     friendly_name = models.CharField(max_length=140, help_text="Give it a friendly name e.g. May-2021 1.2 release")

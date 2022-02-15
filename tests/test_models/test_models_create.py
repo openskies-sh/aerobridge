@@ -200,7 +200,7 @@ class TestModelsCreate(TestModels):
         self.assertIn(manufacturer, Manufacturer.objects.all())
 
     def test_registry_firmware_create(self):
-        firmware = Firmware(binary_file_url=self.faker.uri(), public_key=self.faker.text(),
+        firmware = Firmware(binary_file_url=self.faker.uri(), binary_file_hash=self.faker.text(),
                             version=self.faker.pyfloat(min_value=0, max_value=10.00, right_digits=2),
                             manufacturer=Manufacturer.objects.first(), friendly_name=self.faker.name())
         self.assertNotIn(firmware, Firmware.objects.all())

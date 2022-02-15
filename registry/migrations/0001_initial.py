@@ -387,7 +387,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('binary_file_url', models.URLField(help_text='Enter a url from where the firmware can be downloaded')),
-                ('public_key', models.TextField(help_text='Enter a SHA / Digest or public key to test used to secure the firmware')),
+                ('binary_file_hash', models.TextField(help_text='Enter a SHA / Digest or public key to test used to secure the firmware')),
                 ('version', models.CharField(help_text='Set a semantic version for the firmware version', max_length=25)),
                 ('friendly_name', models.CharField(help_text='Give it a friendly name e.g. May-2021 1.2 release', max_length=140)),
                 ('is_active', models.BooleanField(default=False, help_text="Set if the firmware is active, don't forget to mark old firmware as inactive")),

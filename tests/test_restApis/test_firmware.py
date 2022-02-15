@@ -22,13 +22,13 @@ class TestFirmware(TestApiEndpoints):
 
         data = dict()
         data['binary_file_url'] = self.faker.uri()
-        data['public_key'] = self.faker.text()
+        data['binary_file_hash'] = self.faker.text()
         data['version'] = self.faker.pyfloat(min_value=0, max_value=10.00, right_digits=2)
         data['manufacturer'] = self.get_pk_for_model('Manufacturer')
         data['friendly_name'] = self.faker.sentence(nb_words=4)
         data['is_active'] = True
 
-        required_keys = {'id', 'binary_file_url', 'public_key', 'version', 'friendly_name', 'is_active', 'manufacturer',
+        required_keys = {'id', 'binary_file_url', 'binary_file_hash', 'version', 'friendly_name', 'is_active', 'manufacturer',
                          'created_at', 'updated_at'}
         res = self.client.post(url, data=data)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

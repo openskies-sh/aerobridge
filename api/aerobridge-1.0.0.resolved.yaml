@@ -1501,7 +1501,7 @@ components:
             .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
             .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
           description: The Files API provides ways to generate a URL to upload your files
-        public_key:
+        binary_file_hash:
           type: string
           description: The CRC or SHA-256 hash for the firmware
         version:
@@ -1518,7 +1518,7 @@ components:
           readOnly: true
       required:
         - binary_file_url
-        - public_key
+        - binary_file_hash
         - version
     CloudFile:
       type: object
