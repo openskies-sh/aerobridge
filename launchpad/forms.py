@@ -136,6 +136,7 @@ class AircraftCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("operator"),
                         FloatingField("manufacturer"),
+                        FloatingField("model"),
                         FloatingField("category"),
                         FloatingField("flight_controller_id"),
                         FloatingField("status"),
@@ -155,7 +156,7 @@ class AircraftCreateForm(forms.ModelForm):
 
     class Meta:
         model = Aircraft
-        fields = ('operator','manufacturer', 'name','flight_controller_id', 'category','status','photo',)
+        fields = ('operator','manufacturer', 'name','flight_controller_id', 'model','category','status','photo',)
 
 class AircraftDetailCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
