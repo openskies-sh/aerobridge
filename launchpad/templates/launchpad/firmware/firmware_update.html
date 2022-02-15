@@ -1,0 +1,17 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+<h1>Firmware Details</h1>
+
+<form action="{% url 'firmwares-detail' firmware_id=firmware.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <br>
+    <button class="btn btn-primary"  type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'firmwares-list' %}" role="button">Cancel</a>
+</form>
+
+</div>
+</div>
+{% endblock %}

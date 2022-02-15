@@ -987,10 +987,19 @@ class FirmwaresList(APIView):
     def get(self, request):
         queryset = Firmware.objects.all()
         return Response({'firmwares': queryset})
-    
+
 class FirmwaresDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/firmware/firmware_detail.html'
+
+    def get(self, request, firmware_id):
+        firmware = get_object_or_404(Firmware, pk=firmware_id)
+        serializer = FirmwareSerializer(firmware)
+        return Response({'serializer': serializer, 'firmware': firmware})
+
+class FirmwaresUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/firmware/firmware_update.html'
 
     def get(self, request, firmware_id):
         firmware = get_object_or_404(Firmware, pk=firmware_id)

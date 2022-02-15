@@ -2,16 +2,47 @@
 {% load rest_framework %}
 {% block content %}
 <div class="row mb-3">
-    <div class="col-md-6 themed-grid-col">
-<h1>Firmware Details</h1>
+    <div class="col-md-8 themed-grid-col">
+        
 
-<form action="{% url 'firmwares-detail' firmware_id=firmware.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
+<div>
+    <h2>Firmware Details</h2>
     <br>
-    <button class="btn btn-primary"  type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'firmwares-list' %}" role="button">Cancel</a>
-</form>
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Binary File Url</td>
+            <td>{{ firmware.binary_file_url }}</td>
+        </tr>
+        <tr>
+            <td>Binary File Hash</td>
+            <td>{{ firmware.binary_file_hash }}</td>
+        </tr>
+        <tr>
+            <td>Version</td>
+            <td>{{ firmware.version}}</td>    
+        </tr>
+        </tr>
+        <tr>
+            <td>Friendly Name</td>
+            <td>{{ firmware.friendly_name}}</td>    
+        </tr>
+        </tr>
+        <tr>
+            <td>Is Active?</td>
+            <td>{{ firmware.is_active}}</td>    
+        </tr>
+    </table>
+    <p class="text-muted">Last Updated at {{firmware.updated_at }} </p>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/firmwares/{{firmware.id}}"><b>Update Details</b></a></p>
+    
+    </div>
 </div>
 </div>
 {% endblock %}
