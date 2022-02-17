@@ -338,6 +338,17 @@
     }
   },
   {
+    "model": "registry.aircraftmastercomponent",
+    "pk": "06805aa1-2b11-4940-b149-41d22634c652",
+    "fields": {
+      "name": "Battery Lithium Polymer (LiPo)",
+      "family": 5,
+      "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
+      "created_at": "2021-12-31T13:18:01.164Z",
+      "updated_at": "2022-02-07T14:57:38.764Z"
+    }
+  },
+  {
     "model": "registry.firmware",
     "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
     "fields": {
@@ -349,17 +360,6 @@
       "is_active": true,
       "created_at": "2022-02-15T21:44:29.648Z",
       "updated_at": "2022-02-15T21:44:29.648Z"
-    }
-  },
-  {
-    "model": "registry.aircraftmastercomponent",
-    "pk": "06805aa1-2b11-4940-b149-41d22634c652",
-    "fields": {
-      "name": "Battery Lithium Polymer (LiPo)",
-      "family": 5,
-      "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
-      "created_at": "2021-12-31T13:18:01.164Z",
-      "updated_at": "2022-02-07T14:57:38.764Z"
     }
   },
   {
@@ -509,6 +509,7 @@
       "dimension_height": "0.00",
       "created_at": "2022-01-14T13:24:38.390Z",
       "updated_at": "2022-01-14T13:24:38.390Z",
+      "firmware":"95e150dd-c566-4515-98c1-f2838972d7b5",
       "master_components": [
         "06805aa1-2b11-4940-b149-41d22634c652",
         "06bf6b37-92db-4d9c-ad5b-7845a458fabb",

@@ -383,6 +383,7 @@ class AircraftModel(models.Model):
                                             help_text="Set the breadth of the drone in cms")
     dimension_height = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
                                            help_text="Set the height of the drone in cms")
+    firmware = models.ForeignKey(Firmware, on_delete=models.CASCADE, help_text="Associate a firmware with this aircraft model")
 
     history = HistoricalRecords()
 
