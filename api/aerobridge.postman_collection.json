@@ -2139,7 +2139,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/FfS8dHf8ARwr9jyu",
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/001C00243237511538343932",
 							"protocol": "https",
 							"host": [
 								"aerobridgetestflight",
@@ -2150,7 +2150,7 @@
 								"registry",
 								"aircraft",
 								"rfm",
-								"FfS8dHf8ARwr9jyu"
+								"001C00243237511538343932"
 							]
 						}
 					},
@@ -2224,7 +2224,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/FfS8dHf8ARwr9jyu",
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/001C00243237511538343932",
 							"protocol": "https",
 							"host": [
 								"aerobridgetestflight",
@@ -2235,7 +2235,7 @@
 								"registry",
 								"aircraft",
 								"firmware",
-								"FfS8dHf8ARwr9jyu"
+								"001C00243237511538343932"
 							]
 						}
 					},
