@@ -803,7 +803,7 @@ paths:
         
   /registry/aircraft/firmware/{flight_controller_id}:
     get:
-      operationId: Get Firmwware by Aircraft (RFM ID)
+      operationId: Get Aircraft firmware by RFM ID
       description: Retrieve, update or delete a Aircraft Firmware instance.
       parameters:
       - name: flight_controller_id
