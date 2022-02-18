@@ -342,8 +342,8 @@
     "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
     "fields": {
       "binary_file_url": "https://firmware.ardupilot.org/Copter/stable-3.2.1/apm2-quad/ArduCopter.hex",
-      "binary_file_hash": "36b405fb0b2b3ef77952e8c9f170dbcf1976cb30",
-      "version": "3.2.1",
+      "binary_file_hash": "1682fd567",
+      "version": "1.2.1",
       "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
       "friendly_name": "December-2021 release",
       "is_active": true,
