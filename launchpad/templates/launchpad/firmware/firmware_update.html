@@ -5,7 +5,7 @@
     <div class="col-md-6 themed-grid-col">
 <h1>Firmware Details</h1>
 
-<form action="{% url 'firmwares-detail' firmware_id=firmware.pk %}" method="POST">
+<form action="{% url 'firmwares-update' firmware_id=firmware.pk %}" method="POST">
     {% csrf_token %}
     {% render_form serializer %}
     <br>
