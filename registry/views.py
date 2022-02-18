@@ -3,8 +3,9 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Operator, Aircraft, Manufacturer, Pilot, Activity
-from .serializers import (OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer,PilotSerializer,ActivitySerializer,)
+from .models import Firmware, Operator, Aircraft, Manufacturer, Pilot, Activity
+from .serializers import (OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer,PilotSerializer,ActivitySerializer)
+from gcs_operations.serializers import FirmwareSerializer
 
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes
@@ -138,7 +139,36 @@ class AircraftDetail(mixins.RetrieveModelMixin,
 
 
 
-@method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class AircraftFirmwareDetail(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Aircraft instance.
+    """
+    # authentication_classes = (SessionAuthentication,TokenAuthentication)
+    # permission_classes = (IsAuthenticated,)
+
+    queryset = Aircraft.objects.all()
+    serializer_class = FirmwareSerializer
+    
+    def get_AircraftFirmware(self, flight_controller_id):
+        try:
+            a = Aircraft.objects.get(flight_controller_id=flight_controller_id)
+        except Aircraft.DoesNotExist:
+            raise Http404
+        try:
+            firmware = a.model.firmware
+        except Firmware.DoesNotExist:
+            raise Http404
+        else:
+            return firmware
+
+    def get(self, request, flight_controller_id, format=None):
+        firmware = self.get_AircraftFirmware(flight_controller_id = flight_controller_id)
+        serializer = FirmwareSerializer(firmware)
+        return Response(serializer.data)
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class AircraftRFMDetail(mixins.RetrieveModelMixin,
         generics.GenericAPIView):
     """
@@ -162,6 +192,7 @@ class AircraftRFMDetail(mixins.RetrieveModelMixin,
         aircraft = self.get_Aircraft(flight_controller_id = flight_controller_id)
         serializer = AircraftFullSerializer(aircraft)
         return Response(serializer.data)
+
 
 
 

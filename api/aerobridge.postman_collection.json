@@ -2139,7 +2139,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/FfS8dHf8ARwr9jyu",
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/001C00243237511538343932",
 							"protocol": "https",
 							"host": [
 								"aerobridgetestflight",
@@ -2150,7 +2150,92 @@
 								"registry",
 								"aircraft",
 								"rfm",
-								"FfS8dHf8ARwr9jyu"
+								"001C00243237511538343932"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Aircraft Firmware by RFM ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "scope",
+									"value": "{{aerobridge_scopes}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/001C00243237511538343932",
+							"protocol": "https",
+							"host": [
+								"aerobridgetestflight",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"registry",
+								"aircraft",
+								"firmware",
+								"001C00243237511538343932"
 							]
 						}
 					},

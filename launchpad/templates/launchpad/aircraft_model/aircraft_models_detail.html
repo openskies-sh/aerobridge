@@ -31,6 +31,10 @@
         <td>{{ aircraft_model.popular_name }}</td>
     </tr>
     <tr>
+        <td>Firmware</td>
+        <td><a href="/launchpad/firmwares/{{ aircraft_model.firmware.id }}/detail">{{ aircraft_model.firmware.friendly_name }}</a></td>
+    </tr>
+    <tr>
         <td>Maximum endurance (mins)</td>
         <td>{{ aircraft_model.max_endurance}}</td>    
     </tr>

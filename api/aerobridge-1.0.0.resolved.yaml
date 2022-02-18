@@ -800,7 +800,28 @@ paths:
           description: "Aircraft details could not be found"
       tags:
         - Aircrafts
-
+        
+  /registry/aircraft/firmware/{flight_controller_id}:
+    get:
+      operationId: Get Firmwware by Aircraft (RFM ID)
+      description: Retrieve, update or delete a Aircraft Firmware instance.
+      parameters:
+      - name: flight_controller_id
+        in: path
+        required: true
+        description: This is the Drone ID from the RFM, if there are spaces in the
+          ID, remove them
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Firmware'
+          description: ''
+      tags:
+      - Aircrafts
   /registry/operators/:
     get:
       security:

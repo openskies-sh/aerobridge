@@ -29,6 +29,8 @@ urlpatterns = [
     path('aircraft/<uuid:pk>', registryviews.AircraftDetail.as_view(), name='aircraft-detail'),
     path('aircraft/rfm/<str:flight_controller_id>', registryviews.AircraftRFMDetail.as_view(),
          name='aircraft-rfm-detail'),
+    path('aircraft/firmware/<str:flight_controller_id>', registryviews.AircraftFirmwareDetail.as_view(),
+         name='aircraft-firmware-detail'),
     path('operators/', registryviews.OperatorList.as_view(), name='operator-list'),
     path('operators/<uuid:pk>', registryviews.OperatorDetail.as_view(), name='operator-detail'),
     path('manufacturers/', registryviews.ManufacturerList.as_view(), name='manufacturer-list'),
