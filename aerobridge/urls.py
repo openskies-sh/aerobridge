@@ -26,7 +26,6 @@ urlpatterns = [
     
     path('ping/', jetwayviews.PingView.as_view(), name="ping"),
     path('', jetwayviews.HomeView.as_view()),
-    path('', include('scd_operations.urls')),
     path('admin/', admin.site.urls),
 
     path('launchpad/', include('launchpad.urls')),
