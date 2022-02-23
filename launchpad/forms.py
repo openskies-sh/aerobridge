@@ -363,7 +363,7 @@ class FirmwareCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("binary_file_url"),
-                        FloatingField("public_key"),
+                        FloatingField("binary_file_hash"),
                         FloatingField("version"),
                         FloatingField("manufacturer"),
                         FloatingField("friendly_name"),
