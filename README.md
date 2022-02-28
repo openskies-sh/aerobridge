@@ -88,7 +88,10 @@ Aerobridge provides the following toolset:
   - _Maintain equipment and personnel_: Manage drone parts and people operating them in the company
 
 - **GCS Module**
-  - [QGCS Aerobridge Trusted Flight](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
+  - [QGCS Aerobridge Trusted Flight](https://github.com/openskies-sh/qgroundcontrol) A ground control station to interact with the server and the vehicle
+
+- **Mavlink Integration**
+  - [Mavlink Aerobridge](https://github.com/openskies-sh/mavlink-aerobridge) By-pass a GCS and communicate directly with the vehicle via MavLINK
 
 - **RFM Module**
   - A customized Flight Controller Firmware and Bootloader: ([Trusted Flight RFM](https://github.com/openskies-sh/ardupilot))
