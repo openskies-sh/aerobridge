@@ -14,6 +14,11 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 - Approve flights via one-time-password like permissions
 - Integrate with UTM system of choice
 
+## Live Demo 🚀
+
+- You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
+- Take a look at the backend API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
+
 ## Webinar and pilot program ✨
 
 We work with drone manufacturers and operators to enable them to become compliant by regular onboarding run through our canary program. You can find out more about this on our regular [webinar](https://webinar.aerobridge.in).
@@ -99,11 +104,6 @@ Aerobridge provides the following toolset:
 ## References
 
 - This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
-
-## Test drive
-
-- You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
-- Take a look at the backend API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 
 ## LICENSE
 
