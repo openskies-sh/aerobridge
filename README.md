@@ -9,10 +9,9 @@ Aerobridge is management server to help you with your drone flights and operatio
 If you are a drone manufacturer, operator or just a researcher, you can benefit by adopting Aerobridge in your operational stack:
 
 - Store and approve missions
-- Prevent unauthorized use
-- Manage Personnel and Drone fleet
-- Integration with Ardupilot
-- Give flight permissions
+- Prevent unauthorized use of fleet and equipment
+- Integration with Ardupilot (PX4 coming soon)
+- Approve flights via one-time-password like permissions
 
 ## Webinar and pilot program ✨
 
@@ -80,17 +79,19 @@ sudo apt install python3-pygraphviz # Graphviz for automatically generating data
 
 Aerobridge provides the following toolset:
 
-- **Management Server**
-  - __Flight log management__: Store Bundled Logs on the server
-  - __Public Key Rotation and storage__: Submission of flight plans and fetching permission artefacts
-  - __Approve Missions__: Digitally sign mission approvals and verify on GCS and RFM side.
-  - __Maintain equipment and personnel__: Manage drone parts and people operating them in the company.
+- **Management Server**  
+  - _Assembly and supply chain management_: Develop a digital supply chain for your assembly and manufacturing operations
+  - _Flight log management_: Store Bundled Logs on the server
+  - _Public Key Rotation and storage_: Submission of flight plans and JWT based flight permissions
+  - _Approve Missions_: Digitally sign mission approvals and verify on GCS and RFM side
+  - _Maintain equipment and personnel_: Manage drone parts and people operating them in the company
+  - 
 
 - **GCS Module**
-  - [QGCS Aerobridge Guardian](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
+  - [QGCS Aerobridge Trusted Flight](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
 
 - **RFM Module**
-  - A customized Flight Controller Firmware and Bootloader: ([Guardian RFM](https://github.com/openskies-sh/ardupilot))
+  - A customized Flight Controller Firmware and Bootloader: ([Trusted Flight RFM](https://github.com/openskies-sh/ardupilot))
 
 ## References
 
