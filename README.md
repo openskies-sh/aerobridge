@@ -12,6 +12,7 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 - Prevent unauthorized use of fleet and equipment
 - Integration with Ardupilot (PX4 coming soon)
 - Approve flights via one-time-password like permissions
+- Integrate with UTM system of choice
 
 ## Webinar and pilot program ✨
 
