@@ -86,7 +86,6 @@ Aerobridge provides the following toolset:
   - _Public Key Rotation and storage_: Submission of flight plans and JWT based flight permissions
   - _Approve Missions_: Digitally sign mission approvals and verify on GCS and RFM side
   - _Maintain equipment and personnel_: Manage drone parts and people operating them in the company
-  - 
 
 - **GCS Module**
   - [QGCS Aerobridge Trusted Flight](https://github.com/openskies-sh/qgroundcontrol) Integration with GCS / RFM
