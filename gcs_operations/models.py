@@ -80,7 +80,8 @@ class FlightPermission(models.Model):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operation = models.OneToOneField(FlightOperation, models.CASCADE,related_name='Operation')    
-    token = models.JSONField(default=dict)
+    token = models.JSONField(default=dict)   
+    geo_cage = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -94,6 +95,7 @@ class FlightPermission(models.Model):
 
     def __str__(self):
         return self.operation.name
+
 
 class FlightLog(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
