@@ -38,7 +38,13 @@
         <tr>
             <td>Permission Token</td>
             <td> 
-                <code class="text-break">{{ flightpermission.token }}</code>                
+                <code class="text-break">{{ flightpermission.token|safe }}</code>                
+            </td>
+        </tr>    
+        <tr>
+            <td>Permission Geocage</td>
+            <td> 
+                <code class="text-break">{{ flightpermission.geo_cage }}</code>                
             </td>
         </tr>
     </table>
