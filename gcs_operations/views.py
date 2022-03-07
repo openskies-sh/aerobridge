@@ -148,7 +148,7 @@ class FlightOperationDetail(mixins.RetrieveModelMixin,
 
 
 @method_decorator(requires_scopes(['aerobridge.read', 'aerobridge.write']), name='dispatch')
-class FlightPermissionApplicationGenerate(APIView):
+class FlightPermissionGenerate(APIView):
 
     def put(self, request, operation_id, format=None):
         flight_operation = get_object_or_404(FlightOperation, pk=operation_id)

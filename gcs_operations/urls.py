@@ -11,8 +11,7 @@ urlpatterns = [
     
     path('flight-operations', gcs_views.FlightOperationList.as_view(), name='flight-operation-list'),
     path('flight-operations/<uuid:pk>', gcs_views.FlightOperationDetail.as_view(), name='flight-operation-detail'),
-    path("flight-operations/<uuid:operation_id>/permission", gcs_views.FlightPermissionApplicationGenerate.as_view(), name="flight-operation-permission"),    
-    path("flight-operations/<uuid:operation_id>/geocage", gcs_views.FlightOperationGeoCage.as_view(), name="flight-operation-geocage"),
+    path("flight-operations/<uuid:operation_id>/permission", gcs_views.FlightPermissionGenerate.as_view(), name="flight-operation-permission"),    
     
     path('flight-logs', gcs_views.FlightLogList.as_view(), name='log-list'),
     path('flight-logs/<uuid:pk>', gcs_views.FlightLogDetail.as_view(), name='log-detail'),

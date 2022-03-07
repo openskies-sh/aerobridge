@@ -111,3 +111,8 @@ class PlanFile:
     Version: int
     GroundStation: str = 'QGroundControl'
     
+@dataclass
+class LatLng:
+    lat:float
+    lng: float
+    
