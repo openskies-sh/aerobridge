@@ -1,4 +1,4 @@
-Django==4.0.2
+Django==4.0.3
 djangorestframework==3.13.1
 cryptography==36.0.1
 pyjwt==2.3.0
