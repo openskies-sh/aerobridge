@@ -303,10 +303,8 @@ class Manufacturer(models.Model):
     role = models.CharField(max_length=140, help_text="e.g. Reseller, distributor, OEM etc.")
     country = models.CharField(max_length=3,
                                help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
-    digital_sky_id = models.CharField(max_length=140, default="NA",
-                                      help_text="Use the Digital Sky portal to create a Manufacturer profile and get an ID, paste it here")
-    
-    documents = models.ManyToManyField(AerobridgeDocument)   
+                               
+    documents = models.ManyToManyField(AerobridgeDocument, help_text = "You can upload and associate documents to the manufacturer")   
                                 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -365,12 +363,12 @@ class AircraftMasterComponent(models.Model):
 
 class AircraftModel(models.Model):
     ''' This is the primary bill of materials for a aircraft '''
-
+    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=280)
     popular_name = models.CharField(max_length=140)
     master_components = models.ManyToManyField(AircraftMasterComponent)   
-    series = models.IntegerField(default=1, help_text="Define the production series for this Aircraft Model") 
+    series = models.CharField(max_length=10, default="2022.1", help_text="Define the production series for this Aircraft Model") 
     max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
                                         help_text="Set the endurance in minutes")
     max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,

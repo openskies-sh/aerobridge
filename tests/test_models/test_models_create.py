@@ -194,7 +194,7 @@ class TestModelsCreate(TestModels):
     def test_registry_manufacturer_create(self):
         manufacturer = Manufacturer(full_name=self.faker.company(), common_name=self.faker.company_suffix(),
                                     address=Address.objects.first(), acronym=self.faker.word(), role=self.faker.word(),
-                                    country=self.faker.country_code(), digital_sky_id=self.faker.numerify('#' * 20))
+                                    country=self.faker.country_code())
         self.assertNotIn(manufacturer, Manufacturer.objects.all())
         manufacturer.save()
         self.assertIn(manufacturer, Manufacturer.objects.all())

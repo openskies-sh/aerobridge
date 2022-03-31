@@ -274,10 +274,8 @@ class AircraftModelCreateForm(forms.ModelForm):
                         FloatingField("dimension_length"),
                         FloatingField("dimension_breadth"),
                         FloatingField("dimension_height"),
+                        FloatingField("series"),
                         ),
-                    AccordionGroup("Optional Information",
-                        FloatingField("series"),            
-                    ),
                     HTML("""
                             <br>
                         """),
@@ -336,7 +334,6 @@ class ManufacturerCreateForm(forms.ModelForm):
                         FloatingField("country"),
                         ),
                     AccordionGroup("Optional Information",
-                        FloatingField("digital_sky_id"),
                         FloatingField("documents"),
                         ),                                 
                     ),
@@ -351,7 +348,7 @@ class ManufacturerCreateForm(forms.ModelForm):
      
     class Meta:
         model = Manufacturer
-        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country','digital_sky_id', 'documents')
+        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country', 'documents')
 
 class FirmwareCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

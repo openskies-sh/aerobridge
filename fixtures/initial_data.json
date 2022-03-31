@@ -331,7 +331,6 @@
       "acronym": "Aerobridge",
       "role": "OEM",
       "country": "IN",
-      "digital_sky_id": "NA",
       "created_at": "2022-01-04T21:13:42.218Z",
       "updated_at": "2022-01-04T21:13:42.218Z",
       "documents": []
@@ -500,7 +499,7 @@
     "fields": {
       "name": "Aerobridge F1",
       "popular_name": "F1",
-      "series": 1,
+      "series": 2022.1,
       "max_endurance": "15.00",
       "max_range": "0.20",
       "max_speed": "15.00",
