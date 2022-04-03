@@ -12,7 +12,7 @@ import arrow
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import AccordionGroup
-from crispy_bootstrap5.bootstrap5 import FloatingField, BS5Accordion
+from crispy_bootstrap5.bootstrap5 import Field, FloatingField, BS5Accordion
 
 
 KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('OTHER')),)
@@ -136,7 +136,7 @@ class AircraftCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("operator"),
                         FloatingField("manufacturer"),
-                        FloatingField("model"),
+                        FloatingField("final_assembly"),
                         FloatingField("category"),
                         FloatingField("flight_controller_id"),
                         FloatingField("status"),
@@ -156,7 +156,7 @@ class AircraftCreateForm(forms.ModelForm):
 
     class Meta:
         model = Aircraft
-        fields = ('operator','manufacturer', 'name','flight_controller_id', 'model','category','status','photo',)
+        fields = ('operator','manufacturer', 'name','flight_controller_id', 'final_assembly','category','status','photo',)
 
 class AircraftDetailCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -228,6 +228,37 @@ class AircraftComponentCreateForm(forms.ModelForm):
         model = AircraftComponent
         fields = '__all__'
 
+class AircraftAssemblyCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("status"),
+                        FloatingField("model"),
+                        ),
+                  
+                    AccordionGroup("Components",
+                        Field("components"),
+                        ),
+                  
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Aircraft Assembly'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-assemblies-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )     
+
+    class Meta:
+        model = AircraftMasterComponent
+        fields = '__all__'
+
 class AircraftMasterComponentCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -267,7 +298,6 @@ class AircraftModelCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("name"),
                         FloatingField("popular_name"),
-                        FloatingField("master_components"),
                         FloatingField("max_endurance"),
                         FloatingField("max_range"),
                         FloatingField("max_speed"),
@@ -275,6 +305,9 @@ class AircraftModelCreateForm(forms.ModelForm):
                         FloatingField("dimension_breadth"),
                         FloatingField("dimension_height"),
                         FloatingField("series"),
+                        ),
+                    AccordionGroup("Master Components",
+                        Field("master_components"),
                         ),
                     HTML("""
                             <br>

@@ -440,6 +440,30 @@ class AircraftComponentSignature(models.Model):
         return self.component.master_component.name
 
 
+class AircraftAssembly(models.Model):
+    """This object stores all the details of a assembly / manufacturing processes for a drone """
+
+    STATUS_CHOICES = ((0, _('In Progress')), (1, _('Parts needed')),(2, _('Complete')),)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+
+    model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1,
+                                 help_text="Set the status of this drone assembly, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
+
+    components = models.ManyToManyField(AircraftComponent, related_name='aircraft_components',
+                                        help_text="Set the components for this aircraft")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
 class Aircraft(models.Model):
     AIRCRAFT_CATEGORY = (
     (0, _('Other')), (1, _('FIXED WING')), (2, _('ROTORCRAFT')), (3, _('LIGHTER-THAN-AIR')), (4, _('HYBRID LIFT')),
@@ -459,12 +483,9 @@ class Aircraft(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
                                  help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
 
+    final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft")
     photo = models.URLField(help_text="A URL of a photo of the drone",
                             default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
-    model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
-    components = models.ManyToManyField(AircraftComponent, related_name='aircraft_components',
-                                        help_text="Set the components for this aircraft")
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()

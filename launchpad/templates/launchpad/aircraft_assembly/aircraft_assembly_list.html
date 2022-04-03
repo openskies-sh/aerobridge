@@ -1,0 +1,40 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Assembiles
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2>Aircraft Assembly Details</h2>
+    <p>A list of all active assemblies, filter to have </p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+
+    <ul class="list-group list-group-flush">
+        {% if aircraft_assembly %}
+            {% for aircraft_a in aircraft_assembly %}
+            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_a.updated_at }} </small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>
+        {% endif %}
+    </ul>
+    <br>
+    <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/new"><b>&#43; Create a new assembly</b></a></p>
+    
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

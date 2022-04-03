@@ -12,7 +12,7 @@
     </ol>
   </nav>
 <div>
-<h2>Aircraft Model Detail</h2>
+<h2>Aircraft Model and Blueprint</h2>
 
 <br>
 <table class="table">
@@ -61,6 +61,31 @@
     
     
 </table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>
+                        
+            <p>Below is a list of components that form the Bill of Material for the aicraft:</p>
+            <ul class="list-group list-group-flush">
+                {% if aircraft_master_components %}
+                    {% for aircraft_master_component in aircraft_master_components %}            
+                        <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>
+                {% endif %}
+            </ul>
+        </td></tr>
+</tbody>
+</table>
+<br>
 <p class="text-muted">Last Updated at {{aircraft_model.updated_at }} </p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-models/{{aircraft_model.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_master_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-models/{{aircraft_model.id}}/master-components"><b>See master components</b></a>{% endif %}</p>

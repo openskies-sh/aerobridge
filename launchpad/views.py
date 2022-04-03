@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
-from registry.models import AircraftComponent ,  AircraftComponentSignature
+from registry.models import AircraftComponent ,  AircraftComponentSignature, AircraftAssembly
 from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
@@ -15,13 +15,13 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftComponentSignatureSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftComponentSignatureSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -564,6 +564,110 @@ class AircraftExtendedCreateView(CreateView):
         return render(request, 'launchpad/aircraft_extended/aircraft_extended_create.html', context)
   
 
+
+### Aircraft Assemblies Views
+    
+class AircraftAssembliesList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_assembly/aircraft_assemblies_list.html'
+
+    pagination_class = StandardResultsSetPagination
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_aircraft_assemblies(self, status=None):
+        try:
+            return AircraftAssembly.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_aircraft_assemblies()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = AircraftAssemblySerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = AircraftAssemblySerializer(queryset, many=True)
+            data = serializer.data        
+        
+        payload = {'aircraft_assemblies': data}
+        
+        return Response(payload)
+
+        
+class AircraftAssembliesDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_assembly/aircraft_assembly_detail.html'
+
+    def get(self, request, aircraft_model_id):
+        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_model_id)
+        
+        aircraft_components = aircraft_assembly.model.components.all()
+        
+        serializer = AircraftModelSerializer(aircraft_components)
+        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'aircraft_components':aircraft_components})
+
+class AircraftAssembliesUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_assembly/aircraft_assembly_update.html'
+
+    def get(self, request, aircraft_assembly_id):
+        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_assembly_id)
+        serializer = AircraftModelSerializer(aircraft_assembly)
+        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly})
+
+    def post(self, request, aircraft_assembly_id):
+        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_assembly_id)
+        serializer = AircraftModelSerializer(aircraft_assembly, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'errors':serializer.errors})
+        serializer.save()
+        return redirect('aircraft-assemblies-list')
+
+class AircraftAssembliesCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': AircraftAssemblyCreateForm()}
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = AircraftAssemblyCreateForm(request.POST)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            return redirect('aircraft-assemblies-list')
+
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_create.html', context)
+      
+
+
+
 ### Aircraft Models Views
     
 class AircraftModelsList(APIView):
@@ -629,6 +733,7 @@ class AircraftModelsDetail(APIView):
         aircraft_model = get_object_or_404(AircraftModel, pk=aircraft_model_id)
         
         aircraft_master_components = aircraft_model.master_components.all()
+        
         serializer = AircraftModelSerializer(aircraft_master_components)
         return Response({'serializer': serializer, 'aircraft_model': aircraft_model,'aircraft_master_components':aircraft_master_components})
 

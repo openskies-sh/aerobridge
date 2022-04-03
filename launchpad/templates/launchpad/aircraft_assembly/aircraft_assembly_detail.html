@@ -1,0 +1,42 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Equipment
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Aircraft Assembly Details
+      </li>
+    </ol>
+  </nav>
+<div>
+<h2>Assembly Detail</a></h2>
+<br>
+
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tr>
+        <td>Mass</td>
+        <td>{{ aircraft_assembly.model}} gms.</td>    
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>{{ aircraft_assembly.get_status_display}} Hz.</td>    
+    </tr>
+    
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
+
+</div>
+{% endblock %}
