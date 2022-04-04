@@ -363,10 +363,15 @@ class AircraftMasterComponent(models.Model):
 
 class AircraftModel(models.Model):
     ''' This is the primary bill of materials for a aircraft '''
+    AIRCRAFT_CATEGORY = (
+    (0, _('Other')), (1, _('FIXED WING')), (2, _('ROTORCRAFT')), (3, _('LIGHTER-THAN-AIR')), (4, _('HYBRID LIFT')),
+    (5, _('MICRO')), (6, _('SMALL')), (7, _('MEIDUM')), (8, _('Large')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=280)
     popular_name = models.CharField(max_length=140)
+    category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default=0,
+                                   help_text="Set the category for this aircraft, use the closest aircraft type")
     master_components = models.ManyToManyField(AircraftMasterComponent)   
     series = models.CharField(max_length=10, default="2022.1", help_text="Define the production series for this Aircraft Model") 
     max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
@@ -426,7 +431,7 @@ class AircraftComponentSignature(models.Model):
     ''' This model saves information about the component signature on a the block chain '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     component = models.OneToOneField(AircraftComponent, on_delete=models.CASCADE, limit_choices_to={'is_active': True},
-                                     help_text="Select a component to link to")
+                                     help_text="Select a component to link to this signature")
     signature_url = models.URLField(
         help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
     history = HistoricalRecords()
@@ -459,15 +464,12 @@ class AircraftAssembly(models.Model):
     history = HistoricalRecords()
 
     def __unicode__(self):
-        return self.name
+        return ' Model: ' +self.model.name + ' / Series: ' + self.model.series
 
     def __str__(self):
-        return self.name
+        return ' Model: ' +self.model.name + ' / Series: ' + self.model.series
 
 class Aircraft(models.Model):
-    AIRCRAFT_CATEGORY = (
-    (0, _('Other')), (1, _('FIXED WING')), (2, _('ROTORCRAFT')), (3, _('LIGHTER-THAN-AIR')), (4, _('HYBRID LIFT')),
-    (5, _('MICRO')), (6, _('SMALL')), (7, _('MEIDUM')), (8, _('Large')),)
     STATUS_CHOICES = ((0, _('Inactive')), (1, _('Active')),)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -478,8 +480,6 @@ class Aircraft(models.Model):
     flight_controller_id = models.CharField(
         help_text="This is the Drone ID from the RFM, if there are spaces in the ID, remove them", max_length=140,
         validators=[validate_flight_controller_id])
-    category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default=0,
-                                   help_text="Set the category for this aircraft, use the closest aircraft type")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
                                  help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
 

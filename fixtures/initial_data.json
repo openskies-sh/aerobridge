@@ -499,6 +499,7 @@
     "fields": {
       "name": "Aerobridge F1",
       "popular_name": "F1",
+      "category": 2,
       "series": 2022.1,
       "max_endurance": "15.00",
       "max_range": "0.20",
@@ -1115,6 +1116,31 @@
     }
   },
   {
+    "model": "registry.aircraftassembly",
+    "pk": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
+    "fields": {
+      "status": 2,
+      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2022-01-14T14:54:19.430Z",
+      "components": [
+        "058780b0-8d30-4da0-a7bc-38fc21539329",
+        "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
+        "35b73077-9a89-4445-aeda-b85c5d815751",
+        "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
+        "4c8e882c-2ece-476f-89e1-4e51f9c06119",
+        "56e19c92-0079-4880-b5bf-470bc56ed267",
+        "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
+        "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
+        "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
+        "94d4a765-a391-441c-8894-f1e0b6becf81",
+        "b3543ea6-ab11-4a75-97e6-740e46529565",
+        "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
+        "f39c4245-1b9d-43a8-9011-06d134fa86d1"
+      ]
+    }
+  },
+  {
     "model": "registry.aircraft",
     "pk": "0450852f-856e-4ecb-beb6-01ccded8529d",
     "fields": {
@@ -1122,9 +1148,18 @@
       "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
       "name": "F1 #2",
       "flight_controller_id": "001C00243237511538343932",
-      "category": 1,
       "status": 1,
       "photo": "https://i.imgur.com/d8QP0Ay.png",
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2022-01-14T14:54:19.430Z",
+      "final_assembly": "a1f90fa1-872f-400b-ab36-823a8a9ff409"
+    }
+  },
+  {
+    "model": "registry.aircraftassembly",
+    "pk": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
+    "fields": {
+      "status": 2,
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2022-01-14T14:54:19.430Z",
@@ -1153,27 +1188,11 @@
       "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
       "name": "F1 #1",
       "flight_controller_id": "004E00403237511538343932",
-      "category": 2,
       "status": 1,
       "photo": "https://i.imgur.com/qbHNXdQ.jpg",
-      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "final_assembly": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-01-14T13:54:45.038Z",
-      "components": [
-        "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
-        "56e19c92-0079-4880-b5bf-470bc56ed267",
-        "60532c18-2822-483e-8abe-4151c5a270aa",
-        "69532104-3187-4170-b52f-376b0448dce2",
-        "6ec9c803-12ff-424b-9260-4de539f99fcf",
-        "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
-        "81723be7-0ddb-45a9-8ede-a56aac190792",
-        "99b647e8-2497-4e9f-9c7a-5172a74813d7",
-        "acfa92e2-b66d-43a7-abd7-decdb3477786",
-        "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
-        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
-        "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
-        "d4edfb65-b71f-4130-86de-840e6f23a931"
-      ]
+      "updated_at": "2022-01-14T13:54:45.038Z"
     }
   },
   {
