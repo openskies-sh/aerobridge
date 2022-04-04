@@ -60,10 +60,11 @@ urlpatterns = [
     path('aircraft-models/new', launchpad_views.AircraftModelsCreateView.as_view(), name='aircraft-models-create'),
     path('aircraft-models/<uuid:aircraft_model_id>/master-components', launchpad_views.AircraftModelMasterComponents.as_view(), name='aircraft-models-detail'),
  
-    path('aircraft-assemblies', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
+    path('aircraft-assemblies/new', launchpad_views.AircraftAssembliesCreateView.as_view(), name='aircraft-assemblies-create'),
     path('aircraft-assemblies/<uuid:aircraft_assembly_id>', launchpad_views.AircraftAssembliesUpdate.as_view(), name='aircraft-assemblies-update'),
     path('aircraft-assemblies/<uuid:aircraft_assembly_id>/detail', launchpad_views.AircraftAssembliesDetail.as_view(), name='aircraft-assemblies-detail'),
-    path('aircraft-assemblies/new', launchpad_views.AircraftAssembliesCreateView.as_view(), name='aircraft-assemblies-create'),
+    path('aircraft-assemblies/<str:view_type>', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
+    path('aircraft-assemblies', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     
  
     path('aircraft-master-components', launchpad_views.AircraftMasterComponentsList.as_view(), name='aircraft-master-components-list'),

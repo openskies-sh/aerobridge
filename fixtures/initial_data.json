@@ -1,5 +1,4 @@
-[
-  {
+[{
     "model": "registry.person",
     "pk": "32153c3b-663b-41e4-afc2-47127a713704",
     "fields": {
@@ -209,7 +208,9 @@
       "country": "NA",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": ["e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"],
+      "operational_authorizations": [
+        "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
+      ],
       "authorized_activities": [
         "26b6a66d-5e77-4a43-94e9-630e141a1087",
         "7a875ff9-79ee-460e-816f-30360e0ac645"
@@ -233,8 +234,12 @@
       "country": "NA",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": ["6be25abc-a43d-44d2-9c16-b8dee47bb64d"],
-      "authorized_activities": ["7a875ff9-79ee-460e-816f-30360e0ac645"]
+      "operational_authorizations": [
+        "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
+      ],
+      "authorized_activities": [
+        "7a875ff9-79ee-460e-816f-30360e0ac645"
+      ]
     }
   },
   {
@@ -337,17 +342,6 @@
     }
   },
   {
-    "model": "registry.aircraftmastercomponent",
-    "pk": "06805aa1-2b11-4940-b149-41d22634c652",
-    "fields": {
-      "name": "Battery Lithium Polymer (LiPo)",
-      "family": 5,
-      "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
-      "created_at": "2021-12-31T13:18:01.164Z",
-      "updated_at": "2022-02-07T14:57:38.764Z"
-    }
-  },
-  {
     "model": "registry.firmware",
     "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
     "fields": {
@@ -359,6 +353,17 @@
       "is_active": true,
       "created_at": "2022-02-15T21:44:29.648Z",
       "updated_at": "2022-02-15T21:44:29.648Z"
+    }
+  },
+  {
+    "model": "registry.aircraftmastercomponent",
+    "pk": "06805aa1-2b11-4940-b149-41d22634c652",
+    "fields": {
+      "name": "Battery Lithium Polymer (LiPo)",
+      "family": 5,
+      "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
+      "created_at": "2021-12-31T13:18:01.164Z",
+      "updated_at": "2022-02-07T14:57:38.764Z"
     }
   },
   {
@@ -500,16 +505,16 @@
       "name": "Aerobridge F1",
       "popular_name": "F1",
       "category": 2,
-      "series": 2022.1,
+      "series": "2022.1",
       "max_endurance": "15.00",
       "max_range": "0.20",
       "max_speed": "15.00",
       "dimension_length": "0.00",
       "dimension_breadth": "0.00",
       "dimension_height": "0.00",
+      "firmware": "95e150dd-c566-4515-98c1-f2838972d7b5",
       "created_at": "2022-01-14T13:24:38.390Z",
       "updated_at": "2022-01-14T13:24:38.390Z",
-      "firmware":"95e150dd-c566-4515-98c1-f2838972d7b5",
       "master_components": [
         "06805aa1-2b11-4940-b149-41d22634c652",
         "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
@@ -1119,8 +1124,33 @@
     "model": "registry.aircraftassembly",
     "pk": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
     "fields": {
-      "status": 2,
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "status": 2,
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2022-01-14T14:54:19.430Z",
+      "components": [
+        "058780b0-8d30-4da0-a7bc-38fc21539329",
+        "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
+        "35b73077-9a89-4445-aeda-b85c5d815751",
+        "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
+        "4c8e882c-2ece-476f-89e1-4e51f9c06119",
+        "56e19c92-0079-4880-b5bf-470bc56ed267",
+        "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
+        "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
+        "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
+        "94d4a765-a391-441c-8894-f1e0b6becf81",
+        "b3543ea6-ab11-4a75-97e6-740e46529565",
+        "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
+        "f39c4245-1b9d-43a8-9011-06d134fa86d1"
+      ]
+    }
+  },
+  {
+    "model": "registry.aircraftassembly",
+    "pk": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
+    "fields": {
+      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2022-01-14T14:54:19.430Z",
       "components": [
@@ -1149,35 +1179,10 @@
       "name": "F1 #2",
       "flight_controller_id": "001C00243237511538343932",
       "status": 1,
+      "final_assembly": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
       "photo": "https://i.imgur.com/d8QP0Ay.png",
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-01-14T14:54:19.430Z",
-      "final_assembly": "a1f90fa1-872f-400b-ab36-823a8a9ff409"
-    }
-  },
-  {
-    "model": "registry.aircraftassembly",
-    "pk": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
-    "fields": {
-      "status": 2,
-      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
-      "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-01-14T14:54:19.430Z",
-      "components": [
-        "058780b0-8d30-4da0-a7bc-38fc21539329",
-        "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
-        "35b73077-9a89-4445-aeda-b85c5d815751",
-        "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
-        "4c8e882c-2ece-476f-89e1-4e51f9c06119",
-        "56e19c92-0079-4880-b5bf-470bc56ed267",
-        "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
-        "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
-        "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
-        "94d4a765-a391-441c-8894-f1e0b6becf81",
-        "b3543ea6-ab11-4a75-97e6-740e46529565",
-        "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
-        "f39c4245-1b9d-43a8-9011-06d134fa86d1"
-      ]
+      "updated_at": "2022-01-14T14:54:19.430Z"
     }
   },
   {
@@ -1189,8 +1194,8 @@
       "name": "F1 #1",
       "flight_controller_id": "004E00403237511538343932",
       "status": 1,
-      "photo": "https://i.imgur.com/qbHNXdQ.jpg",
       "final_assembly": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
+      "photo": "https://i.imgur.com/qbHNXdQ.jpg",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2022-01-14T13:54:45.038Z"
     }
@@ -1248,7 +1253,11 @@
       "name": "Flight Plan A",
       "plan_file_json": {
         "fileType": "Plan",
-        "geoFence": { "circles": [], "polygons": [], "version": 2 },
+        "geoFence": {
+          "circles": [],
+          "polygons": [],
+          "version": 2
+        },
         "groundStation": "QGroundControl",
         "mission": {
           "cruiseSpeed": 15,
@@ -1264,7 +1273,15 @@
               "command": 22,
               "doJumpId": 1,
               "frame": 3,
-              "params": [0, 0, 0, 0, 0, 0, 50],
+              "params": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1275,7 +1292,15 @@
               "command": 16,
               "doJumpId": 2,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.73587276, 76.70696148, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.73587276,
+                76.70696148,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1286,7 +1311,15 @@
               "command": 16,
               "doJumpId": 3,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.72907509, 76.74222819, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.72907509,
+                76.74222819,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1297,15 +1330,30 @@
               "command": 16,
               "doJumpId": 4,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.71832644, 76.7144423, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.71832644,
+                76.7144423,
+                50
+              ],
               "type": "SimpleItem"
             }
           ],
-          "plannedHomePosition": [30.74762977, 76.70172491, 325.3076307562436],
+          "plannedHomePosition": [
+            30.74762977,
+            76.70172491,
+            325.3076307562436
+          ],
           "vehicleType": 0,
           "version": 2
         },
-        "rallyPoints": { "points": [], "version": 2 },
+        "rallyPoints": {
+          "points": [],
+          "version": 2
+        },
         "version": 1
       },
       "geo_json": {
@@ -1315,7 +1363,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.706961, 30.735873]
+              "coordinates": [
+                76.706961,
+                30.735873
+              ]
             },
             "properties": {}
           },
@@ -1323,7 +1374,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.742228, 30.729075]
+              "coordinates": [
+                76.742228,
+                30.729075
+              ]
             },
             "properties": {}
           },
@@ -1331,7 +1385,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.714442, 30.718326]
+              "coordinates": [
+                76.714442,
+                30.718326
+              ]
             },
             "properties": {}
           }
@@ -1390,7 +1447,28 @@
         "token_type": "Bearer",
         "scope": ""
       },
-      "geo_cage":[{"lat":30.72034497768697,"lng":76.70396784788375},{"lat":30.713546977686974,"lng":76.73923484788375},{"lat":30.72907500000001,"lng":76.74222800000001},{"lat":30.735873000000005,"lng":76.706961},{"lat":30.72034497768697,"lng":76.70396784788375}],
+      "geo_cage": [
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        },
+        {
+          "lat": 30.713546977686974,
+          "lng": 76.73923484788375
+        },
+        {
+          "lat": 30.72907500000001,
+          "lng": 76.74222800000001
+        },
+        {
+          "lat": 30.735873000000005,
+          "lng": 76.706961
+        },
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        }
+      ],
       "created_at": "2021-03-11T05:18:58.761Z",
       "updated_at": "2021-03-11T05:18:58.765Z",
       "status_code": "granted"

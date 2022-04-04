@@ -569,83 +569,52 @@ class AircraftExtendedCreateView(CreateView):
     
 class AircraftAssembliesList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraft_assembly/aircraft_assemblies_list.html'
+    template_name = 'launchpad/aircraft_assembly/aircraft_assembly_list.html'
 
     pagination_class = StandardResultsSetPagination
-    @property
-    def paginator(self):
-        """
-        The paginator instance associated with the view, or `None`.
-        """
-        if not hasattr(self, '_paginator'):
-            if self.pagination_class is None:
-                self._paginator = None
-            else:
-                self._paginator = self.pagination_class()
-        return self._paginator
 
-    def paginate_queryset(self, queryset):
-        """
-        Return a single page of results, or `None` if pagination is disabled.
-        """
-        if self.paginator is None:
-            return None
-        return self.paginator.paginate_queryset(queryset, self.request, view=self)
-
-    def get_paginated_response(self, data):
-        """
-        Return a paginated style `Response` object for the given output data.
-        """
-        assert self.paginator is not None
-        return self.paginator.get_paginated_response(data)
-
-    def get_aircraft_assemblies(self, status=None):
-        try:
-            return AircraftAssembly.objects.all().order_by('-created_at')	            
-        except Exception as e:
-            raise Http404
-
-    def get(self, request, *args, **kwargs):        
-        
-        queryset = self.get_aircraft_assemblies()
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = AircraftAssemblySerializer(page, many=True)
-            result = self.get_paginated_response(serializer.data)
-            data = result.data # pagination data
+    def get_aircraft_assemblies(self, view_type=None):
+        view_type_lookup = {'complete':2,'in-progress':0, 'parts-needed':1}
+        if view_type is not None: 
+            status = view_type_lookup[view_type]
+            
+            return AircraftAssembly.objects.filter(status = status).order_by('-created_at')            
         else:
-            serializer = AircraftAssemblySerializer(queryset, many=True)
-            data = serializer.data        
-        
-        payload = {'aircraft_assemblies': data}
-        
-        return Response(payload)
+            try:
+                return AircraftAssembly.objects.all().order_by('-created_at')            
+            except Exception as e:
+                raise Http404
 
+    def get(self, request, view_type=None):          
+        view_type = None if view_type not in ['complete', 'in-progress', 'parts-needed'] else view_type
+        queryset = self.get_aircraft_assemblies(view_type=view_type)        
+        return Response({'aircraft_assemblies': queryset})
+               
         
 class AircraftAssembliesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft_assembly/aircraft_assembly_detail.html'
 
-    def get(self, request, aircraft_model_id):
-        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_model_id)
+    def get(self, request, aircraft_assembly_id):
+        aircraft_assembly = get_object_or_404(AircraftAssembly, pk=aircraft_assembly_id)
         
-        aircraft_components = aircraft_assembly.model.components.all()
+        assembly_components = aircraft_assembly.components.all()
         
-        serializer = AircraftModelSerializer(aircraft_components)
-        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'aircraft_components':aircraft_components})
+        serializer = AircraftAssemblySerializer(aircraft_assembly)
+        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'assembly_components':assembly_components})
 
 class AircraftAssembliesUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft_assembly/aircraft_assembly_update.html'
 
     def get(self, request, aircraft_assembly_id):
-        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_assembly_id)
-        serializer = AircraftModelSerializer(aircraft_assembly)
+        aircraft_assembly = get_object_or_404(AircraftAssembly, pk=aircraft_assembly_id)
+        serializer = AircraftAssemblySerializer(aircraft_assembly)
         return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly})
 
     def post(self, request, aircraft_assembly_id):
-        aircraft_assembly = get_object_or_404(AircraftModel, pk=aircraft_assembly_id)
-        serializer = AircraftModelSerializer(aircraft_assembly, data=request.data)
+        aircraft_assembly = get_object_or_404(AircraftAssembly, pk=aircraft_assembly_id)
+        serializer = AircraftAssemblySerializer(aircraft_assembly, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'errors':serializer.errors})
         serializer.save()
@@ -664,8 +633,6 @@ class AircraftAssembliesCreateView(CreateView):
             return redirect('aircraft-assemblies-list')
 
         return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_create.html', context)
-      
-
 
 
 ### Aircraft Models Views

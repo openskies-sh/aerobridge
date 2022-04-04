@@ -26,15 +26,33 @@
     </thead>
     
     <tr>
-        <td>Mass</td>
-        <td>{{ aircraft_assembly.model}} gms.</td>    
+      <td>ID</td>
+      <td><code>{{ aircraft_assembly.id}}</code></td>    
     </tr>
     <tr>
-        <td>Status</td>
-        <td>{{ aircraft_assembly.get_status_display}} Hz.</td>    
+        <td>Model</td>
+        <td>{{ aircraft_assembly.model}}</td>    
+    </tr>
+    <tr>
+        <td>Assembly Status</td>
+        <td><mark>{{ aircraft_assembly.get_status_display}}</mark></td>    
     </tr>
     
+    
 </table>
+<br>
+
+  <h2>Components</h2>
+  
+    {% if assembly_components %}
+      {% for aircraft_component in assembly_components %}            
+        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.supplier_part_id }}</a>&nbsp;&nbsp;{{aircraft_component.master_component.name}} <small class='text-muted'>&mdash; Last updated at {{ aircraft_component.updated_at }} </small><mark>{{ aircraft_component.get_custody_status_display }}</mark></li>
+      {% endfor %}
+  {% else %}
+        <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>
+  {% endif %}
+
+
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
 

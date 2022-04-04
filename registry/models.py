@@ -483,7 +483,7 @@ class Aircraft(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
                                  help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
 
-    final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft")
+    final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft, if you do not see a assembly, it means that you will need to create a new assembly first.")
     photo = models.URLField(help_text="A URL of a photo of the drone",
                             default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
     created_at = models.DateTimeField(auto_now_add=True)

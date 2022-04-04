@@ -1,19 +1,15 @@
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel
-
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
 
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
-import json
-import geojson
-import arrow
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import AccordionGroup
 from crispy_bootstrap5.bootstrap5 import Field, FloatingField, BS5Accordion
-
+from django.db.models import OuterRef, Exists
 
 KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('OTHER')),)
 TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('RFM KEY')),(4, _('OTHER')),)
@@ -151,6 +147,7 @@ class AircraftCreateForm(forms.ModelForm):
                     )
                 )
         )     
+        self.fields['final_assembly'].queryset = AircraftAssembly.objects.filter(~Exists(Aircraft.objects.filter(final_assembly=OuterRef('pk'))))
      
 
     class Meta:
@@ -255,7 +252,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         )     
 
     class Meta:
-        model = AircraftMasterComponent
+        model = AircraftAssembly
         fields = '__all__'
 
 class AircraftMasterComponentCreateForm(forms.ModelForm):

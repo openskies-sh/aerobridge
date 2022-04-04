@@ -17,15 +17,16 @@
 <div class="row mb-3">
     
     <h2>Aircraft Assembly Details</h2>
-    <p>A list of all active assemblies, filter to have </p>
+    <p>A list of currently active assemblies, you can also see <a href="/launchpad/aircraft-assemblies">all</a> or past <a href="/launchpad/aircraft-assemblies/completed">completed assemblies</a></p>
 </div>
 <div class="row mb-3">
-    <div class="col-md-8 themed-grid-col">
+    <div class="col-md-12 themed-grid-col">
 
     <ul class="list-group list-group-flush">
-        {% if aircraft_assembly %}
-            {% for aircraft_a in aircraft_assembly %}
-            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_a.updated_at }} </small></li>
+        {% if aircraft_assemblies %}
+            {% for aircraft_a in aircraft_assemblies %}
+            
+            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model.name }} - Series {{ aircraft_a.model.series }}</a>&nbsp;&nbsp;<small class='text-muted'> &mdash; Last updated at {{ aircraft_a.updated_at }} </small> <b>Assembly Status</b> <mark>{{ aircraft_a.get_status_display }}</mark></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>

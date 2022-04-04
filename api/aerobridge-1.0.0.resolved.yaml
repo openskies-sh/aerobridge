@@ -2005,81 +2005,51 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUIDv4Format' 
+          type: string
+          format: uuid
           readOnly: true
         operator:
-          $ref: '#/components/schemas/UUIDv4Format' 
-          example: a04aaf0e-d6c6-4767-93dd-8666900a0cf0
+          type: string
           description: Associate a operator to this Aircraft
         manufacturer:
-          $ref: '#/components/schemas/UUIDv4Format'           
-          description: Associate a manufacturer in the database to this aircraft          
-          example: 9d570d9f-97a4-40d5-9ba7-eef62d852f03
+          type: string
+          description: Associate a manufacturer in the database to this aircraft
         name:
-          format: string 
-          description: Set the name of the aircraft
+          type: string
+          description: 'Set the internal name of the aircraft e.g. F1 #2'
           maxLength: 280
-          example: eBee X1
-        category:
-          enum:
-            - 0
-            - 1
-            - 2
-            - 3
-            - 4
-            - 5
-            - 6
-            - 7
-            - 8
-          type: integer
-          description: >
-            Set the category for this aircraft, use the closest aircraft types:
-             * `0` - Other
-             * `1` - Fixed Wing
-             * `2` - Rotorcraft
-             * `3` - Lighter than air
-             * `4` - Hybrid lift
-             * `5` - Micro
-             * `6` - Small
-             * `7` - Medium
-             * `8` - Large
-
         status:
           enum:
-            - 0
-            - 1
+          - 0
+          - 1
           type: integer
-          description: >
-            Set the status of this drone, if it is set as inactive, the
+          description: Set the status of this drone, if it is set as inactive, the
             GCS might fail and flight plans might not be able to load on the drone
-             * `0` - Inactive
-             * `1` - Active
-
+        final_assembly:
+          type: string
+          description: Assign a aircraft assembly to this aircraft
         photo:
           type: string
           format: uri
           description: A URL of a photo of the drone
           maxLength: 200
-          pattern:
-            "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:0|25[0-5]|2[0-4]\\\
             d|1\\d?\\d?|[1-9]\\d?)(?:\\.(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)){3}|\\\
             [[0-9a-f:.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
             -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1\
-            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\\
+            -\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{1,5})?(?:[/?#][^\\\
             s]*)?\\z"
         flight_controller_id:
           type: string
-          description:
-            This is the Drone ID from the RFM, if there are spaces in the
+          description: This is the Drone ID from the RFM, if there are spaces in the
             ID, remove them
           maxLength: 140
-          example: 0ER03F9DCE343D
       required:
-        - operator
-        - manufacturer
-        - name
-        - flight_controller_id
-
+      - operator
+      - manufacturer
+      - name
+      - final_assembly
+      - flight_controller_id
     SignedFlightLog:
       type: object
       properties:

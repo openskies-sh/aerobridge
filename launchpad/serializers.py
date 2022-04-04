@@ -83,11 +83,18 @@ class AircraftModelSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):
+    model_name = serializers.CharField(source='model.name')
+
+    def get_status_type(self, obj):
+        x = obj.get_status_display()
+        print(x)
+        return x
+  
     class Meta:
         model = AircraftAssembly
-        fields = '__all__'
+        fields = ('id','model_name','status_type','model','updated_at',)
 
 class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftMasterComponent
-        fields = '__all__'
+        exclude = ('created_at',)
