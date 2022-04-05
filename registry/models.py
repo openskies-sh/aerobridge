@@ -367,6 +367,10 @@ class AircraftModel(models.Model):
     (0, _('Other')), (1, _('FIXED WING')), (2, _('ROTORCRAFT')), (3, _('LIGHTER-THAN-AIR')), (4, _('HYBRID LIFT')),
     (5, _('MICRO')), (6, _('SMALL')), (7, _('MEIDUM')), (8, _('Large')),)
     
+    AIRCRAFT_SUB_CATEGORY = (
+    (0, _('Other')), (1, _('AIRPLANE')), (2, _('NONPOWERED GLIDER')), (3, _('POWERED GLIDER')), (4, _('HELICOPTER')),
+    (5, _('GYROPLANE')), (6, _('BALLOON')), (7, _('AIRSHIP')), (8, _('UAV')), (9, _('Multirotor')), (10, _('Hybrid')),)
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=280)
     popular_name = models.CharField(max_length=140)
@@ -388,6 +392,20 @@ class AircraftModel(models.Model):
                                            help_text="Set the height of the drone in cms")
     firmware = models.ForeignKey(Firmware, on_delete=models.CASCADE, help_text="Associate a firmware with this aircraft model")
 
+    
+    mass = models.IntegerField(default=300, help_text="Set the vehicle's mass in gms.")
+    sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default=7, help_text='')
+    operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)    
+    documents = models.ManyToManyField(AerobridgeDocument)                                                                   
+    type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank=True, null=True,
+                                         help_text="Set the type certificate if available for the drone")
+
+    max_certified_takeoff_weight = models.DecimalField(decimal_places=3, max_digits=10, default=0.00,
+                                                       help_text="Set the takeoff weight for the aircraft in gms.")
+    max_height_attainable = models.DecimalField(decimal_places=3, max_digits=10, default=0.00,
+                                                help_text="Set the max attainable height in meters")
+    icao_aircraft_type_designator = models.CharField(blank=True, null=True, max_length=4, default='0000',
+                                                     help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")                                                
     history = HistoricalRecords()
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -498,38 +516,19 @@ class Aircraft(models.Model):
 
 class AircraftDetail(models.Model):
     ''' This model holds extended details of an aircraft '''
-    AIRCRAFT_SUB_CATEGORY = (
-    (0, _('Other')), (1, _('AIRPLANE')), (2, _('NONPOWERED GLIDER')), (3, _('POWERED GLIDER')), (4, _('HELICOPTER')),
-    (5, _('GYROPLANE')), (6, _('BALLOON')), (7, _('AIRSHIP')), (8, _('UAV')), (9, _('Multirotor')), (10, _('Hybrid')),)
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     aircraft = models.OneToOneField(Aircraft, models.CASCADE, help_text="Choose the aircraft")
-    mass = models.IntegerField(default=300, help_text="Set the vehicle's mass in gms.")
-    sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default=7, help_text='')
-    max_certified_takeoff_weight = models.DecimalField(decimal_places=3, max_digits=10, default=0.00,
-                                                       help_text="Set the takeoff weight for the aircraft in gms.")
-    max_height_attainable = models.DecimalField(decimal_places=3, max_digits=10, default=0.00,
-                                                help_text="Set the max attainable height in meters")
+
     is_registered = models.BooleanField(default=False,
                                         help_text="Set if the aircraft is registred with the Civil Aviation Authority")
-    icao_aircraft_type_designator = models.CharField(blank=True, null=True, max_length=4, default='0000',
-                                                     help_text="If available you can specify the type designator, see https://www.icao.int/publications/doc8643/pages/search.aspx")
+
     registration_mark = models.CharField(max_length=10, blank=True, null=True,
                                          help_text="Set the registration mark for this aircraft, if applicable")
     commission_date = models.DateTimeField(blank=True, null=True)
     digital_sky_uin_number = models.CharField(max_length=140,
                                               help_text="Get a UIN number for this aircraft using the Digital Sky Portal",
                                               blank=True, null=True)
-    operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)
-    manufactured_at = models.DateTimeField(help_text="Set the date when the drone was assembled / manufactured", blank=True,
-                                           null=True)
-
-    
-    documents = models.ManyToManyField(AerobridgeDocument)   
-                                                                
-    type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank=True, null=True,
-                                         help_text="Set the type certificate if available for the drone")
 
     identification_photo = models.URLField(blank=True, null=True,
                                            help_text="A URL to a photo of the drone ID or other identifying image of the drone.")
