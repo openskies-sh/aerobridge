@@ -250,6 +250,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
                     )
                 )
         )     
+        self.fields['components'].queryset = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk'))))
 
     class Meta:
         model = AircraftAssembly

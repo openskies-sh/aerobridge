@@ -421,10 +421,10 @@ class AircraftComponent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.master_component.name
+        return self.master_component.name + ' ' + self.supplier_part_id
 
     def __str__(self):
-        return self.master_component.name
+        return self.master_component.name + ' ' + self.supplier_part_id
 
 
 class AircraftComponentSignature(models.Model):
@@ -447,7 +447,7 @@ class AircraftComponentSignature(models.Model):
 
 class AircraftAssembly(models.Model):
     """This object stores all the details of a assembly / manufacturing processes for a drone """
-
+    
     STATUS_CHOICES = ((0, _('In Progress')), (1, _('Parts needed')),(2, _('Complete')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 

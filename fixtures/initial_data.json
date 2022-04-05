@@ -1,4 +1,5 @@
-[{
+[
+  {
     "model": "registry.person",
     "pk": "32153c3b-663b-41e4-afc2-47127a713704",
     "fields": {
@@ -533,341 +534,845 @@
     }
   },
   {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 1,
+    "fields": {
+      "id": "0d8bdb86-3fb1-4666-9a60-bf68b8980a3b",
+      "supplier_part_id": "Test Navic GPS",
+      "custody_on": "2022-04-05T09:49:12Z",
+      "is_active": true,
+      "custody_status": 1,
+      "created_at": "2022-04-05T09:49:14.032Z",
+      "updated_at": "2022-04-05T09:49:14.032Z",
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "history_date": "2022-04-05T09:49:14.040Z",
+      "history_change_reason": null,
+      "history_type": "+",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 2,
+    "fields": {
+      "id": "acfa92e2-b66d-43a7-abd7-decdb3477786",
+      "supplier_part_id": "x-8-2",
+      "custody_on": "2022-01-14T13:47:48Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:47:51.637Z",
+      "updated_at": "2022-04-05T10:51:51.346Z",
+      "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
+      "history_date": "2022-04-05T10:51:51.359Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 3,
+    "fields": {
+      "id": "f39c4245-1b9d-43a8-9011-06d134fa86d1",
+      "supplier_part_id": "x-8-1",
+      "custody_on": "2022-01-14T14:00:19Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T14:00:19.755Z",
+      "updated_at": "2022-04-05T10:51:53.180Z",
+      "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
+      "history_date": "2022-04-05T10:51:53.193Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 4,
+    "fields": {
+      "id": "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
+      "supplier_part_id": "x-9-1",
+      "custody_on": "2022-01-14T14:00:34Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T14:00:34.334Z",
+      "updated_at": "2022-04-05T10:52:24.186Z",
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "history_date": "2022-04-05T10:52:24.198Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 5,
+    "fields": {
+      "id": "d4edfb65-b71f-4130-86de-840e6f23a931",
+      "supplier_part_id": "x-1-1",
+      "custody_on": "2022-01-14T13:46:10Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:46:10.397Z",
+      "updated_at": "2022-04-05T10:52:35.066Z",
+      "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
+      "history_date": "2022-04-05T10:52:35.079Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 6,
+    "fields": {
+      "id": "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
+      "supplier_part_id": "x-2-1",
+      "custody_on": "2022-01-14T13:46:49Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:46:49.014Z",
+      "updated_at": "2022-04-05T10:52:45.050Z",
+      "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
+      "history_date": "2022-04-05T10:52:45.063Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 7,
+    "fields": {
+      "id": "058780b0-8d30-4da0-a7bc-38fc21539329",
+      "supplier_part_id": "x-12-1",
+      "custody_on": "2022-01-14T13:59:30Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:59:30.541Z",
+      "updated_at": "2022-04-05T10:53:10.664Z",
+      "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
+      "history_date": "2022-04-05T10:53:10.675Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 8,
+    "fields": {
+      "id": "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
+      "supplier_part_id": "x-6-1",
+      "custody_on": "2022-01-14T13:58:43Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:58:44.030Z",
+      "updated_at": "2022-04-05T10:53:26.618Z",
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
+      "history_date": "2022-04-05T10:53:26.631Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 9,
+    "fields": {
+      "id": "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
+      "supplier_part_id": "x-11-1",
+      "custody_on": "2022-01-14T13:59:42Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:59:42.987Z",
+      "updated_at": "2022-04-05T10:53:33.903Z",
+      "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
+      "history_date": "2022-04-05T10:53:33.915Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 10,
+    "fields": {
+      "id": "35b73077-9a89-4445-aeda-b85c5d815751",
+      "supplier_part_id": "x-5-1",
+      "custody_on": "2022-01-14T13:55:42Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:57:27.249Z",
+      "updated_at": "2022-04-05T10:53:40.055Z",
+      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
+      "history_date": "2022-04-05T10:53:40.067Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 11,
+    "fields": {
+      "id": "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
+      "supplier_part_id": "x-13-1",
+      "custody_on": "2022-01-14T13:47:38Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:47:38.892Z",
+      "updated_at": "2022-04-05T10:53:47.822Z",
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
+      "history_date": "2022-04-05T10:53:47.825Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 12,
+    "fields": {
+      "id": "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
+      "supplier_part_id": "x-2-2",
+      "custody_on": "2022-01-14T13:59:18Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:59:18.553Z",
+      "updated_at": "2022-04-05T10:53:55.595Z",
+      "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
+      "history_date": "2022-04-05T10:53:55.607Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 13,
+    "fields": {
+      "id": "56e19c92-0079-4880-b5bf-470bc56ed267",
+      "supplier_part_id": "x-3-1",
+      "custody_on": "2022-01-14T13:48:11Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:48:11.376Z",
+      "updated_at": "2022-04-05T10:54:04.025Z",
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
+      "history_date": "2022-04-05T10:54:04.037Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 14,
+    "fields": {
+      "id": "4c8e882c-2ece-476f-89e1-4e51f9c06119",
+      "supplier_part_id": "x-13-2",
+      "custody_on": "2022-01-14T14:00:06Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T14:00:06.780Z",
+      "updated_at": "2022-04-05T10:54:12.109Z",
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
+      "history_date": "2022-04-05T10:54:12.122Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 15,
+    "fields": {
+      "id": "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
+      "supplier_part_id": "x-1-2",
+      "custody_on": "2022-01-14T13:59:03Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:59:04.034Z",
+      "updated_at": "2022-04-05T10:54:19.169Z",
+      "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
+      "history_date": "2022-04-05T10:54:19.182Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 16,
+    "fields": {
+      "id": "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
+      "supplier_part_id": "x-6-2",
+      "custody_on": "2022-01-14T13:58:02Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:58:02.610Z",
+      "updated_at": "2022-04-05T10:54:27.509Z",
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
+      "history_date": "2022-04-05T10:54:27.522Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 17,
+    "fields": {
+      "id": "60532c18-2822-483e-8abe-4151c5a270aa",
+      "supplier_part_id": "x-9-2",
+      "custody_on": "2022-01-14T13:47:58Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:48:00.961Z",
+      "updated_at": "2022-04-05T10:54:34.700Z",
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "history_date": "2022-04-05T10:54:34.704Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 18,
+    "fields": {
+      "id": "69532104-3187-4170-b52f-376b0448dce2",
+      "supplier_part_id": "x-5-2",
+      "custody_on": "2022-01-14T13:45:12Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:45:13.094Z",
+      "updated_at": "2022-04-05T10:54:43.820Z",
+      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
+      "history_date": "2022-04-05T10:54:43.833Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 19,
+    "fields": {
+      "id": "6ec9c803-12ff-424b-9260-4de539f99fcf",
+      "supplier_part_id": "x-4-1",
+      "custody_on": "2022-01-14T13:47:28Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:47:28.632Z",
+      "updated_at": "2022-04-05T10:54:49.799Z",
+      "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
+      "history_date": "2022-04-05T10:54:49.804Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 20,
+    "fields": {
+      "id": "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
+      "supplier_part_id": "x-6-2",
+      "custody_on": "2022-01-14T13:45:57Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:45:57.959Z",
+      "updated_at": "2022-04-05T10:55:04.204Z",
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
+      "history_date": "2022-04-05T10:55:04.216Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 21,
+    "fields": {
+      "id": "81723be7-0ddb-45a9-8ede-a56aac190792",
+      "supplier_part_id": "x-10-1",
+      "custody_on": "2022-01-14T13:45:33Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:45:33.728Z",
+      "updated_at": "2022-04-05T10:55:10.073Z",
+      "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
+      "history_date": "2022-04-05T10:55:10.085Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 22,
+    "fields": {
+      "id": "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
+      "supplier_part_id": "x-10-2",
+      "custody_on": "2022-01-14T13:57:47Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:57:47.119Z",
+      "updated_at": "2022-04-05T10:55:16.365Z",
+      "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
+      "history_date": "2022-04-05T10:55:16.370Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 23,
+    "fields": {
+      "id": "94d4a765-a391-441c-8894-f1e0b6becf81",
+      "supplier_part_id": "x-7-1",
+      "custody_on": "2022-01-14T13:58:14Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:58:14.595Z",
+      "updated_at": "2022-04-05T10:55:24.655Z",
+      "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
+      "history_date": "2022-04-05T10:55:24.668Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 24,
+    "fields": {
+      "id": "99b647e8-2497-4e9f-9c7a-5172a74813d7",
+      "supplier_part_id": "x-12-2",
+      "custody_on": "2022-01-14T13:47:00Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:47:00.285Z",
+      "updated_at": "2022-04-05T10:55:29.408Z",
+      "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
+      "history_date": "2022-04-05T10:55:29.421Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 25,
+    "fields": {
+      "id": "b3543ea6-ab11-4a75-97e6-740e46529565",
+      "supplier_part_id": "x-4-2",
+      "custody_on": "2022-01-14T13:59:54Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:59:54.684Z",
+      "updated_at": "2022-04-05T10:55:43.022Z",
+      "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
+      "history_date": "2022-04-05T10:55:43.034Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 26,
+    "fields": {
+      "id": "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
+      "supplier_part_id": "x-11-2",
+      "custody_on": "2022-01-14T13:47:13Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:47:14.387Z",
+      "updated_at": "2022-04-05T10:55:51.262Z",
+      "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
+      "history_date": "2022-04-05T10:55:51.275Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 27,
+    "fields": {
+      "id": "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
+      "supplier_part_id": "x-7-2",
+      "custody_on": "2022-01-14T13:45:46Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:45:46.334Z",
+      "updated_at": "2022-04-05T10:55:58.132Z",
+      "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
+      "history_date": "2022-04-05T10:55:58.144Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 28,
+    "fields": {
+      "id": "0d8bdb86-3fb1-4666-9a60-bf68b8980a3b",
+      "supplier_part_id": "Test Navic GPS",
+      "custody_on": "2022-04-05T09:49:12Z",
+      "is_active": true,
+      "custody_status": 1,
+      "created_at": "2022-04-05T09:49:14.032Z",
+      "updated_at": "2022-04-05T09:49:14.032Z",
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "history_date": "2022-04-05T11:14:47.093Z",
+      "history_change_reason": null,
+      "history_type": "-",
+      "history_user": null
+    }
+  },
+  {
     "model": "registry.aircraftcomponent",
     "pk": "058780b0-8d30-4da0-a7bc-38fc21539329",
     "fields": {
-      "supplier_part_id": "x-12",
+      "supplier_part_id": "x-12-1",
       "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
       "custody_on": "2022-01-14T13:59:30Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:59:30.541Z",
-      "updated_at": "2022-01-14T13:59:30.541Z"
+      "updated_at": "2022-04-05T10:53:10.664Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
     "fields": {
-      "supplier_part_id": "x-6",
+      "supplier_part_id": "x-6-1",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:58:43Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:58:44.030Z",
-      "updated_at": "2022-01-14T13:58:44.030Z"
+      "updated_at": "2022-04-05T10:53:26.618Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
     "fields": {
-      "supplier_part_id": "x-11",
+      "supplier_part_id": "x-11-1",
       "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
       "custody_on": "2022-01-14T13:59:42Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:59:42.987Z",
-      "updated_at": "2022-01-14T13:59:42.987Z"
+      "updated_at": "2022-04-05T10:53:33.903Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "35b73077-9a89-4445-aeda-b85c5d815751",
     "fields": {
-      "supplier_part_id": "x-5",
+      "supplier_part_id": "x-5-1",
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "custody_on": "2022-01-14T13:55:42Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:57:27.249Z",
-      "updated_at": "2022-01-14T13:57:27.249Z"
+      "updated_at": "2022-04-05T10:53:40.055Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
     "fields": {
-      "supplier_part_id": "x-13",
+      "supplier_part_id": "x-13-1",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "custody_on": "2022-01-14T13:47:38Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:38.892Z",
-      "updated_at": "2022-01-14T13:47:38.892Z"
+      "updated_at": "2022-04-05T10:53:47.822Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
     "fields": {
-      "supplier_part_id": "x-2",
+      "supplier_part_id": "x-2-2",
       "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
       "custody_on": "2022-01-14T13:59:18Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:59:18.553Z",
-      "updated_at": "2022-01-14T13:59:18.553Z"
+      "updated_at": "2022-04-05T10:53:55.595Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "4c8e882c-2ece-476f-89e1-4e51f9c06119",
     "fields": {
-      "supplier_part_id": "x-13",
+      "supplier_part_id": "x-13-2",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "custody_on": "2022-01-14T14:00:06Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T14:00:06.780Z",
-      "updated_at": "2022-01-14T14:00:06.780Z"
+      "updated_at": "2022-04-05T10:54:12.109Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "56e19c92-0079-4880-b5bf-470bc56ed267",
     "fields": {
-      "supplier_part_id": "x-3",
+      "supplier_part_id": "x-3-1",
       "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:48:11.376Z",
-      "updated_at": "2022-01-14T13:48:11.377Z"
+      "updated_at": "2022-04-05T10:54:04.025Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
     "fields": {
-      "supplier_part_id": "x-1",
+      "supplier_part_id": "x-1-2",
       "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
       "custody_on": "2022-01-14T13:59:03Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:59:04.034Z",
-      "updated_at": "2022-01-14T13:59:04.034Z"
+      "updated_at": "2022-04-05T10:54:19.169Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
     "fields": {
-      "supplier_part_id": "x-6",
+      "supplier_part_id": "x-6-2",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:58:02Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:58:02.610Z",
-      "updated_at": "2022-01-14T13:58:02.610Z"
+      "updated_at": "2022-04-05T10:54:27.509Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "60532c18-2822-483e-8abe-4151c5a270aa",
     "fields": {
-      "supplier_part_id": "x-9",
+      "supplier_part_id": "x-9-2",
       "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "custody_on": "2022-01-14T13:47:58Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:48:00.961Z",
-      "updated_at": "2022-01-14T13:48:00.961Z"
+      "updated_at": "2022-04-05T10:54:34.700Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "69532104-3187-4170-b52f-376b0448dce2",
     "fields": {
-      "supplier_part_id": "x-5",
+      "supplier_part_id": "x-5-2",
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "custody_on": "2022-01-14T13:45:12Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:45:13.094Z",
-      "updated_at": "2022-01-14T13:45:13.094Z"
+      "updated_at": "2022-04-05T10:54:43.820Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "6ec9c803-12ff-424b-9260-4de539f99fcf",
     "fields": {
-      "supplier_part_id": "x-4",
+      "supplier_part_id": "x-4-1",
       "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
       "custody_on": "2022-01-14T13:47:28Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:28.632Z",
-      "updated_at": "2022-01-14T13:47:28.632Z"
+      "updated_at": "2022-04-05T10:54:49.799Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
     "fields": {
-      "supplier_part_id": "x-6",
+      "supplier_part_id": "x-6-2",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "custody_on": "2022-01-14T13:45:57Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:45:57.959Z",
-      "updated_at": "2022-01-14T13:45:57.959Z"
+      "updated_at": "2022-04-05T10:55:04.204Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "81723be7-0ddb-45a9-8ede-a56aac190792",
     "fields": {
-      "supplier_part_id": "x-10",
+      "supplier_part_id": "x-10-1",
       "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
       "custody_on": "2022-01-14T13:45:33Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:45:33.728Z",
-      "updated_at": "2022-01-14T13:45:33.728Z"
+      "updated_at": "2022-04-05T10:55:10.073Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
     "fields": {
-      "supplier_part_id": "x-10",
+      "supplier_part_id": "x-10-2",
       "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
       "custody_on": "2022-01-14T13:57:47Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:57:47.119Z",
-      "updated_at": "2022-01-14T13:57:47.119Z"
+      "updated_at": "2022-04-05T10:55:16.365Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "94d4a765-a391-441c-8894-f1e0b6becf81",
     "fields": {
-      "supplier_part_id": "x-7",
+      "supplier_part_id": "x-7-1",
       "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
       "custody_on": "2022-01-14T13:58:14Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:58:14.595Z",
-      "updated_at": "2022-01-14T13:58:14.595Z"
+      "updated_at": "2022-04-05T10:55:24.655Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "99b647e8-2497-4e9f-9c7a-5172a74813d7",
     "fields": {
-      "supplier_part_id": "x-12",
+      "supplier_part_id": "x-12-2",
       "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
       "custody_on": "2022-01-14T13:47:00Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:00.285Z",
-      "updated_at": "2022-01-14T13:47:00.285Z"
+      "updated_at": "2022-04-05T10:55:29.408Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "acfa92e2-b66d-43a7-abd7-decdb3477786",
     "fields": {
-      "supplier_part_id": "x-8",
+      "supplier_part_id": "x-8-2",
       "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
       "custody_on": "2022-01-14T13:47:48Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:51.637Z",
-      "updated_at": "2022-01-14T13:47:51.637Z"
+      "updated_at": "2022-04-05T10:51:51.346Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "b3543ea6-ab11-4a75-97e6-740e46529565",
     "fields": {
-      "supplier_part_id": "x-4",
+      "supplier_part_id": "x-4-2",
       "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
       "custody_on": "2022-01-14T13:59:54Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:59:54.684Z",
-      "updated_at": "2022-01-14T13:59:54.684Z"
+      "updated_at": "2022-04-05T10:55:43.022Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
     "fields": {
-      "supplier_part_id": "x-11",
+      "supplier_part_id": "x-11-2",
       "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
       "custody_on": "2022-01-14T13:47:13Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:14.387Z",
-      "updated_at": "2022-01-14T13:47:14.387Z"
+      "updated_at": "2022-04-05T10:55:51.262Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
     "fields": {
-      "supplier_part_id": "x-7",
+      "supplier_part_id": "x-7-2",
       "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
       "custody_on": "2022-01-14T13:45:46Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:45:46.334Z",
-      "updated_at": "2022-01-14T13:45:46.334Z"
+      "updated_at": "2022-04-05T10:55:58.132Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
     "fields": {
-      "supplier_part_id": "x-2",
+      "supplier_part_id": "x-2-1",
       "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
       "custody_on": "2022-01-14T13:46:49Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:46:49.014Z",
-      "updated_at": "2022-01-14T13:46:49.014Z"
+      "updated_at": "2022-04-05T10:52:45.050Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "d4edfb65-b71f-4130-86de-840e6f23a931",
     "fields": {
-      "supplier_part_id": "x-1",
+      "supplier_part_id": "x-1-1",
       "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
       "custody_on": "2022-01-14T13:46:10Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T13:46:10.397Z",
-      "updated_at": "2022-01-14T13:46:10.397Z"
+      "updated_at": "2022-04-05T10:52:35.066Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
     "fields": {
-      "supplier_part_id": "x-9",
+      "supplier_part_id": "x-9-1",
       "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "custody_on": "2022-01-14T14:00:34Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T14:00:34.334Z",
-      "updated_at": "2022-01-14T14:00:34.334Z"
+      "updated_at": "2022-04-05T10:52:24.186Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "f39c4245-1b9d-43a8-9011-06d134fa86d1",
     "fields": {
-      "supplier_part_id": "x-8",
+      "supplier_part_id": "x-8-1",
       "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
       "custody_on": "2022-01-14T14:00:19Z",
       "is_active": true,
       "custody_status": 4,
       "created_at": "2022-01-14T14:00:19.755Z",
-      "updated_at": "2022-01-14T14:00:19.755Z"
+      "updated_at": "2022-04-05T10:51:53.180Z"
     }
   },
   {
@@ -1121,27 +1626,57 @@
     }
   },
   {
+    "model": "registry.historicalaircraftassembly",
+    "pk": 1,
+    "fields": {
+      "id": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
+      "status": 2,
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2022-04-05T11:00:13.475Z",
+      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "history_date": "2022-04-05T11:00:13.488Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftassembly",
+    "pk": 2,
+    "fields": {
+      "id": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
+      "status": 2,
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2022-04-05T11:00:29.910Z",
+      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "history_date": "2022-04-05T11:00:29.924Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
     "model": "registry.aircraftassembly",
     "pk": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
     "fields": {
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-01-14T14:54:19.430Z",
+      "updated_at": "2022-04-05T11:00:29.910Z",
       "components": [
-        "058780b0-8d30-4da0-a7bc-38fc21539329",
-        "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
-        "35b73077-9a89-4445-aeda-b85c5d815751",
         "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
         "4c8e882c-2ece-476f-89e1-4e51f9c06119",
-        "56e19c92-0079-4880-b5bf-470bc56ed267",
         "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
         "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
+        "60532c18-2822-483e-8abe-4151c5a270aa",
+        "69532104-3187-4170-b52f-376b0448dce2",
+        "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
         "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
-        "94d4a765-a391-441c-8894-f1e0b6becf81",
+        "99b647e8-2497-4e9f-9c7a-5172a74813d7",
+        "acfa92e2-b66d-43a7-abd7-decdb3477786",
         "b3543ea6-ab11-4a75-97e6-740e46529565",
-        "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
-        "f39c4245-1b9d-43a8-9011-06d134fa86d1"
+        "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
+        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8"
       ]
     }
   },
@@ -1152,19 +1687,19 @@
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-01-14T14:54:19.430Z",
+      "updated_at": "2022-04-05T11:00:13.475Z",
       "components": [
         "058780b0-8d30-4da0-a7bc-38fc21539329",
+        "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
         "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
         "35b73077-9a89-4445-aeda-b85c5d815751",
-        "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
-        "4c8e882c-2ece-476f-89e1-4e51f9c06119",
+        "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
         "56e19c92-0079-4880-b5bf-470bc56ed267",
-        "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
-        "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
-        "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
+        "6ec9c803-12ff-424b-9260-4de539f99fcf",
+        "81723be7-0ddb-45a9-8ede-a56aac190792",
         "94d4a765-a391-441c-8894-f1e0b6becf81",
-        "b3543ea6-ab11-4a75-97e6-740e46529565",
+        "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
+        "d4edfb65-b71f-4130-86de-840e6f23a931",
         "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
         "f39c4245-1b9d-43a8-9011-06d134fa86d1"
       ]
