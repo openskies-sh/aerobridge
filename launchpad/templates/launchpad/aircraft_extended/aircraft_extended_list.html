@@ -25,7 +25,7 @@
     <ul class="list-group list-group-flush">
         {% if aircraft_extended %}
             {% for aircraft_e in aircraft_extended %}
-            <li class="list-group-item"><a href="/launchpad/aircraft-extended/{{aircraft_e.id}}/detail">{{ aircraft_e.aircraft.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_e.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/aircraft-extended/{{aircraft_e.id}}/detail">{{ aircraft_e.aircraft.final_assembly.model }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft_e.created_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any extended details for a aircraft in Aerobridge, once added the list of the details will be displayed here.</i></p></li>
