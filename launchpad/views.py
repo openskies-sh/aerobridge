@@ -621,13 +621,28 @@ class AircraftAssembliesUpdate(APIView):
         return redirect('aircraft-assemblies-list')
 
 class AircraftAssembliesCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': AircraftAssemblyCreateForm()}
+    def get(self, request,aircraft_model_id):
+
+        aircraft_model = AircraftModel.objects.filter(id = aircraft_model_id).exists()
+
+        if not aircraft_model:
+            raise Http404
+        else: 
+            aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
+        
+        context = {'form': AircraftAssemblyCreateForm(aircraft_model_id=aircraft_model_id), 'aircraft_model':aircraft_model}
         return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = AircraftAssemblyCreateForm(request.POST)
-        context = {'form': form}
+    def post(self, request,aircraft_model_id):
+        aircraft_model = AircraftModel.objects.filter(id = aircraft_model_id).exists()
+
+        if not aircraft_model:
+            raise Http404
+        else: 
+            aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
+
+        form = AircraftAssemblyCreateForm(request.POST, aircraft_model_id=aircraft_model_id)
+        context = {'form': form,'aircraft_model':aircraft_model}
         if form.is_valid():
             form.save()
             return redirect('aircraft-assemblies-list')

@@ -538,7 +538,7 @@ class AircraftDetail(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.aircraft.model + ' Extended Details'
+        return self.aircraft.name + ' Extended Details'
 
     def __str__(self):
-        return self.aircraft.model + ' Extended Details'
+        return self.aircraft.name + ' Extended Details'
