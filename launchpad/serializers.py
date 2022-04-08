@@ -110,4 +110,4 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
         return ','.join(name_series)
     class Meta:
         model = AircraftMasterComponent
-        fields = ('name','family','drawing', 'linked_models', 'created_at', 'updated_at',)
+        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at',)
