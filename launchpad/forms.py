@@ -148,7 +148,7 @@ class AircraftCreateForm(forms.ModelForm):
                     )
                 )
         )     
-        self.fields['final_assembly'].queryset = AircraftAssembly.objects.filter(~Exists(Aircraft.objects.filter(final_assembly=OuterRef('pk'))))    
+        self.fields['final_assembly'].queryset = AircraftAssembly.objects.filter(~Exists(Aircraft.objects.filter(final_assembly=OuterRef('pk')))).filter(status=2)
 
     class Meta:
         model = Aircraft
@@ -222,19 +222,22 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.help_text_inline = True   
         
+        self.model_qs =  AircraftModel.objects.filter(id = aircraft_model_id)
         aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
-
         # The components that have not been selected 
         self.all_master_components = aircraft_model.master_components.all()
         self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(master_component__in = self.all_master_components)
-               
-
+              
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("status"),
                         FloatingField("model"),
                         Field("components"),
+                        HTML("""
+                                <small>Select from available components, if no components are avialable, check the inventory and order new ones.</small>
+                                <br>
+                            """),
                         ),
                   
                     HTML("""
@@ -245,37 +248,49 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-assemblies-list' %}" role="button">Cancel</a>""")
                     )
                 )
-        )             
-        self.fields['model'].initial = aircraft_model
-        self.fields['model'].widget.attrs['disabled'] = True
+        )            
         
+        self.fields['model'] = forms.ModelChoiceField(
+                required=True,
+                queryset=self.model_qs)
+
         self.fields['components'] = forms.ModelMultipleChoiceField(
                 required=True,
                 queryset=self.components_qs,
-                widget=forms.SelectMultiple(attrs={'title': _("Select from Available Components")}))
+                widget=forms.SelectMultiple())
 
     def clean_components(self):
         submitted_components = self.cleaned_data['components']
         all_component_occurances = []
+        not_found_components = []
         for master_component in self.all_master_components:   
             is_found = False
             all_occurances = []
             for current_component in submitted_components:
                 if current_component.master_component == master_component:
                     is_found = True
-                all_occurances.append(is_found)
+                    break
+            if not is_found:
+                not_found_components.append(master_component.name)
+            
+            all_occurances.append(is_found)
+                
 
             all_component_occurances.append(all(all_occurances))
-        
-        
-        if not all(all_component_occurances):
+                
+        if not_found_components:
+            missing_components = ', '.join(not_found_components)
+            
             raise ValidationError(
-                _('All components must be selected to complete a assembly, if a component is missing please select it or order it to add to the inventory ')
+                _("All components from the blueprint must be selected to complete a assembly. if a component is missing please select it or order it to add to the inventory. Following components are missing: %s" % missing_components)
             )
         return submitted_components
     class Meta:
         model = AircraftAssembly
         fields = '__all__'
+        help_texts = {
+            'components': 'Select from available components',
+        }
         
         
 class AircraftMasterComponentCreateForm(forms.ModelForm):

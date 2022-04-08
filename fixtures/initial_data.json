@@ -647,6 +647,19 @@
   },
   {
     "model": "registry.aircraftcomponent",
+    "pk": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
+    "fields": {
+      "supplier_part_id": "x-3-2",
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
+      "custody_on": "2022-01-14T13:48:11Z",
+      "is_active": true,
+      "custody_status": 4,
+      "created_at": "2022-01-14T13:48:11.376Z",
+      "updated_at": "2022-04-05T10:54:04.025Z"
+    }
+  },
+  {
+    "model": "registry.aircraftcomponent",
     "pk": "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
     "fields": {
       "supplier_part_id": "x-1-2",
@@ -708,19 +721,6 @@
       "custody_status": 4,
       "created_at": "2022-01-14T13:47:28.632Z",
       "updated_at": "2022-04-05T10:54:49.799Z"
-    }
-  },
-  {
-    "model": "registry.aircraftcomponent",
-    "pk": "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
-    "fields": {
-      "supplier_part_id": "x-6-2",
-      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
-      "custody_on": "2022-01-14T13:45:57Z",
-      "is_active": true,
-      "custody_status": 4,
-      "created_at": "2022-01-14T13:45:57.959Z",
-      "updated_at": "2022-04-05T10:55:04.204Z"
     }
   },
   {
@@ -1083,7 +1083,7 @@
     "model": "registry.aircraftcomponentsignature",
     "pk": "d792eaba-64cd-4731-ac42-a72701972b67",
     "fields": {
-      "component": "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
+      "component": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
       "signature_url": "https://ipfs.io/ipfs/QmVqZa4aHrKmVqU9pWPdheJZwy4tgyuK1w6VFThu2yvnWz?filename=f70d10d3-79fd-423e-80d9-841e9fbc3b6a.json",
       "created_at": "2022-01-14T13:50:06.055Z",
       "updated_at": "2022-01-14T13:50:06.055Z"
@@ -1143,14 +1143,14 @@
         "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
         "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
         "60532c18-2822-483e-8abe-4151c5a270aa",
-        "69532104-3187-4170-b52f-376b0448dce2",
-        "7331ce1f-e8a7-46db-b595-36cc3ea0d08e",
+        "69532104-3187-4170-b52f-376b0448dce2",        
         "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
         "99b647e8-2497-4e9f-9c7a-5172a74813d7",
         "acfa92e2-b66d-43a7-abd7-decdb3477786",
         "b3543ea6-ab11-4a75-97e6-740e46529565",
         "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
-        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8"
+        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
+        "65e5364d-a734-4b8a-8c7c-d1bc85ee5439"
       ]
     }
   },

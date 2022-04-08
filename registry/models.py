@@ -372,12 +372,12 @@ class AircraftModel(models.Model):
     (5, _('GYROPLANE')), (6, _('BALLOON')), (7, _('AIRSHIP')), (8, _('UAV')), (9, _('Multirotor')), (10, _('Hybrid')),)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=280)
-    popular_name = models.CharField(max_length=140)
+    name = models.CharField(max_length=280, help_text="Give this a name e.g. Aerobridge F1")
+    popular_name = models.CharField(max_length=140, help_text="e.g. F1")
     category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default=0,
                                    help_text="Set the category for this aircraft, use the closest aircraft type")
-    master_components = models.ManyToManyField(AircraftMasterComponent)   
-    series = models.CharField(max_length=10, default="2022.1", help_text="Define the production series for this Aircraft Model") 
+    master_components = models.ManyToManyField(AircraftMasterComponent, name="master_components")   
+    series = models.CharField(max_length=10, default="2022.1", help_text="Define the production series for this Aircraft Model e.g. 2022.1") 
     max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
                                         help_text="Set the endurance in minutes")
     max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
@@ -396,7 +396,7 @@ class AircraftModel(models.Model):
     mass = models.IntegerField(default=300, help_text="Set the vehicle's mass in gms.")
     sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default=7, help_text='')
     operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)    
-    documents = models.ManyToManyField(AerobridgeDocument)                                                                   
+    documents = models.ManyToManyField(AerobridgeDocument, help_text="Associate any existing documents to this series / model ")                                                                   
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank=True, null=True,
                                          help_text="Set the type certificate if available for the drone")
 
@@ -472,7 +472,7 @@ class AircraftAssembly(models.Model):
 
     model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
-                                 help_text="Set the status of this drone assembly, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
+                                 help_text="Set the status of this drone assembly, only complete assemblies maybe added to the drone")
 
     components = models.ManyToManyField(AircraftComponent, related_name='aircraft_components',
                                         help_text="Set the components for this aircraft")
@@ -501,7 +501,7 @@ class Aircraft(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
                                  help_text="Set the status of this drone, if it is set as inactive, the GCS might fail and flight plans might not be able to load on the drone")
 
-    final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft, if you do not see a assembly, it means that you will need to create a new assembly first.")
+    final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft, if you do not see a assembly, it means that you will need to create a new assembly first.", limit_choices_to={'status':2})
     photo = models.URLField(help_text="A URL of a photo of the drone",
                             default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
     created_at = models.DateTimeField(auto_now_add=True)

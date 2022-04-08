@@ -25,7 +25,7 @@
         {% if aircraft_master_components %}
 
             {% for aircraft_master_component in aircraft_master_components.results %}            
-              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
+              <li class="list-group-item"><mark>{{ aircraft_master_component.family }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>

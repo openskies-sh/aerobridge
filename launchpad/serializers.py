@@ -84,10 +84,9 @@ class AircraftModelSerializer(serializers.ModelSerializer):
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):
     model_name = serializers.CharField(source='model.name')
-
+    status_type = serializers.SerializerMethodField()
     def get_status_type(self, obj):
-        x = obj.get_status_display()
-        print(x)
+        x = obj.get_status_display()        
         return x
   
     class Meta:
@@ -95,6 +94,20 @@ class AircraftAssemblySerializer(serializers.ModelSerializer):
         fields = ('id','model_name','status_type','model','updated_at',)
 
 class AircraftMasterComponentSerializer(serializers.ModelSerializer):
+    # def get_installed_model(self, obj):
+    #     x = 
+    linked_models = serializers.SerializerMethodField()
+    family = serializers.SerializerMethodField()
+    def get_family(self, obj):        
+        x = obj.get_family_display()   
+        return x
+
+    def get_linked_models(self, obj):        
+        x = obj.aircraftmodel_set.all()
+        name_series = []
+        for x1 in x: 
+            name_series.append(x1.name + ' / Series ' + x1.series)
+        return ','.join(name_series)
     class Meta:
         model = AircraftMasterComponent
-        exclude = ('created_at',)
+        fields = ('name','family','drawing', 'linked_models', 'created_at', 'updated_at',)

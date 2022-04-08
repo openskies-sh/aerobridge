@@ -574,7 +574,7 @@ class AircraftAssembliesList(APIView):
     pagination_class = StandardResultsSetPagination
 
     def get_aircraft_assemblies(self, view_type=None):
-        view_type_lookup = {'complete':2,'in-progress':0, 'parts-needed':1}
+        view_type_lookup = {'completed':2,'in-progress':0, 'parts-needed':1}
         if view_type is not None: 
             status = view_type_lookup[view_type]
             
@@ -586,7 +586,7 @@ class AircraftAssembliesList(APIView):
                 raise Http404
 
     def get(self, request, view_type=None):          
-        view_type = None if view_type not in ['complete', 'in-progress', 'parts-needed'] else view_type
+        view_type = None if view_type not in ['completed', 'in-progress', 'parts-needed'] else view_type
         queryset = self.get_aircraft_assemblies(view_type=view_type)        
         return Response({'aircraft_assemblies': queryset})
                
@@ -635,6 +635,7 @@ class AircraftAssembliesCreateView(CreateView):
 
     def post(self, request,aircraft_model_id):
         aircraft_model = AircraftModel.objects.filter(id = aircraft_model_id).exists()
+        submitted_components_master_components = []
 
         if not aircraft_model:
             raise Http404
@@ -642,10 +643,19 @@ class AircraftAssembliesCreateView(CreateView):
             aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
 
         form = AircraftAssemblyCreateForm(request.POST, aircraft_model_id=aircraft_model_id)
-        context = {'form': form,'aircraft_model':aircraft_model}
-        if form.is_valid():
+        if form.is_valid():            
             form.save()
             return redirect('aircraft-assemblies-list')
+        
+        submitted_components = request.POST.getlist('components',None)
+                
+        for submitted_component in submitted_components:           
+            s_c = AircraftComponent.objects.get(id = submitted_component)
+            master_component_id = s_c.master_component.id            
+            submitted_components_master_components.append(str(master_component_id))
+
+
+        context = {'form': form,'aircraft_model':aircraft_model,'submitted_components':submitted_components_master_components}
 
         return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_create.html', context)
 

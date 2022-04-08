@@ -24,7 +24,7 @@
     {% if manufacturers %}
         <ul class="list-group list-group-flush">
         {% for manufacturer in manufacturers %}
-        <li class="list-group-item"><a href="/launchpad/manufacturers/{{manufacturer.id}}/detail">{{ manufacturer.common_name }}</a></li>
+        <li class="list-group-item"><a href="/launchpad/manufacturers/{{manufacturer.id}}/detail">{{ manufacturer.full_name }}</a></li>
         {% endfor %}
     {% else %}
         <li class="list-group-item"><p class="text-muted"><i>There are no manufacturers added in Aerobridge, once added the list of manufacturers will be displayed here.</i></p></li>
