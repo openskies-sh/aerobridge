@@ -1,22 +1,30 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
-{% block content %}
+{% block navbreadcrumb %}
 
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        Manufacturing
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        Aircraft Assembly Details
-      </li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      Manufacturing
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      Aircraft Assembly Details
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+{% block content %}
+
+  
+<div class="alert alert-primary" role="alert">
+  <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
+</div>
+<br>
+<br>
 <div>
 <h2>Assembly Detail</a></h2>
-<br>
 
-<br>
 <table  class="table">
     <thead>
         <tr>

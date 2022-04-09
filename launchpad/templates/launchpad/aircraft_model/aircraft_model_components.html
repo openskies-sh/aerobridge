@@ -1,17 +1,25 @@
 {% extends "launchpad/layout.html" %} 
+
+{% block navbreadcrumb %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      Manufacturing
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      Master Component Details
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
 {% load rest_framework %}
 {% block content %}
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        Equipment
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        Master Component Details
-      </li>
-    </ol>
-  </nav>
+  <div class="alert alert-primary" role="alert">
+    <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
+  </div>
 <div>
 <h2>Master Components list for <a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }} / Series {{ aircraft_model.series }}</a></h2>
 <br>
