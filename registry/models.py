@@ -336,6 +336,17 @@ class Firmware(models.Model):
     def __str__(self):
         return self.version
 
+# class Manufacturer(models.Model):    
+#     '''A class to hold details of a manufacturer''''
+#     pass
+
+# class Supplier(models.Model):
+#     ''''Source: https://github.com/inventree/InvenTree/blob/8a82f22378c2a138a21ed0099e2a48b0d2c48d49/InvenTree/company/models.py#L63'''
+#     pass
+
+# class SupplierPart(models.Model):
+#     '''Source: https://github.com/inventree/InvenTree/blob/8a82f22378c2a138a21ed0099e2a48b0d2c48d49/InvenTree/company/models.py#L450''''
+#     pass
 
 class AircraftMasterComponent(models.Model):
     ''' '''
