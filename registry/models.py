@@ -10,25 +10,15 @@ from django.core.validators import RegexValidator
 from . import countries
 from simple_history.models import HistoricalRecords
 from django.core.exceptions import ValidationError
-from urllib.parse import urlparse
 from common.settings import currency_code_default as cc_default
-from common.validators import validate_currency_code
+from common.validators import validate_currency_code, validate_url, validate_flight_controller_id
+from common.status_codes import BuildStatus
 from django.db.models import Sum, Q
 from moneyed import CURRENCIES
+from django.core.validators import MinValueValidator
+from django.core import validators
+
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
-
-def validate_flight_controller_id(value):
-    if not value.isalnum():
-        raise ValidationError(u'%s flight controller ID cannot contain special characters or spaces' % value)
-
-
-def validate_url(value):
-    if not value:
-        return  # Required error is done the field
-    parsed_url = urlparse(value)
-    if not bool(parsed_url.scheme):
-        raise ValidationError('Only valid urls are allowed')
-
 
 def two_year_expiration():
     return datetime.combine(date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
@@ -43,7 +33,7 @@ no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$',
 class AerobridgeDocument(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField(help_text="Give a name for this document")
-    url = models.URLField(blank=True, null=True, validators=[validate_url,],
+    url = models.URLField(blank=True, null=True, validators=[validate_url],
                                               default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -236,7 +226,7 @@ class Pilot(models.Model):
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Assign this pilot to a operator")
     person = models.OneToOneField(Person, models.CASCADE,
                                   help_text="Assign this pilot to a person object in the database")
-    photo = models.URLField(blank=True, null=True, validators=[validate_url, ],
+    photo = models.URLField(blank=True, null=True, validators=[validate_url],
                             help_text="A URL to link to a photo of the pilot")
 
     address = models.ForeignKey(Address, models.CASCADE, help_text="Assign a address to this Pilot")
@@ -295,7 +285,7 @@ class Company(models.Model):
     country = models.CharField(max_length=3,
                                help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
     website = models.URLField(
-        help_text="Put official URL of the company, if none is available then a manufacturers public facing URL is necessary")
+        help_text="Put official URL of the company, if none is available then a manufacturers public facing URL is necessary", validators=[validate_url])
     email = models.EmailField(help_text="Contact email for support and other queries")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  #                           
     documents = models.ManyToManyField(AerobridgeDocument, help_text = "You can upload and associate documents to the manufacturer")   
@@ -393,7 +383,7 @@ class Company(models.Model):
 class Firmware(models.Model):
     ''' A model for custom firmware '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    binary_file_url = models.URLField(help_text="Enter a url from where the firmware can be downloaded")
+    binary_file_url = models.URLField(help_text="Enter a url from where the firmware can be downloaded",validators=[validate_url])
     binary_file_hash = models.TextField(help_text="Enter a SHA / Digest for the firmware, used to secure the firmware")
     version = models.CharField(max_length=25, help_text="Set a semantic version for the firmware version")
     manufacturer = models.ForeignKey(Company, models.CASCADE, help_text="Associate a manufacturer to the firmware", limit_choices_to={'role':1})
@@ -411,12 +401,313 @@ class Firmware(models.Model):
         return self.version
 
 
-# class SupplierPart(models.Model):
-#     '''Source: https://github.com/inventree/InvenTree/blob/8a82f22378c2a138a21ed0099e2a48b0d2c48d49/InvenTree/company/models.py#L450''''
-#     pass
+# from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
+class ManufacturerPart(models.Model):
+    """ Represents a unique part as provided by a Manufacturer
+    Each ManufacturerPart is identified by a MPN (Manufacturer Part Number)
+    Each ManufacturerPart is also linked to a Part object.
+    A Part may be available from multiple manufacturers
+    Attributes:
+        part: Link to the master Part
+        manufacturer: Company that manufactures the ManufacturerPart
+        MPN: Manufacture part number
+        link: Link to external website for this manufacturer part
+        description: Descriptive notes field
+    """
 
-# class AerobridgeComponentStock(models.Model):
-#     pass
+    class Meta:
+        unique_together = ('part', 'manufacturer', 'MPN')
+
+    part = models.ForeignKey('part.Part', on_delete=models.CASCADE,
+                             related_name='manufacturer_parts',
+                             verbose_name=_('Base Part'),
+                             limit_choices_to={
+                                 'purchaseable': True,
+                             },
+                             help_text=_('Select part'),
+                             )
+
+    manufacturer = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='manufactured_parts',
+        limit_choices_to={
+            'is_manufacturer': True
+        },
+        verbose_name=_('Manufacturer'),
+        help_text=_('Select manufacturer'),
+    )
+
+    MPN = models.CharField(
+        null=True,
+        max_length=100,
+        verbose_name=_('MPN'),
+        help_text=_('Manufacturer Part Number')
+    )
+
+    link = models.URLField(
+        blank=True, null=True,
+        verbose_name=_('Link'),
+        help_text=_('URL for external manufacturer part link'),
+        validators = [validate_url]
+
+    )
+
+    description = models.CharField(
+        max_length=250, blank=True, null=True,
+        verbose_name=_('Description'),
+        help_text=_('Manufacturer part description')
+    )
+
+    @classmethod
+    def create(cls, part, manufacturer, mpn, description, link=None):
+        """ Check if ManufacturerPart instance does not already exist
+            then create it
+        """
+
+        manufacturer_part = None
+
+        try:
+            manufacturer_part = ManufacturerPart.objects.get(part=part, manufacturer=manufacturer, MPN=mpn)
+        except ManufacturerPart.DoesNotExist:
+            pass
+
+        if not manufacturer_part:
+            manufacturer_part = ManufacturerPart(part=part, manufacturer=manufacturer, MPN=mpn, description=description, link=link)
+            manufacturer_part.save()
+
+        return manufacturer_part
+
+    def __str__(self):
+        s = ''
+
+        if self.manufacturer:
+            s += f'{self.manufacturer.name}'
+            s += ' | '
+
+        s += f'{self.MPN}'
+
+        return s
+
+
+class SupplierPartManager(models.Manager):
+    """ Define custom SupplierPart objects manager
+        The main purpose of this manager is to improve database hit as the
+        SupplierPart model involves A LOT of foreign keys lookups
+    """
+
+    def get_queryset(self):
+        # Always prefetch related models
+        return super().get_queryset().prefetch_related(
+            'part',
+            'supplier',
+            'manufacturer_part__manufacturer',
+        )
+
+
+class SupplierPart(models.Model):
+    """ Represents a unique part as provided by a Supplier
+    Each SupplierPart is identified by a SKU (Supplier Part Number)
+    Each SupplierPart is also linked to a Part or ManufacturerPart object.
+    A Part may be available from multiple suppliers
+    Attributes:
+        part: Link to the master Part (Obsolete)
+        source_item: The sourcing item linked to this SupplierPart instance
+        supplier: Company that supplies this SupplierPart object
+        SKU: Stock keeping unit (supplier part number)
+        link: Link to external website for this supplier part
+        description: Descriptive notes field
+        note: Longer form note field
+        base_cost: Base charge added to order independent of quantity e.g. "Reeling Fee"
+        multiple: Multiple that the part is provided in
+        lead_time: Supplier lead time
+        packaging: packaging that the part is supplied in, e.g. "Reel"
+    """
+
+    objects = SupplierPartManager()
+
+
+    class Meta:
+        unique_together = ('part', 'supplier', 'SKU')
+
+        # This model was moved from the 'Part' app
+        db_table = 'part_supplierpart'
+
+    def clean(self):
+
+        super().clean()
+
+        # Ensure that the linked manufacturer_part points to the same part!
+        if self.manufacturer_part and self.part:
+
+            if not self.manufacturer_part.part == self.part:
+                raise ValidationError({
+                    'manufacturer_part': _("Linked manufacturer part must reference the same base part"),
+                })
+
+    def save(self, *args, **kwargs):
+        """ Overriding save method to connect an existing ManufacturerPart """
+
+        manufacturer_part = None
+
+        if all(key in kwargs for key in ('manufacturer', 'MPN')):
+            manufacturer_name = kwargs.pop('manufacturer')
+            MPN = kwargs.pop('MPN')
+
+            # Retrieve manufacturer part
+            try:
+                manufacturer_part = ManufacturerPart.objects.get(manufacturer__name=manufacturer_name, MPN=MPN)
+            except (ValueError, Company.DoesNotExist):
+                # ManufacturerPart does not exist
+                pass
+
+        if manufacturer_part:
+            if not self.manufacturer_part:
+                # Connect ManufacturerPart to SupplierPart
+                self.manufacturer_part = manufacturer_part
+            else:
+                raise ValidationError(f'SupplierPart {self.__str__} is already linked to {self.manufacturer_part}')
+
+        self.clean()
+        self.validate_unique()
+
+        super().save(*args, **kwargs)
+
+    part = models.ForeignKey('part.Part', on_delete=models.CASCADE,
+                             related_name='supplier_parts',
+                             verbose_name=_('Base Part'),
+                             limit_choices_to={
+                                 'purchaseable': True,
+                             },
+                             help_text=_('Select part'),
+                             )
+
+    supplier = models.ForeignKey(Company, on_delete=models.CASCADE,
+                                 related_name='supplied_parts',
+                                 limit_choices_to={'is_supplier': True},
+                                 verbose_name=_('Supplier'),
+                                 help_text=_('Select supplier'),
+                                 )
+
+    SKU = models.CharField(
+        max_length=100,
+        verbose_name=_('SKU'),
+        help_text=_('Supplier stock keeping unit')
+    )
+
+    manufacturer_part = models.ForeignKey(ManufacturerPart, on_delete=models.CASCADE,
+                                          blank=True, null=True,
+                                          related_name='supplier_parts',
+                                          verbose_name=_('Manufacturer Part'),
+                                          help_text=_('Select manufacturer part'),
+                                          )
+
+    link = models.URLField(
+        blank=True, null=True,
+        verbose_name=_('Link'),
+        help_text=_('URL for external supplier part link'),        
+        validators = [validate_url]
+    )
+
+    description = models.CharField(
+        max_length=250, blank=True, null=True,
+        verbose_name=_('Description'),
+        help_text=_('Supplier part description')
+    )
+
+    note = models.CharField(
+        max_length=100, blank=True, null=True,
+        verbose_name=_('Note'),
+        help_text=_('Notes')
+    )
+
+    base_cost = models.DecimalField(max_digits=10, decimal_places=3, default=0, validators=[MinValueValidator(0)], verbose_name=_('base cost'), help_text=_('Minimum charge (e.g. stocking fee)'))
+
+    packaging = models.CharField(max_length=50, blank=True, null=True, verbose_name=_('Packaging'), help_text=_('Part packaging'))
+
+    multiple = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)], verbose_name=_('multiple'), help_text=_('Order multiple'))
+
+    # TODO - Reimplement lead-time as a charfield with special validation (pattern matching).
+    # lead_time = models.DurationField(blank=True, null=True)
+
+    @property
+    def manufacturer_string(self):
+        """ Format a MPN string for this SupplierPart.
+        Concatenates manufacture name and part number.
+        """
+
+        items = []
+
+        if self.manufacturer_part:
+            if self.manufacturer_part.manufacturer:
+                items.append(self.manufacturer_part.manufacturer.name)
+            if self.manufacturer_part.MPN:
+                items.append(self.manufacturer_part.MPN)
+
+        return ' | '.join(items)
+
+    @property
+    def has_price_breaks(self):
+        return self.price_breaks.count() > 0
+
+    @property
+    def price_breaks(self):
+        """ Return the associated price breaks in the correct order """
+        return self.pricebreaks.order_by('quantity').all()
+
+    @property
+    def unit_pricing(self):
+        return self.get_price(1)
+
+
+    def open_orders(self):
+        """ Return a database query for PO line items for this SupplierPart,
+        limited to purchase orders that are open / outstanding.
+        """
+
+        return self.purchase_order_line_items.prefetch_related('order').filter(order__status__in=PurchaseOrderStatus.OPEN)
+
+    def on_order(self):
+        """ Return the total quantity of items currently on order.
+        Subtract partially received stock as appropriate
+        """
+
+        totals = self.open_orders().aggregate(Sum('quantity'), Sum('received'))
+
+        # Quantity on order
+        q = totals.get('quantity__sum', 0)
+
+        # Quantity received
+        r = totals.get('received__sum', 0)
+
+        if q is None or r is None:
+            return 0
+        else:
+            return max(q - r, 0)
+
+    def purchase_orders(self):
+        """ Returns a list of purchase orders relating to this supplier part """
+
+        return [line.order for line in self.purchase_order_line_items.all().prefetch_related('order')]
+
+    @property
+    def pretty_name(self):
+        return str(self)
+
+    def __str__(self):
+        s = ''
+
+        if self.part.IPN:
+            s += f'{self.part.IPN}'
+            s += ' | '
+
+        s += f'{self.supplier.name} | {self.SKU}'
+
+        if self.manufacturer_string:
+            s = s + ' | ' + self.manufacturer_string
+
+        return s
 
 
 class AircraftMasterComponent(models.Model):
@@ -432,7 +723,7 @@ class AircraftMasterComponent(models.Model):
     name = models.CharField(max_length=280)
     family = models.IntegerField(choices=COMPONENT_TYPE, default=1,
                                  help_text="Set the component family")
-    drawing = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component drawing.")
+    drawing = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component drawing.",validators =[validate_url])
 
     manufacturer = models.ForeignKey(
         Company,
@@ -476,7 +767,7 @@ class AircraftMasterComponent(models.Model):
 
     default_supplier = models.ForeignKey(
         SupplierPart,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         blank=True, null=True,
         verbose_name=_('Default Supplier'),
         help_text=_('Default supplier part'),
@@ -504,29 +795,23 @@ class AircraftMasterComponent(models.Model):
     )
 
     assembly = models.BooleanField(
-        default=part_settings.part_assembly_default,
+        default=False,
         verbose_name=_('Assembly'),
         help_text=_('Can this part be built from other parts?')
     )
 
-    component = models.BooleanField(
-        default=part_settings.part_component_default,
-        verbose_name=_('Component'),
-        help_text=_('Can this part be used to build other parts?')
-    )
-
     trackable = models.BooleanField(
-        default=part_settings.part_trackable_default,
+        default=True, 
         verbose_name=_('Trackable'),
         help_text=_('Does this part have tracking for unique items?'))
 
     purchaseable = models.BooleanField(
-        default=part_settings.part_purchaseable_default,
+        default=True,
         verbose_name=_('Purchaseable'),
         help_text=_('Can this part be purchased from external suppliers?'))
 
     salable = models.BooleanField(
-        default=part_settings.part_salable_default,
+        default=False,
         verbose_name=_('Salable'),
         help_text=_("Can this part be sold to customers?"))
 
@@ -536,7 +821,7 @@ class AircraftMasterComponent(models.Model):
         help_text=_('Is this part active?'))
 
     virtual = models.BooleanField(
-        default=part_settings.part_virtual_default,
+        default=False,
         verbose_name=_('Virtual'),
         help_text=_('Is this a virtual part, such as a software product or license?'))
 
@@ -840,7 +1125,11 @@ class AircraftModel(models.Model):
 
 
 class AircraftComponent(models.Model):
-    ''' This class stores details of components for an aircraft '''
+    
+    """
+    A AircraftComponent object represents a quantity of physical instances of a part.
+
+    """
 
     CUSTODY_STATUS = ((0, _('Created')), (1, _('Ordered')), (2, _('In Transit')), (3, _('Received')),(4, _('Installed'),),(5, _('Discarded / Removed'),))
     
@@ -856,6 +1145,132 @@ class AircraftComponent(models.Model):
     custody_status = models.IntegerField(choices=CUSTODY_STATUS, default=0,
                                  help_text="Set the component status as it moves through the supply chain")
     history = HistoricalRecords()
+
+
+    supplier_part = models.ForeignKey(
+        'company.SupplierPart', blank=True, null=True, on_delete=models.SET_NULL,
+        verbose_name=_('Supplier Part'),
+        help_text=_('Select a matching supplier part for this stock item')
+    )
+
+    packaging = models.CharField(
+        max_length=50,
+        blank=True, null=True,
+        verbose_name=_('Packaging'),
+        help_text=_('Packaging this stock item is stored in')
+    )
+
+    # When deleting a stock item with installed items, those installed items are also installed
+    belongs_to = models.ForeignKey(
+        'self',
+        verbose_name=_('Installed In'),
+        on_delete=models.CASCADE,
+        related_name='installed_parts', blank=True, null=True,
+        help_text=_('Is this item installed in another item?')
+    )
+
+
+    serial = models.CharField(
+        verbose_name=_('Serial Number'),
+        max_length=100, blank=True, null=True,
+        help_text=_('Serial number for this item')
+    )
+
+    serial_int = models.IntegerField(default=0)
+
+    link = models.URLField(
+        verbose_name=_('External Link'),
+        max_length=125, blank=True,
+        help_text=_("Link to external URL"),
+        validators=[validate_url]
+    )
+
+    batch = models.CharField(
+        verbose_name=_('Batch Code'),
+        max_length=100, blank=True, null=True,
+        help_text=_('Batch code for this stock item')
+    )
+
+    quantity = models.DecimalField(
+        verbose_name=_("Stock Quantity"),
+        max_digits=15, decimal_places=5, validators=[MinValueValidator(0)],
+        default=1
+    )
+
+    updated = models.DateField(auto_now=True, null=True)
+
+    build = models.ForeignKey(
+        'build.Build', on_delete=models.SET_NULL,
+        verbose_name=_('Source Build'),
+        blank=True, null=True,
+        help_text=_('Build for this stock item'),
+        related_name='build_outputs',
+    )
+
+    is_building = models.BooleanField(
+        default=False,
+    )
+
+    purchase_order = models.ForeignKey(
+        'order.PurchaseOrder',
+        on_delete=models.SET_NULL,
+        verbose_name=_('Source Purchase Order'),
+        related_name='stock_items',
+        blank=True, null=True,
+        help_text=_('Purchase order for this stock item')
+    )
+
+    sales_order = models.ForeignKey(
+        'order.SalesOrder',
+        on_delete=models.SET_NULL,
+        verbose_name=_("Destination Sales Order"),
+        related_name='stock_items',
+        null=True, blank=True)
+
+    expiry_date = models.DateField(
+        blank=True, null=True,
+        verbose_name=_('Expiry Date'),
+        help_text=_('Expiry date for stock item. Stock will be considered expired after this date'),
+    )
+
+    stocktake_date = models.DateField(blank=True, null=True)
+
+    stocktake_user = models.ForeignKey(
+        User, on_delete=models.SET_NULL,
+        blank=True, null=True,
+        related_name='stocktake_stock'
+    )
+
+    review_needed = models.BooleanField(default=False)
+
+    delete_on_deplete = models.BooleanField(default=True, verbose_name=_('Delete on deplete'), help_text=_('Delete this Stock Item when stock is depleted'))
+
+    status = models.PositiveIntegerField(
+        default=StockStatus.OK,
+        choices=StockStatus.items(),
+        validators=[MinValueValidator(0)])
+
+    notes = MarkdownxField(
+        blank=True, null=True,
+        verbose_name=_("Notes"),
+        help_text=_('Stock Item Notes')
+    )
+
+    purchase_price = InvenTreeModelMoneyField(
+        max_digits=19,
+        decimal_places=4,
+        blank=True,
+        null=True,
+        verbose_name=_('Purchase Price'),
+        help_text=_('Single unit purchase price at time of purchase'),
+    )
+
+    owner = models.ForeignKey(Owner, on_delete=models.SET_NULL, blank=True, null=True,
+                              verbose_name=_('Owner'),
+                              help_text=_('Select Owner'),
+                              related_name='stock_items')
+
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -873,7 +1288,7 @@ class AircraftComponentSignature(models.Model):
     component = models.OneToOneField(AircraftComponent, on_delete=models.CASCADE, limit_choices_to={'is_active': True},
                                      help_text="Select a component to link to this signature")
     signature_url = models.URLField(
-        help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.")
+        help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.",validators= [validate_url])
     history = HistoricalRecords()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -925,7 +1340,7 @@ class Aircraft(models.Model):
 
     final_assembly = models.OneToOneField(AircraftAssembly, on_delete=models.CASCADE, help_text="Assign a aircraft assembly to this aircraft, if you do not see a assembly, it means that you will need to create a new assembly first.", limit_choices_to={'status':2})
     photo = models.URLField(help_text="A URL of a photo of the drone",
-                            default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf")
+                            default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",validators=[validate_url])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
@@ -953,7 +1368,7 @@ class AircraftDetail(models.Model):
                                               blank=True, null=True)
 
     identification_photo = models.URLField(blank=True, null=True,
-                                           help_text="A URL to a photo of the drone ID or other identifying image of the drone.")
+                                           help_text="A URL to a photo of the drone ID or other identifying image of the drone.", validators = [validate_url])
     history = HistoricalRecords()
 
     created_at = models.DateTimeField(auto_now_add=True)
