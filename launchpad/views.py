@@ -4,7 +4,7 @@ from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
-from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity
+from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
 from registry.models import AircraftComponent ,  AircraftComponentSignature, AircraftAssembly
 from registry.serializers import AircraftFullSerializer

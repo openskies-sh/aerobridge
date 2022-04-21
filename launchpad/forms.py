@@ -1,5 +1,5 @@
 from doctest import master
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
@@ -424,7 +424,7 @@ class ManufacturerCreateForm(forms.ModelForm):
                 )     
      
     class Meta:
-        model = Manufacturer
+        model = Company
         fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country', 'documents')
 
 class FirmwareCreateForm(forms.ModelForm):

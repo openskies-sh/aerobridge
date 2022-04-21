@@ -11,8 +11,10 @@ from . import countries
 from simple_history.models import HistoricalRecords
 from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
-
-
+from common.settings import currency_code_default as cc_default
+from common.validators import validate_currency_code
+from django.db.models import Sum, Q
+from moneyed import CURRENCIES
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def validate_flight_controller_id(value):
@@ -166,29 +168,14 @@ class Authorization(models.Model):
 class Operator(models.Model):
     OPTYPE_CHOICES = ((0, _('NA')), (1, _('LUC')), (2, _('Non-LUC')), (3, _('AUTH')), (4, _('DEC')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company_name = models.CharField(max_length=28,
-                                    help_text="Official Name of the company as in the Company Registration Office",
-                                    validators=[no_special_characters_regex, ])
-    website = models.URLField(
-        help_text="Put official URL of the company, if none is available then a manufacturers public facing URL is necessary")
-    email = models.EmailField(help_text="Contact email for support and other queries")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  #
     expiration = models.DateTimeField(default=two_year_expiration)
     operator_type = models.IntegerField(choices=OPTYPE_CHOICES, default=0,
                                         help_text="Choose what kind of operator this is, classify the operator based on capabilites, use the adminsitration panel to add additional operator categories")
-    address = models.ForeignKey(Address, models.CASCADE, help_text="Select the official address for the company")
+                                        
     operational_authorizations = models.ManyToManyField(Authorization, related_name='operational_authorizations',
                                                         help_text="Choose what kind of authorization this operator posseses, to add additional authorizations, use the administration panel")
     authorized_activities = models.ManyToManyField(Activity, related_name='authorized_activities',
                                                    help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel")
-    vat_number = models.CharField(max_length=25, default="VAT-TMP", validators=[no_special_characters_regex, ],
-                                  blank=True, null=True, help_text="VAT / Tax number if available")
-    insurance_number = models.CharField(max_length=25, default="INS-TMP", validators=[no_special_characters_regex, ],
-                                        blank=True, null=True, help_text="Insurance number if avaialble")
-    company_number = models.CharField(max_length=25, default='CO-TMP', validators=[no_special_characters_regex, ],
-                                      blank=True, null=True, help_text="Company number if available ")
-    country = models.CharField(max_length=2, choices=countries.COUNTRY_CHOICES_ISO3166, default='IN',
-                               help_text="At the moment only India is configured, you can setup your own country")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -292,20 +279,107 @@ class TypeCertificate(models.Model):
         return self.type_certificate_holder
 
 
-class Manufacturer(models.Model):
+class Company(models.Model):
+
+    COMPANY_TYPE = (
+    (0, _('Supplier')), (1, _('Manufacturer')), (2, _('Operator')), (3, _('Customer')),)
+
+    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=140, help_text="Full legal name of the manufacturing entity")
     common_name = models.CharField(max_length=140, help_text="Common name for the manufacturer e.g. Skydio")
     address = models.ForeignKey(Address, models.CASCADE, blank=True, null=True,
                                 help_text="Assign a address to this manufacturers")
     acronym = models.CharField(max_length=10,
-                               help_text="If you use a acronym for this manufacturer, you can assign it here")
-    role = models.CharField(max_length=140, help_text="e.g. Reseller, distributor, OEM etc.")
+                               help_text="If you use a acronym for this manufacturer, you can assign it here")    
     country = models.CharField(max_length=3,
                                help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
-                               
+    website = models.URLField(
+        help_text="Put official URL of the company, if none is available then a manufacturers public facing URL is necessary")
+    email = models.EmailField(help_text="Contact email for support and other queries")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  #                           
     documents = models.ManyToManyField(AerobridgeDocument, help_text = "You can upload and associate documents to the manufacturer")   
-                                
+    vat_number = models.CharField(max_length=25, default="VAT-TMP", validators=[no_special_characters_regex, ],
+                                  blank=True, null=True, help_text="VAT / Tax number if available")
+    insurance_number = models.CharField(max_length=25, default="INS-TMP", validators=[no_special_characters_regex, ],
+                                        blank=True, null=True, help_text="Insurance number if avaialble")
+    company_number = models.CharField(max_length=25, default='CO-TMP', validators=[no_special_characters_regex, ],
+                                      blank=True, null=True, help_text="Company number if available ")
+    country = models.CharField(max_length=2, choices=countries.COUNTRY_CHOICES_ISO3166, default='IN',
+                               help_text="At the moment only India is configured, you can setup your own country")
+
+    currency = models.CharField(
+        max_length=3,
+        verbose_name=_('Currency'),
+        blank=True,
+        default=cc_default,
+        help_text=_('Default currency used for this company'),
+        validators=[validate_currency_code],
+    )
+
+    role = models.IntegerField(choices=COMPANY_TYPE, default=3,
+                                 help_text="Set the type of the company")
+    @property
+    def currency_code(self):
+        """
+        Return the currency code associated with this company.
+        - If the currency code is invalid, use the default currency
+        - If the currency code is not specified, use the default currency
+        """
+
+        code = self.currency
+
+        if code not in CURRENCIES:
+            code = cc_default()
+
+        return code
+
+
+    @property
+    def manufactured_part_count(self):
+        """ The number of parts manufactured by this company """
+        return self.manufactured_parts.count()
+
+    @property
+    def has_manufactured_parts(self):
+        return self.manufactured_part_count > 0
+
+    @property
+    def supplied_part_count(self):
+        """ The number of parts supplied by this company """
+        return self.supplied_parts.count()
+
+    @property
+    def has_supplied_parts(self):
+        """ Return True if this company supplies any parts """
+        return self.supplied_part_count > 0
+
+    @property
+    def parts(self):
+        """ Return SupplierPart objects which are supplied or manufactured by this company """
+        return AircraftComponent.objects.filter(Q(supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
+
+    @property
+    def part_count(self):
+        """ The number of parts manufactured (or supplied) by this Company """
+        return self.parts.count()
+
+    @property
+    def has_parts(self):
+        return self.part_count > 0
+
+    @property
+    def stock_items(self):
+        """ Return a list of all stock items supplied or manufactured by this company """
+        
+        return AircraftComponentStock.objects.filter(Q(supplier_part__supplier=self.id) | Q(supplier_part__manufacturer_part__manufacturer=self.id)).all()
+
+    @property
+    def stock_count(self):
+        """ Return the number of stock items supplied or manufactured by this company """
+        return self.stock_items.count()
+
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -322,7 +396,7 @@ class Firmware(models.Model):
     binary_file_url = models.URLField(help_text="Enter a url from where the firmware can be downloaded")
     binary_file_hash = models.TextField(help_text="Enter a SHA / Digest for the firmware, used to secure the firmware")
     version = models.CharField(max_length=25, help_text="Set a semantic version for the firmware version")
-    manufacturer = models.ForeignKey(Manufacturer, models.CASCADE, help_text="Associate a manufacturer to the firmware")
+    manufacturer = models.ForeignKey(Company, models.CASCADE, help_text="Associate a manufacturer to the firmware", limit_choices_to={'role':1})
     friendly_name = models.CharField(max_length=140, help_text="Give it a friendly name e.g. May-2021 1.2 release")
     is_active = models.BooleanField(default=False,
                                     help_text="Set if the firmware is active, don't forget to mark old firmware as inactive")
@@ -336,17 +410,14 @@ class Firmware(models.Model):
     def __str__(self):
         return self.version
 
-# class Manufacturer(models.Model):    
-#     '''A class to hold details of a manufacturer''''
-#     pass
-
-# class Supplier(models.Model):
-#     ''''Source: https://github.com/inventree/InvenTree/blob/8a82f22378c2a138a21ed0099e2a48b0d2c48d49/InvenTree/company/models.py#L63'''
-#     pass
 
 # class SupplierPart(models.Model):
 #     '''Source: https://github.com/inventree/InvenTree/blob/8a82f22378c2a138a21ed0099e2a48b0d2c48d49/InvenTree/company/models.py#L450''''
 #     pass
+
+# class AerobridgeComponentStock(models.Model):
+#     pass
+
 
 class AircraftMasterComponent(models.Model):
     ''' '''
@@ -363,9 +434,349 @@ class AircraftMasterComponent(models.Model):
                                  help_text="Set the component family")
     drawing = models.URLField(blank=True, null=True, help_text="A URL to a photo of the component drawing.")
 
+    manufacturer = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='manufactured_parts',
+        limit_choices_to={
+            'is_manufacturer': True
+        },
+        verbose_name=_('Manufacturer'),
+        help_text=_('Select manufacturer'),
+    )
+
+    MPN = models.CharField(
+        null=True,
+        max_length=100,
+        verbose_name=_('MPN'),
+        help_text=_('Manufacturer Part Number')
+    )
+
     history = HistoricalRecords()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+    def get_default_supplier(self):
+        """ Get the default supplier part for this part (may be None).
+        - If the part specifies a default_supplier, return that
+        - If there is only one supplier part available, return that
+        - Else, return None
+        """
+
+        if self.default_supplier:
+            return self.default_supplier
+
+        if self.supplier_count == 1:
+            return self.supplier_parts.first()
+
+        # Default to None if there are multiple suppliers to choose from
+        return None
+
+    default_supplier = models.ForeignKey(
+        SupplierPart,
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+        verbose_name=_('Default Supplier'),
+        help_text=_('Default supplier part'),
+        related_name='default_parts'
+    )
+
+    default_expiry = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name=_('Default Expiry'),
+        help_text=_('Expiry time (in days) for stock items of this part'),
+    )
+
+    minimum_stock = models.PositiveIntegerField(
+        default=0, validators=[MinValueValidator(0)],
+        verbose_name=_('Minimum Stock'),
+        help_text=_('Minimum allowed stock level')
+    )
+
+    units = models.CharField(
+        max_length=20, default="",
+        blank=True, null=True,
+        verbose_name=_('Units'),
+        help_text=_('Stock keeping units for this part')
+    )
+
+    assembly = models.BooleanField(
+        default=part_settings.part_assembly_default,
+        verbose_name=_('Assembly'),
+        help_text=_('Can this part be built from other parts?')
+    )
+
+    component = models.BooleanField(
+        default=part_settings.part_component_default,
+        verbose_name=_('Component'),
+        help_text=_('Can this part be used to build other parts?')
+    )
+
+    trackable = models.BooleanField(
+        default=part_settings.part_trackable_default,
+        verbose_name=_('Trackable'),
+        help_text=_('Does this part have tracking for unique items?'))
+
+    purchaseable = models.BooleanField(
+        default=part_settings.part_purchaseable_default,
+        verbose_name=_('Purchaseable'),
+        help_text=_('Can this part be purchased from external suppliers?'))
+
+    salable = models.BooleanField(
+        default=part_settings.part_salable_default,
+        verbose_name=_('Salable'),
+        help_text=_("Can this part be sold to customers?"))
+
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active'),
+        help_text=_('Is this part active?'))
+
+    virtual = models.BooleanField(
+        default=part_settings.part_virtual_default,
+        verbose_name=_('Virtual'),
+        help_text=_('Is this a virtual part, such as a software product or license?'))
+
+    def get_parts_in_bom(self):
+        """
+        Return a list of all parts in the BOM for this part.
+        Takes into account substitutes, variant parts, and inherited BOM items
+        """
+
+        parts = set()
+
+        for bom_item in self.get_bom_items():
+            for part in bom_item.get_valid_parts_for_allocation():
+                parts.add(part)
+
+        return parts
+
+    def check_if_part_in_bom(self, other_part):
+        """
+        Check if the other_part is in the BOM for this part.
+        Note:
+            - Accounts for substitute parts
+            - Accounts for variant BOMs
+        """
+
+        for bom_item in self.get_bom_items():
+            if other_part in bom_item.get_valid_parts_for_allocation():
+                return True
+
+        # No matches found
+        return False
+
+    def check_add_to_bom(self, parent, raise_error=False, recursive=True):
+        """
+        Check if this Part can be added to the BOM of another part.
+        This will fail if:
+        a) The parent part is the same as this one
+        b) The parent part is used in the BOM for *this* part
+        c) The parent part is used in the BOM for any child parts under this one
+        """
+
+        result = True
+
+        try:
+            if self.pk == parent.pk:
+                raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
+                    p1=str(self),
+                    p2=str(parent)
+                )})
+
+            bom_items = self.get_bom_items()
+
+            # Ensure that the parent part does not appear under any child BOM item!
+            for item in bom_items.all():
+
+                # Check for simple match
+                if item.sub_part == parent:
+                    raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
+                        p1=str(parent),
+                        p2=str(self)
+                    )})
+
+                # And recursively check too
+                if recursive:
+                    result = result and item.sub_part.check_add_to_bom(
+                        parent,
+                        recursive=True,
+                        raise_error=raise_error
+                    )
+
+        except ValidationError as e:
+            if raise_error:
+                raise e
+            else:
+                return False
+
+        return result
+
+    @property
+    def available_stock(self):
+        """
+        Return the total available stock.
+        - This subtracts stock which is already allocated to builds
+        """
+
+        total = self.total_stock
+        total -= self.allocation_count()
+
+        return max(total, 0)
+
+    def required_sales_order_quantity(self):
+        """
+        Return the quantity of this part required for active sales orders
+        """
+
+        # Get a list of line items for open orders which match this part
+        open_lines = OrderModels.SalesOrderLineItem.objects.filter(
+            order__status__in=SalesOrderStatus.OPEN,
+            part=self
+        )
+
+        quantity = 0
+
+        for line in open_lines:
+            # Determine the quantity "remaining" to be shipped out
+            remaining = max(line.quantity - line.shipped, 0)
+            quantity += remaining
+
+        return quantity
+
+    def required_order_quantity(self):
+        """
+        Return total required to fulfil orders
+        """
+
+        return self.required_build_order_quantity() + self.required_sales_order_quantity()
+
+    @property
+    def quantity_to_order(self):
+        """
+        Return the quantity needing to be ordered for this part.
+        Here, an "order" could be one of:
+        - Build Order
+        - Sales Order
+        To work out how many we need to order:
+        Stock on hand = self.total_stock
+        Required for orders = self.required_order_quantity()
+        Currently on order = self.on_order
+        Currently building = self.quantity_being_built
+        """
+
+        # Total requirement
+        required = self.required_order_quantity()
+
+        # Subtract stock levels
+        required -= max(self.total_stock, self.minimum_stock)
+
+        # Subtract quantity on order
+        required -= self.on_order
+
+        # Subtract quantity being built
+        required -= self.quantity_being_built
+
+        return max(required, 0)
+
+    @property
+    def net_stock(self):
+        """ Return the 'net' stock. It takes into account:
+        - Stock on hand (total_stock)
+        - Stock on order (on_order)
+        - Stock allocated (allocation_count)
+        This number (unlike 'available_stock') can be negative.
+        """
+
+        return self.total_stock - self.allocation_count() + self.on_order
+
+
+    def need_to_restock(self):
+        """ Return True if this part needs to be restocked
+        (either by purchasing or building).
+        If the allocated_stock exceeds the total_stock,
+        then we need to restock.
+        """
+
+        return (self.total_stock + self.on_order - self.allocation_count) < self.minimum_stock
+
+    @property
+    def can_build(self):
+        """ Return the number of units that can be build with available stock
+        """
+
+        # If this part does NOT have a BOM, result is simply the currently available stock
+        if not self.has_bom:
+            return 0
+
+        total = None
+
+        bom_items = self.get_bom_items().prefetch_related('sub_part__stock_items')
+
+        # Calculate the minimum number of parts that can be built using each sub-part
+        for item in bom_items.all():
+            stock = item.sub_part.available_stock
+
+            # If (by some chance) we get here but the BOM item quantity is invalid,
+            # ignore!
+            if item.quantity <= 0:
+                continue
+
+            n = int(stock / item.quantity)
+
+            if total is None or n < total:
+                total = n
+
+        if total is None:
+            total = 0
+
+        return max(total, 0)
+
+    @property
+    def active_builds(self):
+        """ Return a list of outstanding builds.
+        Builds marked as 'complete' or 'cancelled' are ignored
+        """
+
+        return self.builds.filter(status__in=BuildStatus.ACTIVE_CODES)
+
+    @property
+    def inactive_builds(self):
+        """ Return a list of inactive builds
+        """
+
+        return self.builds.exclude(status__in=BuildStatus.ACTIVE_CODES)
+
+    @property
+    def quantity_being_built(self):
+        """
+        Return the current number of parts currently being built.
+        Note: This is the total quantity of Build orders, *not* the number of build outputs.
+              In this fashion, it is the "projected" quantity of builds
+        """
+
+        builds = self.active_builds
+
+        quantity = 0
+
+        for build in builds:
+            # The remaining items in the build
+            quantity += build.remaining
+
+        return quantity
+
+    @property
+    def total_stock(self):
+        """ Return the total stock quantity for this part.
+        - Part may be stored in multiple locations
+        - If this part is a "template" (variants exist) then these are counted too
+        """
+
+        return self.get_stock_count(include_variants=True)
+
     def __unicode__(self):
         return self.name
 
@@ -503,8 +914,8 @@ class Aircraft(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")
-    manufacturer = models.ForeignKey(Manufacturer, models.CASCADE,
-                                     help_text="Associate a manufacturer in the database to this aircraft")
+    manufacturer = models.ForeignKey(Company, models.CASCADE,
+                                     help_text="Associate a manufacturer in the database to this aircraft",limit_choices_to={'role':1})
     name = models.CharField(max_length=280, help_text="Set the internal name of the aircraft e.g. F1 #2")
     flight_controller_id = models.CharField(
         help_text="This is the Drone ID from the RFM, if there are spaces in the ID, remove them", max_length=140,

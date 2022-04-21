@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
-from registry.models import Aircraft, Manufacturer, Operator
+from registry.models import Aircraft, Company, Operator
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 
@@ -27,7 +27,7 @@ class AerobridgeCredential(models.Model):
     extension = models.IntegerField(choices=FILE_EXTENSION, help_text="Specify the data format for this credential, if known", default = 0)
 
     aircraft = models.ForeignKey(Aircraft,blank=True, null=True, on_delete = models.CASCADE)
-    manufacturer = models.ForeignKey(Manufacturer,blank=True, null=True, on_delete = models.CASCADE)
+    manufacturer = models.ForeignKey(Company,blank=True, null=True, on_delete = models.CASCADE, limit_choices_to={'role':1})
     operator = models.ForeignKey(Operator,blank=True, null=True, on_delete = models.CASCADE)
     
     is_active = models.BooleanField(default = True, help_text="Set whether the credential is still active")

@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import django_heroku
 from pathlib import Path
 import os
+
+import moneyed
+import sys
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
@@ -28,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -187,6 +190,23 @@ STATIC_URL = '/static/'
 
 # Directory path to look for data fixture to load data into database before running tests
 FIXTURE_DIRS = [os.getcwd() + '/tests/fixtures/']
+
+
+# Currencies available for use
+CURRENCIES = env.get(
+    'ALLOWED_CURRENCY',
+    [
+        'AUD', 'CAD', 'EUR', 'GBP', 'JPY', 'NZD', 'USD','INR',
+    ],
+)
+
+# Check that each provided currency is supported
+for currency in CURRENCIES:
+    if currency not in moneyed.CURRENCIES:  # pragma: no cover
+        print(f"Currency code '{currency}' is not supported")
+        sys.exit(1)
+
+
 
 LOGGING = {
     'version': 1,
