@@ -475,14 +475,6 @@ class AircraftMasterComponent(models.Model):
         # Default to None if there are multiple suppliers to choose from
         return None
 
-    default_supplier = models.ForeignKey(
-        SupplierPart,
-        on_delete=models.CASCADE,
-        blank=True, null=True,
-        verbose_name=_('Default Supplier'),
-        help_text=_('Default supplier part'),
-        related_name='default_parts'
-    )
 
     minimum_stock = models.PositiveIntegerField(
         default=0, validators=[MinValueValidator(0)],
@@ -859,10 +851,7 @@ class SupplierPart(models.Model):
 
 
     class Meta:
-        unique_together = ('part', 'supplier', 'SKU')
-
-        # This model was moved from the 'Part' app
-        db_table = 'part_supplierpart'
+        unique_together = ('manufacturer_part', 'supplier', 'SKU')
 
     def clean(self):
 
@@ -937,11 +926,7 @@ class SupplierPart(models.Model):
         help_text=_('Supplier part description')
     )
 
-    note = models.CharField(
-        max_length=100, blank=True, null=True,
-        verbose_name=_('Note'),
-        help_text=_('Notes')
-    )
+    is_default = models.BooleanField(default=False, help_text="Set whether this is the default supplier / store for this master component")
 
     # TODO - Reimplement lead-time as a charfield with special validation (pattern matching).
     # lead_time = models.DurationField(blank=True, null=True)
