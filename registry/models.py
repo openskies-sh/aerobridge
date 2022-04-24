@@ -439,7 +439,7 @@ class AircraftMasterComponent(models.Model):
         null=True,
         related_name='master_component_manufacturer',
         limit_choices_to={
-            'is_manufacturer': True
+            'role': 1
         },
         verbose_name=_('Manufacturer'),
         help_text=_('Select manufacturer'),
@@ -769,7 +769,7 @@ class ManufacturerPart(models.Model):
         null=True,
         related_name='manufactured_parts',
         limit_choices_to={
-            'is_manufacturer': True
+            'role': 1
         },
         verbose_name=_('Manufacturer'),
         help_text=_('Select manufacturer'),
@@ -849,7 +849,7 @@ class SupplierPart(models.Model):
 
 
     class Meta:
-        unique_together = ('manufacturer_part', 'supplier', 'SKU')
+        unique_together = ('manufacturer_part', 'supplier', )
 
     def clean(self):
 
@@ -893,16 +893,10 @@ class SupplierPart(models.Model):
 
     supplier = models.ForeignKey(Company, on_delete=models.CASCADE,
                                  related_name='supplied_parts',
-                                 limit_choices_to={'is_supplier': True},
+                                 limit_choices_to={'role': 3},
                                  verbose_name=_('Supplier'),
                                  help_text=_('Select supplier'),
                                  )
-
-    SKU = models.CharField(
-        max_length=100,
-        verbose_name=_('SKU'),
-        help_text=_('Supplier stock keeping unit')
-    )
 
     manufacturer_part = models.ForeignKey(ManufacturerPart, on_delete=models.CASCADE,
                                           blank=True, null=True,
@@ -988,7 +982,7 @@ class SupplierPart(models.Model):
             s += f'{self.part.IPN}'
             s += ' | '
 
-        s += f'{self.supplier.name} | {self.SKU}'
+        s += f'{self.supplier.name} '
 
         if self.manufacturer_string:
             s = s + ' | ' + self.manufacturer_string
@@ -1057,8 +1051,6 @@ class AircraftComponent(models.Model):
 
     """
 
-    CUSTODY_STATUS = ((0, _('Created')), (1, _('Ordered')), (2, _('In Transit')), (3, _('Received')),(4, _('Installed'),),(5, _('Discarded / Removed'),))
-    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
     master_component = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE, help_text="Set the master component associated with this component")
@@ -1075,34 +1067,11 @@ class AircraftComponent(models.Model):
         help_text=_('Select a matching supplier part for this stock item')
     )
 
-    # When deleting a stock item with installed items, those installed items are also installed
-    belongs_to = models.ForeignKey(
-        'self',
-        verbose_name=_('Installed In'),
-        on_delete=models.CASCADE,
-        related_name='installed_parts', blank=True, null=True,
-        help_text=_('Is this item installed in another item?')
-    )
-
-    batch = models.CharField(
-        verbose_name=_('Batch Code'),
-        max_length=100, blank=True, null=True,
-        help_text=_('Batch code for this stock item')
-    )
-
-    quantity = models.DecimalField(
-        verbose_name=_("Stock Quantity"),
-        max_digits=15, decimal_places=5, validators=[MinValueValidator(0)],
-        default=1
-    )
-
     updated = models.DateField(auto_now=True, null=True)
 
     stocktake_date = models.DateField(blank=True, null=True)
 
     review_needed = models.BooleanField(default=False)
-
-    delete_on_deplete = models.BooleanField(default=True, verbose_name=_('Delete on deplete'), help_text=_('Delete this Stock Item when stock is depleted'))
 
     status = models.PositiveIntegerField(
         default=StockStatus.OK,
