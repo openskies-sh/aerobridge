@@ -6,7 +6,6 @@ from datetime import date
 from datetime import datetime
 from datetime import timezone
 from dateutil.relativedelta import relativedelta
-from django.forms import DecimalField
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 from . import countries
@@ -19,7 +18,6 @@ from django.db.models import Sum, Q
 
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
-from django.core import validators
 
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
@@ -158,24 +156,6 @@ class Authorization(models.Model):
         return self.title
 
 
-class Contact(models.Model):
-    ROLE_CHOICES = ((0, _('Other')), (1, _('Responsible')))
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operator = models.ForeignKey(Operator, models.CASCADE, related_name='person_contact',
-                                 help_text="Set a operator for this contact")
-    person = models.ForeignKey(Person, models.CASCADE, help_text="Associate a person for this contact")
-    address = models.ForeignKey(Address, models.CASCADE, help_text="Add a address for this contact")
-    role_type = models.IntegerField(choices=ROLE_CHOICES, default=0,
-                                    help_text="A contact may or may not be legally responsible officer within a company, specify if the contact is responsisble (legally) for operations in the company")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
-
-    def __str__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
-
 
 class Test(models.Model):
     TESTTYPE_CHOICES = (
@@ -195,13 +175,6 @@ class Test(models.Model):
     def __unicode__(self):
         return self.name
 
-
-class TestValidity(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    test = models.ForeignKey(Test, models.CASCADE)
-    pilot = models.ForeignKey(Pilot, models.CASCADE)
-    taken_at = models.DateTimeField(blank=True, null=True)
-    expiration = models.DateTimeField(blank=True, null=True)
 
 
 class TypeCertificate(models.Model):
@@ -362,7 +335,7 @@ class Operator(models.Model):
                                                         help_text="Choose what kind of authorization this operator posseses, to add additional authorizations, use the administration panel")
     authorized_activities = models.ManyToManyField(Activity, related_name='authorized_activities',
                                                    help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel")
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, help_text= )
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, help_text= "Specify the company associated with this operator")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -377,6 +350,24 @@ class Operator(models.Model):
 
     def __str__(self):
         return self.company_name
+
+class Contact(models.Model):
+    ROLE_CHOICES = ((0, _('Other')), (1, _('Responsible')))
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    operator = models.ForeignKey(Operator, models.CASCADE, related_name='person_contact',
+                                 help_text="Set a operator for this contact")
+    person = models.ForeignKey(Person, models.CASCADE, help_text="Associate a person for this contact")
+    address = models.ForeignKey(Address, models.CASCADE, help_text="Add a address for this contact")
+    role_type = models.IntegerField(choices=ROLE_CHOICES, default=0,
+                                    help_text="A contact may or may not be legally responsible officer within a company, specify if the contact is responsisble (legally) for operations in the company")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+
+    def __str__(self):
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
 
 
 class Pilot(models.Model):
@@ -403,6 +394,13 @@ class Pilot(models.Model):
 
     def __str__(self):
         return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+
+class TestValidity(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    test = models.ForeignKey(Test, models.CASCADE)
+    pilot = models.ForeignKey(Pilot, models.CASCADE)
+    taken_at = models.DateTimeField(blank=True, null=True)
+    expiration = models.DateTimeField(blank=True, null=True)
 
 class SupplierPartManager(models.Manager):
     """ Define custom SupplierPart objects manager
