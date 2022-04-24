@@ -158,34 +158,6 @@ class Authorization(models.Model):
         return self.title
 
 
-class Operator(models.Model):
-    OPTYPE_CHOICES = ((0, _('NA')), (1, _('LUC')), (2, _('Non-LUC')), (3, _('AUTH')), (4, _('DEC')),)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    expiration = models.DateTimeField(default=two_year_expiration)
-    operator_type = models.IntegerField(choices=OPTYPE_CHOICES, default=0,
-                                        help_text="Choose what kind of operator this is, classify the operator based on capabilites, use the adminsitration panel to add additional operator categories")
-                                        
-    operational_authorizations = models.ManyToManyField(Authorization, related_name='operational_authorizations',
-                                                        help_text="Choose what kind of authorization this operator posseses, to add additional authorizations, use the administration panel")
-    authorized_activities = models.ManyToManyField(Activity, related_name='authorized_activities',
-                                                   help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel")
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def get_address(self):
-        full_address = '%s, %s, %s, %s %s, %s' % (
-        self.address.address_line_1, self.address.address_line_2, self.address.address_line_3, self.address.city,
-        self.address.state, self.address.country)
-        return full_address
-
-    def __unicode__(self):
-        return self.company_name
-
-    def __str__(self):
-        return self.company_name
-
-
 class Contact(models.Model):
     ROLE_CHOICES = ((0, _('Other')), (1, _('Responsible')))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -222,32 +194,6 @@ class Test(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class Pilot(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operator = models.ForeignKey(Operator, models.CASCADE, help_text="Assign this pilot to a operator")
-    person = models.OneToOneField(Person, models.CASCADE,
-                                  help_text="Assign this pilot to a person object in the database")
-    photo = models.URLField(blank=True, null=True, validators=[validate_url],
-                            help_text="A URL to link to a photo of the pilot")
-
-    address = models.ForeignKey(Address, models.CASCADE, help_text="Assign a address to this Pilot")
-    
-    documents = models.ManyToManyField(AerobridgeDocument)   
-                                
-    tests = models.ManyToManyField(Test, through='TestValidity',
-                                   help_text="Specify the tests if any the pilot has taken")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=0,
-                                    help_text="Is this pilot active? If he is not working for the company or has moved on, set it as inactive")
-
-    def __unicode__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
-
-    def __str__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
 
 
 class TestValidity(models.Model):
@@ -365,7 +311,7 @@ class Company(models.Model):
     def stock_items(self):
         """ Return a list of all stock items supplied or manufactured by this company """
         
-        return AircraftComponentStock.objects.filter(Q(supplier_part__supplier=self.id) | Q(supplier_part__manufacturer_part__manufacturer=self.id)).all()
+        return AircraftComponent.objects.filter(Q(supplier_part__supplier=self.id) | Q(supplier_part__manufacturer_part__manufacturer=self.id)).all()
 
     @property
     def stock_count(self):
@@ -403,6 +349,60 @@ class Firmware(models.Model):
     def __str__(self):
         return self.version
 
+
+
+class Operator(models.Model):
+    OPTYPE_CHOICES = ((0, _('NA')), (1, _('LUC')), (2, _('Non-LUC')), (3, _('AUTH')), (4, _('DEC')),)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    expiration = models.DateTimeField(default=two_year_expiration)
+    operator_type = models.IntegerField(choices=OPTYPE_CHOICES, default=0,
+                                        help_text="Choose what kind of operator this is, classify the operator based on capabilites, use the adminsitration panel to add additional operator categories")
+                                        
+    operational_authorizations = models.ManyToManyField(Authorization, related_name='operational_authorizations',
+                                                        help_text="Choose what kind of authorization this operator posseses, to add additional authorizations, use the administration panel")
+    authorized_activities = models.ManyToManyField(Activity, related_name='authorized_activities',
+                                                   help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel")
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, help_text= )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def get_address(self):
+        full_address = '%s, %s, %s, %s %s, %s' % (
+        self.address.address_line_1, self.address.address_line_2, self.address.address_line_3, self.address.city,
+        self.address.state, self.address.country)
+        return full_address
+
+    def __unicode__(self):
+        return self.company_name
+
+    def __str__(self):
+        return self.company_name
+
+
+class Pilot(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    operator = models.ForeignKey(Operator, models.CASCADE, help_text="Assign this pilot to a operator")
+    person = models.OneToOneField(Person, models.CASCADE,
+                                  help_text="Assign this pilot to a person object in the database")
+    photo = models.URLField(blank=True, null=True, validators=[validate_url],
+                            help_text="A URL to link to a photo of the pilot")
+
+    address = models.ForeignKey(Address, models.CASCADE, help_text="Assign a address to this Pilot")
+    
+    documents = models.ManyToManyField(AerobridgeDocument)   
+                                
+    tests = models.ManyToManyField(Test, through='TestValidity',
+                                   help_text="Specify the tests if any the pilot has taken")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=0,
+                                    help_text="Is this pilot active? If he is not working for the company or has moved on, set it as inactive")
+
+    def __unicode__(self):
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+
+    def __str__(self):
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
 
 class SupplierPartManager(models.Manager):
     """ Define custom SupplierPart objects manager
@@ -1068,22 +1068,13 @@ class AircraftComponent(models.Model):
                                       help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
 
-    custody_status = models.IntegerField(choices=CUSTODY_STATUS, default=0,
-                                 help_text="Set the component status as it moves through the supply chain")
-    history = HistoricalRecords()
 
+    history = HistoricalRecords()
 
     supplier_part = models.ForeignKey(
         SupplierPart, blank=True, null=True, on_delete=models.SET_NULL,
         verbose_name=_('Supplier Part'),
         help_text=_('Select a matching supplier part for this stock item')
-    )
-
-    packaging = models.CharField(
-        max_length=50,
-        blank=True, null=True,
-        verbose_name=_('Packaging'),
-        help_text=_('Packaging this stock item is stored in')
     )
 
     # When deleting a stock item with installed items, those installed items are also installed
@@ -1093,22 +1084,6 @@ class AircraftComponent(models.Model):
         on_delete=models.CASCADE,
         related_name='installed_parts', blank=True, null=True,
         help_text=_('Is this item installed in another item?')
-    )
-
-
-    serial = models.CharField(
-        verbose_name=_('Serial Number'),
-        max_length=100, blank=True, null=True,
-        help_text=_('Serial number for this item')
-    )
-
-    serial_int = models.IntegerField(default=0)
-
-    link = models.URLField(
-        verbose_name=_('External Link'),
-        max_length=125, blank=True,
-        help_text=_("Link to external URL"),
-        validators=[validate_url]
     )
 
     batch = models.CharField(
@@ -1125,19 +1100,7 @@ class AircraftComponent(models.Model):
 
     updated = models.DateField(auto_now=True, null=True)
 
-    expiry_date = models.DateField(
-        blank=True, null=True,
-        verbose_name=_('Expiry Date'),
-        help_text=_('Expiry date for stock item. Stock will be considered expired after this date'),
-    )
-
     stocktake_date = models.DateField(blank=True, null=True)
-
-    # stocktake_user = models.ForeignKey(
-    #     User, on_delete=models.SET_NULL,
-    #     blank=True, null=True,
-    #     related_name='stocktake_stock'
-    # )
 
     review_needed = models.BooleanField(default=False)
 
@@ -1147,12 +1110,6 @@ class AircraftComponent(models.Model):
         default=StockStatus.OK,
         choices=StockStatus.items(),
         validators=[MinValueValidator(0)])
-
-    # notes = MarkdownxField(
-    #     blank=True, null=True,
-    #     verbose_name=_("Notes"),
-    #     help_text=_('Stock Item Notes')
-    # )
 
     purchase_price = models.DecimalField(
         max_digits=19,
@@ -1196,7 +1153,6 @@ class AircraftAssembly(models.Model):
     
     STATUS_CHOICES = ((0, _('In Progress')), (1, _('Parts needed')),(2, _('Complete')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
 
     model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
