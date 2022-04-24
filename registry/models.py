@@ -610,25 +610,6 @@ class AircraftMasterComponent(models.Model):
 
         return max(total, 0)
 
-    def required_sales_order_quantity(self):
-        """
-        Return the quantity of this part required for active sales orders
-        """
-
-        # Get a list of line items for open orders which match this part
-        open_lines = OrderModels.SalesOrderLineItem.objects.filter(
-            order__status__in=SalesOrderStatus.OPEN,
-            part=self
-        )
-
-        quantity = 0
-
-        for line in open_lines:
-            # Determine the quantity "remaining" to be shipped out
-            remaining = max(line.quantity - line.shipped, 0)
-            quantity += remaining
-
-        return quantity
 
     def required_order_quantity(self):
         """
