@@ -202,8 +202,7 @@ class Company(models.Model):
     common_name = models.CharField(max_length=140, help_text="Common name for the manufacturer e.g. Skydio")
     address = models.ForeignKey(Address, models.CASCADE, blank=True, null=True,
                                 help_text="Assign a address to this manufacturers")
-    acronym = models.CharField(max_length=10,
-                               help_text="If you use a acronym for this manufacturer, you can assign it here")    
+                                    
     country = models.CharField(max_length=3,
                                help_text="The three-letter ISO 3166-1 country code where the manufacturer is located")
     website = models.URLField(
@@ -336,6 +335,7 @@ class Operator(models.Model):
     authorized_activities = models.ManyToManyField(Activity, related_name='authorized_activities',
                                                    help_text="Related to Authorization, select the kind of activities that this operator is allowed to conduct, you can add additional activities using the administration panel")
     company = models.ForeignKey(Company, on_delete=models.CASCADE, help_text= "Specify the company associated with this operator")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -752,9 +752,10 @@ class ManufacturerPart(models.Model):
     """
 
     class Meta:
-        unique_together = ('part', 'manufacturer', 'MPN')
+        unique_together = ('master_component', 'manufacturer', 'MPN')
 
-    part = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE,
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    master_component = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE,
                              related_name='manufacturer_parts',
                              verbose_name=_('Base Part'),
                              limit_choices_to={
@@ -781,21 +782,6 @@ class ManufacturerPart(models.Model):
         verbose_name=_('MPN'),
         help_text=_('Manufacturer Part Number')
     )
-
-    link = models.URLField(
-        blank=True, null=True,
-        verbose_name=_('Link'),
-        help_text=_('URL for external manufacturer part link'),
-        validators = [validate_url]
-
-    )
-
-    description = models.CharField(
-        max_length=250, blank=True, null=True,
-        verbose_name=_('Description'),
-        help_text=_('Manufacturer part description')
-    )
-
     @classmethod
     def create(cls, part, manufacturer, mpn, description, link=None):
         """ Check if ManufacturerPart instance does not already exist
@@ -891,6 +877,7 @@ class SupplierPart(models.Model):
 
         super().save(*args, **kwargs)
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier = models.ForeignKey(Company, on_delete=models.CASCADE,
                                  related_name='supplied_parts',
                                  limit_choices_to={'role': 3},
@@ -904,19 +891,6 @@ class SupplierPart(models.Model):
                                           verbose_name=_('Manufacturer Part'),
                                           help_text=_('Select manufacturer part'),
                                           )
-
-    link = models.URLField(
-        blank=True, null=True,
-        verbose_name=_('Link'),
-        help_text=_('URL for external supplier part link'),        
-        validators = [validate_url]
-    )
-
-    description = models.CharField(
-        max_length=250, blank=True, null=True,
-        verbose_name=_('Description'),
-        help_text=_('Supplier part description')
-    )
 
     is_default = models.BooleanField(default=False, help_text="Set whether this is the default supplier / store for this master component")
 
@@ -1053,7 +1027,6 @@ class AircraftComponent(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
-    master_component = models.ForeignKey(AircraftMasterComponent, on_delete=models.CASCADE, help_text="Set the master component associated with this component")
     custody_on = models.DateTimeField(blank=True, null=True,
                                       help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
@@ -1065,6 +1038,12 @@ class AircraftComponent(models.Model):
         SupplierPart, blank=True, null=True, on_delete=models.SET_NULL,
         verbose_name=_('Supplier Part'),
         help_text=_('Select a matching supplier part for this stock item')
+    )
+
+    description = models.CharField(
+        max_length=140, blank=True, null=True,
+        verbose_name=_('Description'),
+        help_text=_('Internal part description')
     )
 
     updated = models.DateField(auto_now=True, null=True)

@@ -406,7 +406,7 @@ class ManufacturerCreateForm(forms.ModelForm):
                         FloatingField("full_name"),
                         FloatingField("common_name"),
                         FloatingField("address"),
-                        FloatingField("acronym"),
+                        
                         FloatingField("role"),
                         FloatingField("country"),
                         ),
@@ -425,7 +425,7 @@ class ManufacturerCreateForm(forms.ModelForm):
      
     class Meta:
         model = Company
-        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country', 'documents')
+        fields =('full_name','common_name', 'address','role','country', 'documents')
 
 class FirmwareCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
