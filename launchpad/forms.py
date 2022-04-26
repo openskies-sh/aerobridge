@@ -395,7 +395,7 @@ class AircraftComponentSignatureCreateForm(forms.ModelForm):
         model = AircraftComponentSignature
         fields = '__all__'
 
-class ManufacturerCreateForm(forms.ModelForm):
+class CompanyCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
@@ -406,6 +406,10 @@ class ManufacturerCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("full_name"),
                         FloatingField("common_name"),
+                        FloatingField("email"),
+                        FloatingField("website"),
+                        FloatingField("phone_number"),
+                        FloatingField("company_number"),
                         FloatingField("address"),
                         
                         FloatingField("role"),
@@ -413,20 +417,22 @@ class ManufacturerCreateForm(forms.ModelForm):
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("documents"),
+                        FloatingField("vat_number"),
+                        FloatingField("insurance_number"),
                         ),                                 
                     ),
                     HTML("""
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Manufacturer'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'manufacturers-list' %}" role="button">Cancel</a>""")
+                                Submit('submit', '+ Add Company'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'companies-list' %}" role="button">Cancel</a>""")
                     )
                 )     
      
     class Meta:
         model = Company
-        fields =('full_name','common_name', 'address','role','country', 'documents')
+        fields =('full_name','common_name', 'email','website','address','role','country', 'phone_number','documents','vat_number','insurance_number','company_number','role')
 
 class FirmwareCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
