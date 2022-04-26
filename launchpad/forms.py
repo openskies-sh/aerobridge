@@ -225,9 +225,12 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         
         self.model_qs =  AircraftModel.objects.filter(id = aircraft_model_id)
         aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
-        # The components that have not been selected 
+        # The components that have not been selected
+    
+          
         self.all_master_components = aircraft_model.master_components.all()
-        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(master_component__in = self.all_master_components)
+
+        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(aircraft_components__in =  self.all_master_components)
               
         self.helper.layout = Layout(
                 BS5Accordion(
