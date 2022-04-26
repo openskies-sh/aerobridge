@@ -108,7 +108,7 @@ class PrivilegedOperatorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Operator
-        fields = ('id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
+        fields = ('id', 'company', 'country', 'website', 'email', 'operator_type', 'address',
                   'operational_authorizations', 'authorized_activities', 'created_at', 'updated_at')
 
 
@@ -179,7 +179,7 @@ class OperatorSelectRelatedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Operator
         fields = (
-            'id', 'company_name', 'country', 'website', 'email', 'operator_type', 'address',
+            'id', 'company', 'country', 'website', 'email', 'operator_type', 'address',
             'operational_authorizations',
             'authorized_activities', 'contacts', 'phone_number', 'company_number', 'country', 'pilots', 'aircrafts',
             'created_at', 'updated_at')

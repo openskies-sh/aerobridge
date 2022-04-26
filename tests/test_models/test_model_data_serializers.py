@@ -171,9 +171,8 @@ class TestModelDataSerializers(TestModels):
     def test_registry_operator_data_serializer(self):
         data = self._get_data_for_model('Operator')
         operator_serializer = OperatorSerializer(data=data)
-        required_keys = {'website', 'email', 'insurance_number', 'phone_number', 'country', 'operator_type',
-                         'expiration', 'operational_authorizations', 'authorized_activities', 'company_name',
-                         'vat_number', 'company_number', 'address'}
+        required_keys = {'operator_type',
+                         'expiration', 'operational_authorizations', 'authorized_activities', 'company'}
 
         self.assertTrue(operator_serializer.is_valid())
         self.assertEqual(set(operator_serializer.validated_data.keys()), required_keys)
@@ -182,7 +181,7 @@ class TestModelDataSerializers(TestModels):
     def test_registry_privileged_operator_data_serializer(self):
         data = self._get_data_for_model('Operator')
         privileged_operator_serializer = PrivilegedOperatorSerializer(data=data)
-        required_keys = {'email', 'country', 'website', 'operator_type', 'company_name'}
+        required_keys = {'email', 'country', 'website', 'operator_type', 'comapny'}
 
         self.assertTrue(privileged_operator_serializer.is_valid())
         self.assertEqual(set(privileged_operator_serializer.validated_data.keys()), required_keys)
@@ -191,7 +190,7 @@ class TestModelDataSerializers(TestModels):
     def test_registry_operator_select_related_data_serializer(self):
         data = self._get_data_for_model('Operator')
         operator_select_related_serializer = OperatorSelectRelatedSerializer(data=data)
-        required_keys = {'website', 'email', 'company_name', 'phone_number', 'country', 'operator_type',
+        required_keys = {'website', 'email', 'company', 'phone_number', 'country', 'operator_type',
                          'company_number'}
 
         self.assertTrue(operator_select_related_serializer.is_valid())

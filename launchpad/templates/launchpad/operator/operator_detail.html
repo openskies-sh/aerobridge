@@ -4,7 +4,7 @@
 
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-<h1>Operator Profile - {{ operator.company_name }}</h1>
+<h1>Operator Profile - {{ operator.company.full_name }}</h1>
 <p>A snapshot for this operator, a Operator is a company that flies / operates the drone</p>
 <br>
 
@@ -19,19 +19,19 @@
     
     <tr>
         <td>Company Name</td>
-        <td>{{ operator.company_name}}</td>    
+        <td>{{ operator.company.full_name}}</td>    
     </tr>
     <tr>
         <td>Website</td>
-        <td>{{ operator.website}}</td>
+        <td><a href="{{ operator.company.website}}">{{ operator.company.website}}</a></td>
     </tr>
     <tr>
         <td>VAT Number</td>
-        <td>{{ operator.vat_number}}</td>
+        <td>{{ operator.company.vat_number}}</td>
     </tr>    
     <tr>
         <td>Insurance Number</td>
-        <td>{{operator.company_number}}</td>
+        <td>{{operator.company.company_number}}</td>
     </tr>
     <tr>
         <td>Authorizations</td>

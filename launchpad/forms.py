@@ -89,11 +89,12 @@ class OperatorCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.help_text_inline = True   
+        self.fields['company'].queryset = Company.objects.filter(role = 2)
         
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("company_name"),
+                        FloatingField("company"),
                         FloatingField("website"),
                         FloatingField("email"),
                         FloatingField("phone_number"),

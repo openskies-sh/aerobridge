@@ -346,10 +346,10 @@ class Operator(models.Model):
         return full_address
 
     def __unicode__(self):
-        return self.company_name
+        return self.company.full_name
 
     def __str__(self):
-        return self.company_name
+        return self.company.full_name
 
 class Contact(models.Model):
     ROLE_CHOICES = ((0, _('Other')), (1, _('Responsible')))
@@ -1129,7 +1129,7 @@ class Aircraft(models.Model):
     STATUS_CHOICES = ((0, _('Inactive')), (1, _('Active')),)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator to this Aircraft")
+    operator = models.ForeignKey(Operator, models.CASCADE, help_text="Associate a operator company with this Aircraft")
     manufacturer = models.ForeignKey(Company, models.CASCADE,
                                      help_text="Associate a manufacturer in the database to this aircraft",limit_choices_to={'role':1})
     name = models.CharField(max_length=280, help_text="Set the internal name of the aircraft e.g. F1 #2")

@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        Equipment
+        Trusted Flights
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         Aircraft Extended Details
@@ -13,7 +13,8 @@
     </ol>
   </nav>
 <div>
-<h2>Extended detail for <a href="/launchpad/aircrafts/{{aircraft_extended.aircraft.id}}/detail">{{ aircraft_extended.aircraft.name }}</a></h2>
+<h3>Extended detail for <a href="/launchpad/aircrafts/{{aircraft_extended.aircraft.id}}/detail">{{ aircraft_extended.aircraft.name }}</a></h3>
+
 <br>
 <p><img src="{{aircraft_extended.aircraft.photo}}" class="thumbnail"></p>
 <br>
@@ -26,12 +27,12 @@
     </thead>
     
     <tr>
-        <td>Mass</td>
-        <td>{{ aircraft_extended.mass}} gms.</td>    
+        <td>Registration Mark</td>
+        <td>{{ aircraft_extended.registration_mark}}</td>    
     </tr>
     <tr>
-        <td>Operating Frequency</td>
-        <td>{{ aircraft_extended.operating_frequency}} Hz.</td>    
+        <td>Commission Date</td>
+        <td>{{ aircraft_extended.commission_date|date:'Y-m-d' }}</td>    
     </tr>
     
 </table>

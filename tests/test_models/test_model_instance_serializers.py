@@ -108,22 +108,20 @@ class TestModelInstanceSerializers(TestModels):
 
     def test_registry_operator_instance_serializer(self):
         operator_serializer = OperatorSerializer(instance=Operator.objects.first())
-        required_keys = {'id', 'website', 'created_at', 'email', 'insurance_number', 'phone_number', 'updated_at',
-                         'country', 'operator_type', 'expiration', 'operational_authorizations',
-                         'authorized_activities', 'company_name', 'vat_number', 'company_number', 'address'}
+        required_keys = {'id',  'created_at','updated_at',
+                          'operator_type', 'expiration', 'company'}
         self.assertEqual(set(operator_serializer.data.keys()), required_keys)
 
     def test_registry_privileged_operator_instance_serializer(self):
         privileged_operator_serializer = PrivilegedOperatorSerializer(instance=Operator.objects.first())
-        required_keys = {'id', 'email', 'operational_authorizations', 'country', 'website', 'address', 'created_at',
-                         'operator_type', 'company_name', 'authorized_activities', 'updated_at'}
+        required_keys = {'id', 'operational_authorizations', 'created_at',
+                         'operator_type', 'company','updated_at'}
         self.assertEqual(set(privileged_operator_serializer.data.keys()), required_keys)
 
     def test_registry_operator_select_related_instance_serializer(self):
         operator_select_related_serializer = OperatorSelectRelatedSerializer(instance=Operator.objects.first())
-        required_keys = {'id', 'website', 'contacts', 'email', 'company_name', 'phone_number', 'updated_at', 'country',
-                         'pilots', 'operator_type', 'operational_authorizations', 'created_at', 'authorized_activities',
-                         'aircrafts', 'company_number', 'address'}
+        required_keys = {'id', 'company','updated_at',  'operator_type', 'operational_authorizations', 'created_at', 'authorized_activities',
+                         'aircrafts'}
         self.assertEqual(set(operator_select_related_serializer.data.keys()), required_keys)
 
     def test_registry_contact_instance_serializer(self):
