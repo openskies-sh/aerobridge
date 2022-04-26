@@ -411,7 +411,7 @@ class SupplierPartManager(models.Manager):
     def get_queryset(self):
         # Always prefetch related models
         return super().get_queryset().prefetch_related(
-            'part',
+            
             'supplier',
             'manufacturer_part__manufacturer',
         )
@@ -801,16 +801,24 @@ class ManufacturerPart(models.Model):
 
         return manufacturer_part
 
-    def __str__(self):
+    @property
+    def pretty_name(self):
         s = ''
+        s += self.master_component.name + ' | '
 
         if self.manufacturer:
-            s += f'{self.manufacturer.name}'
+            s += f'{self.manufacturer.full_name}'
             s += ' | '
 
         s += f'{self.MPN}'
 
         return s
+
+    def __str__(self):
+        return self.pretty_name
+
+    def __unicode__(self):
+        return self.pretty_name
 
 class SupplierPart(models.Model):
     """ Represents a unique part as provided by a Supplier
@@ -902,29 +910,15 @@ class SupplierPart(models.Model):
         """ Format a MPN string for this SupplierPart.
         Concatenates manufacture name and part number.
         """
-
         items = []
 
         if self.manufacturer_part:
             if self.manufacturer_part.manufacturer:
-                items.append(self.manufacturer_part.manufacturer.name)
+                items.append(self.manufacturer_part.manufacturer.common_name)
             if self.manufacturer_part.MPN:
                 items.append(self.manufacturer_part.MPN)
 
         return ' | '.join(items)
-
-    @property
-    def has_price_breaks(self):
-        return self.price_breaks.count() > 0
-
-    @property
-    def price_breaks(self):
-        """ Return the associated price breaks in the correct order """
-        return self.pricebreaks.order_by('quantity').all()
-
-    @property
-    def unit_pricing(self):
-        return self.get_price(1)
 
 
     def on_order(self):
@@ -947,21 +941,24 @@ class SupplierPart(models.Model):
 
     @property
     def pretty_name(self):
-        return str(self)
-
-    def __str__(self):
         s = ''
 
-        if self.part.IPN:
-            s += f'{self.part.IPN}'
+        if self.manufacturer_part.master_component.name:
+            s += f'{self.manufacturer_part.master_component.name}'
             s += ' | '
 
-        s += f'{self.supplier.name} '
+        s += f'{self.supplier.common_name} '
 
         if self.manufacturer_string:
             s = s + ' | ' + self.manufacturer_string
 
         return s
+
+    def __str__(self):
+        return self.pretty_name
+
+    def __unicode__(self):
+        return self.pretty_name
 
 class AircraftModel(models.Model):
     ''' This is the primary bill of materials for a aircraft '''
@@ -1069,11 +1066,22 @@ class AircraftComponent(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.master_component.name + ' ' + self.supplier_part_id
+    @property
+    def component_common_name(self):
+        items = []
+        items.append(self.description)
+        if self.supplier_part:
+            if self.supplier_part.manufacturer_part:
+                items.append(self.supplier_part.manufacturer_part.master_component.name)
+        print(items)
+        return ' | '.join(items)
 
-    def __str__(self):
-        return self.master_component.name + ' ' + self.supplier_part_id
+
+    def __unicode__(self):
+        return self.component_common_name
+        
+    def __str__(self): 
+        return self.component_common_name
 
 
 class AircraftComponentSignature(models.Model):
