@@ -1,5 +1,5 @@
 from doctest import master
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
@@ -226,11 +226,12 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         self.model_qs =  AircraftModel.objects.filter(id = aircraft_model_id)
         aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
         # The components that have not been selected
-    
-          
-        self.all_master_components = aircraft_model.master_components.all()
 
-        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(aircraft_components__in =  self.all_master_components)
+        
+        self.all_master_components = aircraft_model.master_components.all()
+        self.relevant_supplier_parts = SupplierPart.objects.filter(manufacturer_part__master_component__in = self.all_master_components)
+
+        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(supplier_part__in =  self.relevant_supplier_parts)
               
         self.helper.layout = Layout(
                 BS5Accordion(
@@ -271,7 +272,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
             is_found = False
             all_occurances = []
             for current_component in submitted_components:
-                if current_component.master_component == master_component:
+                if current_component.supplier_part.manufacturer_part.master_component == master_component:
                     is_found = True
                     break
             if not is_found:

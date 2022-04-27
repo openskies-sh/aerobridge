@@ -62,7 +62,7 @@
 
 </table>
 
-<p class="text-muted">Last Updated at {{ flightoperation.created_at }} </p>
+<p class="text-muted">Last Updated at {{ flightoperation.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
 {% if flightoperation.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>

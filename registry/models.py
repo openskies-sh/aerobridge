@@ -1073,7 +1073,7 @@ class AircraftComponent(models.Model):
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
-        print(items)
+        # print(items)
         return ' | '.join(items)
 
 

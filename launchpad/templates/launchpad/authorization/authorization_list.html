@@ -25,7 +25,7 @@
     <ul class="list-group list-group-flush">
         {% if authorizations %}
             {% for authorization in authorizations %}
-            <li class="list-group-item"><a href="/launchpad/authorizations/{{authorization.id}}/detail">{{ authorization.title }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ authorization.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/authorizations/{{authorization.id}}/detail">{{ authorization.title }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ authorization.updated_at|date:'Y-m-d H:i' }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no authorizations added in Aerobridge, once added the list of authorizations will be displayed here.</i></p></li>

@@ -34,7 +34,7 @@
     </tr>    
 </table>
 
-<p class="text-muted">Last Updated at {{ flightplan.updated_at }} </p>
+<p class="text-muted">Last Updated at {{ flightplan.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
 {% if flightplan.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightplans/{{flightplan.id}}"><b>Update Details</b></a></p>

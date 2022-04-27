@@ -54,7 +54,7 @@
   
     {% if assembly_components %}
       {% for aircraft_component in assembly_components %}            
-        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.supplier_part_id }}</a>&nbsp;&nbsp;{{aircraft_component.master_component.name}} <small class='text-muted'>&mdash; Last updated at {{ aircraft_component.updated_at }} </small><mark>{{ aircraft_component.get_custody_status_display }}</mark></li>
+        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.supplier_part_id }}</a>&nbsp;&nbsp;{{aircraft_component.master_component.name}} <small class='text-muted'>&mdash; Last updated at {{ aircraft_component.updated_at|date:'Y-m-d H:i' }} </small><mark>{{ aircraft_component.get_custody_status_display }}</mark></li>
       {% endfor %}
   {% else %}
         <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>

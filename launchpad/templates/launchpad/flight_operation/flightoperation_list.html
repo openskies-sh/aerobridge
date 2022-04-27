@@ -23,7 +23,7 @@
         {% if flightoperations.results %}
         <ul class="list-group list-group-flush">
             {% for flightoperation in flightoperations.results %}
-            <li class="list-group-item"><a href="/launchpad/flightoperations/{{flightoperation.id}}/detail">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ flightoperation.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/flightoperations/{{flightoperation.id}}/detail">{{ flightoperation.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ flightoperation.updated_at|date:'Y-m-d H:i' }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no flight operations added in Aerobridge, once added the list of flight operations will be displayed here.</i></p></li>

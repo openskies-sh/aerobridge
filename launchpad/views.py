@@ -51,7 +51,7 @@ class FlightPermissionsReadFirst(TemplateView):
     template_name = 'launchpad/flight_permission/flight_permissions_read_first.html'
     
 class ManufacturingReadFirst(TemplateView):
-    template_name = 'launchpad/manufacturer/manufacturing_read_first.html'
+    template_name = 'launchpad/company/manufacturing_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
@@ -651,7 +651,7 @@ class AircraftAssembliesCreateView(CreateView):
                 
         for submitted_component in submitted_components:           
             s_c = AircraftComponent.objects.get(id = submitted_component)
-            master_component_id = s_c.master_component.id            
+            master_component_id = s_c.supplier_part.manufacturer_part.master_component.id            
             submitted_components_master_components.append(str(master_component_id))
 
 

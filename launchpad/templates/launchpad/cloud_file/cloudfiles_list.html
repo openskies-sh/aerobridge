@@ -30,7 +30,7 @@
         <ul class="list-group list-group-flush">
         {% if cloudfiles %}
             {% for cloudfile in cloudfiles %}
-                <li class="list-group-item"><a href="/launchpad/cloud-files/{{cloudfile.id}}/detail">{{ cloudfile.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ cloudfile.created_at }} </small></li>
+                <li class="list-group-item"><a href="/launchpad/cloud-files/{{cloudfile.id}}/detail">{{ cloudfile.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last created at {{ cloudfile.created_at|date:'Y-m-d H:i' }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no cloud files added in Aerobridge, once added the list of files will be displayed here.</i></p></li>
