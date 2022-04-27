@@ -737,6 +737,156 @@ class AircraftMasterComponent(models.Model):
     def __str__(self):
         return self.name
 
+    def get_bom_items(self):
+        """
+        Return a queryset containing all BOM items for this part
+
+        By default, will include inherited BOM items
+        """
+
+        queryset = AircraftAssembly.objects.filter(self.get_bom_item_filter())
+
+        return queryset
+
+    def get_bom_item_filter(self):
+        """
+        Returns a query filter for all BOM items associated with this Part.
+
+        There are some considerations:
+
+        a) BOM items can be defined against *this* part
+        b) BOM items can be inherited from a *parent* part
+
+        We will construct a filter to grab *all* the BOM items!
+
+        Note: This does *not* return a queryset, it returns a Q object,
+              which can be used by some other query operation!
+              Because we want to keep our code DRY!
+
+        """
+
+        bom_filter = Q(master_component=self)
+
+        return bom_filter
+
+
+    def get_used_in_filter(self):
+        """
+        Return a query filter for all parts that this part is used in.
+
+        There are some considerations:
+
+        a) This part may be directly specified against a BOM for a part
+        b) This part may be specifed in a BOM which is then inherited by another part
+
+        Note: This function returns a Q object, not an actual queryset.
+              The Q object is used to filter against a list of Part objects
+        """
+
+        # This is pretty expensive - we need to traverse multiple variant lists!
+        # TODO - In the future, could this be improved somehow?
+
+        # Keep a set of Part ID values
+        model_set = set()
+
+        # First, grab a list of all BomItem objects which "require" this part
+        models = AircraftModel.objects.filter(master_components__in=self)
+
+        for model in models:
+            # Add the directly referenced part
+            model_set.add(model)
+
+        # Turn into a list of valid IDs (for matching against a Part query)
+        model_ids = [part.pk for part in model_set]
+
+        return Q(id__in=model_ids)
+
+    def get_used_in(self, include_inherited=True):
+        """
+        Return a queryset containing all models this master component is used in.
+
+        Includes consideration of inherited BOMs
+        """
+        return AircraftModel.objects.filter(self.get_used_in_filter())
+
+    @property
+    def has_bom(self):
+        return self.get_bom_items().count() > 0
+
+    def get_trackable_parts(self):
+        """
+        Return a queryset of all trackable parts in the BOM for this part
+        """
+
+        queryset = self.get_bom_items()
+        queryset = queryset.filter(master_component__trackable=True)
+
+        return queryset
+
+    @property
+    def has_trackable_parts(self):
+        """
+        Return True if any parts linked in the Bill of Materials are trackable.
+        This is important when building the part.
+        """
+
+        return self.get_trackable_parts().count() > 0
+
+    @property
+    def bom_count(self):
+        """ Return the number of items contained in the BOM for this part """
+        return self.get_bom_items().count()
+
+    @property
+    def used_in_count(self):
+        """ Return the number of part BOMs that this part appears in """
+        return self.get_used_in().count()
+
+    @property
+    def supplier_count(self):
+        """ Return the number of supplier parts available for this part """
+        return self.supplier_parts.count()
+
+    @property
+    def has_pricing_info(self, internal=False):
+        """ Return true if there is pricing information for this part """
+        return self.get_price_range(internal=internal) is not None
+
+    def get_price_info(self, quantity=1, buy=True, bom=True, internal=False):
+        """ Return a simplified pricing string for this part
+
+        Args:
+            quantity: Number of units to calculate price for
+            buy: Include supplier pricing (default = True)
+            bom: Include BOM pricing (default = True)
+            internal: Include internal pricing (default = False)
+        """
+
+        price_range = self.get_price_range(quantity, buy, bom, internal)
+
+        if price_range is None:
+            return None
+
+        min_price, max_price = price_range
+
+        if min_price == max_price:
+            return min_price
+
+        min_price = normalize(min_price)
+        max_price = normalize(max_price)
+
+        return "{a} - {b}".format(a=min_price, b=max_price)
+
+    @property
+    def total_stock(self):
+        """ Return the total stock quantity for this part.
+
+        - Part may be stored in multiple locations
+        - If this part is a "template" (variants exist) then these are counted too
+        """
+        total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part_master_component = self).count()
+        return total_stock
+
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
 class ManufacturerPart(models.Model):
     """ Represents a unique part as provided by a Manufacturer
