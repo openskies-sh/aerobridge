@@ -1,0 +1,37 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+<div>
+<h1>Company Details - {{ company.common_name }}</h1>
+<br>
+<p></p>
+<br>
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td>Company Name</td>
+        <td>{{ company.full_name}} ({{ company.common_name}})</td>    
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{ company.address}}</td>    
+    </tr>
+
+    <tr>
+        <td>Role</td>
+        <td><mark>{{ company.get_role_display}}</mark></td>    
+    </tr>
+    
+
+</table>
+<p class="text-muted">Last Updated at {{company.updated_at|date:'Y-m-d H:i' }} </p>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/companies/{{company.id}}"><b>Update Details</b></a></p>
+
+</div>
+{% endblock %}

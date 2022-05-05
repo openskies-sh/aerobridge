@@ -1,11 +1,11 @@
 from doctest import master
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
+import arrow
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import AccordionGroup
@@ -89,11 +89,12 @@ class OperatorCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.help_text_inline = True   
+        self.fields['company'].queryset = Company.objects.filter(role = 2)
         
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("company_name"),
+                        FloatingField("company"),
                         FloatingField("website"),
                         FloatingField("email"),
                         FloatingField("phone_number"),
@@ -224,9 +225,13 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         
         self.model_qs =  AircraftModel.objects.filter(id = aircraft_model_id)
         aircraft_model = AircraftModel.objects.get(id = aircraft_model_id)
-        # The components that have not been selected 
+        # The components that have not been selected
+
+        
         self.all_master_components = aircraft_model.master_components.all()
-        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(master_component__in = self.all_master_components)
+        self.relevant_supplier_parts = SupplierPart.objects.filter(manufacturer_part__master_component__in = self.all_master_components)
+
+        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(supplier_part__in =  self.relevant_supplier_parts)
               
         self.helper.layout = Layout(
                 BS5Accordion(
@@ -267,7 +272,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
             is_found = False
             all_occurances = []
             for current_component in submitted_components:
-                if current_component.master_component == master_component:
+                if current_component.supplier_part.manufacturer_part.master_component == master_component:
                     is_found = True
                     break
             if not is_found:
@@ -394,7 +399,7 @@ class AircraftComponentSignatureCreateForm(forms.ModelForm):
         model = AircraftComponentSignature
         fields = '__all__'
 
-class ManufacturerCreateForm(forms.ModelForm):
+class CompanyCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
@@ -405,27 +410,33 @@ class ManufacturerCreateForm(forms.ModelForm):
                     AccordionGroup("Mandatory Information",
                         FloatingField("full_name"),
                         FloatingField("common_name"),
+                        FloatingField("email"),
+                        FloatingField("website"),
+                        FloatingField("phone_number"),
+                        FloatingField("company_number"),
                         FloatingField("address"),
-                        FloatingField("acronym"),
+                        
                         FloatingField("role"),
                         FloatingField("country"),
                         ),
                     AccordionGroup("Optional Information",
                         FloatingField("documents"),
+                        FloatingField("vat_number"),
+                        FloatingField("insurance_number"),
                         ),                                 
                     ),
                     HTML("""
                             <br>
                         """),
                     ButtonHolder(
-                                Submit('submit', '+ Add Manufacturer'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'manufacturers-list' %}" role="button">Cancel</a>""")
+                                Submit('submit', '+ Add Company'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'companies-list' %}" role="button">Cancel</a>""")
                     )
                 )     
      
     class Meta:
-        model = Manufacturer
-        fields =('full_name','common_name', 'address','acronym', 'role','acronym','role','country', 'documents')
+        model = Company
+        fields =('full_name','common_name', 'email','website','address','role','country', 'phone_number','documents','vat_number','insurance_number','company_number','role')
 
 class FirmwareCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

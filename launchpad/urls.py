@@ -77,10 +77,10 @@ urlpatterns = [
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),
     path('aircraft-components/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
  
-    path('manufacturers', launchpad_views.ManufacturersList.as_view(), name='manufacturers-list'),
-    path('manufacturers/<uuid:manufacturer_id>', launchpad_views.ManufacturersUpdate.as_view(), name='manufacturers-update'),
-    path('manufacturers/<uuid:manufacturer_id>/detail', launchpad_views.ManufacturersDetail.as_view(), name='manufacturers-detail'),
-    path('manufacturers/new', launchpad_views.ManufacturerCreateView.as_view(), name='manufacturers-create'),
+    path('companies', launchpad_views.CompaniesList.as_view(), name='companies-list'),
+    path('companies/<uuid:company_id>', launchpad_views.CompaniesUpdate.as_view(), name='companies-update'),
+    path('companies/<uuid:company_id>/detail', launchpad_views.CompaniesDetail.as_view(), name='companies-detail'),
+    path('companies/new', launchpad_views.CompanyCreateView.as_view(), name='companies-create'),
     
     
     path('firmwares', launchpad_views.FirmwaresList.as_view(), name='firmwares-list'),

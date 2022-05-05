@@ -104,6 +104,7 @@ Aerobridge provides the following toolset:
 ## References
 
 - This repository uses the drone registry schema from [Aircraft Registry](https://aircraftregistry.herokuapp.com) project.
+- This project extensively uses logic and methods from the amazing [InvenTree](https://github.com/inventree/InvenTree) project. All code from InvenTree is Copyright (c) 2017-2022 InvenTree. For more information about their license see [their file](https://github.com/inventree/InvenTree/blob/master/LICENSE).
 
 ## LICENSE
 

@@ -3,7 +3,7 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Firmware, Operator, Aircraft, Manufacturer, Pilot, Activity
+from .models import Firmware, Operator, Aircraft, Company, Pilot, Activity
 from .serializers import (OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer,PilotSerializer,ActivitySerializer)
 from gcs_operations.serializers import FirmwareSerializer
 
@@ -203,7 +203,7 @@ class ManufacturerList(mixins.ListModelMixin,
     List all aircrafts in the database
     """
 
-    queryset = Manufacturer.objects.all()
+    queryset = Company.objects.filter(role=1)
     serializer_class = ManufacturerSerializer
 
     def get(self, request, *args, **kwargs):
@@ -222,7 +222,7 @@ class ManufacturerDetail(mixins.RetrieveModelMixin,
     # authentication_classes = (SessionAuthentication,TokenAuthentication)
     # permission_classes = (IsAuthenticated,)
 
-    queryset = Manufacturer.objects.all()
+    queryset = Company.objects.filter(role=1)
     serializer_class = ManufacturerSerializer
 
     def get(self, request, *args, **kwargs):

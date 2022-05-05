@@ -3,7 +3,7 @@
     "model": "registry.operator",
     "pk": "66ff7549-5737-495d-965b-2d93c0bc5b5e",
     "fields": {
-        "company_name": "Dyer and Sons",
+        "company": "c924a64a-09f0-40db-8795-5fbe9708a745",
         "website": "https://www.martin-garcia.com/",
         "email": "anthonysmith@king-mason.net",
         "phone_number": "+083193462",

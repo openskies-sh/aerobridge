@@ -5,7 +5,7 @@
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
     <h1>Transaction Details</h1>
-    <small class="text-muted"> Created at {{ digitalskytransaction.created_at }} </small>
+    <small class="text-muted"> Created at {{ digitalskytransaction.created_at|date:'Y-m-d H:i' }} </small>
     <hr>
     <h5><small class="text-muted">ID</small></h5>
     <p><code>{{ digitalskytransaction.id }}</code></p>

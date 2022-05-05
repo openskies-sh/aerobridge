@@ -4,7 +4,7 @@ from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
-from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Manufacturer, Firmware, Contact, Pilot, Activity
+from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
 from registry.models import AircraftComponent ,  AircraftComponentSignature, AircraftAssembly
 from registry.serializers import AircraftFullSerializer
@@ -15,13 +15,13 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, ManufacturerSerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftComponentSignatureSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftComponentSignatureSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, ManufacturerCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -51,7 +51,7 @@ class FlightPermissionsReadFirst(TemplateView):
     template_name = 'launchpad/flight_permission/flight_permissions_read_first.html'
     
 class ManufacturingReadFirst(TemplateView):
-    template_name = 'launchpad/manufacturer/manufacturing_read_first.html'
+    template_name = 'launchpad/company/manufacturing_read_first.html'
 
 ### Person Views 
 class PeopleList(APIView):
@@ -651,7 +651,7 @@ class AircraftAssembliesCreateView(CreateView):
                 
         for submitted_component in submitted_components:           
             s_c = AircraftComponent.objects.get(id = submitted_component)
-            master_component_id = s_c.master_component.id            
+            master_component_id = s_c.supplier_part.manufacturer_part.master_component.id            
             submitted_components_master_components.append(str(master_component_id))
 
 
@@ -1023,57 +1023,59 @@ class AircraftComponentSignaturesCreateView(CreateView):
         return render(request, 'launchpad/aircraft_component_signature/aircraft_component_signatures_create.html', context)
     
 
-### Manufacturer Views
+### Company Views
     
-class ManufacturersList(APIView):
+class CompaniesList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer/manufacturer_list.html'
+    template_name = 'launchpad/company/company_list.html'
 
     def get(self, request):
-        queryset = Manufacturer.objects.all()
-        return Response({'manufacturers': queryset})
+        queryset = Company.objects.all()
+        return Response({'companies': queryset})
     
-class ManufacturersDetail(APIView):
+class CompaniesDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer/manufacturer_detail.html'
+    template_name = 'launchpad/company/company_detail.html'
 
-    def get(self, request, manufacturer_id):
-        manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
-        serializer = ManufacturerSerializer(manufacturer)
-        return Response({'serializer': serializer, 'manufacturer': manufacturer})
+    def get(self, request, company_id):
+        company = get_object_or_404(Company, pk=company_id)
+        serializer = CompanySerializer(company)
+        return Response({'serializer': serializer, 'company': company})
 
 
-class ManufacturersUpdate(APIView):
+class CompaniesUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/manufacturer/manufacturer_update.html'
+    template_name = 'launchpad/company/company_update.html'
 
-    def get(self, request, manufacturer_id):
-        manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
-        serializer = ManufacturerSerializer(manufacturer)
-        return Response({'serializer': serializer, 'manufacturer': manufacturer})
+    def get(self, request, company_id):
+        company = get_object_or_404(Company, pk=company_id)
+        serializer = CompanySerializer(company)
+        return Response({'serializer': serializer, 'company': company})
 
-    def post(self, request, manufacturer_id):
-        manufacturer = get_object_or_404(Manufacturer, pk=manufacturer_id)
-        serializer = ManufacturerSerializer(manufacturer, data=request.data)
+    def post(self, request, company_id):
+        company = get_object_or_404(Company, pk=company_id)
+        serializer = CompanySerializer(company, data=request.data)
+        
         if not serializer.is_valid():
-            return Response({'serializer': serializer, 'manufacturer': manufacturer,'errors':serializer.errors})
+            return Response({'serializer': serializer, 'company': company,'errors':serializer.errors})
+            
         serializer.save()
-        return redirect('manufacturers-list')
+        return redirect('companies-list')
 
-class ManufacturerCreateView(CreateView):
+class CompanyCreateView(CreateView):
     def get(self, request, *args, **kwargs):
-        context = {'form': ManufacturerCreateForm()}
-        return render(request, 'launchpad/manufacturer/manufacturer_create.html', context)
+        context = {'form': CompanyCreateForm()}
+        return render(request, 'launchpad/company/company_create.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = ManufacturerCreateForm(request.POST)
+        form = CompanyCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
             form.save()
             
-            return redirect('manufacturers-list')
+            return redirect('companies-list')
     
-        return render(request, 'launchpad/manufacturer/manufacturer_create.html', context)
+        return render(request, 'launchpad/company/company_create.html', context)
     
 ### Firmware Views
     

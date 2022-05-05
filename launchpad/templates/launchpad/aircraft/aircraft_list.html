@@ -3,7 +3,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        Equipment
+        Trusted Flights
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         Aircrafts
@@ -26,7 +26,7 @@
     <ul class="list-group list-group-flush">
         {% if aircrafts.results %}
             {% for aircraft in aircrafts.results %}
-            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.updated_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'>&mdash; Last updated at {{ aircraft.updated_at|date:'Y-m-d H:i' }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></li>

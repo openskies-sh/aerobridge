@@ -28,7 +28,7 @@
     <ul class="list-group list-group-flush">
         {% if firmwares %}
             {% for firmware in firmwares %}
-            <li class="list-group-item"><a href="/launchpad/firmwares/{{firmware.id}}/detail">{{ firmware.manufacturer }} - {{ firmware.version }}.</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ firmware.created_at }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/firmwares/{{firmware.id}}/detail">{{ firmware.manufacturer }} - {{ firmware.version }}.</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ firmware.updated_at|date:'Y-m-d H:i' }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no firmwares added in Aerobridge, once added the list of firmwares will be displayed here.</i></p></li>

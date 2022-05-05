@@ -2,11 +2,11 @@
 {% load rest_framework %}
 {% block content %}
 <div class="row mb-3">
-<h2>Manufacturer Profile - {{ manufacturer.common_name }}</h2>
+<h2>Company Profile - {{ company.common_name }}</h2>
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">
-<form action="{% url 'manufacturers-update' manufacturer_id=manufacturer.pk %}" method="POST">
+<form action="{% url 'companies-update' company_id=company.pk %}" method="POST">
     {% csrf_token %}
     {% if errors %}
         {% for err in errors.non_field_errors %}
@@ -15,7 +15,7 @@
     {% endif %}
     {% render_form serializer %}
     <br>
-    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'manufacturers-list' %}" role="button">Cancel</a>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'companies-list' %}" role="button">Cancel</a>
 </form>
 </div>
 </div>

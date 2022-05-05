@@ -46,6 +46,7 @@ class FlightOperation(models.Model):
     end_datetime = models.DateTimeField(default=tz.now, help_text="Specify Flight end date and time in Indian Standard Time (IST)")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    updated_at = models.DateTimeField(auto_now=True)
     def __unicode__(self):
        return self.name + ' ' + self.flight_plan.name
 

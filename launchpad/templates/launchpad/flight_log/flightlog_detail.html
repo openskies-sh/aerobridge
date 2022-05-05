@@ -36,7 +36,7 @@
         
     </table>
     
-    <p class="text-muted">Last Updated at {{flightlog.updated_at }} </p>
+    <p class="text-muted">Last Updated at {{flightlog.updated_at|date:'Y-m-d H:i' }} </p>
     <br>
     {% if flightlog.is_editable %}
     <p><a class="btn btn-primary" href="/launchpad/flightlogs/{{flightlog.id}}"><b>Update Details</b></a></p>

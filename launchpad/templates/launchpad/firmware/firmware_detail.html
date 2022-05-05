@@ -21,7 +21,7 @@
         </thead>
         <tr>
             <td>Binary File Url</td>
-            <td>{{ firmware.binary_file_url }}</td>
+            <td><a href="{{ firmware.binary_file_url }}">{{ firmware.binary_file_url }}</a></td>
         </tr>
         <tr>
             <td>Binary File Hash</td>
@@ -39,10 +39,10 @@
         </tr>
         <tr>
             <td>Is Active?</td>
-            <td>{{ firmware.is_active}}</td>    
+            <td><mark>{{ firmware.is_active}}</mark></td>    
         </tr>
     </table>
-    <p class="text-muted">Last Updated at {{firmware.updated_at }} </p>
+    <p class="text-muted">Last Updated at {{firmware.updated_at|date:'Y-m-d H:i' }} </p>
     <br>
     <p><a class="btn btn-primary" href="/launchpad/firmwares/{{firmware.id}}"><b>Update Details</b></a></p>
     

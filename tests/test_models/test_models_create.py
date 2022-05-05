@@ -122,7 +122,7 @@ class TestModelsCreate(TestModels):
         self.assertIn(authorization, Authorization.objects.all())
 
     def test_registry_operator_create(self):
-        operator = Operator(company_name=self.faker.company(), website=self.faker.url(),
+        operator = Operator(company=self.faker.uuid4(), website=self.faker.url(),
                             email=self.faker.company_email(),
                             phone_number=self.faker.numerify('+' + '#' * 9),
                             operator_type=self.faker.pyint(min_value=0, max_value=len(

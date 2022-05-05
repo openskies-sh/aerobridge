@@ -24,7 +24,7 @@
     <ul class="list-group list-group-flush">
         {% if pilots %}
             {% for pilot in pilots %}
-            <li class="list-group-item"><a href="/launchpad/pilots/{{pilot.id}}/detail">{{ pilot.person.first_name }} {{ pilot.person.last_name }} - {{ pilot.operator.company_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ pilot.created_at }}</small></li>
+            <li class="list-group-item"><a href="/launchpad/pilots/{{pilot.id}}/detail">{{ pilot.person.first_name }} {{ pilot.person.last_name }} - {{ pilot.operator.company_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ pilot.updated_at|date:'Y-m-d H:i' }}</small></li>
             {% endfor %}
 
         {% else %}
