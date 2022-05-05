@@ -390,10 +390,10 @@ class Pilot(models.Model):
                                     help_text="Is this pilot active? If he is not working for the company or has moved on, set it as inactive")
 
     def __unicode__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company.common_name
 
     def __str__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company.common_name
 
 class TestValidity(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
