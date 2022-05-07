@@ -34,7 +34,7 @@ class AircraftSerializer(serializers.ModelSerializer):
         model = Aircraft
         fields = '__all__'
 
-class CompanySerializer(serializers.ModelSerializer):    
+class CompanySerializer(serializers.ModelSerializer):  
     class Meta:
         model = Company
         fields = '__all__'

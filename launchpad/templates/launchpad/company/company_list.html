@@ -17,14 +17,14 @@
 <div class="row mb-3">
     
     <h2>Companies</h2>
-    <p>You may choose to source drones and their firmware via different manufacturers, or assemble / manufacture it yourself. You will be able to link a Manufacturer to a Aircraft and Firmware.</p>
+    <p>A list of all companies, their manufactured and / or supplied parts.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
     {% if companies %}
         <ul class="list-group list-group-flush">
         {% for company in companies %}
-        <li class="list-group-item"><a href="/launchpad/companies/{{company.id}}/detail">{{ company.full_name }}</a>&nbsp;&nbsp;<mark>{{ company.get_role_display}}</mark></li>
+        <li class="list-group-item"><a href="/launchpad/companies/{{company.id}}/detail">{{ company.full_name }}</a>&nbsp;&nbsp;<mark>{{ company.get_role_display}}</mark>&nbsp;&nbsp;{% if company.role == 0 %}<strong>Parts Supplied</strong>: {{company.supplied_part_count}}{% elif company.role == 1 %}<strong>Parts Manufactured</strong>: {{company.manufactured_part_count}}{%endif%}</li>
         {% endfor %}
     {% else %}
         <li class="list-group-item"><p class="text-muted"><i>There are no companies added in Aerobridge, once added the list of companies will be displayed here.</i></p></li>

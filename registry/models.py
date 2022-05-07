@@ -194,7 +194,7 @@ class TypeCertificate(models.Model):
 class Company(models.Model):
 
     COMPANY_TYPE = (
-    (0, _('Supplier')), (1, _('Manufacturer')), (2, _('Operator')), (3, _('Customer')),)
+    (0, _('Supplier')), (1, _('Manufacturer')), (2, _('Operator')), (3, _('Customer')),(4, _('Assembler')), )
 
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -268,7 +268,7 @@ class Company(models.Model):
     @property
     def parts(self):
         """ Return SupplierPart objects which are supplied or manufactured by this company """
-        return AircraftComponent.objects.filter(Q(supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
+        return AircraftComponent.objects.filter(Q(supplier_part_supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
 
     @property
     def part_count(self):
@@ -995,17 +995,6 @@ class SupplierPart(models.Model):
     class Meta:
         unique_together = ('manufacturer_part', 'supplier', )
 
-    def clean(self):
-
-        super().clean()
-
-        # Ensure that the linked manufacturer_part points to the same part!
-        if self.manufacturer_part and self.part:
-
-            if not self.manufacturer_part.part == self.part:
-                raise ValidationError({
-                    'manufacturer_part': _("Linked manufacturer part must reference the same base part"),
-                })
 
     def save(self, *args, **kwargs):
         """ Overriding save method to connect an existing ManufacturerPart """
@@ -1038,7 +1027,7 @@ class SupplierPart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier = models.ForeignKey(Company, on_delete=models.CASCADE,
                                  related_name='supplied_parts',
-                                 limit_choices_to={'role': 3},
+                                 limit_choices_to={'role': 0},
                                  verbose_name=_('Supplier'),
                                  help_text=_('Select supplier'),
                                  )
@@ -1145,7 +1134,7 @@ class AircraftModel(models.Model):
     mass = models.IntegerField(default=300, help_text="Set the vehicle's mass in gms.")
     sub_category = models.IntegerField(choices=AIRCRAFT_SUB_CATEGORY, default=7, help_text='')
     operating_frequency = models.DecimalField(decimal_places=2, max_digits=10, default=0.00, blank=True, null=True)    
-    documents = models.ManyToManyField(AerobridgeDocument, help_text="Associate any existing documents to this series / model ")                                                                   
+    documents = models.ManyToManyField(AerobridgeDocument, blank=True, help_text="Associate any existing documents to this series / model")                                                                   
     type_certificate = models.ForeignKey(TypeCertificate, models.CASCADE, blank=True, null=True,
                                          help_text="Set the type certificate if available for the drone")
 
@@ -1184,7 +1173,7 @@ class AircraftComponent(models.Model):
     supplier_part = models.ForeignKey(
         SupplierPart, blank=True, null=True, on_delete=models.SET_NULL,
         verbose_name=_('Supplier Part'),
-        help_text=_('Select a matching supplier part for this stock item')
+        help_text=_('Select a matching supplier part for this stock item')        
     )
 
     description = models.CharField(
