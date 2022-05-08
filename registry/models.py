@@ -14,8 +14,7 @@ from django.core.exceptions import ValidationError
 from common.settings import currency_code_default as cc_default
 from common.validators import validate_currency_code, validate_url, validate_flight_controller_id
 from common.status_codes import BuildStatus, StatusCode, StockStatus
-from django.db.models import Sum, Q
-
+from django.db.models import Sum, Q, Count
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
 
@@ -268,8 +267,18 @@ class Company(models.Model):
     @property
     def parts(self):
         """ Return SupplierPart objects which are supplied or manufactured by this company """
-        return AircraftComponent.objects.filter(Q(supplier_part_supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
+        # 
+        return SupplierPart.objects.filter(Q(supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
 
+    @property
+    def manufactured_parts(self):
+        """ Return SupplierPart objects which are supplied or manufactured by this company """
+        return ManufacturerPart.objects.filter(Q(manufacturer=self.id))
+
+    @property
+    def supplied_parts(self):
+        """ Return SupplierPart objects which are supplied or manufactured by this company """
+        return SupplierPart.objects.filter(Q(supplier=self.id))
     @property
     def part_count(self):
         """ The number of parts manufactured (or supplied) by this Company """
@@ -845,7 +854,32 @@ class AircraftMasterComponent(models.Model):
     @property
     def supplier_count(self):
         """ Return the number of supplier parts available for this part """
-        return self.supplier_parts.count()
+        
+        return self.supplier_count.all().count()
+    @property
+    def has_suppliers(self):
+        """ Return the number of supplier parts available for this part """
+        return self.supplier_count.all().count() > 0
+
+    @property
+    def suppliers(self):
+        """ Return the number of supplier parts available for this part """
+        return SupplierPart.objects.filter(Q(manufacturer_part__master_component=self.id))
+
+    @property
+    def manufacturer_count(self):
+        """ Return the number of supplier parts available for this part """
+        return self.manufacturer_parts.count()
+
+    @property
+    def manufacturers(self):
+        """ Return the number of supplier parts available for this part """
+        return ManufacturerPart.objects.filter(Q(master_component=self.id))
+
+    @property
+    def has_manufacturers(self):
+        """ Return the number of supplier parts available for this part """
+        return self.manufacturer_parts.all().count() > 0
 
     @property
     def has_pricing_info(self, internal=False):
@@ -884,7 +918,7 @@ class AircraftMasterComponent(models.Model):
         - Part may be stored in multiple locations
         - If this part is a "template" (variants exist) then these are counted too
         """
-        total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part_master_component = self).count()
+        total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part__master_component = self).count()
         return total_stock
 
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
