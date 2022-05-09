@@ -14,11 +14,10 @@ from django.core.exceptions import ValidationError
 from common.settings import currency_code_default as cc_default
 from common.validators import validate_currency_code, validate_url, validate_flight_controller_id
 from common.status_codes import BuildStatus, StatusCode, StockStatus
-from django.db.models import Sum, Q
-
+from django.db.models import Sum, Q, Count
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
-
+from django.db.models.functions import Coalesce
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def two_year_expiration():
@@ -268,8 +267,18 @@ class Company(models.Model):
     @property
     def parts(self):
         """ Return SupplierPart objects which are supplied or manufactured by this company """
-        return AircraftComponent.objects.filter(Q(supplier_part_supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
+        # 
+        return SupplierPart.objects.filter(Q(supplier=self.id) | Q(manufacturer_part__manufacturer=self.id))
 
+    @property
+    def manufactured_parts(self):
+        """ Return SupplierPart objects which are supplied or manufactured by this company """
+        return ManufacturerPart.objects.filter(Q(manufacturer=self.id))
+
+    @property
+    def supplied_parts(self):
+        """ Return SupplierPart objects which are supplied or manufactured by this company """
+        return SupplierPart.objects.filter(Q(supplier=self.id))
     @property
     def part_count(self):
         """ The number of parts manufactured (or supplied) by this Company """
@@ -457,23 +466,6 @@ class AircraftMasterComponent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-    def get_default_supplier(self):
-        """ Get the default supplier part for this part (may be None).
-        - If the part specifies a default_supplier, return that
-        - If there is only one supplier part available, return that
-        - Else, return None
-        """
-
-        if self.default_supplier:
-            return self.default_supplier
-
-        if self.supplier_count == 1:
-            return self.supplier_parts.first()
-
-        # Default to None if there are multiple suppliers to choose from
-        return None
-
-
     minimum_stock = models.PositiveIntegerField(
         default=0, validators=[MinValueValidator(0)],
         verbose_name=_('Minimum Stock'),
@@ -542,52 +534,6 @@ class AircraftMasterComponent(models.Model):
         # No matches found
         return False
 
-    def check_add_to_bom(self, parent, raise_error=False, recursive=True):
-        """
-        Check if this Part can be added to the BOM of another part.
-        This will fail if:
-        a) The parent part is the same as this one
-        b) The parent part is used in the BOM for *this* part
-        c) The parent part is used in the BOM for any child parts under this one
-        """
-
-        result = True
-
-        try:
-            if self.pk == parent.pk:
-                raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                    p1=str(self),
-                    p2=str(parent)
-                )})
-
-            bom_items = self.get_bom_items()
-
-            # Ensure that the parent part does not appear under any child BOM item!
-            for item in bom_items.all():
-
-                # Check for simple match
-                if item.sub_part == parent:
-                    raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                        p1=str(parent),
-                        p2=str(self)
-                    )})
-
-                # And recursively check too
-                if recursive:
-                    result = result and item.sub_part.check_add_to_bom(
-                        parent,
-                        recursive=True,
-                        raise_error=raise_error
-                    )
-
-        except ValidationError as e:
-            if raise_error:
-                raise e
-            else:
-                return False
-
-        return result
-
     @property
     def available_stock(self):
         """
@@ -599,6 +545,26 @@ class AircraftMasterComponent(models.Model):
         total -= self.allocation_count()
 
         return max(total, 0)
+
+    @property
+    def slugify_family(self):        
+        return self.family
+
+    def get_default_supplier(self):
+        """ Get the default supplier part for this part (may be None).
+        - If the part specifies a default_supplier, return that
+        - If there is only one supplier part available, return that
+        - Else, return None
+        """
+
+        if self.default_supplier:
+            return self.default_supplier
+
+        if self.supplier_count == 1:
+            return self.supplier_parts.first()
+
+        # Default to None if there are multiple suppliers to choose from
+        return None
 
 
     def required_order_quantity(self):
@@ -722,6 +688,19 @@ class AircraftMasterComponent(models.Model):
 
         return quantity
 
+    def total_stock(self):
+        """ Return all stock entries for this Part.
+
+        - If this is a template part, include variants underneath this.
+
+        Note: To return all stock-entries for all part variants under this one,
+        we need to be creative with the filtering.
+        """
+
+        query = self.stock_items
+        query = query.filter(AircraftComponent.IN_STOCK_FILTER)
+        return query
+
     @property
     def total_stock(self):
         """ Return the total stock quantity for this part.
@@ -729,7 +708,7 @@ class AircraftMasterComponent(models.Model):
         - If this part is a "template" (variants exist) then these are counted too
         """
 
-        return self.get_stock_count(include_variants=True)
+        return self.total_stock.count()
 
     def __unicode__(self):
         return self.name
@@ -845,7 +824,32 @@ class AircraftMasterComponent(models.Model):
     @property
     def supplier_count(self):
         """ Return the number of supplier parts available for this part """
-        return self.supplier_parts.count()
+        
+        return self.suppliers.all().count()
+    @property
+    def has_suppliers(self):
+        """ Return the number of supplier parts available for this part """
+        return self.supplier_count > 0
+
+    @property
+    def suppliers(self):
+        """ Return the number of supplier parts available for this part """
+        return SupplierPart.objects.filter(Q(manufacturer_part__master_component=self.id))
+
+    @property
+    def manufacturer_count(self):
+        """ Return the number of supplier parts available for this part """
+        return self.manufacturer_parts.count()
+
+    @property
+    def manufacturers(self):
+        """ Return the number of supplier parts available for this part """
+        return ManufacturerPart.objects.filter(Q(master_component=self.id))
+
+    @property
+    def has_manufacturers(self):
+        """ Return the number of supplier parts available for this part """
+        return self.manufacturer_parts.all().count() > 0
 
     @property
     def has_pricing_info(self, internal=False):
@@ -884,7 +888,7 @@ class AircraftMasterComponent(models.Model):
         - Part may be stored in multiple locations
         - If this part is a "template" (variants exist) then these are counted too
         """
-        total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part_master_component = self).count()
+        total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part__master_component = self).count()
         return total_stock
 
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
@@ -1160,6 +1164,10 @@ class AircraftComponent(models.Model):
     A AircraftComponent object represents a quantity of physical instances of a part.
 
     """
+    IN_STOCK_FILTER = Q(
+        quantity__gt=0,        
+        status__in=StockStatus.AVAILABLE_CODES
+    )    
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
@@ -1214,6 +1222,63 @@ class AircraftComponent(models.Model):
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
         # print(items)
         return ' | '.join(items)
+
+    @property
+    def component_category(self):
+        items = []
+        
+        if self.supplier_part:
+            if self.supplier_part.manufacturer_part:
+                items.append(self.supplier_part.manufacturer_part.master_component.get_family_display())
+        # print(items)
+        return '  '.join(items)
+
+
+    def check_add_to_bom(self, parent, raise_error=False, recursive=True):
+        """
+        Check if this Part can be added to the BOM of another part.
+        This will fail if:
+        a) The parent part is the same as this one
+        b) The parent part is used in the BOM for *this* part
+        c) The parent part is used in the BOM for any child parts under this one
+        """
+
+        result = True
+
+        try:
+            if self.pk == parent.pk:
+                raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
+                    p1=str(self),
+                    p2=str(parent)
+                )})
+
+            bom_items = self.get_bom_items()
+
+            # Ensure that the parent part does not appear under any child BOM item!
+            for item in bom_items.all():
+
+                # Check for simple match
+                if item.sub_part == parent:
+                    raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
+                        p1=str(parent),
+                        p2=str(self)
+                    )})
+
+                # And recursively check too
+                if recursive:
+                    result = result and item.sub_part.check_add_to_bom(
+                        parent,
+                        recursive=True,
+                        raise_error=raise_error
+                    )
+
+        except ValidationError as e:
+            if raise_error:
+                raise e
+            else:
+                return False
+
+        return result
 
 
     def __unicode__(self):

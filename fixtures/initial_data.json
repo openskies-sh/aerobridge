@@ -139,100 +139,6 @@
     }
   },
   {
-    "model": "registry.company",
-    "pk": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
-    "fields": {
-      "full_name": "Nile Robotics",
-      "common_name": "Nile",
-      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-      "website": "nile",
-      "email": "support@nile.com",
-      "phone_number": "+497221816880",
-      "role": 1,
-      "country": "IN",
-      "vat_number": "IE5895475T",
-      "insurance_number": null,
-      "company_number": "489434",
-      "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z",
-      "documents": []
-    }
-  },
-  {
-    "model": "registry.company",
-    "pk": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-    "fields": {
-      "full_name": "Aerobridge Drone Company",
-      "common_name": "Aerobridge",
-      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-      "website": "august.com",
-      "email": "aj@august.com",
-      "phone_number": "+497221816880",
-      "role": 4,
-      "country": "IN",
-      "vat_number": "IE5895475T",
-      "insurance_number": null,
-      "company_number": "489434",
-      "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z",
-      "documents": []
-    }
-  },
-  {
-    "model": "registry.company",
-    "pk": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-    "fields": {
-      "full_name": "DIY Build your Aerial Robots Inc.",
-      "common_name": "Aerial Robots",
-      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
-      "website": "diy.com",
-      "email": "y@diy.com",
-      "phone_number": "+497221816880",
-      "role": 0,
-      "country": "IN",
-      "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z",
-      "documents": []
-    }
-  },
-  {
-    "model": "registry.company",
-    "pk": "abe5990e-d22e-4e81-9cf2-be46d61f24e2",
-    "fields": {
-      "full_name": "A.J. August Photography",
-      "common_name": "A.J. August Photography",
-      "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
-      "website": "august.com",
-      "email": "aj@august.com",
-      "phone_number": "+497221816880",
-      "role": 2,
-      "country": "IN",
-      "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z",
-      "documents": []
-    }
-  },
-  {
-    "model": "registry.company",
-    "pk": "72b46dfb-de46-4f2c-a41a-861e5d26da52",
-    "fields": {
-      "full_name": "Electric Inspection",
-      "common_name": "Aerial Robots",
-      "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
-      "website": "electricinspection.com",
-      "email": "contact@electricinspection.com",
-      "phone_number": "+9130292487",
-      "role": 2,
-      "vat_number": null,
-      "insurance_number": "985049991",
-      "company_number": "895884",
-      "country": "NA",
-      "created_at": "2022-01-04T21:13:42.218Z",
-      "updated_at": "2022-01-04T21:13:42.218Z",
-      "documents": []
-    }
-  },
-  {
     "model": "registry.activity",
     "pk": "26b6a66d-5e77-4a43-94e9-630e141a1087",
     "fields": {
@@ -284,6 +190,157 @@
       "end_date": "2022-11-30T00:00:00Z",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z"
+    }
+  },
+  {
+    "model": "registry.test",
+    "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
+    "fields": {
+      "test_type": 1,
+      "taken_at": 0,
+      "name": "Advanced RPAS flying in Urban Environments",
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2018-09-04T12:20:30Z"
+    }
+  },
+  {
+    "model": "registry.test",
+    "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
+    "fields": {
+      "test_type": 1,
+      "taken_at": 0,
+      "name": "RPAS Safety Basics",
+      "created_at": "2018-09-04T12:20:30Z",
+      "updated_at": "2018-09-04T12:20:30Z"
+    }
+  },
+  {
+    "model": "registry.typecertificate",
+    "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
+    "fields": {
+      "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
+      "type_certificate_issuing_country": "IRE",
+      "type_certificate_holder": "Agro Products Inc.",
+      "type_certificate_holder_country": "IRE"
+    }
+  },
+  {
+    "model": "registry.company",
+    "pk": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+    "fields": {
+      "full_name": "DIY Build your Aerial Robots Inc.",
+      "common_name": "Aerial Robots",
+      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+      "website": "diy.com",
+      "email": "y@diy.com",
+      "phone_number": "+497221816880",
+      "vat_number": "VAT-TMP",
+      "insurance_number": "INS-TMP",
+      "company_number": "CO-TMP",
+      "country": "IN",
+      "currency": "INR",
+      "role": 0,
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.company",
+    "pk": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+    "fields": {
+      "full_name": "Nile Robotics",
+      "common_name": "Nile",
+      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+      "website": "nile",
+      "email": "support@nile.com",
+      "phone_number": "+497221816880",
+      "vat_number": "IE5895475T",
+      "insurance_number": null,
+      "company_number": "489434",
+      "country": "IN",
+      "currency": "INR",
+      "role": 1,
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.company",
+    "pk": "72b46dfb-de46-4f2c-a41a-861e5d26da52",
+    "fields": {
+      "full_name": "Electric Inspection",
+      "common_name": "Aerial Robots",
+      "address": "72d03da4-a7fb-40f8-a383-f34c1db1c0b0",
+      "website": "electricinspection.com",
+      "email": "contact@electricinspection.com",
+      "phone_number": "+9130292487",
+      "vat_number": null,
+      "insurance_number": "985049991",
+      "company_number": "895884",
+      "country": "NA",
+      "currency": "INR",
+      "role": 2,
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.company",
+    "pk": "abe5990e-d22e-4e81-9cf2-be46d61f24e2",
+    "fields": {
+      "full_name": "A.J. August Photography",
+      "common_name": "A.J. August Photography",
+      "address": "8ddda026-2995-44ef-9eab-55e396eaef0d",
+      "website": "august.com",
+      "email": "aj@august.com",
+      "phone_number": "+497221816880",
+      "vat_number": "VAT-TMP",
+      "insurance_number": "INS-TMP",
+      "company_number": "CO-TMP",
+      "country": "IN",
+      "currency": "INR",
+      "role": 2,
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.company",
+    "pk": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
+    "fields": {
+      "full_name": "Aerobridge Drone Company",
+      "common_name": "Aerobridge",
+      "address": "a7646ce2-f7df-48a9-9ff8-98dfd04794be",
+      "website": "august.com",
+      "email": "aj@august.com",
+      "phone_number": "+497221816880",
+      "vat_number": "IE5895475T",
+      "insurance_number": null,
+      "company_number": "489434",
+      "country": "IN",
+      "currency": "INR",
+      "role": 4,
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z",
+      "documents": []
+    }
+  },
+  {
+    "model": "registry.firmware",
+    "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
+    "fields": {
+      "binary_file_url": "https://firmware.ardupilot.org/Copter/stable-3.2.1/apm2-quad/ArduCopter.hex",
+      "binary_file_hash": "1682fd567",
+      "version": "1.2.1",
+      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
+      "friendly_name": "December-2021 release",
+      "is_active": true,
+      "created_at": "2022-02-15T21:44:29.648Z",
+      "updated_at": "2022-02-15T21:44:29.648Z"
     }
   },
   {
@@ -346,28 +403,6 @@
     }
   },
   {
-    "model": "registry.test",
-    "pk": "ad7a73e4-9d11-4d6f-9e4c-36013fc4ac70",
-    "fields": {
-      "test_type": 1,
-      "taken_at": 0,
-      "name": "Advanced RPAS flying in Urban Environments",
-      "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
-    }
-  },
-  {
-    "model": "registry.test",
-    "pk": "da7dae8f-3fea-46b6-9076-fe3735817de9",
-    "fields": {
-      "test_type": 1,
-      "taken_at": 0,
-      "name": "RPAS Safety Basics",
-      "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2018-09-04T12:20:30Z"
-    }
-  },
-  {
     "model": "registry.pilot",
     "pk": "2f15a395-65a3-4a73-a492-57c7c470d527",
     "fields": {
@@ -396,38 +431,23 @@
     }
   },
   {
-    "model": "registry.typecertificate",
-    "pk": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
-    "fields": {
-      "type_certificate_id": "1dc42b2a-7e3f-4e87-b23d-353ec8a06705",
-      "type_certificate_issuing_country": "IRE",
-      "type_certificate_holder": "Agro Products Inc.",
-      "type_certificate_holder_country": "IRE"
-    }
-  },
-  {
-    "model": "registry.firmware",
-    "pk": "95e150dd-c566-4515-98c1-f2838972d7b5",
-    "fields": {
-      "binary_file_url": "https://firmware.ardupilot.org/Copter/stable-3.2.1/apm2-quad/ArduCopter.hex",
-      "binary_file_hash": "1682fd567",
-      "version": "1.2.1",
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "friendly_name": "December-2021 release",
-      "is_active": true,
-      "created_at": "2022-02-15T21:44:29.648Z",
-      "updated_at": "2022-02-15T21:44:29.648Z"
-    }
-  },
-  {
     "model": "registry.aircraftmastercomponent",
     "pk": "06805aa1-2b11-4940-b149-41d22634c652",
     "fields": {
       "name": "Battery Lithium Polymer (LiPo)",
       "family": 5,
       "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:01.164Z",
-      "updated_at": "2022-02-07T14:57:38.764Z"
+      "updated_at": "2022-02-07T14:57:38.764Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -437,8 +457,17 @@
       "name": "Lithium Polymer Battery Charger",
       "family": 9,
       "drawing": null,
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:37.488Z",
-      "updated_at": "2021-12-31T13:18:37.488Z"
+      "updated_at": "2021-12-31T13:18:37.488Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -448,8 +477,17 @@
       "name": "Companion Computer Pi Zero 2",
       "family": 14,
       "drawing": "https://grabcad.com/library/raspberry-pi-4-model-b-3",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:16.020Z",
-      "updated_at": "2022-02-07T14:57:27.084Z"
+      "updated_at": "2022-02-07T14:57:27.084Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -459,8 +497,17 @@
       "name": "Flight Controller Pixhawk",
       "family": 3,
       "drawing": "https://grabcad.com/library/pixhawk-2-1-cube-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:08.828Z",
-      "updated_at": "2022-02-07T14:57:16.034Z"
+      "updated_at": "2022-02-07T14:57:16.034Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -470,8 +517,17 @@
       "name": "BLDC Motor Ready to Sky 2212 920KV",
       "family": 1,
       "drawing": "https://grabcad.com/library/brushless-motor-bldc_2212-6t-2200kv-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:12:37.688Z",
-      "updated_at": "2022-02-07T14:57:08.779Z"
+      "updated_at": "2022-02-07T14:57:08.779Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -481,8 +537,17 @@
       "name": "Frame F450 Quad, Integrated Power Distribution Board (PDB)",
       "family": 0,
       "drawing": "https://grabcad.com/library/matek-xt60-pdb-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:12:47.739Z",
-      "updated_at": "2022-02-07T14:57:59.766Z"
+      "updated_at": "2022-02-07T14:57:59.766Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -492,8 +557,17 @@
       "name": "Remote Controller",
       "family": 11,
       "drawing": null,
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:55.669Z",
-      "updated_at": "2021-12-31T13:18:55.669Z"
+      "updated_at": "2021-12-31T13:18:55.669Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -503,8 +577,17 @@
       "name": "Telemetry Link",
       "family": 10,
       "drawing": null,
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:47.794Z",
-      "updated_at": "2021-12-31T13:18:47.794Z"
+      "updated_at": "2021-12-31T13:18:47.794Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -514,8 +597,17 @@
       "name": "Propellers Orange 1045",
       "family": 6,
       "drawing": null,
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:17:51.726Z",
-      "updated_at": "2021-12-31T13:17:51.726Z"
+      "updated_at": "2021-12-31T13:17:51.726Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -525,8 +617,17 @@
       "name": "Landing Gear",
       "family": 12,
       "drawing": null,
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:19:02.717Z",
-      "updated_at": "2021-12-31T13:19:02.717Z"
+      "updated_at": "2021-12-31T13:19:02.717Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -536,8 +637,17 @@
       "name": "Camera Arducam 2.1",
       "family": 7,
       "drawing": "https://grabcad.com/library/raspberry-pi-camera-4",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:23.160Z",
-      "updated_at": "2022-02-07T14:56:38.297Z"
+      "updated_at": "2022-02-07T14:56:38.297Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -547,8 +657,17 @@
       "name": "GPS Ublox M8N",
       "family": 8,
       "drawing": "https://grabcad.com/library/here-gps-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:18:30.947Z",
-      "updated_at": "2022-02-07T14:56:30.254Z"
+      "updated_at": "2022-02-07T14:56:30.254Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
     }
   },
   {
@@ -558,8 +677,251 @@
       "name": "Electronic Speed Controller (ESC) 4-in-one",
       "family": 2,
       "drawing": "https://grabcad.com/library/30a-esc-with-simonk-firmware-1",
+      "manufacturer": null,
+      "MPN": null,
       "created_at": "2021-12-31T13:13:10.829Z",
-      "updated_at": "2022-02-07T14:56:21.222Z"
+      "updated_at": "2022-02-07T14:56:21.222Z",
+      "minimum_stock": 0,
+      "units": "",
+      "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "0de8cb74-737d-4e49-a7f3-c97de1f5ffde",
+    "fields": {
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "4"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "40080565-86f4-4835-be49-ae98814d0840",
+    "fields": {
+      "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "5"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "5ca5edf8-449d-49de-9037-4ca1f6c2edd2",
+    "fields": {
+      "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "9"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "6393c0b5-d6bc-4eae-8528-80ad2ee19ef3",
+    "fields": {
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "12"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "863696bf-4c2c-4880-b6f0-89be8cf1ac08",
+    "fields": {
+      "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "6"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "8a210314-d718-4e70-91ed-9cf7d03db484",
+    "fields": {
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "10"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "8c77e063-cbb6-4b60-8f56-d1c98c26bf87",
+    "fields": {
+      "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "11"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "a2ff5581-eed2-4ec2-8493-c34349efd2b4",
+    "fields": {
+      "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "7"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "c6efa1a4-af1d-4407-b71a-ec54b32f8f1d",
+    "fields": {
+      "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "8"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "d77faea8-de0b-4e98-adcd-78c977163958",
+    "fields": {
+      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "1"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "d7c5c381-b496-461a-81c3-c98b36ba642d",
+    "fields": {
+      "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "3"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "f7378be1-0b9a-476b-b015-a4b4ed6e2bc5",
+    "fields": {
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "13"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "fafcf26f-6b65-4e48-8d4e-9104699a4656",
+    "fields": {
+      "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "2"
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "a2ff5581-eed2-4ec2-8493-c34349efd2b4",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "5ca5edf8-449d-49de-9037-4ca1f6c2edd2",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "d7c5c381-b496-461a-81c3-c98b36ba642d",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "863696bf-4c2c-4880-b6f0-89be8cf1ac08",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "80c3518e-607d-47ab-9eac-76b9cec57bd5",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "fafcf26f-6b65-4e48-8d4e-9104699a4656",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "83157f6b-7992-4d09-a28d-d7b2012620ef",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "6393c0b5-d6bc-4eae-8528-80ad2ee19ef3",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "40080565-86f4-4835-be49-ae98814d0840",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "8c77e063-cbb6-4b60-8f56-d1c98c26bf87",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "ac2ad65e-9573-4275-8a31-071b67466ada",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "c6efa1a4-af1d-4407-b71a-ec54b32f8f1d",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "c861898a-2afa-4d50-978a-9da97f62ad12",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "f7378be1-0b9a-476b-b015-a4b4ed6e2bc5",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "0de8cb74-737d-4e49-a7f3-c97de1f5ffde",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "8a210314-d718-4e70-91ed-9cf7d03db484",
+      "is_default": true
+    }
+  },
+  {
+    "model": "registry.supplierpart",
+    "pk": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+    "fields": {
+      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "manufacturer_part": "d77faea8-de0b-4e98-adcd-78c977163958",
+      "is_default": true
     }
   },
   {
@@ -576,15 +938,14 @@
       "dimension_length": "0.00",
       "dimension_breadth": "0.00",
       "dimension_height": "0.00",
+      "firmware": "95e150dd-c566-4515-98c1-f2838972d7b5",
       "mass": 300,
-      "documents": [],
       "sub_category": 7,
+      "operating_frequency": "0.00",
       "type_certificate": "75f358c6-e8d3-46aa-a3de-172bdcea469d",
       "max_certified_takeoff_weight": "0.000",
       "max_height_attainable": "0.000",
       "icao_aircraft_type_designator": "HS20",
-      "operating_frequency": "0.00",
-      "firmware": "95e150dd-c566-4515-98c1-f2838972d7b5",
       "created_at": "2022-01-14T13:24:38.390Z",
       "updated_at": "2022-01-14T13:24:38.390Z",
       "master_components": [
@@ -601,251 +962,23 @@
         "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
         "e51a74de-6ed0-4750-af15-cdb15d40d254",
         "f70d10d3-79fd-423e-80d9-841e9fbc3b6a"
-      ]
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "d77faea8-de0b-4e98-adcd-78c977163958",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
-      "MPN": "1"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "fafcf26f-6b65-4e48-8d4e-9104699a4656",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
-      "MPN": "2"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "d7c5c381-b496-461a-81c3-c98b36ba642d",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "0d70130a-8516-48fe-b47b-47c7c61e7c50",
-      "MPN": "3"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "0de8cb74-737d-4e49-a7f3-c97de1f5ffde",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
-      "MPN": "4"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "40080565-86f4-4835-be49-ae98814d0840",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "66033c72-00c6-4c19-af53-6f2578632b29",
-      "MPN": "5"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "863696bf-4c2c-4880-b6f0-89be8cf1ac08",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "82af6318-1957-4252-9ac4-e1e5301af78e",
-      "MPN": "6"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "a2ff5581-eed2-4ec2-8493-c34349efd2b4",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "8d03431f-b947-48dc-bb1d-3b9ec57344af",
-      "MPN": "7"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "c6efa1a4-af1d-4407-b71a-ec54b32f8f1d",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
-      "MPN": "8"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "5ca5edf8-449d-49de-9037-4ca1f6c2edd2",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "ad8b3ffd-ca2c-4f20-829b-1aec15598b5f",
-      "MPN": "9"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "8a210314-d718-4e70-91ed-9cf7d03db484",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
-      "MPN": "10"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "8c77e063-cbb6-4b60-8f56-d1c98c26bf87",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "ceb12cc5-71a8-4e4a-b357-deb150c2f5b6",
-      "MPN": "11"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "6393c0b5-d6bc-4eae-8528-80ad2ee19ef3",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
-      "MPN": "12"
-    }
-  },
-  {
-    "model": "registry.manufacturerpart",
-    "pk": "f7378be1-0b9a-476b-b015-a4b4ed6e2bc5",
-    "fields": {
-      "manufacturer": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
-      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
-      "MPN": "13"
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "f5e2b749-8128-4572-8aaf-b6190540ef74",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "d77faea8-de0b-4e98-adcd-78c977163958",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "80c3518e-607d-47ab-9eac-76b9cec57bd5",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "fafcf26f-6b65-4e48-8d4e-9104699a4656",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "41779957-0b29-4de6-940f-1f6e3e0d4727",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "d7c5c381-b496-461a-81c3-c98b36ba642d",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "0de8cb74-737d-4e49-a7f3-c97de1f5ffde",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "40080565-86f4-4835-be49-ae98814d0840",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "863696bf-4c2c-4880-b6f0-89be8cf1ac08",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "174b5a81-1655-4ef0-8b3b-31564db3b737",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "a2ff5581-eed2-4ec2-8493-c34349efd2b4",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "ac2ad65e-9573-4275-8a31-071b67466ada",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "c6efa1a4-af1d-4407-b71a-ec54b32f8f1d",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "5ca5edf8-449d-49de-9037-4ca1f6c2edd2",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "8a210314-d718-4e70-91ed-9cf7d03db484",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "8c77e063-cbb6-4b60-8f56-d1c98c26bf87",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "83157f6b-7992-4d09-a28d-d7b2012620ef",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "6393c0b5-d6bc-4eae-8528-80ad2ee19ef3",
-      "is_default": 1
-    }
-  },
-  {
-    "model": "registry.supplierpart",
-    "pk": "c861898a-2afa-4d50-978a-9da97f62ad12",
-    "fields": {
-      "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
-      "manufacturer_part": "f7378be1-0b9a-476b-b015-a4b4ed6e2bc5",
-      "is_default": 1
+      ],
+      "documents": []
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "058780b0-8d30-4da0-a7bc-38fc21539329",
-    "fields": { 
-      "description": "x-12-1",
-      "supplier_part":"174b5a81-1655-4ef0-8b3b-31564db3b737",
+    "fields": {
       "custody_on": "2022-01-14T13:59:30Z",
       "is_active": true,
+      "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "description": "x-12-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:59:30.541Z",
       "updated_at": "2022-04-05T10:53:10.664Z"
     }
@@ -854,10 +987,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
     "fields": {
-      "description": "x-6-1",
-      "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
       "custody_on": "2022-01-14T13:58:43Z",
       "is_active": true,
+      "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
+      "description": "x-6-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:58:44.030Z",
       "updated_at": "2022-04-05T10:53:26.618Z"
     }
@@ -866,10 +1004,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
     "fields": {
-      "description": "x-11-1",
-      "supplier_part":"ac2ad65e-9573-4275-8a31-071b67466ada",
       "custody_on": "2022-01-14T13:59:42Z",
       "is_active": true,
+      "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
+      "description": "x-11-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:59:42.987Z",
       "updated_at": "2022-04-05T10:53:33.903Z"
     }
@@ -878,10 +1021,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "35b73077-9a89-4445-aeda-b85c5d815751",
     "fields": {
-      "supplier_part":"f5e2b749-8128-4572-8aaf-b6190540ef74",
-      "description": "x-5-1",
       "custody_on": "2022-01-14T13:55:42Z",
       "is_active": true,
+      "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+      "description": "x-5-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:57:27.249Z",
       "updated_at": "2022-04-05T10:53:40.055Z"
     }
@@ -890,10 +1038,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
     "fields": {
-      "supplier_part":"f0168c87-f7b5-46b2-9483-e6483b7edeb3",
-      "description": "x-13-1",
       "custody_on": "2022-01-14T13:47:38Z",
       "is_active": true,
+      "supplier_part": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
+      "description": "x-13-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:47:38.892Z",
       "updated_at": "2022-04-05T10:53:47.822Z"
     }
@@ -902,10 +1055,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
     "fields": {
-      "supplier_part":"76eafbd4-b379-4694-b9e5-5dcec84f2118",
-      "description": "x-2-2",
       "custody_on": "2022-01-14T13:59:18Z",
       "is_active": true,
+      "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "description": "x-2-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:59:18.553Z",
       "updated_at": "2022-04-05T10:53:55.595Z"
     }
@@ -914,10 +1072,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "4c8e882c-2ece-476f-89e1-4e51f9c06119",
     "fields": {
-      "supplier_part":"f0168c87-f7b5-46b2-9483-e6483b7edeb3",
-      "description": "x-13-2",
       "custody_on": "2022-01-14T14:00:06Z",
       "is_active": true,
+      "supplier_part": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
+      "description": "x-13-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T14:00:06.780Z",
       "updated_at": "2022-04-05T10:54:12.109Z"
     }
@@ -926,22 +1089,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "56e19c92-0079-4880-b5bf-470bc56ed267",
     "fields": {
-      "supplier_part":"c861898a-2afa-4d50-978a-9da97f62ad12",
-      "description": "x-3-1",
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
-      "created_at": "2022-01-14T13:48:11.376Z",
-      "updated_at": "2022-04-05T10:54:04.025Z"
-    }
-  },
-  {
-    "model": "registry.aircraftcomponent",
-    "pk": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
-    "fields": {
       "supplier_part": "c861898a-2afa-4d50-978a-9da97f62ad12",
-      "description": "x-3-2",      
-      "custody_on": "2022-01-14T13:48:11Z",
-      "is_active": true,
+      "description": "x-3-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:48:11.376Z",
       "updated_at": "2022-04-05T10:54:04.025Z"
     }
@@ -950,10 +1106,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
     "fields": {
-      "supplier_part":"a0381965-0ccf-4a15-b36b-e4b6d6567fce",
-      "description": "x-1-2",
       "custody_on": "2022-01-14T13:59:03Z",
       "is_active": true,
+      "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "description": "x-1-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:59:04.034Z",
       "updated_at": "2022-04-05T10:54:19.169Z"
     }
@@ -962,10 +1123,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
     "fields": {
-      "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
-      "description": "x-6-2",
       "custody_on": "2022-01-14T13:58:02Z",
       "is_active": true,
+      "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
+      "description": "x-6-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:58:02.610Z",
       "updated_at": "2022-04-05T10:54:27.509Z"
     }
@@ -974,22 +1140,49 @@
     "model": "registry.aircraftcomponent",
     "pk": "60532c18-2822-483e-8abe-4151c5a270aa",
     "fields": {
-      "supplier_part":"83157f6b-7992-4d09-a28d-d7b2012620ef",
-      "description": "x-9-2",
       "custody_on": "2022-01-14T13:47:58Z",
       "is_active": true,
+      "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
+      "description": "x-9-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:48:00.961Z",
       "updated_at": "2022-04-05T10:54:34.700Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
+    "pk": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
+    "fields": {
+      "custody_on": "2022-01-14T13:48:11Z",
+      "is_active": true,
+      "supplier_part": "c861898a-2afa-4d50-978a-9da97f62ad12",
+      "description": "x-3-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:48:11.376Z",
+      "updated_at": "2022-04-05T10:54:04.025Z"
+    }
+  },
+  {
+    "model": "registry.aircraftcomponent",
     "pk": "69532104-3187-4170-b52f-376b0448dce2",
     "fields": {
-      "supplier_part":"f5e2b749-8128-4572-8aaf-b6190540ef74",
-      "description": "x-5-2",
       "custody_on": "2022-01-14T13:45:12Z",
       "is_active": true,
+      "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+      "description": "x-5-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:45:13.094Z",
       "updated_at": "2022-04-05T10:54:43.820Z"
     }
@@ -998,10 +1191,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "6ec9c803-12ff-424b-9260-4de539f99fcf",
     "fields": {
-      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "description": "x-4-1",
       "custody_on": "2022-01-14T13:47:28Z",
       "is_active": true,
+      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "description": "x-4-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:47:28.632Z",
       "updated_at": "2022-04-05T10:54:49.799Z"
     }
@@ -1010,10 +1208,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "81723be7-0ddb-45a9-8ede-a56aac190792",
     "fields": {
-      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "description": "x-10-1",
       "custody_on": "2022-01-14T13:45:33Z",
       "is_active": true,
+      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "description": "x-10-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:45:33.728Z",
       "updated_at": "2022-04-05T10:55:10.073Z"
     }
@@ -1022,10 +1225,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
     "fields": {
-      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "description": "x-10-2",
       "custody_on": "2022-01-14T13:57:47Z",
       "is_active": true,
+      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "description": "x-10-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:57:47.119Z",
       "updated_at": "2022-04-05T10:55:16.365Z"
     }
@@ -1034,11 +1242,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "94d4a765-a391-441c-8894-f1e0b6becf81",
     "fields": {
-      "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
-      "description": "x-7-1",
-      
       "custody_on": "2022-01-14T13:58:14Z",
       "is_active": true,
+      "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+      "description": "x-7-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:58:14.595Z",
       "updated_at": "2022-04-05T10:55:24.655Z"
     }
@@ -1047,10 +1259,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "99b647e8-2497-4e9f-9c7a-5172a74813d7",
     "fields": {
-      "supplier_part":"174b5a81-1655-4ef0-8b3b-31564db3b737",
-      "description": "x-12-2",
       "custody_on": "2022-01-14T13:47:00Z",
       "is_active": true,
+      "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "description": "x-12-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:47:00.285Z",
       "updated_at": "2022-04-05T10:55:29.408Z"
     }
@@ -1059,11 +1276,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "acfa92e2-b66d-43a7-abd7-decdb3477786",
     "fields": {
-      "supplier_part":"a670d149-e98b-44c7-a3a7-d2bd745d29f2",
-      "description": "x-8-2",
-      
       "custody_on": "2022-01-14T13:47:48Z",
       "is_active": true,
+      "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+      "description": "x-8-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:47:51.637Z",
       "updated_at": "2022-04-05T10:51:51.346Z"
     }
@@ -1072,10 +1293,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "b3543ea6-ab11-4a75-97e6-740e46529565",
     "fields": {
-      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "description": "x-4-2",      
       "custody_on": "2022-01-14T13:59:54Z",
       "is_active": true,
+      "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "description": "x-4-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:59:54.684Z",
       "updated_at": "2022-04-05T10:55:43.022Z"
     }
@@ -1084,10 +1310,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
     "fields": {
-      "supplier_part":"ac2ad65e-9573-4275-8a31-071b67466ada",
-      "description": "x-11-2",
       "custody_on": "2022-01-14T13:47:13Z",
       "is_active": true,
+      "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
+      "description": "x-11-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:47:14.387Z",
       "updated_at": "2022-04-05T10:55:51.262Z"
     }
@@ -1096,10 +1327,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
     "fields": {
-      "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
-      "description": "x-7-2",
       "custody_on": "2022-01-14T13:45:46Z",
       "is_active": true,
+      "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+      "description": "x-7-2",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:45:46.334Z",
       "updated_at": "2022-04-05T10:55:58.132Z"
     }
@@ -1108,10 +1344,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
     "fields": {
-      "supplier_part":"76eafbd4-b379-4694-b9e5-5dcec84f2118",
-      "description": "x-2-1",
       "custody_on": "2022-01-14T13:46:49Z",
       "is_active": true,
+      "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "description": "x-2-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:46:49.014Z",
       "updated_at": "2022-04-05T10:52:45.050Z"
     }
@@ -1120,10 +1361,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "d4edfb65-b71f-4130-86de-840e6f23a931",
     "fields": {
-      "supplier_part":"a0381965-0ccf-4a15-b36b-e4b6d6567fce",
-      "description": "x-1-1",      
       "custody_on": "2022-01-14T13:46:10Z",
       "is_active": true,
+      "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "description": "x-1-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T13:46:10.397Z",
       "updated_at": "2022-04-05T10:52:35.066Z"
     }
@@ -1132,11 +1378,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
     "fields": {
-      "supplier_part":"83157f6b-7992-4d09-a28d-d7b2012620ef",
-      "description": "x-9-1",
-      
       "custody_on": "2022-01-14T14:00:34Z",
       "is_active": true,
+      "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
+      "description": "x-9-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T14:00:34.334Z",
       "updated_at": "2022-04-05T10:52:24.186Z"
     }
@@ -1145,10 +1395,15 @@
     "model": "registry.aircraftcomponent",
     "pk": "f39c4245-1b9d-43a8-9011-06d134fa86d1",
     "fields": {
-      "supplier_part":"a670d149-e98b-44c7-a3a7-d2bd745d29f2",
-      "description": "x-8-1",
       "custody_on": "2022-01-14T14:00:19Z",
       "is_active": true,
+      "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+      "description": "x-8-1",
+      "updated": null,
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
       "created_at": "2022-01-14T14:00:19.755Z",
       "updated_at": "2022-04-05T10:51:53.180Z"
     }
@@ -1417,14 +1672,14 @@
         "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
         "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
         "60532c18-2822-483e-8abe-4151c5a270aa",
+        "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
         "69532104-3187-4170-b52f-376b0448dce2",
         "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
         "99b647e8-2497-4e9f-9c7a-5172a74813d7",
         "acfa92e2-b66d-43a7-abd7-decdb3477786",
         "b3543ea6-ab11-4a75-97e6-740e46529565",
         "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
-        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
-        "65e5364d-a734-4b8a-8c7c-d1bc85ee5439"
+        "bd93ab00-4fe6-48a0-8014-ae2448a32ba8"
       ]
     }
   },
@@ -1666,6 +1921,24 @@
   },
   {
     "model": "gcs_operations.flightoperation",
+    "pk": "0fe63a0f-5880-4f14-91b1-cf62bc2be0c2",
+    "fields": {
+      "name": "Medicine Delivery Operation",
+      "drone": "0450852f-856e-4ecb-beb6-01ccded8529d",
+      "flight_plan": "12818e87-4c96-4e4c-8c63-82b8e12c3b73",
+      "operator": "41174c3f-e86c-4e5a-a629-32d4d9da6011",
+      "purpose": "7a875ff9-79ee-460e-816f-30360e0ac645",
+      "type_of_operation": 0,
+      "pilot": "d4b8aa2c-0a52-4adc-806a-f363deb6a1e0",
+      "is_editable": false,
+      "start_datetime": "2022-05-05T13:32:16Z",
+      "end_datetime": "2022-05-05T13:32:16Z",
+      "created_at": "2022-05-05T13:32:24.101Z",
+      "updated_at": "2022-05-05T13:32:24.156Z"
+    }
+  },
+  {
+    "model": "gcs_operations.flightoperation",
     "pk": "3408bce9-dbab-4665-abfc-8ea03b0ad871",
     "fields": {
       "name": "Flight Operation A",
@@ -1737,6 +2010,41 @@
       ],
       "created_at": "2021-03-11T05:18:58.761Z",
       "updated_at": "2021-03-11T05:18:58.765Z",
+      "status_code": "granted"
+    }
+  },
+  {
+    "model": "gcs_operations.flightpermission",
+    "pk": "8e7d56fe-4ead-4822-a896-ede25f20a285",
+    "fields": {
+      "operation": "0fe63a0f-5880-4f14-91b1-cf62bc2be0c2",
+      "token": {
+        "error": "Permission was granted but could not sign permission object"
+      },
+      "geo_cage": [
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        },
+        {
+          "lat": 30.713546977686974,
+          "lng": 76.73923484788375
+        },
+        {
+          "lat": 30.72907500000001,
+          "lng": 76.74222800000001
+        },
+        {
+          "lat": 30.735873000000005,
+          "lng": 76.706961
+        },
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        }
+      ],
+      "created_at": "2022-05-05T13:32:24.139Z",
+      "updated_at": "2022-05-05T13:32:24.139Z",
       "status_code": "granted"
     }
   },

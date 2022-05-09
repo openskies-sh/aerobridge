@@ -80,9 +80,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr><td>
-                        
-            <p>Below is a list of components that form the Bill of Material for the aircraft:</p>
+        <tr><td>                        
+            <p>Below is a list of components that form the Bill of Material for the aircraft, see all <a href="/launchpad/aircraft-master-components">master components</a>:</p>
             <ul class="list-group list-group-flush">
                 {% if aircraft_master_components %}
                     {% for aircraft_master_component in aircraft_master_components %}            
@@ -98,7 +97,7 @@
 <br>
 <p class="text-muted">Last Updated at {{aircraft_model.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircraft-models/{{aircraft_model.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_master_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-models/{{aircraft_model.id}}/master-components"><b>See master components</b></a>{% endif %}</p>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-models/{{aircraft_model.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_master_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-models/{{aircraft_model.id}}/master-components"><b>See component blueprint</b></a>{% endif %}</p>
 
 </div>
 {% endblock %}

@@ -827,6 +827,118 @@ class AircraftMasterComponentsList(APIView):
         
         return Response(payload)
 
+          
+    
+class AircraftMasterComponentsStockDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_master_component_stock_keeping/aircraft_master_components_stock_keeping.html'
+
+    pagination_class = StandardResultsSetPagination
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_aircraft_components(self):
+        try:
+            return AircraftMasterComponent.objects.all().order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):        
+        
+        queryset = self.get_aircraft_components()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = AircraftMasterComponentSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = AircraftMasterComponentSerializer(queryset, many=True)
+            data = serializer.data        
+        
+        payload = {'aircraft_master_components': data}
+        
+        return Response(payload)
+
+          
+class AircraftMasterComponentsFamilyList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_master_component/aircraft_master_components_list.html'
+
+    pagination_class = StandardResultsSetPagination
+    @property
+    def paginator(self):
+        """
+        The paginator instance associated with the view, or `None`.
+        """
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """
+        Return a single page of results, or `None` if pagination is disabled.
+        """
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get_aircraft_components(self, aircraft_master_component_family):
+        
+        try:
+            return AircraftMasterComponent.objects.filter(family = aircraft_master_component_family).order_by('-created_at')	            
+        except Exception as e:
+            raise Http404
+
+    def get(self,  request, aircraft_master_component_family):
+        
+        queryset = self.get_aircraft_components(aircraft_master_component_family =aircraft_master_component_family)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = AircraftMasterComponentSerializer(page, many=True)
+            result = self.get_paginated_response(serializer.data)
+            data = result.data # pagination data
+        else:
+            serializer = AircraftMasterComponentSerializer(queryset, many=True)
+            data = serializer.data        
+        
+        payload = {'aircraft_master_components': data, 'family_filter':True}
+        
+        return Response(payload)
+
         
 class AircraftMasterComponentsDetail(APIView):
     renderer_classes = [TemplateHTMLRenderer]

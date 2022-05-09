@@ -3,7 +3,6 @@
 {% block content %}
 <div>
 <h1>Company Details - {{ company.common_name }}</h1>
-<br>
 <p></p>
 <br>
 <table  class="table">
@@ -13,6 +12,10 @@
             <th></th>
         </tr>
     </thead>
+    <tr>
+        <td>ID</td>
+        <td><code>{{ company.id}}</code></td>    
+    </tr>
     <tr>
         <td>Company Name</td>
         <td>{{ company.full_name}} ({{ company.common_name}})</td>    
@@ -26,12 +29,27 @@
         <td>Role</td>
         <td><mark>{{ company.get_role_display}}</mark></td>    
     </tr>
-    
-
 </table>
 <p class="text-muted">Last Updated at {{company.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/companies/{{company.id}}"><b>Update Details</b></a></p>
-
+<br>
+{% if company.has_manufactured_parts %}
+<h4>Parts Manufactured ({{company.manufactured_part_count}})</h4>
+<ul class="list-group list-group-flush">
+    {% for manufactured_part in company.manufactured_parts.all %}
+        <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{ manufactured_part.master_component.id}}/detail">{{ manufactured_part.master_component.name}}</a></li>
+    {%endfor %}
+</ul> 
+<br>
+{% endif %}
+{% if company.has_supplied_parts %}
+<h4>Parts Supplied ({{company.supplied_part_count}})</h4>
+<ul class="list-group list-group-flush">
+    {% for supplied_part in company.supplied_parts.all %}     
+        <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{ supplied_part.manufacturer_part.master_component.id}}/detail">{{ supplied_part.manufacturer_part.master_component.name}}</a></li>
+    {%endfor %}
+</ul> 
+{% endif %}
 </div>
 {% endblock %}
