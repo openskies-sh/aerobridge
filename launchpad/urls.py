@@ -73,6 +73,7 @@ urlpatterns = [
     path('aircraft-master-components/<uuid:aircraft_master_component_id>/detail', launchpad_views.AircraftMasterComponentsDetail.as_view(), name='aircraft-master-components-detail'),
     path('aircraft-master-components/new', launchpad_views.AircraftMasterComponentsCreateView.as_view(), name='aircraft-master-components-create'),
 
+    path('stock-keeping/<uuid:aircraft_master_component_id>', launchpad_views.AircraftMasterComponentsStockDetail.as_view(), name='aircraft-master-components-stock-keeping'),
     path('stock-keeping', launchpad_views.AircraftMasterComponentsStockDetail.as_view(), name='aircraft-master-components-stock-keeping'),
   
     path('aircraft-components', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list'),

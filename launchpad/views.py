@@ -861,16 +861,24 @@ class AircraftMasterComponentsStockDetail(APIView):
         assert self.paginator is not None
         return self.paginator.get_paginated_response(data)
 
-    def get_aircraft_components(self):
-        try:
-            return AircraftMasterComponent.objects.all().order_by('-created_at')	            
-        except Exception as e:
-            raise Http404
+    def get_aircraft_components(self, aircraft_master_component_id=None):
+        if aircraft_master_component_id: 
+            try:
+                return AircraftMasterComponent.objects.filter(id =aircraft_master_component_id).order_by('-created_at')	            
+            except Exception as e:
+                raise Http404
+        else:
+            try:
+                return AircraftMasterComponent.objects.all().order_by('-created_at')	            
+            except Exception as e:
+                raise Http404
 
-    def get(self, request, *args, **kwargs):        
+    def get(self, request, aircraft_master_component_id=None, *args, **kwargs):        
         
-        queryset = self.get_aircraft_components()
+        queryset = self.get_aircraft_components(aircraft_master_component_id= aircraft_master_component_id)
+
         page = self.paginate_queryset(queryset)
+
         if page is not None:
             serializer = AircraftMasterComponentSerializer(page, many=True)
             result = self.get_paginated_response(serializer.data)

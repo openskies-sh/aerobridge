@@ -36,9 +36,15 @@
     {%if aircraft_master_component.drawing %}
     <tr>
         <td>Drawing</td>
-        <td><a href="{{ aircraft_master_component.drawing }}" target="_blank">{{ aircraft_master_component.drawing }}</a></td>    
+        <td><a href="{{ aircraft_master_component.drawing }}" target="_blank">{{ aircraft_master_component.drawing }} <i class="bi bi-link"></i></a></td>    
     </tr>    
     {% endif %}
+    
+    <tr>
+        <td>Stock Keeping</td>
+        <td><a href="/launchpad/stock-keeping/{{ aircraft_master_component.id }}" target="_blank">Order more / check stocks &rarr;</a></td>    
+    </tr>    
+    
 </table>
 <p class="text-muted">Last Updated at {{aircraft_master_component.updated_at|date:'Y-m-d H:i' }} </p>
 <hr>

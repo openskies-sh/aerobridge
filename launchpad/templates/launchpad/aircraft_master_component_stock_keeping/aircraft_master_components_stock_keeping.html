@@ -19,7 +19,7 @@
 </div>
 <div class="row mb-3">
     
-    <h2>Stock Keeping</h2>
+    <h2>Stock Keeping and orders</h2>
     <p>See parts and quantities available and order more.</p>
 </div>
 <div class="row mb-3">
@@ -28,7 +28,7 @@
         {% if aircraft_master_components %}
             {% for aircraft_master_component in aircraft_master_components.results %}                  
               <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>
-                <ul><table class="table table-striped">
+                <ul><br><table class="table table-minimal">
                   <thead>
                     <tr>
                       <th scope="col">Total Stock</th>
@@ -40,6 +40,7 @@
                   <tbody>
                     <tr>
                       <td>{{aircraft_master_component.total_stock }}</td>
+                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                     </tr>
@@ -91,9 +92,6 @@
     </nav>
 
     <br><br>
-    <br>
-    <p><a class="btn btn-primary" href="/launchpad/aircraft-master-components/new"><b>&#43; Add new master component</b></a></p>
-    
 </div>
 <div class="col-md-4 themed-grid-col"></div>
 </div>
