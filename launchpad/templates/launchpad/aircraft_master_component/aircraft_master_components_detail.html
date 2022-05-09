@@ -18,7 +18,7 @@
 <div>
 <h2>Master Component Detail</h2>
 <br>
-<table  class="table">
+<table class="table">
     <thead>
         <tr>
             <th></th>
@@ -33,15 +33,15 @@
         <td>Supplier Part ID</td>
         <td>{{ aircraft_master_component.family }}</td>
     </tr>
+    {%if aircraft_master_component.drawing %}
     <tr>
         <td>Drawing</td>
-        <td>{{ aircraft_master_component.drawing }}</td>    
-    </tr>
-    
-    
+        <td><a href="{{ aircraft_master_component.drawing }}" target="_blank">{{ aircraft_master_component.drawing }}</a></td>    
+    </tr>    
+    {% endif %}
 </table>
 <p class="text-muted">Last Updated at {{aircraft_master_component.updated_at|date:'Y-m-d H:i' }} </p>
-
+<hr>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}"><b>Update Details</b></a></p>
 <br>
@@ -49,16 +49,17 @@
 {% if aircraft_master_component.has_suppliers %}
 <h4>Suppliers ({{aircraft_master_component.supplier_count}})</h4>
 <ul class="list-group list-group-flush">
-    {% for supplier_part in aircraft_master_component.manufacturers.all %} 
-        <li class="list-group-item"><a href="/launchpad/company/{{ supplier_part.manufactured_part.manufacturer.id}}/detail">{{ supplier_part.manufactured_part.manufacturer.full_name}}</a></li>
+    {% for supplier_part in aircraft_master_component.suppliers.all %}     
+        <li class="list-group-item"><a href="/launchpad/companies/{{ supplier_part.supplier.id}}/detail">{{ supplier_part.supplier.full_name}}</a></li>
     {%endfor %}
 </ul> 
 {% endif %}
+<br>
 {% if aircraft_master_component.has_manufacturers %}
 <h4>Manufacturers ({{aircraft_master_component.manufacturer_count}})</h4>
 <ul class="list-group list-group-flush">
     {% for manufactured_part in aircraft_master_component.manufacturers.all %} 
-        <li class="list-group-item"><a href="/launchpad/company/{{ manufactured_part.manufacturer.id}}/detail">{{ manufactured_part.manufacturer.full_name}}</a></li>
+        <li class="list-group-item"><a href="/launchpad/companies/{{ manufactured_part.manufacturer.id}}/detail">{{ manufactured_part.manufacturer.full_name}}</a></li>
     {%endfor %}
 </ul> 
 {% endif %}

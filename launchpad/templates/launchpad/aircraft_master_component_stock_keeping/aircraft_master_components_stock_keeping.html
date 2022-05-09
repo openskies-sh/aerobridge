@@ -6,7 +6,7 @@
         Manufacturing
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Aircraft Master Components (BOM)
+        Components Stock Keeping
       </li>
     </ol>
   </nav>
@@ -19,19 +19,36 @@
 </div>
 <div class="row mb-3">
     
-    <h2>Aircraft Master Components</h2>
-    {% if family_filter %}
-    
-    {% else %}
-    <p>A list of all the master components in the company, a master component can be linked to an aircraft model. Below are a list of master components in the management server. To see a component list for a specific model, use the Manufacturing > Models menu.</p>
-    {% endif %}
+    <h2>Stock Keeping</h2>
+    <p>See parts and quantities available and order more.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-12 themed-grid-col">
     <ul class="list-group list-group-flush">
         {% if aircraft_master_components %}
             {% for aircraft_master_component in aircraft_master_components.results %}                  
-              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>{% if not family_filter %}&nbsp;&nbsp;See all <a href="/launchpad/aircraft-master-components/family/{{aircraft_master_component.slugify_family}}">{{ aircraft_master_component.family }}</a>{% endif %}</li>
+              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>
+                <ul><table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Total Stock</th>
+                      <th scope="col">Breakdown</th>
+                      <th scope="col">Available Stock</th>
+                      <th scope="col">Supplier Ordering</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{aircraft_master_component.total_stock }}</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </ul>
+                <br>
+              
+              </li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>
