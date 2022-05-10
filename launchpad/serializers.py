@@ -97,6 +97,7 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     # def get_installed_model(self, obj):
     #     x = 
     slugify_family = serializers.ReadOnlyField()
+    procurement_origin = serializers.ReadOnlyField()
     order_price = serializers.ReadOnlyField()
     total_stock = serializers.ReadOnlyField()
     linked_models = serializers.SerializerMethodField()
@@ -113,4 +114,4 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
         return ','.join(name_series)
     class Meta:
         model = AircraftMasterComponent
-        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock',)
+        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock','procurement_origin',)

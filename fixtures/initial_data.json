@@ -352,9 +352,7 @@
       "company": "abe5990e-d22e-4e81-9cf2-be46d61f24e2",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": [
-        "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
-      ],
+      "operational_authorizations": ["e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"],
       "authorized_activities": [
         "26b6a66d-5e77-4a43-94e9-630e141a1087",
         "7a875ff9-79ee-460e-816f-30360e0ac645"
@@ -370,12 +368,8 @@
       "company": "72b46dfb-de46-4f2c-a41a-861e5d26da52",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": [
-        "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
-      ],
-      "authorized_activities": [
-        "7a875ff9-79ee-460e-816f-30360e0ac645"
-      ]
+      "operational_authorizations": ["6be25abc-a43d-44d2-9c16-b8dee47bb64d"],
+      "authorized_activities": ["7a875ff9-79ee-460e-816f-30360e0ac645"]
     }
   },
   {
@@ -447,7 +441,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -467,7 +462,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -487,7 +483,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -507,7 +504,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -527,7 +525,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -547,7 +546,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -567,7 +567,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -587,7 +588,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -607,7 +609,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -627,7 +630,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -647,7 +651,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -667,7 +672,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -687,7 +693,8 @@
       "trackable": true,
       "purchaseable": true,
       "salable": false,
-      "active": true
+      "active": true,
+      "quantity_required_for_build": 1
     }
   },
   {
@@ -812,8 +819,10 @@
     "pk": "174b5a81-1655-4ef0-8b3b-31564db3b737",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "a2ff5581-eed2-4ec2-8493-c34349efd2b4",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -821,8 +830,10 @@
     "pk": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "5ca5edf8-449d-49de-9037-4ca1f6c2edd2",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -830,8 +841,10 @@
     "pk": "41779957-0b29-4de6-940f-1f6e3e0d4727",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "d7c5c381-b496-461a-81c3-c98b36ba642d",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -839,8 +852,10 @@
     "pk": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "863696bf-4c2c-4880-b6f0-89be8cf1ac08",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -848,8 +863,10 @@
     "pk": "80c3518e-607d-47ab-9eac-76b9cec57bd5",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "fafcf26f-6b65-4e48-8d4e-9104699a4656",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -857,8 +874,10 @@
     "pk": "83157f6b-7992-4d09-a28d-d7b2012620ef",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "6393c0b5-d6bc-4eae-8528-80ad2ee19ef3",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -866,8 +885,10 @@
     "pk": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "40080565-86f4-4835-be49-ae98814d0840",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -875,8 +896,10 @@
     "pk": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "8c77e063-cbb6-4b60-8f56-d1c98c26bf87",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -884,8 +907,10 @@
     "pk": "ac2ad65e-9573-4275-8a31-071b67466ada",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "c6efa1a4-af1d-4407-b71a-ec54b32f8f1d",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -893,8 +918,10 @@
     "pk": "c861898a-2afa-4d50-978a-9da97f62ad12",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "f7378be1-0b9a-476b-b015-a4b4ed6e2bc5",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -902,8 +929,10 @@
     "pk": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "0de8cb74-737d-4e49-a7f3-c97de1f5ffde",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -911,8 +940,10 @@
     "pk": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "8a210314-d718-4e70-91ed-9cf7d03db484",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -920,8 +951,10 @@
     "pk": "f5e2b749-8128-4572-8aaf-b6190540ef74",
     "fields": {
       "supplier": "1bf3e32e-e5f3-4f53-af05-f0dba4e7ade6",
+      "info_buy_url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
       "manufacturer_part": "d77faea8-de0b-4e98-adcd-78c977163958",
-      "is_default": true
+      "is_default": true,
+      "purchase_price": null
     }
   },
   {
@@ -967,12 +1000,174 @@
     }
   },
   {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 1,
+    "fields": {
+      "id": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
+      "custody_on": "2022-01-14T13:48:11Z",
+      "is_active": true,
+      "description": "x-3-2",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:48:11.376Z",
+      "updated_at": "2022-05-10T20:40:00.323Z",
+      "supplier_part": null,
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
+      "history_date": "2022-05-10T20:40:00.324Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 2,
+    "fields": {
+      "id": "60532c18-2822-483e-8abe-4151c5a270aa",
+      "custody_on": "2022-01-14T13:47:58Z",
+      "is_active": true,
+      "description": "x-9-2",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:48:00.961Z",
+      "updated_at": "2022-05-10T20:40:23.124Z",
+      "supplier_part": null,
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
+      "history_date": "2022-05-10T20:40:23.125Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 3,
+    "fields": {
+      "id": "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
+      "custody_on": "2022-01-14T13:58:02Z",
+      "is_active": true,
+      "description": "x-6-2",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:58:02.610Z",
+      "updated_at": "2022-05-10T20:40:38.771Z",
+      "supplier_part": null,
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
+      "history_date": "2022-05-10T20:40:38.772Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 4,
+    "fields": {
+      "id": "56e19c92-0079-4880-b5bf-470bc56ed267",
+      "custody_on": "2022-01-14T13:48:11Z",
+      "is_active": true,
+      "description": "x-3-1",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:48:11.376Z",
+      "updated_at": "2022-05-10T20:40:51.241Z",
+      "supplier_part": null,
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
+      "history_date": "2022-05-10T20:40:51.241Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 5,
+    "fields": {
+      "id": "4c8e882c-2ece-476f-89e1-4e51f9c06119",
+      "custody_on": "2022-01-14T14:00:06Z",
+      "is_active": true,
+      "description": "x-13-2",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T14:00:06.780Z",
+      "updated_at": "2022-05-10T20:41:06.772Z",
+      "supplier_part": null,
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
+      "history_date": "2022-05-10T20:41:06.773Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 6,
+    "fields": {
+      "id": "35b73077-9a89-4445-aeda-b85c5d815751",
+      "custody_on": "2022-01-14T13:55:42Z",
+      "is_active": true,
+      "description": "x-5-1",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:57:27.249Z",
+      "updated_at": "2022-05-10T20:41:28.015Z",
+      "supplier_part": null,
+      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
+      "history_date": "2022-05-10T20:41:28.017Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 7,
+    "fields": {
+      "id": "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
+      "custody_on": "2022-01-14T13:47:38Z",
+      "is_active": true,
+      "description": "x-13-1",
+      "updated": "2022-05-10",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:47:38.892Z",
+      "updated_at": "2022-05-10T20:41:41.127Z",
+      "supplier_part": null,
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
+      "history_date": "2022-05-10T20:41:41.128Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
     "model": "registry.aircraftcomponent",
     "pk": "058780b0-8d30-4da0-a7bc-38fc21539329",
     "fields": {
       "custody_on": "2022-01-14T13:59:30Z",
       "is_active": true,
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "master_component": null,
       "description": "x-12-1",
       "updated": null,
       "stocktake_date": null,
@@ -990,6 +1185,7 @@
       "custody_on": "2022-01-14T13:58:43Z",
       "is_active": true,
       "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
+      "master_component": null,
       "description": "x-6-1",
       "updated": null,
       "stocktake_date": null,
@@ -1007,6 +1203,7 @@
       "custody_on": "2022-01-14T13:59:42Z",
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
+      "master_component": null,
       "description": "x-11-1",
       "updated": null,
       "stocktake_date": null,
@@ -1023,15 +1220,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:55:42Z",
       "is_active": true,
-      "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+      "supplier_part": null,
+      "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "description": "x-5-1",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:57:27.249Z",
-      "updated_at": "2022-04-05T10:53:40.055Z"
+      "updated_at": "2022-05-10T20:41:28.015Z"
     }
   },
   {
@@ -1040,15 +1238,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:38Z",
       "is_active": true,
-      "supplier_part": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
+      "supplier_part": null,
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-1",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:47:38.892Z",
-      "updated_at": "2022-04-05T10:53:47.822Z"
+      "updated_at": "2022-05-10T20:41:41.127Z"
     }
   },
   {
@@ -1058,6 +1257,7 @@
       "custody_on": "2022-01-14T13:59:18Z",
       "is_active": true,
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "master_component": null,
       "description": "x-2-2",
       "updated": null,
       "stocktake_date": null,
@@ -1074,15 +1274,16 @@
     "fields": {
       "custody_on": "2022-01-14T14:00:06Z",
       "is_active": true,
-      "supplier_part": "f0168c87-f7b5-46b2-9483-e6483b7edeb3",
+      "supplier_part": null,
+      "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-2",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T14:00:06.780Z",
-      "updated_at": "2022-04-05T10:54:12.109Z"
+      "updated_at": "2022-05-10T20:41:06.772Z"
     }
   },
   {
@@ -1091,15 +1292,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
-      "supplier_part": "c861898a-2afa-4d50-978a-9da97f62ad12",
+      "supplier_part": null,
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "description": "x-3-1",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:48:11.376Z",
-      "updated_at": "2022-04-05T10:54:04.025Z"
+      "updated_at": "2022-05-10T20:40:51.241Z"
     }
   },
   {
@@ -1109,6 +1311,7 @@
       "custody_on": "2022-01-14T13:59:03Z",
       "is_active": true,
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "master_component": null,
       "description": "x-1-2",
       "updated": null,
       "stocktake_date": null,
@@ -1125,15 +1328,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:58:02Z",
       "is_active": true,
-      "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
+      "supplier_part": null,
+      "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "description": "x-6-2",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:58:02.610Z",
-      "updated_at": "2022-04-05T10:54:27.509Z"
+      "updated_at": "2022-05-10T20:40:38.771Z"
     }
   },
   {
@@ -1142,15 +1346,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:58Z",
       "is_active": true,
-      "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
+      "supplier_part": null,
+      "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "description": "x-9-2",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:48:00.961Z",
-      "updated_at": "2022-04-05T10:54:34.700Z"
+      "updated_at": "2022-05-10T20:40:23.124Z"
     }
   },
   {
@@ -1159,15 +1364,16 @@
     "fields": {
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
-      "supplier_part": "c861898a-2afa-4d50-978a-9da97f62ad12",
+      "supplier_part": null,
+      "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "description": "x-3-2",
-      "updated": null,
+      "updated": "2022-05-10",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
       "created_at": "2022-01-14T13:48:11.376Z",
-      "updated_at": "2022-04-05T10:54:04.025Z"
+      "updated_at": "2022-05-10T20:40:00.323Z"
     }
   },
   {
@@ -1177,6 +1383,7 @@
       "custody_on": "2022-01-14T13:45:12Z",
       "is_active": true,
       "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+      "master_component": null,
       "description": "x-5-2",
       "updated": null,
       "stocktake_date": null,
@@ -1194,6 +1401,7 @@
       "custody_on": "2022-01-14T13:47:28Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "master_component": null,
       "description": "x-4-1",
       "updated": null,
       "stocktake_date": null,
@@ -1211,6 +1419,7 @@
       "custody_on": "2022-01-14T13:45:33Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "master_component": null,
       "description": "x-10-1",
       "updated": null,
       "stocktake_date": null,
@@ -1228,6 +1437,7 @@
       "custody_on": "2022-01-14T13:57:47Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "master_component": null,
       "description": "x-10-2",
       "updated": null,
       "stocktake_date": null,
@@ -1245,6 +1455,7 @@
       "custody_on": "2022-01-14T13:58:14Z",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+      "master_component": null,
       "description": "x-7-1",
       "updated": null,
       "stocktake_date": null,
@@ -1262,6 +1473,7 @@
       "custody_on": "2022-01-14T13:47:00Z",
       "is_active": true,
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "master_component": null,
       "description": "x-12-2",
       "updated": null,
       "stocktake_date": null,
@@ -1279,6 +1491,7 @@
       "custody_on": "2022-01-14T13:47:48Z",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+      "master_component": null,
       "description": "x-8-2",
       "updated": null,
       "stocktake_date": null,
@@ -1296,6 +1509,7 @@
       "custody_on": "2022-01-14T13:59:54Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "master_component": null,
       "description": "x-4-2",
       "updated": null,
       "stocktake_date": null,
@@ -1313,6 +1527,7 @@
       "custody_on": "2022-01-14T13:47:13Z",
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
+      "master_component": null,
       "description": "x-11-2",
       "updated": null,
       "stocktake_date": null,
@@ -1330,6 +1545,7 @@
       "custody_on": "2022-01-14T13:45:46Z",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+      "master_component": null,
       "description": "x-7-2",
       "updated": null,
       "stocktake_date": null,
@@ -1347,6 +1563,7 @@
       "custody_on": "2022-01-14T13:46:49Z",
       "is_active": true,
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "master_component": null,
       "description": "x-2-1",
       "updated": null,
       "stocktake_date": null,
@@ -1364,6 +1581,7 @@
       "custody_on": "2022-01-14T13:46:10Z",
       "is_active": true,
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "master_component": null,
       "description": "x-1-1",
       "updated": null,
       "stocktake_date": null,
@@ -1381,6 +1599,7 @@
       "custody_on": "2022-01-14T14:00:34Z",
       "is_active": true,
       "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
+      "master_component": null,
       "description": "x-9-1",
       "updated": null,
       "stocktake_date": null,
@@ -1398,6 +1617,7 @@
       "custody_on": "2022-01-14T14:00:19Z",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+      "master_component": null,
       "description": "x-8-1",
       "updated": null,
       "stocktake_date": null,
@@ -1773,11 +1993,7 @@
       "name": "Flight Plan A",
       "plan_file_json": {
         "fileType": "Plan",
-        "geoFence": {
-          "circles": [],
-          "polygons": [],
-          "version": 2
-        },
+        "geoFence": { "circles": [], "polygons": [], "version": 2 },
         "groundStation": "QGroundControl",
         "mission": {
           "cruiseSpeed": 15,
@@ -1793,15 +2009,7 @@
               "command": 22,
               "doJumpId": 1,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                50
-              ],
+              "params": [0, 0, 0, 0, 0, 0, 50],
               "type": "SimpleItem"
             },
             {
@@ -1812,15 +2020,7 @@
               "command": 16,
               "doJumpId": 2,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.73587276,
-                76.70696148,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.73587276, 76.70696148, 50],
               "type": "SimpleItem"
             },
             {
@@ -1831,15 +2031,7 @@
               "command": 16,
               "doJumpId": 3,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.72907509,
-                76.74222819,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.72907509, 76.74222819, 50],
               "type": "SimpleItem"
             },
             {
@@ -1850,30 +2042,15 @@
               "command": 16,
               "doJumpId": 4,
               "frame": 3,
-              "params": [
-                0,
-                0,
-                0,
-                null,
-                30.71832644,
-                76.7144423,
-                50
-              ],
+              "params": [0, 0, 0, null, 30.71832644, 76.7144423, 50],
               "type": "SimpleItem"
             }
           ],
-          "plannedHomePosition": [
-            30.74762977,
-            76.70172491,
-            325.3076307562436
-          ],
+          "plannedHomePosition": [30.74762977, 76.70172491, 325.3076307562436],
           "vehicleType": 0,
           "version": 2
         },
-        "rallyPoints": {
-          "points": [],
-          "version": 2
-        },
+        "rallyPoints": { "points": [], "version": 2 },
         "version": 1
       },
       "geo_json": {
@@ -1883,10 +2060,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.706961,
-                30.735873
-              ]
+              "coordinates": [76.706961, 30.735873]
             },
             "properties": {}
           },
@@ -1894,10 +2068,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.742228,
-                30.729075
-              ]
+              "coordinates": [76.742228, 30.729075]
             },
             "properties": {}
           },
@@ -1905,10 +2076,7 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [
-                76.714442,
-                30.718326
-              ]
+              "coordinates": [76.714442, 30.718326]
             },
             "properties": {}
           }
@@ -1987,26 +2155,11 @@
         "scope": ""
       },
       "geo_cage": [
-        {
-          "lat": 30.72034497768697,
-          "lng": 76.70396784788375
-        },
-        {
-          "lat": 30.713546977686974,
-          "lng": 76.73923484788375
-        },
-        {
-          "lat": 30.72907500000001,
-          "lng": 76.74222800000001
-        },
-        {
-          "lat": 30.735873000000005,
-          "lng": 76.706961
-        },
-        {
-          "lat": 30.72034497768697,
-          "lng": 76.70396784788375
-        }
+        { "lat": 30.72034497768697, "lng": 76.70396784788375 },
+        { "lat": 30.713546977686974, "lng": 76.73923484788375 },
+        { "lat": 30.72907500000001, "lng": 76.74222800000001 },
+        { "lat": 30.735873000000005, "lng": 76.706961 },
+        { "lat": 30.72034497768697, "lng": 76.70396784788375 }
       ],
       "created_at": "2021-03-11T05:18:58.761Z",
       "updated_at": "2021-03-11T05:18:58.765Z",
@@ -2022,26 +2175,11 @@
         "error": "Permission was granted but could not sign permission object"
       },
       "geo_cage": [
-        {
-          "lat": 30.72034497768697,
-          "lng": 76.70396784788375
-        },
-        {
-          "lat": 30.713546977686974,
-          "lng": 76.73923484788375
-        },
-        {
-          "lat": 30.72907500000001,
-          "lng": 76.74222800000001
-        },
-        {
-          "lat": 30.735873000000005,
-          "lng": 76.706961
-        },
-        {
-          "lat": 30.72034497768697,
-          "lng": 76.70396784788375
-        }
+        { "lat": 30.72034497768697, "lng": 76.70396784788375 },
+        { "lat": 30.713546977686974, "lng": 76.73923484788375 },
+        { "lat": 30.72907500000001, "lng": 76.74222800000001 },
+        { "lat": 30.735873000000005, "lng": 76.706961 },
+        { "lat": 30.72034497768697, "lng": 76.70396784788375 }
       ],
       "created_at": "2022-05-05T13:32:24.139Z",
       "updated_at": "2022-05-05T13:32:24.139Z",

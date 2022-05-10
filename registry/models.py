@@ -1258,21 +1258,22 @@ class AircraftComponent(models.Model):
                                       help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
 
-
     history = HistoricalRecords()
 
     supplier_part = models.ForeignKey(
-        SupplierPart, blank=True, null=True, on_delete=models.SET_NULL,
+        SupplierPart, null=True,blank=True, on_delete=models.SET_NULL,
         verbose_name=_('Supplier Part'),
         help_text=_('Select a matching supplier part for this stock item')        
     )
 
+    master_component = models.ForeignKey(AircraftMasterComponent, null=True, on_delete= models.CASCADE,
+        verbose_name=_('Master Component'),
+        help_text=_('If no supplier exists, use the master component')
+    )
     description = models.CharField(
-        max_length=140, blank=True, null=True,
-        verbose_name=_('Description'),
+        max_length=140, blank=True, null=True,verbose_name=_('Description'),
         help_text=_('Internal part description')
     )
-
     updated = models.DateField(auto_now=True, null=True)
 
     stocktake_date = models.DateField(blank=True, null=True)
@@ -1303,8 +1304,17 @@ class AircraftComponent(models.Model):
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
+        else: 
+            items.append(self.master_component.name)
         # print(items)
-        return ' | '.join(items)
+        return ' - '.join(items)
+
+    @property
+    def procurement_origin(self):
+        if self.supplier_part:
+            return "procured from " + self.supplier_part.supplier.common_name
+        else: 
+            return "procurement not set"
 
     @property
     def component_category(self):
@@ -1313,7 +1323,8 @@ class AircraftComponent(models.Model):
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:
                 items.append(self.supplier_part.manufacturer_part.master_component.get_family_display())
-        # print(items)
+        else:
+            return self.master_component.get_family_display()
         return '  '.join(items)
 
 
@@ -1364,6 +1375,16 @@ class AircraftComponent(models.Model):
         return result
 
 
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name="%(app_label)s_%(class)s_supplier_part_or_master_component",
+                check=(
+                    models.Q(supplier_part__isnull=True, master_component__isnull=False)
+                    | models.Q(supplier_part__isnull=False, master_component__isnull=True)
+                ),
+            )
+        ]
     def __unicode__(self):
         return self.component_common_name
         
