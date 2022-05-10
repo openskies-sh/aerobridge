@@ -31,7 +31,7 @@
                 <ul><br><table class="table table-minimal">
                   <thead>
                     <tr>
-                      <th scope="col">Total Stock</th>
+                      <th scope="col">Total Stock (units)</th>
                       <th scope="col">Breakdown</th>
                       <th scope="col">Available Stock</th>
                       <th scope="col">Supplier Ordering</th>
@@ -41,7 +41,7 @@
                     <tr>
                       <td>{{aircraft_master_component.total_stock }}</td>
                       <td>-</td>
-                      <td>-</td>
+                      <td>{{aircraft_master_component.net_stock}}</td>
                       <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}">{{aircraft_master_component.default_supplier}}</a>&nbsp;&mdash;&nbsp;<a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td>
                     </tr>
                   </tbody>

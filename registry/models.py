@@ -14,10 +14,11 @@ from django.core.exceptions import ValidationError
 from common.settings import currency_code_default as cc_default
 from common.validators import validate_currency_code, validate_url, validate_flight_controller_id
 from common.status_codes import BuildStatus, StatusCode, StockStatus
-from django.db.models import Sum, Q, Count
+from django.db.models import Sum, Q
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
 from common.helpers import normalize
+from django.db.models.functions import Coalesce
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def two_year_expiration():
@@ -535,7 +536,7 @@ class AircraftMasterComponent(models.Model):
         return False
 
     @property
-    def available_stock(self):
+    def total_stock(self):
         """
         Return the total available stock.
         - This subtracts stock which is already allocated to builds
@@ -599,6 +600,49 @@ class AircraftMasterComponent(models.Model):
         required -= self.quantity_being_built
 
         return max(required, 0)
+
+    def build_order_allocations(self, **kwargs):
+        """
+        Return all 'BuildItem' objects which allocate this part to Build objects
+        """
+
+        
+
+        queryset = AircraftAssembly.objects.all()
+
+        queryset = queryset.filter(components__supplier_part__manufacturer_part__master_component=self)
+
+        return queryset
+
+    def build_order_allocation_count(self, **kwargs):
+        """
+        Return the total amount of this part allocated to build orders
+        """
+
+        query = self.build_order_allocations(**kwargs).aggregate(
+            total=Coalesce(
+                Sum(
+                    'quantity',
+                    output_field=models.DecimalField()
+                ),
+                0,
+                output_field=models.DecimalField(),
+            )
+        )
+
+        return query['total']
+
+    def allocation_count(self, **kwargs):
+        """
+        Return the total quantity of stock allocated for this part,
+        against both build orders and sales orders.
+        """
+
+        return sum(
+            [
+                self.build_order_allocation_count(**kwargs),                
+            ],
+        )
 
     @property
     def net_stock(self):
@@ -864,7 +908,7 @@ class AircraftMasterComponent(models.Model):
             bom: Include BOM pricing (default = True)
             internal: Include internal pricing (default = False)
         """
-        print('34')
+        
 
         price_range = self.get_price_range(quantity, buy, bom, internal)
 
@@ -889,6 +933,7 @@ class AircraftMasterComponent(models.Model):
         - If this part is a "template" (variants exist) then these are counted too
         """
         total_stock = AircraftComponent.objects.filter(supplier_part__manufacturer_part__master_component = self).count()
+        
         return total_stock
 
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 

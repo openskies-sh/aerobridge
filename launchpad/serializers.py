@@ -98,6 +98,7 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     #     x = 
     slugify_family = serializers.ReadOnlyField()
     order_price = serializers.ReadOnlyField()
+    total_stock = serializers.ReadOnlyField()
     linked_models = serializers.SerializerMethodField()
     family = serializers.SerializerMethodField()
     def get_family(self, obj):        
@@ -112,4 +113,4 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
         return ','.join(name_series)
     class Meta:
         model = AircraftMasterComponent
-        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at','slugify_family','default_supplier','order_price',)
+        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock',)
