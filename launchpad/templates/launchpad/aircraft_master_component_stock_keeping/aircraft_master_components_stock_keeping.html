@@ -42,7 +42,7 @@
                       <td>{{aircraft_master_component.total_stock }}</td>
                       <td>-</td>
                       <td>-</td>
-                      <td>-</td>
+                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}">{{aircraft_master_component.default_supplier}}</a>&nbsp;&mdash;&nbsp;<a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td>
                     </tr>
                   </tbody>
                 </table>

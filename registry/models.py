@@ -17,7 +17,7 @@ from common.status_codes import BuildStatus, StatusCode, StockStatus
 from django.db.models import Sum, Q, Count
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
-from django.db.models.functions import Coalesce
+from common.helpers import normalize
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def two_year_expiration():
@@ -467,7 +467,7 @@ class AircraftMasterComponent(models.Model):
 
 
     minimum_stock = models.PositiveIntegerField(
-        default=0, validators=[MinValueValidator(0)],
+        default=1, validators=[MinValueValidator(0)],
         verbose_name=_('Minimum Stock'),
         help_text=_('Minimum allowed stock level')
     )
@@ -504,7 +504,7 @@ class AircraftMasterComponent(models.Model):
         default=True,
         verbose_name=_('Active'),
         help_text=_('Is this part active?'))
-
+    quantity_required_for_build = models.IntegerField(default = 1, help_text="Set the quantity reqired ")
     def get_parts_in_bom(self):
         """
         Return a list of all parts in the BOM for this part.
@@ -550,21 +550,19 @@ class AircraftMasterComponent(models.Model):
     def slugify_family(self):        
         return self.family
 
-    def get_default_supplier(self):
+    @property
+    def default_supplier(self):
         """ Get the default supplier part for this part (may be None).
         - If the part specifies a default_supplier, return that
         - If there is only one supplier part available, return that
         - Else, return None
         """
-
-        if self.default_supplier:
-            return self.default_supplier
-
-        if self.supplier_count == 1:
-            return self.supplier_parts.first()
-
+        
+        manufacturer_part = ManufacturerPart.objects.get(master_component = self.id)
+        default_supplier = SupplierPart.objects.get(manufacturer_part = manufacturer_part)
         # Default to None if there are multiple suppliers to choose from
-        return None
+        return default_supplier
+
 
 
     def required_order_quantity(self):
@@ -855,7 +853,8 @@ class AircraftMasterComponent(models.Model):
     def has_pricing_info(self, internal=False):
         """ Return true if there is pricing information for this part """
         return self.get_price_range(internal=internal) is not None
-
+    
+    @property
     def get_price_info(self, quantity=1, buy=True, bom=True, internal=False):
         """ Return a simplified pricing string for this part
 
@@ -865,6 +864,7 @@ class AircraftMasterComponent(models.Model):
             bom: Include BOM pricing (default = True)
             internal: Include internal pricing (default = False)
         """
+        print('34')
 
         price_range = self.get_price_range(quantity, buy, bom, internal)
 
@@ -1035,7 +1035,7 @@ class SupplierPart(models.Model):
                                  verbose_name=_('Supplier'),
                                  help_text=_('Select supplier'),
                                  )
-
+    info_buy_url = models.URLField(default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",validators=[validate_url],help_text="Specify a URL where this part can be bought")
     manufacturer_part = models.ForeignKey(ManufacturerPart, on_delete=models.CASCADE,
                                           blank=True, null=True,
                                           related_name='supplier_parts',
@@ -1048,21 +1048,62 @@ class SupplierPart(models.Model):
     # TODO - Reimplement lead-time as a charfield with special validation (pattern matching).
     # lead_time = models.DurationField(blank=True, null=True)
 
-    @property
-    def manufacturer_string(self):
-        """ Format a MPN string for this SupplierPart.
-        Concatenates manufacture name and part number.
+
+    def get_price_range(self, quantity=1, buy=True, bom=True, internal=False, purchase=False):
+
+        """ Return the price range for this part. This price can be either:
+
+        - Supplier price (if purchased from suppliers)
+        - BOM price (if built from other parts)
+        - Internal price (if set for the part)
+        - Purchase price (if set for the part)
+
+        Returns:
+            Minimum of the supplier, BOM, internal or purchase price. If no pricing available, returns None
         """
-        items = []
 
-        if self.manufacturer_part:
-            if self.manufacturer_part.manufacturer:
-                items.append(self.manufacturer_part.manufacturer.common_name)
-            if self.manufacturer_part.MPN:
-                items.append(self.manufacturer_part.MPN)
+        # only get internal price if set and should be used
+        if internal and self.has_internal_price_breaks:
+            internal_price = self.get_internal_price(quantity)
+            return internal_price, internal_price
 
-        return ' | '.join(items)
+        # only get purchase price if set and should be used
+        if purchase:
+            purchase_price = self.get_purchase_price(quantity)
+            if purchase_price:
+                return purchase_price
 
+        buy_price_range = self.get_supplier_price_range(quantity) if buy else None
+        bom_price_range = self.get_bom_price_range(quantity, internal=internal) if bom else None
+
+        if buy_price_range is None:
+            return bom_price_range
+
+        elif bom_price_range is None:
+            return buy_price_range
+
+        else:
+            return (
+                min(buy_price_range[0], bom_price_range[0]),
+                max(buy_price_range[1], bom_price_range[1])
+            )
+
+    purchase_price = models.DecimalField(
+        max_digits=19,
+        decimal_places=4,
+        blank=True,
+        null=True,
+        verbose_name=_('Purchase Price'),
+        help_text=_('Single unit purchase price at time of purchase'),
+    )
+
+    @property
+    def order_price(self, quantity= 1):
+        print('here')
+        if not quantity:
+            quantity = self.manufacturer_part.master_component.quantity_required_for_build
+        cost = self.purchase_price * quantity
+        return cost
 
     def on_order(self):
         """ Return the total quantity of items currently on order.
@@ -1088,12 +1129,9 @@ class SupplierPart(models.Model):
 
         if self.manufacturer_part.master_component.name:
             s += f'{self.manufacturer_part.master_component.name}'
-            s += ' | '
+            s += ' from '
 
         s += f'{self.supplier.common_name} '
-
-        if self.manufacturer_string:
-            s = s + ' | ' + self.manufacturer_string
 
         return s
 
