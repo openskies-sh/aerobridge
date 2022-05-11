@@ -27,19 +27,15 @@
     </thead>
     <tr>
         <td>Master Component</td>
-        <td><a href="/launchpad/aircraft-master-components/{{aircraft_component.master_component.id }}/detail">{{aircraft_component.master_component.name }}</a></td>
+        <td><a href="/launchpad/aircraft-master-components/{{aircraft_component.master_component.id }}/detail">{{aircraft_component.component_common_name}}</a></td>
     </tr>
     <tr>
         <td>Supplier Part ID</td>
         <td>{{ aircraft_component.supplier_part_id }}</td>
     </tr>
     <tr>
-        <td>Name</td>
-        <td>{{ aircraft_component.master_component.name }}</td>    
-    </tr>
-    <tr>
         <td>Custody Status</td>
-        <td>{{ aircraft_component.get_custody_status_display }}</td>    
+        <td>{% if aircraft_component.status == 10 %}OK {% elif aircraft_component.status == 50 %} Damaged{% elif aircraft_component.status == 60 %} Destroyed{% elif aircraft_component.status == 65 %} Rejected{% elif aircraft_component.status == 70 %} Lost {% elif aircraft_component.status == 85 %} Reutned {% else %} {% endif %}</td>    
     </tr>
     <tr>
         <td>Custody on</td>

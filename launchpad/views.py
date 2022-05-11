@@ -1027,7 +1027,7 @@ class AircraftComponentsList(APIView):
 
     def get_aircraft_components(self):
         try:
-            return AircraftComponent.objects.all().order_by('supplier_part_id')	            
+            return AircraftComponent.objects.all().order_by('created_at')	            
         except Exception as e:
             raise Http404
 
