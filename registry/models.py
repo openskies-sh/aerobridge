@@ -1080,7 +1080,7 @@ class SupplierPart(models.Model):
                                  verbose_name=_('Supplier'),
                                  help_text=_('Select supplier'),
                                  )
-    info_buy_url = models.URLField(default="https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",validators=[validate_url],help_text="Specify a URL where this part can be bought")
+    info_buy_url = models.URLField(default="https://github.com/openskies-sh/aerobridge/",validators=[validate_url],help_text="Specify a URL where this part can be bought")
     manufacturer_part = models.ForeignKey(ManufacturerPart, on_delete=models.CASCADE,
                                           blank=True, null=True,
                                           related_name='supplier_parts',
@@ -1263,8 +1263,10 @@ class AircraftComponent(models.Model):
     supplier_part = models.ForeignKey(
         SupplierPart, null=True,blank=True, on_delete=models.SET_NULL,
         verbose_name=_('Supplier Part'),
-        help_text=_('Select a matching supplier part for this stock item')        
+        help_text=_('Select a matching supplier part for this stock item, if no supplier part is set you must set a Master Component')        
     )
+
+    invoice_receipt = models.ForeignKey(AerobridgeDocument, on_delete=models.CASCADE, help_text="Link an invoice or receipt document associated with the purchase of this component")
 
     master_component = models.ForeignKey(AircraftMasterComponent, null=True, on_delete= models.CASCADE,
         verbose_name=_('Master Component'),

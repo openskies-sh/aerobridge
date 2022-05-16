@@ -35,6 +35,7 @@
                       <th scope="col">Breakdown</th>
                       <th scope="col">Available Stock</th>
                       <th scope="col">Supplier Ordering</th>
+                      <th scope="col">Component</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -42,7 +43,7 @@
                       <td>{{aircraft_master_component.total_stock }}</td>
                       <td>-</td>
                       <td>{{aircraft_master_component.net_stock}}</td>
-                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}">{{aircraft_master_component.default_supplier}}</a>&nbsp;&mdash;&nbsp;<a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td>
+                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-link"></i> {{aircraft_master_component.default_supplier}} </a><br><a href="{{aircraft_master_component.supplier_url}}"><br><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td><td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add a new component</b></a></td>
                     </tr>
                   </tbody>
                 </table>

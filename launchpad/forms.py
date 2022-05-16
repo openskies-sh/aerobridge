@@ -197,10 +197,9 @@ class AircraftComponentCreateForm(forms.ModelForm):
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("supplier_part_id"),
                         FloatingField("master_component"),
-                        FloatingField("custody_status"),
-                        FloatingField("custody_on"),
+                        FloatingField("supplier_part"),
+                        FloatingField("invoice_receipt"),
                         ),
                     HTML("""
                             <br>

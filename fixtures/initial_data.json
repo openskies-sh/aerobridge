@@ -309,6 +309,16 @@
     }
   },
   {
+    "model": "registry.aerobridgedocument",
+    "pk": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+    "fields": {
+    "name": "Default Aerobridge Document",
+    "url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+    "created_at": "2022-01-04T21:13:42.218Z",
+    "updated_at": "2022-01-04T21:13:42.218Z"
+    }
+  },
+  {
     "model": "registry.company",
     "pk": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
     "fields": {
@@ -1005,6 +1015,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:30Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
       "master_component": null,
       "description": "x-12-1",
@@ -1025,6 +1036,7 @@
       "is_active": true,
       "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-6-1",
       "updated": null,
       "stocktake_date": null,
@@ -1041,6 +1053,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:42Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
       "master_component": null,
       "description": "x-11-1",
@@ -1059,6 +1072,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:55:42Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "description": "x-5-1",
@@ -1077,6 +1091,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:38Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-1",
@@ -1095,6 +1110,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:18Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
       "master_component": null,
       "description": "x-2-2",
@@ -1113,6 +1129,7 @@
     "fields": {
       "custody_on": "2022-01-14T14:00:06Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-2",
@@ -1132,6 +1149,7 @@
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "description": "x-3-1",
       "updated": "2022-05-10",
@@ -1149,6 +1167,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:03Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
       "master_component": null,
       "description": "x-1-2",
@@ -1171,6 +1190,7 @@
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "description": "x-6-2",
       "updated": "2022-05-10",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
@@ -1186,6 +1206,7 @@
       "custody_on": "2022-01-14T13:47:58Z",
       "is_active": true,
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "e51a74de-6ed0-4750-af15-cdb15d40d254",
       "description": "x-9-2",
       "updated": "2022-05-10",
@@ -1204,6 +1225,7 @@
       "custody_on": "2022-01-14T13:48:11Z",
       "is_active": true,
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "f70d10d3-79fd-423e-80d9-841e9fbc3b6a",
       "description": "x-3-2",
       "updated": "2022-05-10",
@@ -1221,6 +1243,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:45:12Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
       "master_component": null,
       "description": "x-5-2",
@@ -1239,6 +1262,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:28Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "master_component": null,
       "description": "x-4-1",
@@ -1257,6 +1281,7 @@
     "fields": {
       "custody_on": "2022-01-14T13:45:33Z",
       "is_active": true,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "master_component": null,
       "description": "x-10-1",
@@ -1277,6 +1302,7 @@
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-10-2",
       "updated": null,
       "stocktake_date": null,
@@ -1295,6 +1321,7 @@
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-7-1",
       "updated": null,
       "stocktake_date": null,
@@ -1315,6 +1342,7 @@
       "master_component": null,
       "description": "x-12-2",
       "updated": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
@@ -1332,6 +1360,7 @@
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
       "master_component": null,
       "description": "x-8-2",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "updated": null,
       "stocktake_date": null,
       "review_needed": false,
@@ -1349,6 +1378,7 @@
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-4-2",
       "updated": null,
       "stocktake_date": null,
@@ -1367,6 +1397,7 @@
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-11-2",
       "updated": null,
       "stocktake_date": null,
@@ -1390,6 +1421,7 @@
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "purchase_price": null,
       "created_at": "2022-01-14T13:45:46.334Z",
       "updated_at": "2022-04-05T10:55:58.132Z"
@@ -1409,6 +1441,7 @@
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "created_at": "2022-01-14T13:46:49.014Z",
       "updated_at": "2022-04-05T10:52:45.050Z"
     }
@@ -1426,6 +1459,7 @@
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "purchase_price": null,
       "created_at": "2022-01-14T13:46:10.397Z",
       "updated_at": "2022-04-05T10:52:35.066Z"
@@ -1439,6 +1473,7 @@
       "is_active": true,
       "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-9-1",
       "updated": null,
       "stocktake_date": null,
@@ -1457,6 +1492,7 @@
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
       "master_component": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "description": "x-8-1",
       "updated": null,
       "stocktake_date": null,
