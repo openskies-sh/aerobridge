@@ -67,6 +67,11 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
 
 
 class AircraftComponentSerializer(serializers.ModelSerializer):
+    component_common_name = serializers.ReadOnlyField()
+    status_display = serializers.SerializerMethodField()
+    def get_status_display(self, obj):
+        x = obj.get_status_display()        
+        return x
     class Meta:
         model = AircraftComponent
         exclude = ('is_active',)

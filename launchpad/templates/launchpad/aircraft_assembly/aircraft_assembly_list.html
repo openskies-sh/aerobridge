@@ -29,7 +29,7 @@
         {% if aircraft_assemblies %}
             {% for aircraft_a in aircraft_assemblies %}
             
-            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model.name }} / Series {{ aircraft_a.model.series }}</a>&nbsp;&nbsp;<small class='text-muted'> &mdash; Last updated at {{ aircraft_a.updated_at|date:'Y-m-d H:i' }} </small> <b>Assembly Status</b> <mark>{{ aircraft_a.get_status_display }}</mark></li>
+            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model.name }} / Series {{ aircraft_a.model.series }}</a>&nbsp;&nbsp;<b>Assembly Status</b> <mark>{{ aircraft_a.get_status_display }}</mark></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here, to create a new assembly go to the Manufacturing > Models section.</i></p></li>

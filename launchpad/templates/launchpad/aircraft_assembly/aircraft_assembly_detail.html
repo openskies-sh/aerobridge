@@ -49,18 +49,17 @@
     
 </table>
 <br>
-
-  <h2>Components</h2>
-  
+  <h2>Assembled Components</h2>
+  <p>Following are the components installed in this assembly, click on the components to update them. </p>
+  <ul class="list-group list-group-flush">
     {% if assembly_components %}
       {% for aircraft_component in assembly_components %}            
-        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;{{aircraft_component.master_component.name}} <mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
+        <li class="list-group-item"><mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;{{aircraft_component.master_component.name}} <button type="button" class="btn btn-outline-secondary" disabled>{{aircraft_component.get_status_display}}</button>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
       {% endfor %}
   {% else %}
         <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>
   {% endif %}
-
-
+    </ul>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
 
