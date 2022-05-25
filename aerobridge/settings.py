@@ -138,6 +138,7 @@ SECURE_API_ENDPOINTS = True
 # CELERY_RESULT_BACKEND = BROKER_URL
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'jetway.pagination.StandardResultsSetPagination',
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
@@ -154,7 +155,6 @@ REST_FRAMEWORK = {
 
 
 JWT_AUTH = {
-    'DEFAULT_PAGINATION_CLASS': 'jetway.pagination.StandardResultsSetPagination',
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
         'pki_framework.utils.jwt_get_username_from_payload_handler',
     'JWT_DECODE_HANDLER':

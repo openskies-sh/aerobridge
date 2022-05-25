@@ -506,35 +506,7 @@ class AircraftMasterComponent(models.Model):
         verbose_name=_('Active'),
         help_text=_('Is this part active?'))
     quantity_required_for_build = models.IntegerField(default = 1, help_text="Set the quantity reqired ")
-    def get_parts_in_bom(self):
-        """
-        Return a list of all parts in the BOM for this part.
-        Takes into account substitutes, variant parts, and inherited BOM items
-        """
-
-        parts = set()
-
-        for bom_item in self.get_bom_items():
-            for part in bom_item.get_valid_parts_for_allocation():
-                parts.add(part)
-
-        return parts
-
-    def check_if_part_in_bom(self, other_part):
-        """
-        Check if the other_part is in the BOM for this part.
-        Note:
-            - Accounts for substitute parts
-            - Accounts for variant BOMs
-        """
-
-        for bom_item in self.get_bom_items():
-            if other_part in bom_item.get_valid_parts_for_allocation():
-                return True
-
-        # No matches found
-        return False
-
+    
     @property
     def total_stock(self):
         """
@@ -936,6 +908,13 @@ class AircraftMasterComponent(models.Model):
         
         return total_stock
 
+    
+class MasterComponentAssembly(models.Model):        
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length= 40, help_text="Specify the name of this assembly e.g. Landing Gear")
+    assembly_components = models.ManyToManyField(AircraftMasterComponent, limit_choices_to={'assembly':1})
+
+
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
 class ManufacturerPart(models.Model):
     """ Represents a unique part as provided by a Manufacturer
@@ -1272,6 +1251,10 @@ class AircraftComponent(models.Model):
         verbose_name=_('Master Component'),
         help_text=_('If no supplier exists, use the master component')
     )
+    master_component_assembly = models.ForeignKey(MasterComponentAssembly, null=True, on_delete= models.CASCADE,
+        verbose_name=_('Master Component Assembly'),
+        help_text=_('If no supplier exists, use the master component'))
+
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
         help_text=_('Internal part description')
@@ -1385,7 +1368,15 @@ class AircraftComponent(models.Model):
                     models.Q(supplier_part__isnull=True, master_component__isnull=False)
                     | models.Q(supplier_part__isnull=False, master_component__isnull=True)
                 ),
+            ), 
+            models.CheckConstraint(
+                name="%(app_label)s_%(class)s_master_component_or_assembly",
+                check=(models.Q(master_component__isnull=True, master_component_assembly__isnull=True) |
+                    models.Q(master_component__isnull=True, master_component_assembly__isnull=False)
+                    | models.Q(master_component__isnull=False, master_component_assembly__isnull=True)
+                ),
             )
+        
         ]
     def __unicode__(self):
         return self.component_common_name
