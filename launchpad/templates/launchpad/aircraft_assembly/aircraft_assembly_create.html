@@ -54,7 +54,8 @@
     <p>Below is a list of components that need to be added form the Bill of Material for the aircraft:</p>    
     <ul class="list-group list-group-flush">
             {% for aircraft_master_component in aircraft_model.master_components.all %}     
-                <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;{% if aircraft_master_component.id|stringformat:"s" in submitted_components %} <span class="bi bi-check-circle-fill"></span> {% else %}  <span class="bi bi-exclamation-triangle-fill"></span> {% endif %}</li>
+         
+                <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;{% if aircraft_master_component.assembly %}<small>Part of assembly</small>{% endif %}&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;{% if aircraft_master_component.id|stringformat:"s" in submitted_components %} <span class="bi bi-check-circle-fill"></span> {% else %}  <span class="bi bi-exclamation-triangle-fill"></span> {% endif %}</li>
             {% endfor %}
     </ul>
 </div>

@@ -483,7 +483,7 @@ class AircraftMasterComponent(models.Model):
     assembly = models.BooleanField(
         default=False,
         verbose_name=_('Assembly'),
-        help_text=_('Can this part be built from other parts?')
+        help_text=_('Is this component a part of an assembly?')
     )
 
     trackable = models.BooleanField(
@@ -1251,10 +1251,6 @@ class AircraftComponent(models.Model):
         verbose_name=_('Master Component'),
         help_text=_('If no supplier exists, use the master component')
     )
-    master_component_assembly = models.ForeignKey(MasterComponentAssembly, null=True, on_delete= models.CASCADE,
-        verbose_name=_('Master Component Assembly'),
-        help_text=_('If no supplier exists, use the master component'))
-
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
         help_text=_('Internal part description')
@@ -1367,13 +1363,6 @@ class AircraftComponent(models.Model):
                 check=(
                     models.Q(supplier_part__isnull=True, master_component__isnull=False)
                     | models.Q(supplier_part__isnull=False, master_component__isnull=True)
-                ),
-            ), 
-            models.CheckConstraint(
-                name="%(app_label)s_%(class)s_master_component_or_assembly",
-                check=(models.Q(master_component__isnull=True, master_component_assembly__isnull=True) |
-                    models.Q(master_component__isnull=True, master_component_assembly__isnull=False)
-                    | models.Q(master_component__isnull=False, master_component_assembly__isnull=True)
                 ),
             )
         
