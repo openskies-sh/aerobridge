@@ -17,13 +17,13 @@
 <div class="row mb-3">
     
     <h2>Aircrafts</h2>
-    <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc. </p>
+    <p>A list of all aircrafts owned and operated by the company, as you buy new aircraft, you can use this form to maintain a database of the equipment, decomission it, change engines etc.</p>
 </div>
 
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush list-group-numbered">
         {% if aircrafts.results %}
             {% for aircraft in aircrafts.results %}
             <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'></small></li>

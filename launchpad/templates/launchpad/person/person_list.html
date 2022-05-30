@@ -24,11 +24,11 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">  
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush list-group-numbered">
             {% if people %}
                 {% for person in people %}
                 <li class="list-group-item"><a href="/launchpad/people/{{person.id}}/detail">{{ person.first_name }}
-                        {{ person.last_name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Created at {{ person.created_at|date:'Y-m-d H:i' }}
+                        {{ person.last_name }}</a>&nbsp;&nbsp;<small class="text-muted">
                     </small></li>
                 {% endfor %}
             {% else %}

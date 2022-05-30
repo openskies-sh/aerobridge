@@ -17,12 +17,12 @@
 <div class="row mb-3">
     
     <h2>Flight Logs</h2>
-    <p>See all the signed flight logs, these are be maintained for your records</p>
+    <p>See all the raw and signed flight logs for your missions</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush list-group-numbered">
         {% if flightlogs %}
             {% for flightlog in flightlogs %}
             <li class="list-group-item"><a href="/launchpad/flightlogs/{{flightlog.id}}/detail">{{ flightlog.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightlog.created_at }}</small>&nbsp;&nbsp;{% if flightlog.is_editable %} <a href="/launchpad/flightlogs/{{flightlog.id}}/sign">Sign log</a> {% else %}<mark>Log Signed</mark> (<a href="/launchpad/signed-flightlogs">see details</a>){% endif %}</li>

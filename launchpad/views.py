@@ -367,7 +367,7 @@ class ActivitiesDetail(APIView):
 
 class ActivitiesUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/activity/launchpad/activity/activity_update.html'
+    template_name = 'launchpad/activity/activity_update.html'
 
     def get(self, request, activity_id):
         activity = get_object_or_404(Activity, pk=activity_id)

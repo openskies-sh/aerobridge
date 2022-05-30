@@ -14,22 +14,21 @@
 {% block content %}
 
 <div class="row mb-3">
-  <div class="col-md-6 themed-grid-col">
+  <div class="col-md-8 themed-grid-col">
     <h2>Flight Permissions</h2>
     <p>See all the flight permission objects, if you do not see a permission for your operation, go to the operation detail and generate a permission.</p>
   </div>
-  <div class="col-md-6 themed-grid-col"></div>
+  <div class="col-md-4 themed-grid-col"></div>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush list-group-numbered">
 
          {% if flightpermissions.results %}
             {% for flightpermission in flightpermissions.results %}
-            <li class="list-group-item"><a href="/launchpad/flightpermissions/{{flightpermission.id}}/detail">Permission
-                    for {{ flightpermission.operation.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last
-                    updated at {{ flightpermission.updated_at|date:'Y-m-d H:i' }} </small></li>
+            <li class="list-group-item">Permission
+              for <a href="/launchpad/flightpermissions/{{flightpermission.id}}/detail">{{ flightpermission.operation.name }}</a></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no flight permissions added in Aerobridge, once added the list of flight permissions will be displayed here.</i></p></li>

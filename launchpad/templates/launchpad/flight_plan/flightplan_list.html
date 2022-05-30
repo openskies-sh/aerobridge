@@ -24,10 +24,10 @@
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush list-group-numbered">
         {% if flightplans.results %}
             {% for flightplan in flightplans.results %}
-            <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}/detail">{{ flightplan.name }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Last updated at {{ flightplan.updated_at|date:'Y-m-d H:i' }} </small></li>
+            <li class="list-group-item"><a href="/launchpad/flightplans/{{flightplan.id}}/detail">{{ flightplan.name }}</a></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no flight plans added in Aerobridge, once added the list of flight plans will be displayed here.</i></p></li>

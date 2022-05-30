@@ -31,11 +31,11 @@
     </tr>
     <tr>
         <td>Supplier Part ID</td>
-        <td>{{ aircraft_component.supplier_part_id }}</td>
+        <td><code>{{ aircraft_component.supplier_part_id }}</code></td>
     </tr>
     <tr>
         <td>Custody Status</td>
-        <td>{% if aircraft_component.status == 10 %}OK {% elif aircraft_component.status == 50 %} Damaged{% elif aircraft_component.status == 60 %} Destroyed{% elif aircraft_component.status == 65 %} Rejected{% elif aircraft_component.status == 70 %} Lost {% elif aircraft_component.status == 85 %} Reutned {% else %} {% endif %}</td>    
+        <td><mark>{% if aircraft_component.status == 10 %}OK{% elif aircraft_component.status == 50 %}Damaged{% elif aircraft_component.status == 60 %}Destroyed{% elif aircraft_component.status == 65 %}Rejected{% elif aircraft_component.status == 70 %}Lost {% elif aircraft_component.status == 85 %}Reutned{% else %}Unknown{% endif %}</mark></td>    
     </tr>
     <tr>
         <td>Custody on</td>
