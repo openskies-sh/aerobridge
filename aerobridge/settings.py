@@ -31,10 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -205,9 +204,7 @@ for currency in CURRENCIES:
     if currency not in moneyed.CURRENCIES:  # pragma: no cover
         print(f"Currency code '{currency}' is not supported")
         sys.exit(1)
-
-
-
+        
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
