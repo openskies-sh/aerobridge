@@ -20,7 +20,7 @@
 <div class="row mb-3">
     
     <h2>Stock Keeping and orders</h2>
-    <p>See parts and quantities available and order more.</p>
+    <p>See parts and quantities available, acknowledge receipt of a part and order more.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-12 themed-grid-col">
@@ -34,8 +34,8 @@
                       <th scope="col">Total Stock (units)</th>
                       <th scope="col">Breakdown</th>
                       <th scope="col">Available Stock</th>
-                      <th scope="col">Supplier Ordering</th>
-                      <th scope="col">Component</th>
+                      <th scope="col">Website</th>
+                      <th scope="col"><span data-bs-toggle="tooltip" title="Did you receive a order of this part recently? Use these links to add to Aerobridge.">Acknowledge Custody <i class="bi bi-question-circle-fill"></i></span> </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,7 +43,7 @@
                       <td>{{aircraft_master_component.total_stock }}</td>
                       <td>-</td>
                       <td>{{aircraft_master_component.net_stock}}</td>
-                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-link"></i> {{aircraft_master_component.default_supplier}} </a><br><a href="{{aircraft_master_component.supplier_url}}"><br><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td><td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add a new component</b></a></td>
+                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td><td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add received component</b></a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -96,4 +96,13 @@
 </div>
 <div class="col-md-4 themed-grid-col"></div>
 </div>
+
+{% endblock %}
+
+{% block footer_javascript %}
+
+  <script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));  
+  </script>
 {% endblock %}

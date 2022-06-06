@@ -106,7 +106,17 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     total_stock = serializers.ReadOnlyField()
     linked_models = serializers.SerializerMethodField()
     family = serializers.SerializerMethodField()
+    assembly_names = serializers.SerializerMethodField()
+    def get_assembly_names(self, obj):        
+        assembly_names =[]
+        if obj.assembly:
+            all_assemblies = obj.mastercomponentassembly_set.all()
+            for assembly in all_assemblies:
+                assembly_names.append(assembly.name)
+        return assembly_names
+
     def get_family(self, obj):        
+        
         x = obj.get_family_display()   
         return x
 
@@ -118,4 +128,4 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
         return ','.join(name_series)
     class Meta:
         model = AircraftMasterComponent
-        fields = ('id','name','family','drawing', 'linked_models', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock','procurement_origin',)
+        fields = ('id','name','family','drawing', 'linked_models','assembly','assembly_names', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock','procurement_origin',)

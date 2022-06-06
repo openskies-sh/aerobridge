@@ -454,14 +454,7 @@ class AircraftMasterComponent(models.Model):
         verbose_name=_('Manufacturer'),
         help_text=_('Select manufacturer'),
     )
-
-    MPN = models.CharField(
-        null=True,
-        max_length=100,
-        verbose_name=_('MPN'),
-        help_text=_('Manufacturer Part Number')
-    )
-
+    
     history = HistoricalRecords()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -914,6 +907,11 @@ class MasterComponentAssembly(models.Model):
     name = models.CharField(max_length= 40, help_text="Specify the name of this assembly e.g. Landing Gear")
     assembly_components = models.ManyToManyField(AircraftMasterComponent, limit_choices_to={'assembly':1})
 
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
 
 # from https://github.com/inventree/InvenTree/blob/91cd76b55f2a8f6b34c56080442c0f7a09387c31/InvenTree/company/models.py 
 class ManufacturerPart(models.Model):

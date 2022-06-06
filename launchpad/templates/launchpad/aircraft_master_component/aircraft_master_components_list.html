@@ -28,10 +28,10 @@
 </div>
 <div class="row mb-3">
     <div class="col-md-12 themed-grid-col">
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush list-group-numbered">
         {% if aircraft_master_components %}
-            {% for aircraft_master_component in aircraft_master_components.results %}                  
-              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>{% if not family_filter %}&nbsp;&nbsp;See all <a href="/launchpad/aircraft-master-components/family/{{aircraft_master_component.slugify_family}}">{{ aircraft_master_component.family }}</a>{% endif %}</li>
+            {% for aircraft_master_component in aircraft_master_components.results %}            
+              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code> {% if aircraft_master_component.assembly_names %}<small class="text-muted"><i class="bi bi-link"></i>{% for a in aircraft_master_component.assembly_names %} {{ a }}{% endfor %}</small> {% endif %}{% if not family_filter %}&nbsp;&nbsp;See all <a href="/launchpad/aircraft-master-components/family/{{aircraft_master_component.slugify_family}}">{{ aircraft_master_component.family }}</a>{% endif %}</li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>

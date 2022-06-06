@@ -85,7 +85,7 @@
             <ul class="list-group list-group-flush">
                 {% if aircraft_master_components %}
                     {% for aircraft_master_component in aircraft_master_components %}    
-                    {{aircraft_master_component.assembly}}        
+                        
                         <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
                     {% endfor %}
                 {% else %}

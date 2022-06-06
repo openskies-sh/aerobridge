@@ -1,5 +1,15 @@
 [
   {
+    "model": "registry.aerobridgedocument",
+    "pk": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+    "fields": {
+      "name": "Default Aerobridge Document",
+      "url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
+      "created_at": "2022-01-04T21:13:42.218Z",
+      "updated_at": "2022-01-04T21:13:42.218Z"
+    }
+  },
+  {
     "model": "registry.person",
     "pk": "32153c3b-663b-41e4-afc2-47127a713704",
     "fields": {
@@ -309,16 +319,6 @@
     }
   },
   {
-    "model": "registry.aerobridgedocument",
-    "pk": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
-    "fields": {
-    "name": "Default Aerobridge Document",
-    "url": "https://raw.githubusercontent.com/openskies-sh/aerobridge/master/sample-data/Aerobridge-placeholder-document.pdf",
-    "created_at": "2022-01-04T21:13:42.218Z",
-    "updated_at": "2022-01-04T21:13:42.218Z"
-    }
-  },
-  {
     "model": "registry.company",
     "pk": "cce77596-873a-4c6a-97d4-2bce94c25d3e",
     "fields": {
@@ -362,7 +362,9 @@
       "company": "abe5990e-d22e-4e81-9cf2-be46d61f24e2",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": ["e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"],
+      "operational_authorizations": [
+        "e7bfa98c-8e4f-40bd-b42f-62fd3651d7da"
+      ],
       "authorized_activities": [
         "26b6a66d-5e77-4a43-94e9-630e141a1087",
         "7a875ff9-79ee-460e-816f-30360e0ac645"
@@ -378,8 +380,12 @@
       "company": "72b46dfb-de46-4f2c-a41a-861e5d26da52",
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z",
-      "operational_authorizations": ["6be25abc-a43d-44d2-9c16-b8dee47bb64d"],
-      "authorized_activities": ["7a875ff9-79ee-460e-816f-30360e0ac645"]
+      "operational_authorizations": [
+        "6be25abc-a43d-44d2-9c16-b8dee47bb64d"
+      ],
+      "authorized_activities": [
+        "7a875ff9-79ee-460e-816f-30360e0ac645"
+      ]
     }
   },
   {
@@ -442,7 +448,6 @@
       "family": 5,
       "drawing": "https://grabcad.com/library/li-po-battery-2800-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:01.164Z",
       "updated_at": "2022-02-07T14:57:38.764Z",
       "minimum_stock": 0,
@@ -463,7 +468,6 @@
       "family": 9,
       "drawing": null,
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:37.488Z",
       "updated_at": "2021-12-31T13:18:37.488Z",
       "minimum_stock": 0,
@@ -484,7 +488,6 @@
       "family": 14,
       "drawing": "https://grabcad.com/library/raspberry-pi-4-model-b-3",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:16.020Z",
       "updated_at": "2022-02-07T14:57:27.084Z",
       "minimum_stock": 0,
@@ -505,7 +508,6 @@
       "family": 3,
       "drawing": "https://grabcad.com/library/pixhawk-2-1-cube-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:08.828Z",
       "updated_at": "2022-02-07T14:57:16.034Z",
       "minimum_stock": 0,
@@ -526,12 +528,31 @@
       "family": 1,
       "drawing": "https://grabcad.com/library/brushless-motor-bldc_2212-6t-2200kv-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:12:37.688Z",
       "updated_at": "2022-02-07T14:57:08.779Z",
       "minimum_stock": 0,
       "units": "",
       "assembly": false,
+      "trackable": true,
+      "purchaseable": true,
+      "salable": false,
+      "active": true,
+      "quantity_required_for_build": 1
+    }
+  },
+  {
+    "model": "registry.aircraftmastercomponent",
+    "pk": "7438b563-95e7-48f2-857c-777cd9274098",
+    "fields": {
+      "name": "Landing Gear Covers",
+      "family": 12,
+      "drawing": null,
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "created_at": "2022-06-06T09:30:46.882Z",
+      "updated_at": "2022-06-06T09:30:46.882Z",
+      "minimum_stock": 1,
+      "units": null,
+      "assembly": true,
       "trackable": true,
       "purchaseable": true,
       "salable": false,
@@ -547,7 +568,6 @@
       "family": 0,
       "drawing": "https://grabcad.com/library/matek-xt60-pdb-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:12:47.739Z",
       "updated_at": "2022-02-07T14:57:59.766Z",
       "minimum_stock": 0,
@@ -568,7 +588,6 @@
       "family": 11,
       "drawing": null,
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:55.669Z",
       "updated_at": "2021-12-31T13:18:55.669Z",
       "minimum_stock": 0,
@@ -589,7 +608,6 @@
       "family": 10,
       "drawing": null,
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:47.794Z",
       "updated_at": "2021-12-31T13:18:47.794Z",
       "minimum_stock": 0,
@@ -610,7 +628,6 @@
       "family": 6,
       "drawing": null,
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:17:51.726Z",
       "updated_at": "2021-12-31T13:17:51.726Z",
       "minimum_stock": 0,
@@ -630,13 +647,12 @@
       "name": "Landing Gear",
       "family": 12,
       "drawing": null,
-      "manufacturer": null,
-      "MPN": null,
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
       "created_at": "2021-12-31T13:19:02.717Z",
-      "updated_at": "2021-12-31T13:19:02.717Z",
+      "updated_at": "2022-06-06T09:20:07.084Z",
       "minimum_stock": 0,
-      "units": "",
-      "assembly": false,
+      "units": null,
+      "assembly": true,
       "trackable": true,
       "purchaseable": true,
       "salable": false,
@@ -652,7 +668,6 @@
       "family": 7,
       "drawing": "https://grabcad.com/library/raspberry-pi-camera-4",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:23.160Z",
       "updated_at": "2022-02-07T14:56:38.297Z",
       "minimum_stock": 0,
@@ -673,7 +688,6 @@
       "family": 8,
       "drawing": "https://grabcad.com/library/here-gps-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:18:30.947Z",
       "updated_at": "2022-02-07T14:56:30.254Z",
       "minimum_stock": 0,
@@ -694,7 +708,6 @@
       "family": 2,
       "drawing": "https://grabcad.com/library/30a-esc-with-simonk-firmware-1",
       "manufacturer": null,
-      "MPN": null,
       "created_at": "2021-12-31T13:13:10.829Z",
       "updated_at": "2022-02-07T14:56:21.222Z",
       "minimum_stock": 0,
@@ -705,6 +718,17 @@
       "salable": false,
       "active": true,
       "quantity_required_for_build": 1
+    }
+  },
+  {
+    "model": "registry.mastercomponentassembly",
+    "pk": "3983c642-2423-422b-8cfa-00bf754ac1b2",
+    "fields": {
+      "name": "Landing Gear Assembly",
+      "assembly_components": [
+        "7438b563-95e7-48f2-857c-777cd9274098",
+        "cdf08aa1-c59e-497c-85a7-8398f26030af"
+      ]
     }
   },
   {
@@ -786,6 +810,15 @@
       "master_component": "9a132020-c480-4996-8669-d3886009c5a9",
       "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
       "MPN": "8"
+    }
+  },
+  {
+    "model": "registry.manufacturerpart",
+    "pk": "d0e4c5c1-c78f-41ff-a39b-adc72f6a5c1d",
+    "fields": {
+      "master_component": "7438b563-95e7-48f2-857c-777cd9274098",
+      "manufacturer": "7204fc9c-9f84-43a0-94f5-f3bb0e7d8e8d",
+      "MPN": "14"
     }
   },
   {
@@ -990,13 +1023,14 @@
       "max_height_attainable": "0.000",
       "icao_aircraft_type_designator": "HS20",
       "created_at": "2022-01-14T13:24:38.390Z",
-      "updated_at": "2022-01-14T13:24:38.390Z",
+      "updated_at": "2022-06-06T09:49:16.710Z",
       "master_components": [
         "06805aa1-2b11-4940-b149-41d22634c652",
         "06bf6b37-92db-4d9c-ad5b-7845a458fabb",
         "0d70130a-8516-48fe-b47b-47c7c61e7c50",
         "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
         "66033c72-00c6-4c19-af53-6f2578632b29",
+        "7438b563-95e7-48f2-857c-777cd9274098",
         "82af6318-1957-4252-9ac4-e1e5301af78e",
         "8d03431f-b947-48dc-bb1d-3b9ec57344af",
         "9a132020-c480-4996-8669-d3886009c5a9",
@@ -1015,9 +1049,9 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:30Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
-      "master_component": null,      
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-12-1",
       "updated": null,
       "stocktake_date": null,
@@ -1035,8 +1069,8 @@
       "custody_on": "2022-01-14T13:58:43Z",
       "is_active": true,
       "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-6-1",
       "updated": null,
       "stocktake_date": null,
@@ -1053,8 +1087,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:42Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-11-1",
       "updated": null,
@@ -1072,8 +1106,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:55:42Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "06805aa1-2b11-4940-b149-41d22634c652",
       "description": "x-5-1",
       "updated": "2022-05-10",
@@ -1091,8 +1125,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:38Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-1",
       "updated": "2022-05-10",
@@ -1110,8 +1144,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:18Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-2-2",
       "updated": null,
@@ -1129,8 +1163,8 @@
     "fields": {
       "custody_on": "2022-01-14T14:00:06Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "cdf08aa1-c59e-497c-85a7-8398f26030af",
       "description": "x-13-2",
       "updated": "2022-05-10",
@@ -1167,8 +1201,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:59:03Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-1-2",
       "updated": null,
@@ -1187,10 +1221,10 @@
       "custody_on": "2022-01-14T13:58:02Z",
       "is_active": true,
       "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": "5ee06c19-a8b6-46d8-a354-2cd1fbb86ecd",
       "description": "x-6-2",
       "updated": "2022-05-10",
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
@@ -1220,6 +1254,25 @@
   },
   {
     "model": "registry.aircraftcomponent",
+    "pk": "60718d21-1f9a-4fa6-858c-39a66087feb8",
+    "fields": {
+      "custody_on": "2022-06-06T09:49:42Z",
+      "is_active": true,
+      "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": "7438b563-95e7-48f2-857c-777cd9274098",
+      "description": "x-14-1",
+      "updated": "2022-06-06",
+      "stocktake_date": "2022-06-06",
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": "123.0000",
+      "created_at": "2022-06-06T09:50:11.145Z",
+      "updated_at": "2022-06-06T09:50:11.145Z"
+    }
+  },
+  {
+    "model": "registry.aircraftcomponent",
     "pk": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
     "fields": {
       "custody_on": "2022-01-14T13:48:11Z",
@@ -1243,8 +1296,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:45:12Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-5-2",
       "updated": null,
@@ -1262,8 +1315,8 @@
     "fields": {
       "custody_on": "2022-01-14T13:47:28Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-4-1",
       "updated": null,
@@ -1277,12 +1330,31 @@
   },
   {
     "model": "registry.aircraftcomponent",
+    "pk": "77a42364-cca9-4b2e-bc84-e8c70512ffc9",
+    "fields": {
+      "custody_on": "2022-06-06T09:50:17Z",
+      "is_active": true,
+      "supplier_part": null,
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": "7438b563-95e7-48f2-857c-777cd9274098",
+      "description": "x-14-2",
+      "updated": "2022-06-06",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 10,
+      "purchase_price": null,
+      "created_at": "2022-06-06T09:50:31.367Z",
+      "updated_at": "2022-06-06T09:50:31.367Z"
+    }
+  },
+  {
+    "model": "registry.aircraftcomponent",
     "pk": "81723be7-0ddb-45a9-8ede-a56aac190792",
     "fields": {
       "custody_on": "2022-01-14T13:45:33Z",
       "is_active": true,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-10-1",
       "updated": null,
@@ -1301,8 +1373,8 @@
       "custody_on": "2022-01-14T13:57:47Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-10-2",
       "updated": null,
       "stocktake_date": null,
@@ -1320,8 +1392,8 @@
       "custody_on": "2022-01-14T13:58:14Z",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-7-1",
       "updated": null,
       "stocktake_date": null,
@@ -1339,10 +1411,10 @@
       "custody_on": "2022-01-14T13:47:00Z",
       "is_active": true,
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-12-2",
       "updated": null,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
@@ -1358,9 +1430,9 @@
       "custody_on": "2022-01-14T13:47:48Z",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-8-2",
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "updated": null,
       "stocktake_date": null,
       "review_needed": false,
@@ -1377,8 +1449,8 @@
       "custody_on": "2022-01-14T13:59:54Z",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-4-2",
       "updated": null,
       "stocktake_date": null,
@@ -1396,8 +1468,8 @@
       "custody_on": "2022-01-14T13:47:13Z",
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-11-2",
       "updated": null,
       "stocktake_date": null,
@@ -1415,13 +1487,13 @@
       "custody_on": "2022-01-14T13:45:46Z",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-7-2",
       "updated": null,
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "purchase_price": null,
       "created_at": "2022-01-14T13:45:46.334Z",
       "updated_at": "2022-04-05T10:55:58.132Z"
@@ -1434,6 +1506,7 @@
       "custody_on": "2022-01-14T13:46:49Z",
       "is_active": true,
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-2-1",
       "updated": null,
@@ -1441,7 +1514,6 @@
       "review_needed": false,
       "status": 10,
       "purchase_price": null,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "created_at": "2022-01-14T13:46:49.014Z",
       "updated_at": "2022-04-05T10:52:45.050Z"
     }
@@ -1453,13 +1525,13 @@
       "custody_on": "2022-01-14T13:46:10Z",
       "is_active": true,
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-1-1",
       "updated": null,
       "stocktake_date": null,
       "review_needed": false,
       "status": 10,
-      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "purchase_price": null,
       "created_at": "2022-01-14T13:46:10.397Z",
       "updated_at": "2022-04-05T10:52:35.066Z"
@@ -1472,8 +1544,8 @@
       "custody_on": "2022-01-14T14:00:34Z",
       "is_active": true,
       "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-9-1",
       "updated": null,
       "stocktake_date": null,
@@ -1491,8 +1563,8 @@
       "custody_on": "2022-01-14T14:00:19Z",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
-      "master_component": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
       "description": "x-8-1",
       "updated": null,
       "stocktake_date": null,
@@ -1760,7 +1832,7 @@
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-04-05T11:00:29.910Z",
+      "updated_at": "2022-06-06T09:51:09.832Z",
       "components": [
         "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
         "4c8e882c-2ece-476f-89e1-4e51f9c06119",
@@ -1769,6 +1841,7 @@
         "60532c18-2822-483e-8abe-4151c5a270aa",
         "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
         "69532104-3187-4170-b52f-376b0448dce2",
+        "77a42364-cca9-4b2e-bc84-e8c70512ffc9",
         "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
         "99b647e8-2497-4e9f-9c7a-5172a74813d7",
         "acfa92e2-b66d-43a7-abd7-decdb3477786",
@@ -1785,7 +1858,7 @@
       "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
-      "updated_at": "2022-04-05T11:00:13.475Z",
+      "updated_at": "2022-06-06T09:51:02.154Z",
       "components": [
         "058780b0-8d30-4da0-a7bc-38fc21539329",
         "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
@@ -1793,6 +1866,7 @@
         "35b73077-9a89-4445-aeda-b85c5d815751",
         "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
         "56e19c92-0079-4880-b5bf-470bc56ed267",
+        "60718d21-1f9a-4fa6-858c-39a66087feb8",
         "6ec9c803-12ff-424b-9260-4de539f99fcf",
         "81723be7-0ddb-45a9-8ede-a56aac190792",
         "94d4a765-a391-441c-8894-f1e0b6becf81",
@@ -1868,7 +1942,11 @@
       "name": "Flight Plan A",
       "plan_file_json": {
         "fileType": "Plan",
-        "geoFence": { "circles": [], "polygons": [], "version": 2 },
+        "geoFence": {
+          "circles": [],
+          "polygons": [],
+          "version": 2
+        },
         "groundStation": "QGroundControl",
         "mission": {
           "cruiseSpeed": 15,
@@ -1884,7 +1962,15 @@
               "command": 22,
               "doJumpId": 1,
               "frame": 3,
-              "params": [0, 0, 0, 0, 0, 0, 50],
+              "params": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1895,7 +1981,15 @@
               "command": 16,
               "doJumpId": 2,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.73587276, 76.70696148, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.73587276,
+                76.70696148,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1906,7 +2000,15 @@
               "command": 16,
               "doJumpId": 3,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.72907509, 76.74222819, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.72907509,
+                76.74222819,
+                50
+              ],
               "type": "SimpleItem"
             },
             {
@@ -1917,15 +2019,30 @@
               "command": 16,
               "doJumpId": 4,
               "frame": 3,
-              "params": [0, 0, 0, null, 30.71832644, 76.7144423, 50],
+              "params": [
+                0,
+                0,
+                0,
+                null,
+                30.71832644,
+                76.7144423,
+                50
+              ],
               "type": "SimpleItem"
             }
           ],
-          "plannedHomePosition": [30.74762977, 76.70172491, 325.3076307562436],
+          "plannedHomePosition": [
+            30.74762977,
+            76.70172491,
+            325.3076307562436
+          ],
           "vehicleType": 0,
           "version": 2
         },
-        "rallyPoints": { "points": [], "version": 2 },
+        "rallyPoints": {
+          "points": [],
+          "version": 2
+        },
         "version": 1
       },
       "geo_json": {
@@ -1935,7 +2052,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.706961, 30.735873]
+              "coordinates": [
+                76.706961,
+                30.735873
+              ]
             },
             "properties": {}
           },
@@ -1943,7 +2063,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.742228, 30.729075]
+              "coordinates": [
+                76.742228,
+                30.729075
+              ]
             },
             "properties": {}
           },
@@ -1951,7 +2074,10 @@
             "type": "Feature",
             "geometry": {
               "type": "Point",
-              "coordinates": [76.714442, 30.718326]
+              "coordinates": [
+                76.714442,
+                30.718326
+              ]
             },
             "properties": {}
           }
@@ -2030,11 +2156,26 @@
         "scope": ""
       },
       "geo_cage": [
-        { "lat": 30.72034497768697, "lng": 76.70396784788375 },
-        { "lat": 30.713546977686974, "lng": 76.73923484788375 },
-        { "lat": 30.72907500000001, "lng": 76.74222800000001 },
-        { "lat": 30.735873000000005, "lng": 76.706961 },
-        { "lat": 30.72034497768697, "lng": 76.70396784788375 }
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        },
+        {
+          "lat": 30.713546977686974,
+          "lng": 76.73923484788375
+        },
+        {
+          "lat": 30.72907500000001,
+          "lng": 76.74222800000001
+        },
+        {
+          "lat": 30.735873000000005,
+          "lng": 76.706961
+        },
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        }
       ],
       "created_at": "2021-03-11T05:18:58.761Z",
       "updated_at": "2021-03-11T05:18:58.765Z",
@@ -2050,11 +2191,26 @@
         "error": "Permission was granted but could not sign permission object"
       },
       "geo_cage": [
-        { "lat": 30.72034497768697, "lng": 76.70396784788375 },
-        { "lat": 30.713546977686974, "lng": 76.73923484788375 },
-        { "lat": 30.72907500000001, "lng": 76.74222800000001 },
-        { "lat": 30.735873000000005, "lng": 76.706961 },
-        { "lat": 30.72034497768697, "lng": 76.70396784788375 }
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        },
+        {
+          "lat": 30.713546977686974,
+          "lng": 76.73923484788375
+        },
+        {
+          "lat": 30.72907500000001,
+          "lng": 76.74222800000001
+        },
+        {
+          "lat": 30.735873000000005,
+          "lng": 76.706961
+        },
+        {
+          "lat": 30.72034497768697,
+          "lng": 76.70396784788375
+        }
       ],
       "created_at": "2022-05-05T13:32:24.139Z",
       "updated_at": "2022-05-05T13:32:24.139Z",
