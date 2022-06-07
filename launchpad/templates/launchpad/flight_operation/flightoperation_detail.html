@@ -63,14 +63,29 @@
         <td>Opearation End</td>
         <td><p class="text-muted">{{ flightoperation.end_datetime }}</p></td>
     </tr>
-
+    <tr>
+        <td>Ready to fly? </td>
+        <td>
+            <p>Use the <a href="https://github.com/openskies-sh/mavlink-aerobridge/tree/master/mavsdk-aerobridge">MavSDK <-> Aerobridge</a> tooling and execute the two step process:</p>
+            <code>python 1_pre_flight_checks_load_operation.py -o {{flightoperation.id}}</code>
+            <br>            
+            <code>python 2_arm_drone_conduct_mission.py</code>
+            
+            <p>&nbsp;</p>  
+        </td>
+    </tr>
+    <tr>
+        <td>Upload Logs</td>
+        <td>            
+            <code>python 3_post_flight_upload_flight_logs.py -o {{flightoperation.id}}</code>
+        </td>
+    </tr>
 </table>
 
 <p class="text-muted">Last Updated at {{ flightoperation.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
 {% if flightoperation.is_editable %}
-    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
-    
+    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>    
 {% else %}    
     <p class='text-muted'>This Flight Operation has a permission associated with it and therefore it cannot be edited.</p><p>{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
 {% endif %}

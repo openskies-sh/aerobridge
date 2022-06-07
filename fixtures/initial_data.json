@@ -1915,7 +1915,6 @@
       "is_registered": false,
       "registration_mark": "FE-2212",
       "commission_date": "2022-01-14T13:54:45.038Z",
-      "digital_sky_uin_number": "0",
       "identification_photo": null,
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z"
@@ -1929,7 +1928,6 @@
       "is_registered": false,
       "registration_mark": "FE-21",
       "commission_date": "2022-01-14T13:54:45.038Z",
-      "digital_sky_uin_number": "0",
       "identification_photo": null,
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2018-09-04T12:20:30Z"

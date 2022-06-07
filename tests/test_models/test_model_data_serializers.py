@@ -285,7 +285,7 @@ class TestModelDataSerializers(TestModels):
         data = self._get_data_for_model('AircraftDetail')
         aircraft_detail_serializer = AircraftDetailSerializer(data=data)
         required_keys = {'mass', 'commission_date', 'max_speed',
-                         'manufactured_at', 'max_endurance', 'digital_sky_uin_number', 
+                         'manufactured_at', 'max_endurance',
                          'icao_aircraft_type_designator', 'aircraft', 'type_certificate',
                          'max_certified_takeoff_weight', 'is_registered', 'registration_mark', 'dimension_length',
                          'identification_photo', 'operating_frequency', 'max_range', 

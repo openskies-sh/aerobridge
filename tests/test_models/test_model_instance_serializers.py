@@ -175,7 +175,7 @@ class TestModelInstanceSerializers(TestModels):
     def test_registry_aircraft_detail_instance_serializer(self):
         aircraft_detail_serializer = AircraftDetailSerializer(instance=AircraftDetail.objects.first())
         required_keys = {'id', 'mass', 'commission_date', 'max_speed',
-                         'created_at', 'manufactured_at', 'max_endurance', 'digital_sky_uin_number', 
+                         'created_at', 'manufactured_at', 'max_endurance',
                          'icao_aircraft_type_designator', 'aircraft', 'updated_at', 'type_certificate',
                          'max_certified_takeoff_weight', 'is_registered', 'registration_mark', 'dimension_length',
                          'identification_photo',  'operating_frequency', 'max_range',

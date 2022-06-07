@@ -1452,10 +1452,6 @@ class AircraftDetail(models.Model):
     registration_mark = models.CharField(max_length=10, blank=True, null=True,
                                          help_text="Set the registration mark for this aircraft, if applicable")
     commission_date = models.DateTimeField(blank=True, null=True)
-    digital_sky_uin_number = models.CharField(max_length=140,
-                                              help_text="Get a UIN number for this aircraft using the Digital Sky Portal",
-                                              blank=True, null=True)
-
     identification_photo = models.URLField(blank=True, null=True,
                                            help_text="A URL to a photo of the drone ID or other identifying image of the drone.", validators = [validate_url])
     history = HistoricalRecords()

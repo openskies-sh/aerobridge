@@ -244,7 +244,6 @@ class TestModelsCreate(TestModels):
                                          icao_aircraft_type_designator=self.faker.numerify('#' * 4),
                                          registration_mark=self.faker.numerify('#' * 10),
                                          commission_date=self.faker.date_time(tzinfo=pytz.UTC),
-                                         digital_sky_uin_number=self.faker.numerify('#' * 30),
                                          operating_frequency=self.faker.pyfloat(min_value=0, max_value=500.00,
                                                                                 right_digits=2),
                                          manufactured_at=timezone.now(), 

@@ -165,13 +165,11 @@ class AircraftDetailCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("aircraft"),
-                        FloatingField("mass"),
-                        FloatingField("is_registered"),                        
+                        FloatingField("is_registered"),  
+                        FloatingField("registration_mark"),                                                 
+                        FloatingField("commission_date")                    
                         ),
-                    AccordionGroup("Optional Information",                        
-                        FloatingField("commission_date"),
-                        FloatingField("registration_mark"),
-                        FloatingField("digital_sky_uin_number"),
+                    AccordionGroup("Optional Information",                                                 
                         FloatingField("identification_photo"),
                         ),                                 
                     ),
