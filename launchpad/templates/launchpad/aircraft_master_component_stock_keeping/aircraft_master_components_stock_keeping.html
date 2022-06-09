@@ -28,12 +28,13 @@
         {% if aircraft_master_components %}
             {% for aircraft_master_component in aircraft_master_components.results %}                  
               <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>
-                <ul><br><table class="table table-minimal">
+                <ul><br><table class="table">
                   <thead>
                     <tr>
                       <th scope="col">Total Stock (units)</th>
-                      <th scope="col">Breakdown</th>
-                      <th scope="col">Available Stock</th>
+                      <th scope="col">Minimum Stock</th>
+                      <th scope="col">Allocated Stock</th>
+                      <th scope="col">Net Stock</th>
                       <th scope="col">Website</th>
                       <th scope="col"><span data-bs-toggle="tooltip" title="Did you receive a order of this part recently? Use these links to add to Aerobridge.">Acknowledge Custody <i class="bi bi-question-circle-fill"></i></span> </th>
                     </tr>
@@ -41,7 +42,8 @@
                   <tbody>
                     <tr>
                       <td>{{aircraft_master_component.total_stock }}</td>
-                      <td>-</td>
+                      <td>{{aircraft_master_component.minimum_stock}}</td>
+                      <td>{{aircraft_master_component.total_stock}}</td>
                       <td>{{aircraft_master_component.net_stock}}</td>
                       <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td><td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add received component</b></a></td>
                     </tr>

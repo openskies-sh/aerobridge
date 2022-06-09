@@ -558,9 +558,6 @@ class AircraftMasterComponent(models.Model):
         # Subtract stock levels
         required -= max(self.total_stock, self.minimum_stock)
 
-        # Subtract quantity on order
-        required -= self.on_order
-
         # Subtract quantity being built
         required -= self.quantity_being_built
 
@@ -570,13 +567,9 @@ class AircraftMasterComponent(models.Model):
         """
         Return all 'BuildItem' objects which allocate this part to Build objects
         """
-
         
-
-        queryset = AircraftAssembly.objects.all()
-
-        queryset = queryset.filter(components__supplier_part__manufacturer_part__master_component=self)
-
+        queryset = AircraftComponent.objects.filter(Q(master_component=self) | Q(supplier_part__manufacturer_part__master_component=self), is_active=True)        
+        
         return queryset
 
     def build_order_allocation_count(self, **kwargs):
@@ -584,18 +577,20 @@ class AircraftMasterComponent(models.Model):
         Return the total amount of this part allocated to build orders
         """
 
-        query = self.build_order_allocations(**kwargs).aggregate(
-            total=Coalesce(
-                Sum(
-                    'quantity',
-                    output_field=models.DecimalField()
-                ),
-                0,
-                output_field=models.DecimalField(),
-            )
-        )
+        # query = self.build_order_allocations(**kwargs).aggregate(
+        #     total=Coalesce(
+        #         Count(
+        #             'aircraft_components',
+        #             output_field=models.DecimalField()
+        #         ),
+        #         0,
+        #         output_field=models.DecimalField(),
+        #     )
+        # )
+        count = self.build_order_allocations(**kwargs).count()
 
-        return query['total']
+
+        return count
 
     def allocation_count(self, **kwargs):
         """
@@ -617,8 +612,7 @@ class AircraftMasterComponent(models.Model):
         - Stock allocated (allocation_count)
         This number (unlike 'available_stock') can be negative.
         """
-
-        return self.total_stock - self.allocation_count() + self.on_order
+        return self.total_stock - self.allocation_count()
 
 
     def need_to_restock(self):
@@ -628,7 +622,7 @@ class AircraftMasterComponent(models.Model):
         then we need to restock.
         """
 
-        return (self.total_stock + self.on_order - self.allocation_count) < self.minimum_stock
+        return (self.total_stock - self.allocation_count) < self.minimum_stock
 
     @property
     def can_build(self):
@@ -1118,32 +1112,6 @@ class SupplierPart(models.Model):
         verbose_name=_('Purchase Price'),
         help_text=_('Single unit purchase price at time of purchase'),
     )
-
-    @property
-    def order_price(self, quantity= 1):
-        print('here')
-        if not quantity:
-            quantity = self.manufacturer_part.master_component.quantity_required_for_build
-        cost = self.purchase_price * quantity
-        return cost
-
-    def on_order(self):
-        """ Return the total quantity of items currently on order.
-        Subtract partially received stock as appropriate
-        """
-
-        totals = self.open_orders().aggregate(Sum('quantity'), Sum('received'))
-
-        # Quantity on order
-        q = totals.get('quantity__sum', 0)
-
-        # Quantity received
-        r = totals.get('received__sum', 0)
-
-        if q is None or r is None:
-            return 0
-        else:
-            return max(q - r, 0)
 
     @property
     def pretty_name(self):
