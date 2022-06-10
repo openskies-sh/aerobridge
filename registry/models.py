@@ -605,6 +605,17 @@ class AircraftMasterComponent(models.Model):
         )
 
     @property
+    def allocated_stock(self):
+        """ Return the 'net' stock. It takes into account:
+        - Stock on hand (total_stock)
+        - Stock on order (on_order)
+        - Stock allocated (allocation_count)
+        This number (unlike 'available_stock') can be negative.
+        """
+        return self.allocation_count()
+
+
+    @property
     def net_stock(self):
         """ Return the 'net' stock. It takes into account:
         - Stock on hand (total_stock)
@@ -700,6 +711,7 @@ class AircraftMasterComponent(models.Model):
 
         query = self.stock_items
         query = query.filter(AircraftComponent.IN_STOCK_FILTER)
+        
         return query
 
     @property
@@ -708,7 +720,7 @@ class AircraftMasterComponent(models.Model):
         - Part may be stored in multiple locations
         - If this part is a "template" (variants exist) then these are counted too
         """
-
+        print('here')
         return self.total_stock.count()
 
     def __unicode__(self):
