@@ -257,8 +257,7 @@ class TestModelsCreate(TestModels):
         self.assertEqual(aircraft_detail.type_certificate, TypeCertificate.objects.first())
 
     def test_registry_aircraft_component_create(self):
-        aircraft_component = AircraftComponent(name=self.faker.name(), supplier_part_id=self.faker.numerify('#' * 18),
-                                               photo=self.faker.uri(), custody_on=self.faker.date_time(tzinfo=pytz.UTC))
+        aircraft_component = AircraftComponent(name=self.faker.name(), supplier_part_id=self.faker.numerify('#' * 18), photo=self.faker.uri())
         self.assertNotIn(aircraft_component, AircraftComponent.objects.all())
         aircraft_component.save()
         self.assertIn(aircraft_component, AircraftComponent.objects.all())

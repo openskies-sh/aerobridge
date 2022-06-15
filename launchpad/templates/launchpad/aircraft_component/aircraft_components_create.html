@@ -1,5 +1,21 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
+{% block navbreadcrumb %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Manufacturing
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Create Aircraft Component
+      </li>
+    </ol>
+  </nav>
+  
+
+{% endblock %}
+{% block content
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="alert alert-primary" role="alert">
@@ -27,6 +43,7 @@
                 </div>
             {% endfor %}
         {% endif %}
+        <br>
         {% crispy form %}       
        
     </form>

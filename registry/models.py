@@ -1211,8 +1211,6 @@ class AircraftComponent(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
-    custody_on = models.DateTimeField(blank=True, null=True,
-                                      help_text="Enter a date when this component was in custody of the manufacturer")
     is_active = models.BooleanField(default=True)
 
     history = HistoricalRecords()
@@ -1265,7 +1263,7 @@ class AircraftComponent(models.Model):
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
         else: 
             items.append(self.master_component.name)
-        # print(items)
+
         return ' - '.join(items)
 
     @property

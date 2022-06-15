@@ -196,12 +196,16 @@ class AircraftComponentCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("master_component"),
-                        FloatingField("supplier_part"),
                         FloatingField("invoice_receipt"),
+                        FloatingField("description"),   
                         ),
-                    HTML("""
-                            <br>
-                        """),
+                    AccordionGroup("Optional Information",                                                 
+                        FloatingField("status"),           
+                        FloatingField("supplier_part"),
+                        FloatingField("purchase_price"),
+                        ),                                 
+                    
+                   
                     ButtonHolder(
                                 Submit('submit', '+ Add Aircraft Component Details'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-list' %}" role="button">Cancel</a>""")
