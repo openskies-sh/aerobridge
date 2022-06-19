@@ -1,4 +1,5 @@
 from decimal import Decimal
+from re import L
 from django.db import models
 import uuid
 # Create your models here.
@@ -19,11 +20,15 @@ from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
 from common.helpers import normalize
 from django.db.models.functions import Coalesce
+from aerobridge_id_operations.utils import IDGenerator
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def two_year_expiration():
     return datetime.combine(date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
 
+def generate_aerobridge_id() -> str:
+    my_id_generator = IDGenerator()
+    return my_id_generator.generate_aerobridge_id()
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -1210,7 +1215,7 @@ class AircraftComponent(models.Model):
     )    
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    
+    aerobridge_id = models.CharField(max_length=140, default= generate_aerobridge_id)
     is_active = models.BooleanField(default=True)
 
     history = HistoricalRecords()
@@ -1348,24 +1353,6 @@ class AircraftComponent(models.Model):
         
     def __str__(self): 
         return self.component_common_name
-
-
-class AircraftComponentSignature(models.Model):
-    ''' This model saves information about the component signature on a the block chain '''
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    component = models.OneToOneField(AircraftComponent, on_delete=models.CASCADE, limit_choices_to={'is_active': True},
-                                     help_text="Select a component to link to this signature")
-    signature_url = models.URLField(
-        help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.",validators= [validate_url])
-    history = HistoricalRecords()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.component.master_component.name
-
-    def __str__(self):
-        return self.component.master_component.name
 
 
 class AircraftAssembly(models.Model):

@@ -1,5 +1,5 @@
 from doctest import master
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponentSignature, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart, MasterComponentAssembly
+from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart, MasterComponentAssembly
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from pki_framework.models import AerobridgeCredential
 from django import forms
@@ -400,33 +400,6 @@ class AircraftModelCreateForm(forms.ModelForm):
         return self.cleaned_data
     class Meta:
         model = AircraftModel
-        fields = '__all__'
-
-class AircraftComponentSignatureCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.help_text_inline = True   
-        
-        self.helper.layout = Layout(
-                BS5Accordion(
-                    AccordionGroup("Mandatory Information",
-                        FloatingField("component"),
-                        FloatingField("signature_url"),
-                    
-                    HTML("""
-                            <br>
-                        """),
-                    ButtonHolder(
-                                Submit('submit', '+ Add Aircraft Component Signature Details'),
-                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-signature-list' %}" role="button">Cancel</a>""")
-                    )
-                )
-        )     
-        )
-
-    class Meta:
-        model = AircraftComponentSignature
         fields = '__all__'
 
 class CompanyCreateForm(forms.ModelForm):

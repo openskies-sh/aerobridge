@@ -49,10 +49,6 @@ urlpatterns = [
     path('aircraft-extended/new', launchpad_views.AircraftExtendedCreateView.as_view(), name='aircraft-extended-create'),
  
     path('manufacturing-read-first', launchpad_views.ManufacturingReadFirst.as_view(), name='manufacturing-read-first'),
-    path('aircraft-components-signature', launchpad_views.AircraftComponentSignaturesList.as_view(), name='aircraft-components-signature-list'),
-    path('aircraft-components-signature/<uuid:aircraft_component_signature_id>', launchpad_views.AircraftComponentSignaturesUpdate.as_view(), name='aircraft-components-signature-update'),
-    path('aircraft-components-signature/<uuid:aircraft_component_signature_id>/detail', launchpad_views.AircraftComponentSignaturesDetail.as_view(), name='aircraft-components-signature-detail'),
-    path('aircraft-components-signature/new', launchpad_views.AircraftComponentSignaturesCreateView.as_view(), name='aircraft-components-signature-create'),
      
     path('aircraft-models', launchpad_views.AircraftModelsList.as_view(), name='aircraft-models-list'),
     path('aircraft-models/<uuid:aircraft_model_id>', launchpad_views.AircraftModelsUpdate.as_view(), name='aircraft-models-update'),

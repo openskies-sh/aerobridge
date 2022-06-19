@@ -30,8 +30,8 @@
         <td><a href="/launchpad/aircraft-master-components/{{aircraft_component.master_component.id }}/detail">{{aircraft_component.component_common_name}}</a></td>
     </tr>
     <tr>
-        <td>Supplier Part ID</td>
-        <td><code>{{ aircraft_component.supplier_part_id }}</code></td>
+        <td>Aerobridge ID</td>
+        <td><code>{{ aircraft_component.aerobridge_id }}</code></td>
     </tr>
     <tr>
         <td>Custody Status</td>
@@ -45,7 +45,7 @@
     
 </table>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircraft-components/{{aircraft_component.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_component_signature %}<a class="btn btn-secondary" href="/launchpad/aircraft-components-signature/{{aircraft_component_signature.id}}/detail"><b>See component signature</b></a>{% endif %}</p>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-components/{{aircraft_component.id}}"><b>Update Details</b></a></p>
 
 </div>
 {% endblock %}

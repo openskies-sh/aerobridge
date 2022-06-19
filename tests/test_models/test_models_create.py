@@ -6,7 +6,7 @@ from gcs_operations.models import CloudFile, FlightPlan, FlightOperation, Transa
     SignedFlightLog
 from pki_framework.models import AerobridgeCredential
 from registry.models import Person, Address, Activity, Authorization, Operator, Contact, Test, TypeCertificate, \
-    Manufacturer, Firmware, Pilot, TestValidity, Aircraft, AircraftDetail, AircraftComponent, AircraftComponentSignature
+    Manufacturer, Firmware, Pilot, TestValidity, Aircraft, AircraftDetail, AircraftComponent
 from .test_setup import TestModels
 
 
@@ -261,14 +261,6 @@ class TestModelsCreate(TestModels):
         self.assertNotIn(aircraft_component, AircraftComponent.objects.all())
         aircraft_component.save()
         self.assertIn(aircraft_component, AircraftComponent.objects.all())
-
-    def test_registry_aircraft_component_signature_create(self):
-        aircraft_component_signature = AircraftComponentSignature(component=AircraftComponent.objects.first(),
-                                                                  signature_url=self.faker.uri())
-        self.assertNotIn(aircraft_component_signature, AircraftComponentSignature.objects.all())
-        aircraft_component_signature.save()
-        self.assertIn(aircraft_component_signature, AircraftComponentSignature.objects.all())
-        self.assertEqual(aircraft_component_signature.component, AircraftComponent.objects.first())
 
     def test_pki_framework_aerobridge_credential_create(self):
         aerobridge_credentials = AerobridgeCredential(name=self.faker.name(),

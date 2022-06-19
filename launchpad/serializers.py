@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from registry.models import Activity, AircraftComponentSignature, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
+from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
 from gcs_operations.models import FlightPlan
 
 class PersonSerializer(serializers.ModelSerializer):         
@@ -75,11 +75,6 @@ class AircraftComponentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponent
         exclude = ('is_active',)
-
-class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AircraftComponentSignature
-        fields = '__all__'
 
 class AircraftModelSerializer(serializers.ModelSerializer):
     class Meta:

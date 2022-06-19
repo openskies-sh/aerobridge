@@ -1,7 +1,7 @@
 import random
+from english_words import english_words_lower_alpha_set
 
 class IDGenerator():
-        
     # Source: https://betterprogramming.pub/how-to-write-your-own-password-generator-in-python-2511e633cf53
     def get_words(self, word_path):
         '''
@@ -22,23 +22,9 @@ class IDGenerator():
         password_words =[]
         for words in range(0,word_count):
             random_index = random.randint(0,len(word_source)-1)
-            password_words.append(word_source[random_index].strip())
+            password_words.append(word_source[random_index])
 
         return password_words
-
-    def generate_special_char(self, amount):
-        '''
-        function returning a string of special characters as long as requested in amount
-        return type: string
-        '''
-        password_special_characters =''
-        special_characters = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~\''''
-        character_count = 0
-        while character_count < amount:
-            password_special_characters += special_characters[random.randint(0,len(special_characters)-1)]
-            character_count += 1
-
-        return password_special_characters
 
     def generate_random_number(self, padding):
         '''
@@ -54,7 +40,7 @@ class IDGenerator():
             padding_count += 1
         return password_number
 
-    def generate_password(self, all_words, word_count, separator, padding=2, special = True, special_amount=1):
+    def _generate_aerobridge_id(self, all_words, word_count, separator):
         '''
         funtion that returns a password based on user input
         all_words: a list containing strings
@@ -66,15 +52,8 @@ class IDGenerator():
         append order: words-number-special
         return type string
         '''
-        new_password = self.generate_random_words(all_words,word_count)
-        new_numbers = self.generate_random_number(padding)
-        new_password.append(new_numbers)
-        if special:
-            new_special = self.generate_special_char(special_amount)
-            new_password.append(new_special)
-            
-        return (separator.join(new_password))
-
-    # def main():
-    #     words = self.get_words('/Users/martinandersson/Documents/projects/python/password_generator/source/words.txt')
-    #     print(self.generate_password(words,2,'_',5,True,2))
+        new_id = self.generate_random_words(all_words,word_count)
+        return (separator.join(new_id))
+    
+    def generate_aerobridge_id(self):
+        return self._generate_aerobridge_id(list(english_words_lower_alpha_set),3,'_')
