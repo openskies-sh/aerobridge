@@ -24,30 +24,29 @@
 <br>
 <div>
 <h2>Assembly Detail</a></h2>
+<div class="row">
+  <div class="col-8">
 
 <table  class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    
-    <tr>
-      <td>ID</td>
-      <td><code>{{ aircraft_assembly.id}}</code></td>    
-    </tr>
-    <tr>
-        <td>Model</td>
-        <td>{{ aircraft_assembly.model}}</td>    
-    </tr>
-    <tr>
-        <td>Assembly Status</td>
-        <td><mark>{{ aircraft_assembly.get_status_display}}</mark></td>    
-    </tr>
-    
-    
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tr>
+      <td>Model</td>
+      <td><h5>{{ aircraft_assembly.model}}</h5></td>    
+  </tr>
+  <tr>
+      <td>Assembly Status</td>
+      <td><mark>{{ aircraft_assembly.get_status_display}}</mark></td>    
+  </tr>
+  
+  
 </table>
+    </div>
+</div>
 <br>
   <h2>Assembled Components</h2>
   <p>Following are the components installed in this assembly, click on the components to update them. </p>

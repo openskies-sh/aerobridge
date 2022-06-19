@@ -151,7 +151,6 @@ class TestModelsDelete(TestModels):
         aircraft_component.delete()
         self.assertNotIn(aircraft_component, AircraftComponent.objects.all())
 
-
     def test_pki_framework_aerobridge_credentials_delete(self):
         aerobridge_credentials = AerobridgeCredential.objects.first()
         self.assertIsNotNone(aerobridge_credentials)

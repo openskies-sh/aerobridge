@@ -18,7 +18,9 @@
 <h2>Component Detail</h2>
 
 <br>
-<table  class="table">
+<div class="row">
+  <div class="col-8">
+<table class="table">
     <thead>
         <tr>
             <th></th>
@@ -30,22 +32,30 @@
         <td><a href="/launchpad/aircraft-master-components/{{aircraft_component.master_component.id }}/detail">{{aircraft_component.component_common_name}}</a></td>
     </tr>
     <tr>
-        <td>Aerobridge ID</td>
+        <td><span data-bs-toggle="tooltip" title="Aerobridge ID is a unique global identifier for this compoent assigned at the time custody is acknowledged.">Aerobridge ID&nbsp;&nbsp;<i class="bi bi-question-circle-fill"></i></span></td>
         <td><code>{{ aircraft_component.aerobridge_id }}</code></td>
     </tr>
     <tr>
-        <td>Custody Status</td>
+        <td>Status</td>
         <td><mark>{% if aircraft_component.status == 10 %}OK{% elif aircraft_component.status == 50 %}Damaged{% elif aircraft_component.status == 60 %}Destroyed{% elif aircraft_component.status == 65 %}Rejected{% elif aircraft_component.status == 70 %}Lost {% elif aircraft_component.status == 85 %}Reutned{% else %}Unknown{% endif %}</mark></td>    
     </tr>
     
-    <!-- <tr>
-        <td>Is Active:</td>
-        <td>{{ aircraft_component.is_active}}</td>    
-    </tr> -->
-    
 </table>
+
+<p class="text-muted">Updated at {{ aircraft_component.updated_at}}</p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-components/{{aircraft_component.id}}"><b>Update Details</b></a></p>
 
 </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block footer_javascript %}
+
+  <script type="text/javascript">
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));  
+  </script>
 {% endblock %}

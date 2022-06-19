@@ -69,6 +69,11 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
 class AircraftComponentSerializer(serializers.ModelSerializer):
     component_common_name = serializers.ReadOnlyField()
     status_display = serializers.SerializerMethodField()
+    in_assembly = serializers.SerializerMethodField()
+
+    def get_in_assembly(self, obj):
+        return obj.check_if_in_assembly
+        
     def get_status_display(self, obj):
         x = obj.get_status_display()        
         return x

@@ -28,7 +28,7 @@
     <ul class="list-group list-group-flush">
         {% if aircraft_components %}
             {% for aircraft_c in aircraft_components.results %}  
-              <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.component_common_name }}</a>&nbsp;&nbsp;<mark>{{aircraft_c.status_display}}</mark></li>
+              <li class="list-group-item"><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.component_common_name }}</a>&nbsp;&nbsp;<mark>{{aircraft_c.status_display}}</mark> {{aircraft_c.in_assembly}}</li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>

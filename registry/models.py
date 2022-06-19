@@ -1,5 +1,6 @@
 from decimal import Decimal
 from re import L
+from turtle import Turtle
 from django.db import models
 import uuid
 # Create your models here.
@@ -1289,53 +1290,12 @@ class AircraftComponent(models.Model):
             return self.master_component.get_family_display()
         return '  '.join(items)
 
-
-    def check_add_to_bom(self, parent, raise_error=False, recursive=True):
-        """
-        Check if this Part can be added to the BOM of another part.
-        This will fail if:
-        a) The parent part is the same as this one
-        b) The parent part is used in the BOM for *this* part
-        c) The parent part is used in the BOM for any child parts under this one
-        """
-
-        result = True
-
-        try:
-            if self.pk == parent.pk:
-                raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                    p1=str(self),
-                    p2=str(parent)
-                )})
-
-            bom_items = self.get_bom_items()
-
-            # Ensure that the parent part does not appear under any child BOM item!
-            for item in bom_items.all():
-
-                # Check for simple match
-                if item.sub_part == parent:
-                    raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                        p1=str(parent),
-                        p2=str(self)
-                    )})
-
-                # And recursively check too
-                if recursive:
-                    result = result and item.sub_part.check_add_to_bom(
-                        parent,
-                        recursive=True,
-                        raise_error=raise_error
-                    )
-
-        except ValidationError as e:
-            if raise_error:
-                raise e
-            else:
-                return False
-
-        return result
-
+    def check_if_in_assembly(self):
+        all_assemblies = AircraftAssembly.aircraft_components_set.filter(self.pk)
+        if all_assemblies: 
+            return True
+        else:
+            return False
 
     class Meta:
         constraints = [
