@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build . -t openskies-sh/aerobridge
+docker build . -t openskiessh/aerobridge
