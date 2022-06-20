@@ -1,6 +1,3 @@
-from decimal import Decimal
-from re import L
-from turtle import Turtle
 from django.db import models
 import uuid
 # Create your models here.
