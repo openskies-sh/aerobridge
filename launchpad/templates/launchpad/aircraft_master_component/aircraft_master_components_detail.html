@@ -16,7 +16,7 @@
   <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
 </div>
 <div>
-<h2>Master Component Detail</h2>
+<h2><i class="bi bi-motherboard"></i> Master Component Detail</h2>
 <br>
 <table class="table">
     <thead>
@@ -29,10 +29,7 @@
         <td>Name</td>
         <td>{{aircraft_master_component.name }}</td>
     </tr>
-    <tr>
-        <td>Supplier Part ID</td>
-        <td>{{ aircraft_master_component.family }}</td>
-    </tr>
+    
     {%if aircraft_master_component.drawing %}
     <tr>
         <td>Drawing</td>
@@ -46,8 +43,8 @@
     </tr>    
     
 </table>
-<p class="text-muted">Last Updated at {{aircraft_master_component.updated_at|date:'Y-m-d H:i' }} </p>
-<hr>
+<small class="text-muted">Last Updated at {{aircraft_master_component.updated_at|date:'Y-m-d H:i' }} </small>
+<br>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}"><b>Update Details</b></a></p>
 <br>

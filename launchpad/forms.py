@@ -205,6 +205,9 @@ class AircraftComponentCreateForm(forms.ModelForm):
                         FloatingField("purchase_price"),
                         ),                                 
                     
+                    HTML("""
+                            <br>
+                        """),
                    
                     ButtonHolder(
                                 Submit('submit', '+ Add Aircraft Component Details'),

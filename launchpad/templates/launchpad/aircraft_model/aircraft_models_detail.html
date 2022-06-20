@@ -72,6 +72,8 @@
     
 </table>
 
+<h2>Blueprint</h2>
+
 <table class="table">
     <thead>
         <tr>
@@ -81,12 +83,11 @@
     </thead>
     <tbody>
         <tr><td>                        
-            <p>Below is a list of components that form the Bill of Material for the aircraft, see all <a href="/launchpad/aircraft-master-components">master components</a>:</p>
+            <p>Below is a list of components that form the Bill of Material for the aircraft, see all <i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components">master components</a>:</p>
             <ul class="list-group list-group-flush">
                 {% if aircraft_master_components %}
-                    {% for aircraft_master_component in aircraft_master_components %}    
-                        
-                        <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
+                    {% for aircraft_master_component in aircraft_master_components %}                            
+                        <li class="list-group-item"><mark>{{ aircraft_master_component.get_family_display }}</mark>&nbsp;&nbsp;<i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;</li>
                     {% endfor %}
                 {% else %}
                     <li class="list-group-item"><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></li>

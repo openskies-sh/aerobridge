@@ -5,7 +5,7 @@
   <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
 </div>
 <div class="row mb-3">
-<h2>Update details for {{ aircraft_component.master_component.name }}</h2>
+<h2>Update details for {%if aircraft_component.master_component %}<i class="bi bi-motherboard"></i>&nbsp;{{ aircraft_component.master_component.name }}{%else%}<i class="bi bi-motherboard"></i> {{ aircraft_component.supplier_part.manufacturer_part.master_component.name }}{%endif%}</h2>
 </div>
 <div class="row mb-3">
     <div class="col-md-6 themed-grid-col">

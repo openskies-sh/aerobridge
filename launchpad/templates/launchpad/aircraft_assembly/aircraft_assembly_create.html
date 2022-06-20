@@ -55,7 +55,7 @@
     <ul class="list-group list-group-flush">
             {% for aircraft_master_component in aircraft_model.master_components.all %}     
          
-                <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>{% if aircraft_master_component.assembly %}<small class="text-muted">&nbsp;&nbsp;Part of a sub-assembly</small>{% endif %}&nbsp;&nbsp;{% if aircraft_master_component.id|stringformat:"s" in submitted_components %} <span class="bi bi-check-circle-fill"></span> {% else %}  <span class="bi bi-exclamation-triangle-fill"></span> {% endif %}&nbsp;&nbsp;<mark>{{ aircraft_master_component.get_family_display }}</mark></li>
+                <li class="list-group-item"><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>{% if aircraft_master_component.assembly %}<small class="text-muted">&nbsp;&nbsp;Part of a sub-assembly</small>{% endif %}&nbsp;&nbsp;{% if aircraft_master_component.id|stringformat:"s" in submitted_components %} <span class="bi bi-check-circle-fill"></span> {% else %}  <span class="bi bi-exclamation-triangle-fill"></span> {% endif %}&nbsp;&nbsp;<mark>{{ aircraft_master_component.get_family_display }}</mark></li>
             {% endfor %}
     </ul>
     <p>&nbsp;</p>

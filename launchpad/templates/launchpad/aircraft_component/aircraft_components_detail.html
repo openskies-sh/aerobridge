@@ -29,7 +29,7 @@
     </thead>
     <tr>
         <td>Master Component</td>
-        <td><a href="/launchpad/aircraft-master-components/{{aircraft_component.master_component.id }}/detail">{{aircraft_component.component_common_name}}</a></td>
+        <td><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{%if aircraft_component.master_component %}{{aircraft_component.master_component.id }}{% else %}{{aircraft_component.supplier_part.manufacturer_part.master_component.id }}{%endif%}/detail">{{aircraft_component.component_common_name}}</a></td>
     </tr>
     <tr>
         <td><span data-bs-toggle="tooltip" title="Aerobridge ID is a unique global identifier for this compoent assigned at the time custody is acknowledged.">Aerobridge ID&nbsp;&nbsp;<i class="bi bi-question-circle-fill"></i></span></td>
@@ -37,7 +37,10 @@
     </tr>
     <tr>
         <td>Status</td>
-        <td><mark>{% if aircraft_component.status == 10 %}OK{% elif aircraft_component.status == 50 %}Damaged{% elif aircraft_component.status == 60 %}Destroyed{% elif aircraft_component.status == 65 %}Rejected{% elif aircraft_component.status == 70 %}Lost {% elif aircraft_component.status == 85 %}Reutned{% else %}Unknown{% endif %}</mark></td>    
+        <td>
+          
+          <button type="button" class="btn {% if aircraft_component.status == 10 %}btn-outline-secondary{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_component.get_status_display}}</button>
+          </td>    
     </tr>
     
 </table>

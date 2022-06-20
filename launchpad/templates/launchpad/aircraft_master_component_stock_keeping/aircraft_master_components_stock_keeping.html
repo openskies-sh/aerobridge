@@ -20,14 +20,14 @@
 <div class="row mb-3">
     
     <h2>Stock Keeping and orders</h2>
-    <p>See parts and quantities available, acknowledge receipt of a part and order more.</p>
+    <p>See parts and quantities available, acknowledge receipt of a part and order more, the stocks are kept against Master components depicted by the <i class="bi bi-motherboard"></i> symbol.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-12 themed-grid-col">
     <ul class="list-group list-group-flush">
         {% if aircraft_master_components %}
             {% for aircraft_master_component in aircraft_master_components.results %}                  
-              <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>
+              <li class="list-group-item"><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{aircraft_master_component.id}}/detail">{{ aircraft_master_component.name }}</a>&nbsp;&nbsp;used in <code>{{ aircraft_master_component.linked_models}}</code>
                 <ul><br><table class="table">
                   <thead>
                     <tr>

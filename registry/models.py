@@ -1235,7 +1235,7 @@ class AircraftComponent(models.Model):
     )
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
-        help_text=_('Internal part description')
+        help_text=_('Specify an internal description for this component e.g: x-2')
     )
     updated = models.DateField(auto_now=True, null=True)
 
@@ -1290,12 +1290,19 @@ class AircraftComponent(models.Model):
             return self.master_component.get_family_display()
         return '  '.join(items)
 
-    def check_if_in_assembly(self):
-        all_assemblies = AircraftAssembly.aircraft_components_set.filter(self.pk)
-        if all_assemblies: 
-            return True
-        else:
-            return False
+    @property
+    def aircraft_details(self):
+        all_assemblies = AircraftAssembly.objects.all()
+        relevant_aircrafts = []
+        for assembly in all_assemblies:
+            if self in assembly.components.all(): 
+                aircraft = Aircraft.objects.get(final_assembly = assembly)
+                
+                if aircraft: 
+                    relevant_aircrafts.append({'id':str(aircraft.id), 'name':aircraft.name})        
+                else:
+                    relevant_aircrafts.append({'id':'000', 'name':'Not installed in any aircraft'})        
+        return relevant_aircrafts
 
     class Meta:
         constraints = [

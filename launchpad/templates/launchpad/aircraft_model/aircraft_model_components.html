@@ -8,7 +8,7 @@
       Manufacturing
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      Master Component Details
+      Aircraft Blueprint
     </li>
   </ol>
 </nav>
@@ -23,12 +23,12 @@
 <div>
 <h2>Component Blueprint for <a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }} / Series {{ aircraft_model.series }}</a></h2>
 <br>
-<p>Below is a list of master components for the F1 drone: </p> 
+<p>Below is a list of master components for the <mark>F1 drone</mark>:</p> 
 <div class="row mb-3">
   <div class="col-md-8 themed-grid-col">
-  <ol class="list-group list-group-flush list-group-numbered">
+  <ol class="list-group list-group-flush">
     {% for component in aircraft_model.master_components.all %}
-      <li class="list-group-item"><a href="/launchpad/aircraft-master-components/{{component.id}}/detail">{{ component.name }}</a></li>
+      <li class="list-group-item"><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{component.id}}/detail">{{ component.name }}</a></li>
     {% endfor %}
   </ol>
 </div>

@@ -11,86 +11,85 @@
        Flight Operation Detail
       </li>
     </ol>
-  </nav>
+</nav>
 <!-- Bootstrap core CSS -->
 <link href="{% static "jetway/leafletjs/leaflet.css" %}" rel="stylesheet">    
 
-
 <div>
-<h2>{{ flightoperation.name }}</h2>
-<table  class="table">
-    <thead>
+    <h2>{{ flightoperation.name }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
         <tr>
-            <th></th>
-            <th></th>
+            <td>ID </td>
+            <td><code>{{ flightoperation.id }}</code></td>
         </tr>
-    </thead>
-    <tr>
-        <td>ID </td>
-        <td><code>{{ flightoperation.id }}</code></td>
-    </tr>
-    <tr>
-        <td>Operator </td>
-        <td><a href="/launchpad/operators/{{ flightoperation.operator.id}}/detail">{{ flightoperation.operator.company.full_name }}</a></td>
-    </tr>
-    <tr>
-        <td>Drone </td>
-        <td><a href="/launchpad/aircrafts/{{ flightoperation.drone.id}}/detail">{{ flightoperation.drone.name }}</a></td>
-    </tr>
-    <tr>
-        <td>Flight Path / Area</td>
-        <td><div id="flight_plan" class="map"></div></td>    
-    </tr>
-    <tr>
-        <td>Type of Operation</td>
-        <td>{{ flightoperation.get_type_of_operation_display}}</td>
-    </tr>
-    </tr>
-    <tr>
-        <td>Purpose</td>
-        <td>{{ flightoperation.purpose}}</td>
-    </tr>
-    <tr>
-        <td>Pilot</td>
-        <td><a href="/launchpad/people/{{ flightoperation.pilot.person.id}}/detail">{{ flightoperation.pilot.person.first_name}} {{ flightoperation.pilot.person.last_name}}</a></td>
-    </tr>
-    </tr>
-    <tr>
-        <td>Operation Start</td>
-        <td><p class="text-muted">{{ flightoperation.start_datetime }}</p></td>
-    </tr>
-    <tr>
-        <td>Opearation End</td>
-        <td><p class="text-muted">{{ flightoperation.end_datetime }}</p></td>
-    </tr>
-    <tr>
-        <td>Ready to fly? </td>
-        <td>
-            <p>Use the <a href="https://github.com/openskies-sh/mavlink-aerobridge/tree/master/mavsdk-aerobridge">MavSDK <-> Aerobridge</a> tooling and execute the two step process:</p>
-            <code>python 1_pre_flight_checks_load_operation.py -o {{flightoperation.id}}</code>
-            <br>            
-            <code>python 2_arm_drone_conduct_mission.py</code>
-            
-            <p>&nbsp;</p>  
-        </td>
-    </tr>
-    <tr>
-        <td>Upload Logs</td>
-        <td>            
-            <code>python 3_post_flight_upload_flight_logs.py -o {{flightoperation.id}}</code>
-        </td>
-    </tr>
-</table>
+        <tr>
+            <td>Operator </td>
+            <td><a href="/launchpad/operators/{{ flightoperation.operator.id}}/detail">{{ flightoperation.operator.company.full_name }}</a></td>
+        </tr>
+        <tr>
+            <td>Drone </td>
+            <td><a href="/launchpad/aircrafts/{{ flightoperation.drone.id}}/detail">{{ flightoperation.drone.name }}</a></td>
+        </tr>
+        <tr>
+            <td>Flight Path / Area</td>
+            <td><div id="flight_plan" class="map"></div></td>    
+        </tr>
+        <tr>
+            <td>Type of Operation</td>
+            <td>{{ flightoperation.get_type_of_operation_display}}</td>
+        </tr>
+        </tr>
+        <tr>
+            <td>Purpose</td>
+            <td>{{ flightoperation.purpose}}</td>
+        </tr>
+        <tr>
+            <td>Pilot</td>
+            <td><a href="/launchpad/people/{{ flightoperation.pilot.person.id}}/detail">{{ flightoperation.pilot.person.first_name}} {{ flightoperation.pilot.person.last_name}}</a></td>
+        </tr>
+        </tr>
+        <tr>
+            <td>Operation Start</td>
+            <td><p class="text-muted">{{ flightoperation.start_datetime }}</p></td>
+        </tr>
+        <tr>
+            <td>Opearation End</td>
+            <td><p class="text-muted">{{ flightoperation.end_datetime }}</p></td>
+        </tr>
+        <tr>
+            <td>Ready to fly? </td>
+            <td>
+                <p>Use the <a href="https://github.com/openskies-sh/mavlink-aerobridge/tree/master/mavsdk-aerobridge">MavSDK <-> Aerobridge</a> tooling and execute the two step process:</p>
+                <code>python 1_pre_flight_checks_load_operation.py -o {{flightoperation.id}}</code>
+                <br>            
+                <code>python 2_arm_drone_conduct_mission.py</code>
+                
+                <p>&nbsp;</p>  
+            </td>
+        </tr>
+        <tr>
+            <td>Upload Logs</td>
+            <td>            
+                <code>python 3_post_flight_upload_flight_logs.py -o {{flightoperation.id}}</code>
+            </td>
+        </tr>
+    </table>
 
-<p class="text-muted">Last Updated at {{ flightoperation.updated_at|date:'Y-m-d H:i' }} </p>
-<br>
-{% if flightoperation.is_editable %}
-    <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>    
-{% else %}    
-    <p class='text-muted'>This Flight Operation has a permission associated with it and therefore it cannot be edited.</p><p>{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
-{% endif %}
+    <small class="text-muted">Last Updated at {{ flightoperation.updated_at|date:'Y-m-d H:i' }}</small>
 
-
+    <br>
+    <br>
+        {% if flightoperation.is_editable %}
+            <p><a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>    
+        {% else %}    
+            <p class='text-muted'>This Flight Operation has a permission associated with it and therefore it cannot be edited.</p><p>{% if not flightpermission %}<a class="btn btn-primary" href="/launchpad/flightoperations/{{flightoperation.id}}/permission"><b>Issue Flight Permission</b></a>{% else %}<a class="btn btn-secondary" href="/launchpad/flightpermissions/{{flightpermission.id}}/detail"><b>See Flight Permission</b></a>{% endif %}</p>
+        {% endif %}
 </div>
 
 <script src="{% static "jetway/leafletjs/leaflet.js" %}"  type="text/javascript"></script>
@@ -105,9 +104,7 @@
         
         var fg = L.featureGroup().addTo(map);
         let geo_json = {{flightoperation.flight_plan.geo_json|safe}};
-        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        // }).addTo(map);
+        
         map.addLayer(new L.StamenTileLayer("toner-lite", {
                         detectRetina: true
                     }));
