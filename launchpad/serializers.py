@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from registry.models import Activity, AircraftComponentSignature, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
+from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
 from gcs_operations.models import FlightPlan
 
 class PersonSerializer(serializers.ModelSerializer):         
@@ -69,17 +69,18 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
 class AircraftComponentSerializer(serializers.ModelSerializer):
     component_common_name = serializers.ReadOnlyField()
     status_display = serializers.SerializerMethodField()
+    aircraft_details = serializers.SerializerMethodField()
+
+
+    def get_aircraft_details(self, obj):
+        return obj.aircraft_details
+        
     def get_status_display(self, obj):
         x = obj.get_status_display()        
         return x
     class Meta:
         model = AircraftComponent
-        exclude = ('is_active',)
-
-class AircraftComponentSignatureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AircraftComponentSignature
-        fields = '__all__'
+        exclude = ('is_active','aerobridge_id',)
 
 class AircraftModelSerializer(serializers.ModelSerializer):
     class Meta:

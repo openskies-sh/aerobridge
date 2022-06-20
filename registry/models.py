@@ -1,4 +1,6 @@
 from decimal import Decimal
+from re import L
+from turtle import Turtle
 from django.db import models
 import uuid
 # Create your models here.
@@ -19,11 +21,15 @@ from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
 from common.helpers import normalize
 from django.db.models.functions import Coalesce
+from aerobridge_id_operations.utils import IDGenerator
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
 def two_year_expiration():
     return datetime.combine(date.today() + relativedelta(months=+24), datetime.min.time()).replace(tzinfo=timezone.utc)
 
+def generate_aerobridge_id() -> str:
+    my_id_generator = IDGenerator()
+    return my_id_generator.generate_aerobridge_id()
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -1210,7 +1216,7 @@ class AircraftComponent(models.Model):
     )    
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    
+    aerobridge_id = models.CharField(max_length=140, default= generate_aerobridge_id)
     is_active = models.BooleanField(default=True)
 
     history = HistoricalRecords()
@@ -1229,7 +1235,7 @@ class AircraftComponent(models.Model):
     )
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
-        help_text=_('Internal part description')
+        help_text=_('Specify an internal description for this component e.g: x-2')
     )
     updated = models.DateField(auto_now=True, null=True)
 
@@ -1284,53 +1290,19 @@ class AircraftComponent(models.Model):
             return self.master_component.get_family_display()
         return '  '.join(items)
 
-
-    def check_add_to_bom(self, parent, raise_error=False, recursive=True):
-        """
-        Check if this Part can be added to the BOM of another part.
-        This will fail if:
-        a) The parent part is the same as this one
-        b) The parent part is used in the BOM for *this* part
-        c) The parent part is used in the BOM for any child parts under this one
-        """
-
-        result = True
-
-        try:
-            if self.pk == parent.pk:
-                raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                    p1=str(self),
-                    p2=str(parent)
-                )})
-
-            bom_items = self.get_bom_items()
-
-            # Ensure that the parent part does not appear under any child BOM item!
-            for item in bom_items.all():
-
-                # Check for simple match
-                if item.sub_part == parent:
-                    raise ValidationError({'sub_part': _("Part '{p1}' is  used in BOM for '{p2}' (recursive)").format(
-                        p1=str(parent),
-                        p2=str(self)
-                    )})
-
-                # And recursively check too
-                if recursive:
-                    result = result and item.sub_part.check_add_to_bom(
-                        parent,
-                        recursive=True,
-                        raise_error=raise_error
-                    )
-
-        except ValidationError as e:
-            if raise_error:
-                raise e
-            else:
-                return False
-
-        return result
-
+    @property
+    def aircraft_details(self):
+        all_assemblies = AircraftAssembly.objects.all()
+        relevant_aircrafts = []
+        for assembly in all_assemblies:
+            if self in assembly.components.all(): 
+                aircraft = Aircraft.objects.get(final_assembly = assembly)
+                
+                if aircraft: 
+                    relevant_aircrafts.append({'id':str(aircraft.id), 'name':aircraft.name})        
+                else:
+                    relevant_aircrafts.append({'id':'000', 'name':'Not installed in any aircraft'})        
+        return relevant_aircrafts
 
     class Meta:
         constraints = [
@@ -1348,24 +1320,6 @@ class AircraftComponent(models.Model):
         
     def __str__(self): 
         return self.component_common_name
-
-
-class AircraftComponentSignature(models.Model):
-    ''' This model saves information about the component signature on a the block chain '''
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    component = models.OneToOneField(AircraftComponent, on_delete=models.CASCADE, limit_choices_to={'is_active': True},
-                                     help_text="Select a component to link to this signature")
-    signature_url = models.URLField(
-        help_text="The digital signature / address of this object on the block chain. Please refer to the README on registering components on the block chain.",validators= [validate_url])
-    history = HistoricalRecords()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.component.master_component.name
-
-    def __str__(self):
-        return self.component.master_component.name
 
 
 class AircraftAssembly(models.Model):
