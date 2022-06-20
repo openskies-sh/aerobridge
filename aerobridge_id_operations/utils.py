@@ -56,4 +56,4 @@ class IDGenerator():
         return (separator.join(new_id))
     
     def generate_aerobridge_id(self):
-        return self._generate_aerobridge_id(list(english_words_lower_alpha_set),3,'_')
+        return self._generate_aerobridge_id(list(english_words_lower_alpha_set),3,'-')
