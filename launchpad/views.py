@@ -16,7 +16,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
-from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer,AircraftComponentUpdateSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
@@ -1064,12 +1064,12 @@ class AircraftComponentsUpdate(APIView):
 
     def get(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
-        serializer = AircraftComponentSerializer(aircraft_component)
+        serializer = AircraftComponentUpdateSerializer(aircraft_component)
         return Response({'serializer': serializer, 'aircraft_component': aircraft_component})
 
     def post(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
-        serializer = AircraftComponentSerializer(aircraft_component, data=request.data)
+        serializer = AircraftComponentUpdateSerializer(aircraft_component, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'aircraft_component': aircraft_component,'errors':serializer.errors})
         serializer.save()

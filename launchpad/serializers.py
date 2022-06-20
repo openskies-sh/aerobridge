@@ -80,8 +80,23 @@ class AircraftComponentSerializer(serializers.ModelSerializer):
         return x
     class Meta:
         model = AircraftComponent
-        exclude = ('is_active','aerobridge_id',)
+        exclude = ('is_active',)
 
+class AircraftComponentUpdateSerializer(serializers.ModelSerializer):
+    component_common_name = serializers.ReadOnlyField()
+    status_display = serializers.SerializerMethodField()
+    aircraft_details = serializers.SerializerMethodField()
+
+
+    def get_aircraft_details(self, obj):
+        return obj.aircraft_details
+        
+    def get_status_display(self, obj):
+        x = obj.get_status_display()        
+        return x
+    class Meta:
+        model = AircraftComponent
+        exclude = ('is_active','aerobridge_id',)
 class AircraftModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftModel
