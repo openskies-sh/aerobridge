@@ -15,8 +15,8 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer
-from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer,AircraftComponentUpdateSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer
+from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
