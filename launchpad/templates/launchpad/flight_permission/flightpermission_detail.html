@@ -14,7 +14,7 @@
   </nav>
 <div class="row mb-3">
     <h1>Permission Details</h1>
-    <p>Please find below the details of flight permission artefacts provided by Aerobridge.</p>
+    <p>Please find below the details of flight permission tokens provided by Aerobridge</p>
     <br>
 </div>
 <div  class="row mb-3">
@@ -31,8 +31,10 @@
             </td>
         </tr>
         <tr>
-            <td>Status Code</td>
-            <td><mark>{{ flightpermission.status_code }}</mark></a>
+            <td>Status</td>
+            <td>
+                <button type="button" class="btn {% if flightpermission.status_code == 'granted' %}btn-outline-success{% elif flightpermission.status_code == 'pending'%}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ flightpermission.status_code|upper }}</button>
+                </a>
             </td>
         </tr>        
         <tr>
@@ -48,6 +50,6 @@
             </td>
         </tr>
     </table>
-    <p class="text-muted">Created At - {{ flightpermission.created_at }}</p>
+    <small class="text-muted">Created At - {{ flightpermission.created_at }}</small>
 </div>
 {% endblock %}
