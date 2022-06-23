@@ -22,8 +22,8 @@
     <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
   </div>
 <div>
-<h2>Aircraft Model and Blueprint</h2>
-
+<h2>Aircraft Model</h2>
+<p>Basic information about your aircraft, you can explore the master components and attach documentation associated with this aricraft.</p>
 <br>
 <table class="table">
     <thead>
@@ -72,8 +72,7 @@
     
 </table>
 
-<h2>Blueprint</h2>
-
+<h2>Blueprint</h2><p>Below is a list of components that form the Bill of Material for the aircraft, see all <a href="/launchpad/aircraft-master-components">master components</a>:</p>
 <table class="table">
     <thead>
         <tr>
@@ -83,7 +82,6 @@
     </thead>
     <tbody>
         <tr><td>                        
-            <p>Below is a list of components that form the Bill of Material for the aircraft, see all <i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components">master components</a>:</p>
             <ul class="list-group list-group-flush">
                 {% if aircraft_master_components %}
                     {% for aircraft_master_component in aircraft_master_components %}                            
@@ -95,9 +93,9 @@
             </ul>
         </td></tr>
 </tbody>
-</table>
+</table>    
+<small class="text-muted">Last Updated at {{aircraft_model.updated_at|date:'Y-m-d H:i' }}</small>
 <br>
-<p class="text-muted">Last Updated at {{aircraft_model.updated_at|date:'Y-m-d H:i' }} </p>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/aircraft-models/{{aircraft_model.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_master_components %}<a class="btn btn-secondary" href="/launchpad/aircraft-models/{{aircraft_model.id}}/master-components"><b>See component blueprint</b></a>{% endif %}</p>
 
