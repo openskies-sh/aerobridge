@@ -31,21 +31,20 @@
                 <ul><br><table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">Total Stock (units)</th>
-                      <th scope="col">Minimum Stock</th>
-                      <th scope="col">Allocated Stock</th>
-                      <th scope="col">Net Stock</th>
-                      <th scope="col">Website</th>
+                      <th scope="col"><span data-bs-toggle="tooltip" title="The number of these components installed on a drone">Allocated Stock <i class="bi bi-question-circle-fill"></i></span></th>
+                      <th scope="col"><span data-bs-toggle="tooltip" title="The total number of components available for new assemblies">Net Stock <i class="bi bi-question-circle-fill"></i></span></th>
+                      <th scope="col"><span data-bs-toggle="tooltip" title="Set the desired threshold that you would like for this component">Minimum Threshold <i class="bi bi-question-circle-fill"></i></span></th>
+                      <th scope="col"><span data-bs-toggle="tooltip" title="Total number of components available for assembly">Stock on hand <i class="bi bi-question-circle-fill"></i></span></th>
                       <th scope="col"><span data-bs-toggle="tooltip" title="Did you receive a order of this part recently? Use these links to add to Aerobridge.">Acknowledge Custody <i class="bi bi-question-circle-fill"></i></span> </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{aircraft_master_component.total_stock }}</td>
-                      <td>{{aircraft_master_component.minimum_stock}}</td>
-                      <td>{{aircraft_master_component.total_stock}}</td>
+                      <td>{{aircraft_master_component.allocated_stock}}</td>
                       <td>{{aircraft_master_component.net_stock}}</td>
-                      <td>{% if aircraft_master_component.default_supplier %} <a href="{{aircraft_master_component.supplier_url}}"><i class="bi bi-cart-fill"></i> Order Now</a>{% else %}{{aircraft_master_component.default_supplier}}{% endif %}</td><td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add received component</b></a></td>
+                      <td>{{aircraft_master_component.minimum_stock}}</td>
+                      <td>{{aircraft_master_component.total_stock }}</td>
+                      <td><a class="btn btn-outline-dark" href="/launchpad/aircraft-components/new"><b>&#43; Add received component</b></a></td>
                     </tr>
                   </tbody>
                 </table>

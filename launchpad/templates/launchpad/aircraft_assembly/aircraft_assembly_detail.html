@@ -35,12 +35,18 @@
       </tr>
   </thead>
   <tr>
+      <td>Assembly ID</td>
+      <td><code>{{ aircraft_assembly.id}}</code></td>    
+  </tr>
+  <tr>
       <td>Model</td>
       <td><h5>{{ aircraft_assembly.model}}</h5></td>    
   </tr>
   <tr>
       <td>Assembly Status</td>
-      <td><mark>{{ aircraft_assembly.get_status_display}}</mark></td>    
+      <td>
+        <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-success{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button>
+      </td>    
   </tr>
   
   
