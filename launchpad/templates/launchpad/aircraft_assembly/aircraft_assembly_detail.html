@@ -16,57 +16,54 @@
 {% endblock %}
 {% block content %}
 
-  
-<div class="alert alert-primary" role="alert">
-  <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
-</div>
-<br>
-<br>
-<div>
-<h2>Assembly Detail</a></h2>
-<div class="row">
-  <div class="col-8">
+    
+  <div class="alert alert-primary" role="alert">
+    <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
+  </div>
+  <br>
+  <br>
+  <div>
+  <h2>Assembly Detail</a></h2>
+  <div class="row">
+    <div class="col-8">
+        <table  class="table">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tr>
+              <td>Assembly ID</td>
+              <td><code>{{ aircraft_assembly.id}}</code></td>    
+          </tr>
+          <tr>
+              <td>Model</td>
+              <td><h5>{{ aircraft_assembly.model}}</h5></td>    
+          </tr>
+          <tr>
+              <td>Assembly Status</td>
+              <td>
+                <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-success{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button>
+              </td>    
+          </tr>
+        </table>
+      </div>
+  </div>
+  <br>
+    <h2>Assembled Components</h2>
+    <p>Following are the components installed in this assembly, click on the components to update them. </p>
+    <ul class="list-group list-group-flush">
+      {% if assembly_components %}
+        {% for aircraft_component in assembly_components %}            
+          <li class="list-group-item"><mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary" disabled>{{aircraft_component.get_status_display}}</button>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
+        {% endfor %}
+    {% else %}
+          <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>
+    {% endif %}
+      </ul>
+  <br>
+  <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
 
-<table  class="table">
-  <thead>
-      <tr>
-          <th></th>
-          <th></th>
-      </tr>
-  </thead>
-  <tr>
-      <td>Assembly ID</td>
-      <td><code>{{ aircraft_assembly.id}}</code></td>    
-  </tr>
-  <tr>
-      <td>Model</td>
-      <td><h5>{{ aircraft_assembly.model}}</h5></td>    
-  </tr>
-  <tr>
-      <td>Assembly Status</td>
-      <td>
-        <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-success{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button>
-      </td>    
-  </tr>
-  
-  
-</table>
-    </div>
-</div>
-<br>
-  <h2>Assembled Components</h2>
-  <p>Following are the components installed in this assembly, click on the components to update them. </p>
-  <ul class="list-group list-group-flush">
-    {% if assembly_components %}
-      {% for aircraft_component in assembly_components %}            
-        <li class="list-group-item"><mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary" disabled>{{aircraft_component.get_status_display}}</button>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
-      {% endfor %}
-  {% else %}
-        <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>
-  {% endif %}
-    </ul>
-<br>
-<p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
-
-</div>
+  </div>
 {% endblock %}
