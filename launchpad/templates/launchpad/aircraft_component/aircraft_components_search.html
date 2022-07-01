@@ -1,0 +1,53 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Manufacturing
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="bi bi-award-fill"></i> Verify Aircraft Components
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+    
+    <h2><i class="bi bi-award-fill"></i> Verify Aircraft Component</h2>
+    <p>A list of all the components in the company, a component can be linked to an aircraft. Below are a list of components in the management server.</p>
+</div>
+<div class="row mb-3">
+    <div class="col-md-4 themed-grid-col">
+      <form action="{% url 'verify-aircraft-components' %}" method="get">
+        <div class="mb-3">
+          <label for="aerobridge_id" class="form-label">Aerobridge ComponentID</label>
+          <input type="text" name="q" class="form-control" id="aerobridge_id" aria-describedby="aerobridge_id_help">
+          <div id="aerobridge_id_help" class="form-text">Enter your Aerobridge Component ID.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Verify</button>
+      </form>
+      <br><br>
+      <div class="col-md-6">
+
+        <ul class="list-group list-group-flush">
+            {% if aircraft_components %}
+                {% for aircraft_c in aircraft_components.results %}  
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <code>{{aircraft_c.aerobridge_id}}</code>                  
+                    </div>
+    
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item"><p class="text-muted"><i>No Components Found</i></p></li>
+            {% endif %}
+        </ul>
+      </div>
+</div>
+  <div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

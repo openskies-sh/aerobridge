@@ -1,9 +1,8 @@
-from io import BufferedIOBase
 
-from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
-
+from rest_framework import generics
+from rest_framework import filters
 from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
 from registry.models import AircraftComponent , AircraftAssembly
@@ -31,13 +30,13 @@ import arrow
 from rest_framework.parsers import MultiPartParser
 import boto3
 from gcs_operations import data_signer, permissions_issuer
-from botocore.exceptions import ClientError
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 import os
-from rest_framework.pagination import LimitOffsetPagination
+
 
 load_dotenv(find_dotenv())
 
@@ -479,6 +478,8 @@ class AircraftComponents(APIView):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         serializer = AircraftFullSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
+
+
 
 class AircraftUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -1088,7 +1089,26 @@ class AircraftComponentsCreateView(CreateView):
             return redirect('aircraft-components-list')
 
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
-      
+
+class AircraftComponentsSearchView(generics.ListAPIView):
+    search_fields = ['aerobridge_id']
+    filter_backends = (filters.SearchFilter,)
+    queryset = AircraftComponent.objects.all()
+    serializer_class = AircraftComponentSerializer    
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_search.html' 
+
+class SearchResultsView(APIView):
+    model = AircraftComponent
+    template_name = 'launchpad/aircraft_component/aircraft_components_search.html' 
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q")
+        aircraft_components = AircraftComponent.objects.filter(
+            Q(aerobridge_id__icontains=query)
+        )
+        return aircraft_components
+             
 ### Company Views
     
 class CompaniesList(APIView):
