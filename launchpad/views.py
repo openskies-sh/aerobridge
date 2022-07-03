@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftSearchComponentSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
@@ -1090,25 +1090,32 @@ class AircraftComponentsCreateView(CreateView):
 
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
 
-class AircraftComponentsSearchView(generics.ListAPIView):
-    search_fields = ['aerobridge_id']
-    filter_backends = (filters.SearchFilter,)
-    queryset = AircraftComponent.objects.all()
-    serializer_class = AircraftComponentSerializer    
+class AircraftComponentsSearchView(APIView):
+    model = AircraftComponent
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/aircraft_component/aircraft_components_search.html' 
 
-class SearchResultsView(APIView):
-    model = AircraftComponent
-    template_name = 'launchpad/aircraft_component/aircraft_components_search.html' 
-
     def get_queryset(self):  # new
-        query = self.request.GET.get("q")
-        aircraft_components = AircraftComponent.objects.filter(
-            Q(aerobridge_id__icontains=query)
-        )
+        query = self.request.GET.get("q1", None)
+        query1 = self.request.GET.get("q2", None)
+        query2 = self.request.GET.get("q3", None)
+        q_list = [query, query1, query2]
+        # raise Exception(q_list)
+        if None not in q_list:
+
+            key = '-'.join(q_list)
+            # raise Exception(key)
+            aircraft_components = AircraftComponent.objects.filter(
+            Q(aerobridge_id=key)
+            )
+        else: 
+            aircraft_components = AircraftComponent.objects.none()
         return aircraft_components
-             
+
+    def get(self, request):
+        components = self.get_queryset()
+        return Response({'aircraft_components': components})
+        
 ### Company Views
     
 class CompaniesList(APIView):

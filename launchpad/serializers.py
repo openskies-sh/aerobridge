@@ -66,11 +66,16 @@ class FlightPlanReadSerializer(serializers.ModelSerializer):
         ordering = ['-created_at']
 
 
+class AircraftSearchComponentSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AircraftComponent
+        fields = ('id','aerobridge_id')
+
 class AircraftComponentSerializer(serializers.ModelSerializer):
     component_common_name = serializers.ReadOnlyField()
     status_display = serializers.SerializerMethodField()
     aircraft_details = serializers.SerializerMethodField()
-
 
     def get_aircraft_details(self, obj):
         return obj.aircraft_details
