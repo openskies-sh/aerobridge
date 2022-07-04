@@ -1,0 +1,83 @@
+{% extends "launchpad/layout.html" %}
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      Manufacturing
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <i class="bi bi-award-fill"></i> Verify Aircraft Components
+    </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+  <h2><i class="bi bi-award-fill"></i> Verify Aircraft Component</h2>
+  <p>You can verify the authencity of a component by checking on the Managment Server. Depending on the configuration a
+    component is either embossed on the part and by default it is a three word combination for e.g.
+    <code>lexical-safari-prognosis</code>
+  </p>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-6 themed-grid-col">
+
+    <form action="{% url 'verify-aircraft-components' %}" method="get">
+      
+        <div class="row">
+          <div class="col">
+            <input type="text" name="q1" class="form-control" id="aerobridge_id_1"
+              aria-describedby="aerobridge_id_help">
+            <label for="aerobridge_id_1" class="form-label">First word</label>
+          </div>
+          <div class="col-1"><i class="bi bi-dash-lg"></i></div>
+          <div class="col">
+            <input type="text" name="q2" class="form-control" id="aerobridge_id_2"
+              aria-describedby="aerobridge_id_help">
+            <label for="aerobridge_id_2" class="form-label">Second word</label>
+          </div>
+          <div class="col-1"><i class="bi bi-dash-lg"></i></div>
+          <div class="col">
+            <input type="text" name="q3" class="form-control" id="aerobridge_id_3"
+              aria-describedby="aerobridge_id_help">
+            <label for="aerobridge_id_3" class="form-label">Third word</label>
+          </div>
+          <div id="aerobridge_id_help" class="form-text">Need Help? Your Aerobridge ID should be embossed on the component or have a sticker / QR code on it.</div>
+        </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Verify</button>
+    </form>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Component Verification Status</h2>
+    <p>The status of your component on Aerobridge, if the component is not available on Aerobridge, the management server will share appropriate messages. If you have proper authorisations, you can also see the component history.</p>
+    <ul class="list-group list-group-flush">
+      {% if aircraft_components %}
+      {% for aircraft_c in aircraft_components %}
+      <li class="list-group-item d-flex">
+        <div class="ms-2 me-auto">
+          <h5 class="alert alert-secondary">{{aircraft_c.aerobridge_id}}</h5>
+        
+          <h2 class="alert alert-success"><i class="bi bi-check-circle-fill"></i> Verified</h2>          
+          <h6><a href="/launchpad/aircraft-components/{{aircraft_c.aerobridge_id}}/history"><i class="bi bi-clock-history"></i> See component history</a></h6>
+        </div>
+      </li>
+
+      {% endfor %}
+      {% else %}
+      <li class="list-group-item">
+        <p class="text-muted"><i>No Components found</i></p>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

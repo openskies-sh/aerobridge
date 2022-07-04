@@ -1,0 +1,79 @@
+{% extends "launchpad/layout.html" %}
+{% block custom_css %}
+<style>
+    ul.timeline {
+        list-style-type: none;
+        position: relative;
+    }
+    ul.timeline:before {
+        content: ' ';
+        background: #d4d9df;
+        display: inline-block;
+        position: absolute;
+        left: 29px;
+        width: 2px;
+        height: 100%;
+        z-index: 400;
+    }
+    ul.timeline > li {
+        margin: 20px 0;
+        padding-left: 20px;
+    }
+    ul.timeline > li:before {
+        content: ' ';
+        background: white;
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid #000000;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        z-index: 400;
+    }
+</style>    
+{% endblock %}
+
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+        Manufacturing
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <i class="bi bi-clock-history"></i> Aircraft Component History
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+  <h2><i class="bi bi-clock-history"></i> Aircraft Component History</h2>
+  <p>Changes to Aircraft Components in Aerobridge are shown below, any changes and updates are automatically logged by Aerobridge. Some of the component history depicts changes in Status etc using internal terminology.</p>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Component History</h3>
+    <ul class="timeline">
+      {% if aircraft_component_history %}
+      {% for aircraft_c_h in aircraft_component_history %}
+      <li>
+        <p class="text-muted">{{aircraft_c_h.0.history_date|date:"M d, Y" }}</p>
+        <div class="ms-2 me-auto">
+          <code>{{aircraft_c_h.1}}</code>          
+        </div>
+      </li>
+      {% endfor %}
+      {% else %}
+      <li>
+        <p class="text-muted"><i>The component you have selected does not have any history associated with it.</i></p>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

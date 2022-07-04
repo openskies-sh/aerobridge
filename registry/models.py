@@ -12,12 +12,11 @@ from simple_history.models import HistoricalRecords
 from django.core.exceptions import ValidationError
 from common.settings import currency_code_default as cc_default
 from common.validators import validate_currency_code, validate_url, validate_flight_controller_id
-from common.status_codes import BuildStatus, StatusCode, StockStatus
-from django.db.models import Sum, Q
+from common.status_codes import BuildStatus, StockStatus
+from django.db.models import Q
 from moneyed import CURRENCIES
 from django.core.validators import MinValueValidator
 from common.helpers import normalize
-from django.db.models.functions import Coalesce
 from aerobridge_id_operations.utils import IDGenerator
 # Source https://stackoverflow.com/questions/63830942/how-do-i-validate-if-a-django-urlfield-is-from-a-specific-domain-or-hostname
 
@@ -104,7 +103,6 @@ class Address(models.Model):
 
     # Create your models here.
 
-
 class Activity(models.Model):
     ACTIVITYTYPE_CHOICES = ((0, _('NA')), (1, _('Open')), (2, _('Specific')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -120,7 +118,6 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Authorization(models.Model):
     AREATYPE_CHOICES = ((0, _('Unpopulated')), (1, _('Sparsely Populated')), (2, _('Densely Populated')),)
@@ -158,8 +155,6 @@ class Authorization(models.Model):
     def __str__(self):
         return self.title
 
-
-
 class Test(models.Model):
     TESTTYPE_CHOICES = (
     (0, _('Remote pilot online theoretical competency')), (1, _('Certificate of remote pilot competency')),
@@ -178,8 +173,6 @@ class Test(models.Model):
     def __unicode__(self):
         return self.name
 
-
-
 class TypeCertificate(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type_certificate_id = models.CharField(max_length=280)
@@ -193,13 +186,11 @@ class TypeCertificate(models.Model):
     def __str__(self):
         return self.type_certificate_holder
 
-
 class Company(models.Model):
 
     COMPANY_TYPE = (
     (0, _('Supplier')), (1, _('Manufacturer')), (2, _('Operator')), (3, _('Customer')),(4, _('Assembler')), )
 
-    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=140, help_text="Full legal name of the manufacturing entity")
     common_name = models.CharField(max_length=140, help_text="Common name for the manufacturer e.g. Skydio")
@@ -333,8 +324,6 @@ class Firmware(models.Model):
 
     def __str__(self):
         return self.version
-
-
 
 class Operator(models.Model):
     OPTYPE_CHOICES = ((0, _('NA')), (1, _('LUC')), (2, _('Non-LUC')), (3, _('AUTH')), (4, _('DEC')),)
@@ -1226,10 +1215,11 @@ class AircraftComponent(models.Model):
 
     invoice_receipt = models.ForeignKey(AerobridgeDocument, on_delete=models.CASCADE, help_text="Link an invoice or receipt document associated with the purchase of this component")
 
-    master_component = models.ForeignKey(AircraftMasterComponent, null=True, on_delete= models.CASCADE,
+    master_component = models.ForeignKey(AircraftMasterComponent, null=True, blank=True, on_delete= models.CASCADE,
         verbose_name=_('Master Component'),
         help_text=_('If no supplier exists, use the master component')
     )
+    
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
         help_text=_('Specify an internal description for this component e.g: x-2')
@@ -1267,6 +1257,7 @@ class AircraftComponent(models.Model):
         else: 
             items.append(self.master_component.name)
 
+        items.append(self.aerobridge_id)
         return ' - '.join(items)
 
     @property

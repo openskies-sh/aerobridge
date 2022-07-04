@@ -1,9 +1,8 @@
-from io import BufferedIOBase
 
-from rest_framework import pagination
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
-
+from rest_framework import generics
+from rest_framework import filters
 from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
 from registry.models import AircraftDetail as ad
 from registry.models import AircraftComponent , AircraftAssembly
@@ -15,7 +14,7 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftSearchComponentSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
@@ -31,13 +30,13 @@ import arrow
 from rest_framework.parsers import MultiPartParser
 import boto3
 from gcs_operations import data_signer, permissions_issuer
-from botocore.exceptions import ClientError
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 import os
-from rest_framework.pagination import LimitOffsetPagination
+
 
 load_dotenv(find_dotenv())
 
@@ -479,6 +478,8 @@ class AircraftComponents(APIView):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         serializer = AircraftFullSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
+
+
 
 class AircraftUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -1088,7 +1089,56 @@ class AircraftComponentsCreateView(CreateView):
             return redirect('aircraft-components-list')
 
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
-      
+
+class AircraftComponentsSearchView(APIView):
+    model = AircraftComponent
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_search.html' 
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get("q1", None)
+        query1 = self.request.GET.get("q2", None)
+        query2 = self.request.GET.get("q3", None)
+        q_list = [query, query1, query2]
+        # raise Exception(q_list)
+        if None not in q_list:
+
+            key = '-'.join(q_list)
+            # raise Exception(key)
+            aircraft_components = AircraftComponent.objects.filter(
+            Q(aerobridge_id=key)
+            )
+        else: 
+            aircraft_components = AircraftComponent.objects.none()
+        return aircraft_components
+
+    def get(self, request):
+        components = self.get_queryset()
+        return Response({'aircraft_components': components})
+        
+class AircraftComponentsHistoryView(APIView):
+    model = AircraftComponent
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_history.html' 
+
+    def get(self, request, aerobridge_id):
+        component = get_object_or_404(AircraftComponent, aerobridge_id=aerobridge_id)
+        all_component_history = component.history.all()
+        all_component_history_diff = []
+        old_record = None
+        for current_component_history in all_component_history:
+            if old_record:
+                delta = current_component_history.diff_against(old_record)                
+                for change in delta.changes:                    
+                    all_component_history_diff.append([current_component_history, ("{} changed from {} to {}".format(change.field, change.old, change.new))])
+                
+            else:
+                all_component_history_diff.append([current_component_history, "Initial part creation"])
+            old_record = current_component_history
+                
+
+        return Response({'aircraft_component_history': all_component_history_diff })
+        
 ### Company Views
     
 class CompaniesList(APIView):
