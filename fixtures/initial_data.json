@@ -1044,27 +1044,77 @@
     }
   },
   {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 1,
+    "fields": {
+      "id": "058780b0-8d30-4da0-a7bc-38fc21539329",
+      "aerobridge_id": "onyx-burgher-meat",
+      "is_active": true,
+      "description": "x-12-1",
+      "updated": "2022-07-04",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 50,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:59:30.541Z",
+      "updated_at": "2022-07-04T10:59:58.592Z",
+      "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
+      "history_date": "2022-07-04T10:59:58.600Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
+    "model": "registry.historicalaircraftcomponent",
+    "pk": 2,
+    "fields": {
+      "id": "058780b0-8d30-4da0-a7bc-38fc21539329",
+      "aerobridge_id": "onyx-burgher-meat",
+      "is_active": true,
+      "description": "x-12-1",
+      "updated": "2022-07-04",
+      "stocktake_date": null,
+      "review_needed": false,
+      "status": 60,
+      "purchase_price": null,
+      "created_at": "2022-01-14T13:59:30.541Z",
+      "updated_at": "2022-07-04T11:00:22.117Z",
+      "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
+      "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
+      "master_component": null,
+      "history_date": "2022-07-04T11:00:22.131Z",
+      "history_change_reason": null,
+      "history_type": "~",
+      "history_user": 1
+    }
+  },
+  {
     "model": "registry.aircraftcomponent",
     "pk": "058780b0-8d30-4da0-a7bc-38fc21539329",
     "fields": {
+      "aerobridge_id": "onyx-burgher-meat",
       "is_active": true,
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
       "master_component": null,
       "description": "x-12-1",
-      "updated": null,
+      "updated": "2022-07-04",
       "stocktake_date": null,
       "review_needed": false,
-      "status": 10,
+      "status": 60,
       "purchase_price": null,
       "created_at": "2022-01-14T13:59:30.541Z",
-      "updated_at": "2022-04-05T10:53:10.664Z"
+      "updated_at": "2022-07-04T11:00:22.117Z"
     }
   },
   {
     "model": "registry.aircraftcomponent",
     "pk": "19ab0e6c-4a71-47d1-ae6e-333edfe6b6c0",
     "fields": {
+      "aerobridge_id": "valve-pulverable-division",
       "is_active": true,
       "supplier_part": "d4aec0ef-a3ea-47cc-84d7-806387118c93",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1083,6 +1133,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "227b2cea-cd71-4354-8d4a-52b5f1a6d3b7",
     "fields": {
+      "aerobridge_id": "caracas-simonson-expression",
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1101,6 +1152,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "35b73077-9a89-4445-aeda-b85c5d815751",
     "fields": {
+      "aerobridge_id": "devise-bloomington-goff",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1119,6 +1171,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "3af0ab13-3ab1-4c54-8a81-2ec02b38ce8a",
     "fields": {
+      "aerobridge_id": "denouement-alloy-helpmate",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1137,6 +1190,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "4bee4e75-71ce-4bc2-84e1-f993b10603a6",
     "fields": {
+      "aerobridge_id": "boathouse-evaluate-rout",
       "is_active": true,
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1155,6 +1209,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "4c8e882c-2ece-476f-89e1-4e51f9c06119",
     "fields": {
+      "aerobridge_id": "carib-bellflower-anterior",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1173,6 +1228,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "56e19c92-0079-4880-b5bf-470bc56ed267",
     "fields": {
+      "aerobridge_id": "cassock-innocent-gamma",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1191,6 +1247,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "5acdaf52-fe20-47a7-8fc5-befbd8815a80",
     "fields": {
+      "aerobridge_id": "cheryl-modesty-seaward",
       "is_active": true,
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1209,6 +1266,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "5afd90d3-fcde-4333-a770-1c7700ee6ca3",
     "fields": {
+      "aerobridge_id": "coypu-bullwhack-headman",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1227,6 +1285,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "60532c18-2822-483e-8abe-4151c5a270aa",
     "fields": {
+      "aerobridge_id": "austere-put-foursome",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1245,6 +1304,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "60718d21-1f9a-4fa6-858c-39a66087feb8",
     "fields": {
+      "aerobridge_id": "trash-peroxide-incise",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1263,6 +1323,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "65e5364d-a734-4b8a-8c7c-d1bc85ee5439",
     "fields": {
+      "aerobridge_id": "permissive-eviscerate-esquire",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1281,6 +1342,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "69532104-3187-4170-b52f-376b0448dce2",
     "fields": {
+      "aerobridge_id": "sistine-hawley-assault",
       "is_active": true,
       "supplier_part": "f5e2b749-8128-4572-8aaf-b6190540ef74",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1299,6 +1361,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "6ec9c803-12ff-424b-9260-4de539f99fcf",
     "fields": {
+      "aerobridge_id": "ashland-riboflavin-octile",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1317,6 +1380,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "77a42364-cca9-4b2e-bc84-e8c70512ffc9",
     "fields": {
+      "aerobridge_id": "fluent-example-dreg",
       "is_active": true,
       "supplier_part": null,
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1335,6 +1399,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "81723be7-0ddb-45a9-8ede-a56aac190792",
     "fields": {
+      "aerobridge_id": "aerofoil-filly-protrude",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1353,6 +1418,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "8bc346cb-a622-41ae-99a4-725a6a9aa2f6",
     "fields": {
+      "aerobridge_id": "dearie-bowditch-proclamation",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1371,6 +1437,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "94d4a765-a391-441c-8894-f1e0b6becf81",
     "fields": {
+      "aerobridge_id": "separable-nazi-medico",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1389,6 +1456,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "99b647e8-2497-4e9f-9c7a-5172a74813d7",
     "fields": {
+      "aerobridge_id": "nap-youthful-crises",
       "is_active": true,
       "supplier_part": "174b5a81-1655-4ef0-8b3b-31564db3b737",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1407,6 +1475,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "acfa92e2-b66d-43a7-abd7-decdb3477786",
     "fields": {
+      "aerobridge_id": "fixate-ammonite-ampex",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1425,6 +1494,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "b3543ea6-ab11-4a75-97e6-740e46529565",
     "fields": {
+      "aerobridge_id": "uproarious-daguerreotype-nocturnal",
       "is_active": true,
       "supplier_part": "3ef8f8f6-9295-4685-8830-8f40f48c8337",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1443,6 +1513,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "b68ae86d-8b64-4f0f-ade3-80c03220dbe8",
     "fields": {
+      "aerobridge_id": "erudite-fantastic-bitnet",
       "is_active": true,
       "supplier_part": "ac2ad65e-9573-4275-8a31-071b67466ada",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1461,6 +1532,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "bd93ab00-4fe6-48a0-8014-ae2448a32ba8",
     "fields": {
+      "aerobridge_id": "expertise-foxtrot-vexatious",
       "is_active": true,
       "supplier_part": "41779957-0b29-4de6-940f-1f6e3e0d4727",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1479,6 +1551,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "cbd3a847-9a72-4662-a9a2-d7b1ea90d5f8",
     "fields": {
+      "aerobridge_id": "capitol-back-annoyance",
       "is_active": true,
       "supplier_part": "76eafbd4-b379-4694-b9e5-5dcec84f2118",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1497,6 +1570,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "d4edfb65-b71f-4130-86de-840e6f23a931",
     "fields": {
+      "aerobridge_id": "codex-liberia-quirinal",
       "is_active": true,
       "supplier_part": "a0381965-0ccf-4a15-b36b-e4b6d6567fce",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1515,6 +1589,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "dff77ca0-2ae1-4c90-ba52-e04154957ed0",
     "fields": {
+      "aerobridge_id": "lysine-prolusion-dramatic",
       "is_active": true,
       "supplier_part": "83157f6b-7992-4d09-a28d-d7b2012620ef",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
@@ -1533,6 +1608,7 @@
     "model": "registry.aircraftcomponent",
     "pk": "f39c4245-1b9d-43a8-9011-06d134fa86d1",
     "fields": {
+      "aerobridge_id": "exalt-sinful-horde",
       "is_active": true,
       "supplier_part": "a670d149-e98b-44c7-a3a7-d2bd745d29f2",
       "invoice_receipt": "f619bfa3-9328-4be0-8a47-56ef61e2b826",
