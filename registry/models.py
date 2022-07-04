@@ -1215,10 +1215,11 @@ class AircraftComponent(models.Model):
 
     invoice_receipt = models.ForeignKey(AerobridgeDocument, on_delete=models.CASCADE, help_text="Link an invoice or receipt document associated with the purchase of this component")
 
-    master_component = models.ForeignKey(AircraftMasterComponent, null=True, on_delete= models.CASCADE,
+    master_component = models.ForeignKey(AircraftMasterComponent, null=True, blank=True, on_delete= models.CASCADE,
         verbose_name=_('Master Component'),
         help_text=_('If no supplier exists, use the master component')
     )
+    
     description = models.CharField(
         max_length=140, blank=True, null=True,verbose_name=_('Description'),
         help_text=_('Specify an internal description for this component e.g: x-2')
@@ -1256,6 +1257,7 @@ class AircraftComponent(models.Model):
         else: 
             items.append(self.master_component.name)
 
+        items.append(self.aerobridge_id)
         return ' - '.join(items)
 
     @property

@@ -18,6 +18,9 @@
     <link href="{% static "jetway/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">    
     <link href="{% static "jetway/bootstrap/css/starter.css" %}" rel="stylesheet">
     <link href="{% static "jetway/bootstrap/css/bootstrap-icons.css" %}" rel="stylesheet">   
+    
+    {% block custom_css %}
+    {% endblock %}
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -120,8 +123,11 @@
                                 <!-- <li><a class="dropdown-item" href="/launchpad/inventories">Inventory</a></li> -->
                                 <!-- <li><a class="dropdown-item" href="/launchpad/aircraft-master-components">BOM</a></li> -->
                                 <li><hr class="dropdown-divider"></li>
-                                <li><h6 class="dropdown-header">Software</h6></li>
+                                <li><small class="dropdown-header">Software</small></li>
                                 <li><a class="dropdown-item" href="/launchpad/firmwares">Firmware</a></li>   
+                                <li><hr class="dropdown-divider"></li>
+                                
+                                <li><a class="dropdown-item" href="/launchpad/aircraft-components/verify">Verify Components</a></li>   
                             </ul>
                         </li>
                     </ul>

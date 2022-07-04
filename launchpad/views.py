@@ -1116,6 +1116,29 @@ class AircraftComponentsSearchView(APIView):
         components = self.get_queryset()
         return Response({'aircraft_components': components})
         
+class AircraftComponentsHistoryView(APIView):
+    model = AircraftComponent
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_history.html' 
+
+    def get(self, request, aerobridge_id):
+        component = get_object_or_404(AircraftComponent, aerobridge_id=aerobridge_id)
+        all_component_history = component.history.all()
+        all_component_history_diff = []
+        old_record = None
+        for current_component_history in all_component_history:
+            if old_record:
+                delta = current_component_history.diff_against(old_record)                
+                for change in delta.changes:                    
+                    all_component_history_diff.append([current_component_history, ("{} changed from {} to {}".format(change.field, change.old, change.new))])
+                
+            else:
+                all_component_history_diff.append([current_component_history, "Initial part creation"])
+            old_record = current_component_history
+                
+
+        return Response({'aircraft_component_history': all_component_history_diff })
+        
 ### Company Views
     
 class CompaniesList(APIView):
