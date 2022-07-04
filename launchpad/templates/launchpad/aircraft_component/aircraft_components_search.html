@@ -16,8 +16,8 @@
 
 <div class="row mb-3">
   <h2><i class="bi bi-patch-check-fill"></i> Verify Aircraft Component</h2>
-  <p>You can verify the authencity of a component by checking on the Managment Server. Depending on the configuration a
-    component is either embossed on the part and by default it is a three word combination for e.g.
+  <p>You can verify the authenticity of a component by checking on the Managment Server. Depending on the configuration a
+    component ID is either embossed on the part and by default it is a three word combination for e.g.
     <code>lexical-safari-prognosis</code>
   </p>
 </div>
@@ -45,7 +45,7 @@
               aria-describedby="aerobridge_id_help">
             <label for="aerobridge_id_3" class="form-label">Third word</label>
           </div>
-          <div id="aerobridge_id_help" class="form-text">Need Help? Your Aerobridge ID should be embossed on the component or have a sticker / QR code on it.</div>
+          <div id="aerobridge_id_help" class="form-text">Need Help? Your Aerobridge ID should be embossed on the component or your component should have a sticker / QR code on it.</div>
         </div>
       <br>
       <button type="submit" class="btn btn-primary">Verify</button>
@@ -57,14 +57,13 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Component Verification Status</h2>
-    <p>The status of your component on Aerobridge, if the component is not available on Aerobridge, the management server will share appropriate messages. If you have proper authorisations, you can also see the component history.</p>
+    <p>The status of your component on Aerobridge is shown below, if the component is not available on Aerobridge, the management server will show a "No Component found" message. If you have proper authorisations, you can also see the component history.</p>
     <ul class="list-group list-group-flush">
       {% if aircraft_components %}
       {% for aircraft_c in aircraft_components %}
       <li class="list-group-item d-flex">
         <div class="ms-2 me-auto">
-          <h5 class="alert alert-secondary">{{aircraft_c.aerobridge_id}}</h5>
-        
+          <h5 class="alert alert-secondary">{{aircraft_c.aerobridge_id}}</h5>        
           <h2 class="alert alert-success"><i class="bi bi-check-circle-fill"></i> Verified</h2>          
           <h6><a href="/launchpad/aircraft-components/{{aircraft_c.aerobridge_id}}/history"><i class="bi bi-clock-history"></i> See component history</a></h6>
         </div>
@@ -73,7 +72,7 @@
       {% endfor %}
       {% else %}
       <li class="list-group-item">
-        <p class="text-muted"><i>No Components found</i></p>
+        <p class="text-muted"><i>No Component found</i></p>
       </li>
       {% endif %}
     </ul>
