@@ -39,7 +39,7 @@
           </tr>
           <tr>
               <td>Model</td>
-              <td><h5>{{ aircraft_assembly.model}}</h5></td>    
+              <td><h6>{{ aircraft_assembly.model}}</h6></td>    
           </tr>
           <tr>
               <td>Assembly Status</td>
@@ -56,7 +56,7 @@
     <ul class="list-group list-group-flush">
       {% if assembly_components %}
         {% for aircraft_component in assembly_components %}            
-          <li class="list-group-item"><mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary" disabled>{{aircraft_component.get_status_display}}</button>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
+          <li class="list-group-item"><mark>{{ aircraft_component.component_category }}</mark>&nbsp;&nbsp;<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/detail">{{ aircraft_component.component_common_name }}</a>&nbsp;&nbsp;<button type="button" class="btn {% if aircraft_component.status == 10 %}btn-outline-secondary{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_component.get_status_display}}</button>&nbsp;&nbsp;<small>{{aircraft_component.procurement_origin}}</small></li>
         {% endfor %}
     {% else %}
           <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here.</i></p></li>

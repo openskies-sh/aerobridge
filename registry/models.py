@@ -1327,6 +1327,24 @@ class AircraftAssembly(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
+    @property
+    def components_ok(self): 
+        ##
+        component_status = []
+        components = self.components.all()
+        for component in components:
+            component_status.append(component.status)
+        c_s = set (component_status)
+        
+        if len(c_s) > 1:
+            return False
+        elif 10 in c_s:
+            return True
+        else: 
+            return False
+
+
+
     def __unicode__(self):
         return ' Model: ' +self.model.name + ' / Series: ' + self.model.series
 

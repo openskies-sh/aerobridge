@@ -466,8 +466,12 @@ class AircraftDetail(APIView):
         except ObjectDoesNotExist as oe: 
             aircraft_extended = 0
 
+        try:
+            aircraft_assembly = AircraftAssembly.objects.get(aircraft=aircraft_id)            
+        except ObjectDoesNotExist as oe: 
+            aircraft_assembly = 0
         serializer = AircraftFullSerializer(aircraft)
-        return Response({'serializer': serializer, 'aircraft': aircraft,'aircraft_extended':aircraft_extended})
+        return Response({'serializer': serializer, 'aircraft': aircraft,'aircraft_extended':aircraft_extended, 'aircraft_assembly':aircraft_assembly})
 
 
 class AircraftComponents(APIView):
