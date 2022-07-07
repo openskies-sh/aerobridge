@@ -23,15 +23,38 @@
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
 
-    <ul class="list-group list-group-flush">
-        {% if aircrafts.results %}
-            {% for aircraft in aircrafts.results %}
-            <li class="list-group-item"><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'></small></li>
-            {% endfor %}
-        {% else %}
-            <li class="list-group-item"><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></li>
-        {% endif %}
-    </ul>
+      <table class="table">
+        <thead>
+          <td><b>Aircraft</b></td>
+          <td><b>Status</b></td>
+          <td><b>Assembly Status</b></td>
+        </thead>
+        <tbody>
+          {% if aircrafts.results %}
+              {% for aircraft in aircrafts.results %}
+          <tr>
+
+            <td><a href="/launchpad/aircrafts/{{aircraft.id}}/detail">{{ aircraft.name }}</a>&nbsp;&nbsp;<small class='text-muted'></small></td>
+            <td><button type="button" class="btn {% if aircraft.status == 1 %}btn-outline-success{% elif aircraft.status  == 0 %}btn-outline-warning{% endif %}" disabled>{% if aircraft.status == 1 %}Active{% elif aircraft.status  == 0 %}Disabled{% endif %}</button></td>
+          <td><button type="button" class="btn {% if aircraft.assembly_status == 1 %}btn-outline-success{% elif aircraft.assembly_status  == 0 %}btn-outline-danger{% endif %}" disabled>{% if aircraft.assembly_status == 1 %}OK{% elif aircraft.assembly_status  == 0 %}Needs Review{% endif %}</button></td>
+
+          </tr>   
+          {% endfor %}
+          {% else %}
+          <tr>
+
+            <td><p class="text-muted"><i>There are no aircrafts added in Aerobridge, once added the list of aircrafts will be displayed here.</i></p></td>
+            <td></td>
+            <td></td>
+
+          </tr>   
+
+          {% endif %}
+
+        </tbody>
+      </table>
+
+      
     <br>
     <nav aria-label="Page navigation example">
       <ul class="pagination">

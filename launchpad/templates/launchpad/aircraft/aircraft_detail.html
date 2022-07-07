@@ -51,7 +51,7 @@
     </tr>
     <tr>
         <td>Assembly Status</td>
-        <td><button type="button" class="btn {% if aircraft_assembly.components_ok == 1 %}btn-outline-success{% elif aircraft_assembly.components_ok  == 0 %}btn-outline-danger{% endif %}" disabled>{% if aircraft_assembly.components_ok == 1 %}OK{% elif aircraft_assembly.components_ok  == 0 %}Not available{% endif %}</button></td>
+        <td><button type="button" class="btn {% if aircraft_assembly.components_ok == 1 %}btn-outline-success{% elif aircraft_assembly.components_ok  == 0 %}btn-outline-danger{% endif %}" disabled>{% if aircraft_assembly.components_ok == 1 %}OK{% elif aircraft_assembly.components_ok  == 0 %}Needs Review{% endif %}</button></td>
     </tr>
 </table>
 
