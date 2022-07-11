@@ -38,7 +38,7 @@
         <tbody>
           <tr>
             <td><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.component_common_name }}</a></td>
-            <td><button type="button" class="btn {% if aircraft_c.status == 10 %}btn-outline-ok{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_c.status_display}}</button></td>
+            <td><button type="button" class="btn {% if aircraft_c.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_c.status_display}}</button></td>
             <td>{% if aircraft_c.aircraft_details %}{% for aircraft_detail in aircraft_c.aircraft_details %} <a href="/launchpad/aircrafts/{{aircraft_detail.id}}/detail">{{aircraft_detail.name}}</a> {% endfor %}{% endif %}</td>
             <td><code>{{aircraft_c.aerobridge_id}}</code> </td>
 
