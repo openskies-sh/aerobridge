@@ -712,7 +712,7 @@ class AircraftMasterComponent(models.Model):
         - Part may be stored in multiple locations
         - If this part is a "template" (variants exist) then these are counted too
         """
-        print('here')
+        
         return self.total_stock.count()
 
     def __unicode__(self):

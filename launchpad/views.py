@@ -959,8 +959,8 @@ class AircraftMasterComponentsDetail(APIView):
 
     def get(self, request, aircraft_master_component_id):
         aircraft_master_component = get_object_or_404(AircraftMasterComponent, pk=aircraft_master_component_id)
-        components = AircraftComponent.objects.filter(master_component = aircraft_master_component)
-        
+        components = AircraftComponent.objects.filter(Q(master_component=aircraft_master_component) | Q(supplier_part__manufacturer_part__master_component =aircraft_master_component))
+
         serializer = AircraftMasterComponentSerializer(aircraft_master_component_id)
         return Response({'serializer': serializer, 'aircraft_master_component': aircraft_master_component, 'components':components})
 

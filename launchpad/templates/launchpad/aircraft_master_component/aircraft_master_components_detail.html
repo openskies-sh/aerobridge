@@ -73,7 +73,7 @@
 <small>A list of current components for this master component in Aerobridge</small>
 <ul class="list-group list-group-flush">
     {% for component in components.all %} 
-        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{ component.id }}">{{ component.component_common_name}}</a>&nbsp;&nbsp;<button type="button" class="btn {% if component.status == 10 %}btn-outline-secondary{% else %}btn-outline-warning{% endif %}" disabled>{{component.get_status_display}}</button></li>
+        <li class="list-group-item"><a href="/launchpad/aircraft-components/{{ component.id }}/detail">{{ component.component_common_name}}</a>&nbsp;&nbsp;<button type="button" class="btn {% if component.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{component.get_status_display}}</button></li>
     {%endfor %}
 </ul> 
 {% endif %}

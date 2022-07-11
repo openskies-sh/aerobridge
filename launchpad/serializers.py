@@ -1,3 +1,4 @@
+from xxlimited import new
 from rest_framework import serializers
 from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
 from gcs_operations.models import FlightPlan
@@ -111,6 +112,23 @@ class AircraftComponentUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftComponent
         exclude = ('is_active','aerobridge_id',)
+
+
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get('status', instance.status)
+
+        new_status = validated_data.get('status', None)
+        if new_status != 10:
+            
+
+            assemblies = AircraftAssembly.objects.filter(components = instance).distinct()
+            for assembly in assemblies:
+                aircraft = Aircraft.objects.get(final_assembly = assembly)
+                aircraft.status = 0 
+                aircraft.save()
+        instance.save()
+        return instance 
+        
 class AircraftModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftModel
