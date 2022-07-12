@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftSearchComponentSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftUpdateSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
@@ -491,12 +491,12 @@ class AircraftUpdate(APIView):
 
     def get(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftFullSerializer(aircraft)
+        serializer = AircraftUpdateSerializer(aircraft)
         return Response({'serializer': serializer, 'aircraft': aircraft})
 
     def post(self, request, aircraft_id):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        serializer = AircraftFullSerializer(aircraft, data=request.data)
+        serializer = AircraftUpdateSerializer(aircraft, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'aircraft': aircraft,'errors':serializer.errors})
         serializer.save()

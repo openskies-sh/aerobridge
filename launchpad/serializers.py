@@ -1,3 +1,4 @@
+from csv import excel
 from xxlimited import new
 from rest_framework import serializers
 from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
@@ -116,11 +117,8 @@ class AircraftComponentUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.status = validated_data.get('status', instance.status)
-
         new_status = validated_data.get('status', None)
         if new_status != 10:
-            
-
             assemblies = AircraftAssembly.objects.filter(components = instance).distinct()
             for assembly in assemblies:
                 aircraft = Aircraft.objects.get(final_assembly = assembly)
@@ -133,6 +131,22 @@ class AircraftModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = AircraftModel
         fields = '__all__'
+
+class AircraftUpdateSerializer(serializers.ModelSerializer):    
+    def validate_status(self,value):
+        if value:
+            assembly = self.instance.final_assembly 
+            components = assembly.components.all()
+            for component in components: 
+                if component.status != 10:
+                    raise serializers.ValidationError("Cannot set the aircraft as active until the status for %(component_name)s is updated and set to OK"  %{'component_name': component.component_common_name})
+        return value
+
+    class Meta:
+        model = Aircraft
+        exclude = ('final_assembly','manufacturer')
+        
+
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):
     model_name = serializers.CharField(source='model.name')
