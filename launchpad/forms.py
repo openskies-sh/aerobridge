@@ -195,21 +195,20 @@ class AircraftComponentCreateForm(forms.ModelForm):
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("master_component"),
+                    
+                        FloatingField("supplier_part"),
                         FloatingField("invoice_receipt"),
                         FloatingField("description"),   
                         ),
                     AccordionGroup("Optional Information",                                                 
-                        FloatingField("status"),           
-                        FloatingField("supplier_part"),
+                        FloatingField("status"),     
                         FloatingField("purchase_price"),
                         ),                                 
                     
-                    HTML("""
-                            <br>
-                        """),
+                    
                    
                     ButtonHolder(
+                                HTML("""<br>"""),
                                 Submit('submit', '+ Add Aircraft Component Details'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-components-list' %}" role="button">Cancel</a>""")
                     )
@@ -218,7 +217,7 @@ class AircraftComponentCreateForm(forms.ModelForm):
 
     class Meta:
         model = AircraftComponent
-        fields = '__all__'
+        fields = ('supplier_part','invoice_receipt','description','status','purchase_price')
 
 class AircraftAssemblyCreateForm(forms.ModelForm):
     

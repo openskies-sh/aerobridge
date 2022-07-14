@@ -20,22 +20,22 @@
 <div class="row mb-3">
     
     <h2>Aircraft Components</h2>
-    <p>A list of all the components in the company, a component can be linked to an aircraft. Below are a list of components in the management server.</p>
+    <p>A list of all the components per your query, a component can be linked to an aircraft. You may also want to look at <a href="/launchpad/aircraft-components">all components</a>.</p>
 </div>
 <div class="row mb-3">
     <div class="col-md-10 themed-grid-col">
-
+      
       <table class="table">
         <thead>
           <td><b>Name</b></td>
           <td><b>Status</b></td>
-          <td><b>Aircraft</b></td>
+          <td><b>Linked Aircraft</b></td>
           <td><b>Aerobridge ID</b></td>
         </thead>
         
-        {% if aircraft_components %}
-            {% for aircraft_c in aircraft_components.results %}  
         <tbody>
+        {% if aircraft_components.results %}
+            {% for aircraft_c in aircraft_components.results %}  
           <tr>
             <td><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c.component_common_name }}</a></td>
             <td><button type="button" class="btn {% if aircraft_c.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_c.status_display}}</button></td>
@@ -48,7 +48,7 @@
           {% endfor %}
           {% else %}
           <tr>
-            <td><p class="text-muted"><i>You have not added any components, once added the list of the components will be displayed here.</i></p></td>
+            <td><p class="text-muted"><i>There are no components to show in your query.</i></p></td>
             <td></td>
             <td></td>
             <td></td>
@@ -97,7 +97,7 @@
 
     <br><br>
     <br>
-    <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Create new aircraft component</b></a></p>
+    <p><a class="btn btn-primary" href="/launchpad/aircraft-components/new"><b>&#43; Add new aircraft component</b></a></p>
     
 </div>
 <div class="col-md-4 themed-grid-col"></div>

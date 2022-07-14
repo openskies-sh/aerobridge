@@ -72,12 +72,13 @@ urlpatterns = [
     path('stock-keeping/<uuid:aircraft_master_component_id>', launchpad_views.AircraftMasterComponentsStockDetail.as_view(), name='aircraft-master-components-stock-keeping'),
     path('stock-keeping', launchpad_views.AircraftMasterComponentsStockDetail.as_view(), name='aircraft-master-components-stock-keeping'),
   
-    path('aircraft-components', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list'),
     path('aircraft-components/<uuid:aircraft_component_id>', launchpad_views.AircraftComponentsUpdate.as_view(), name='aircraft-components-update'),
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),
     path('aircraft-components/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
     path('aircraft-components/verify', launchpad_views.AircraftComponentsSearchView.as_view(), name='verify-aircraft-components'),
     path('aircraft-components/<str:aerobridge_id>/history', launchpad_views.AircraftComponentsHistoryView.as_view(), name='aircraft-components-history'),
+    path('aircraft-components/<str:view_type>', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list-filtered'),    
+    path('aircraft-components', launchpad_views.AircraftComponentsList.as_view(), name='aircraft-components-list'),
  
     path('companies', launchpad_views.CompaniesList.as_view(), name='companies-list'),
     path('companies/<uuid:company_id>', launchpad_views.CompaniesUpdate.as_view(), name='companies-update'),

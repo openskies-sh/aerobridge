@@ -27,6 +27,7 @@ from django.conf import settings
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, FlightLogSerializer
 import tempfile
 import arrow
+from django.db.models import Exists, OuterRef
 from rest_framework.parsers import MultiPartParser
 import boto3
 from gcs_operations import data_signer, permissions_issuer
@@ -1031,15 +1032,21 @@ class AircraftComponentsList(APIView):
         assert self.paginator is not None
         return self.paginator.get_paginated_response(data)
 
-    def get_aircraft_components(self):
-        try:
-            return AircraftComponent.objects.all().order_by('created_at')	            
-        except Exception as e:
-            raise Http404
+    def get_aircraft_components(self, view_type):
 
-    def get(self, request, *args, **kwargs):        
+        if view_type:
+            
+            return AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in =OuterRef('pk'))))
+        else:
+            try:
+                return AircraftComponent.objects.all().order_by('created_at')	            
+            except Exception as e:
+                raise Http404
+
+    def get(self, request, view_type=None):          
         
-        queryset = self.get_aircraft_components()
+        view_type = None if view_type not in ['available'] else view_type
+        queryset = self.get_aircraft_components(view_type=view_type)
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = AircraftComponentSerializer(page, many=True)
@@ -1052,6 +1059,7 @@ class AircraftComponentsList(APIView):
         payload = {'aircraft_components': data}
         
         return Response(payload)
+  
 
         
 class AircraftComponentsDetail(APIView):
@@ -1091,7 +1099,7 @@ class AircraftComponentsCreateView(CreateView):
         context = {'form': form}
         if form.is_valid():
             form.save()
-            return redirect('aircraft-components-list')
+            return redirect('aircraft-components-list-filtered',view_type='available')
 
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
 

@@ -46,7 +46,7 @@
 </div>
 
 <script src="{% static "jetway/leafletjs/leaflet.js" %}" type="text/javascript"></script>
-<script src="{% static "jetway/leafletjs/tile.stamen.js" %}"  type="text/javascript"></script>
+<script src="{% static "jetway/leafletjs/tile.stamen.js" %}" type="text/javascript"></script>
 
 <script type="text/javascript">
     var map = L.map('flight_plan', {zoomControl: false,   doubleClickZoom: false, 
@@ -59,8 +59,7 @@
         let geo_json = {{ flightplan.geo_json|safe }};
         map.addLayer(new L.StamenTileLayer("toner-lite", {
                         detectRetina: true
-                    }));
-        
+                    }));                           
         L.geoJSON(geo_json).addTo(fg);
         map.fitBounds(fg.getBounds());
     
