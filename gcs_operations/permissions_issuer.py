@@ -43,7 +43,7 @@ def issue_permission(flight_operation_id):
             signed_json = my_data_signer.issue_jwt_permission(data_payload= permission_payload)    
         except Exception as e: 
             logger.error("Error in getting permission JSON from Auth server %s" % e)            
-            signed_json = {'error': "Permission was granted but could not sign permission object"}
+            signed_json = {'error': "Permission was granted but could not get a permission token"}
 
     else: 
         status_code  = 'denied'
