@@ -29,6 +29,14 @@
             <td><code>{{ flightoperation.id }}</code></td>
         </tr>
         <tr>
+            <td>Operation Start</td>
+            <td><p class="text-muted">{{ flightoperation.start_datetime }}</p></td>
+        </tr>
+        <tr>
+            <td>Opearation End</td>
+            <td><p class="text-muted">{{ flightoperation.end_datetime }}</p></td>
+        </tr>
+        <tr>
             <td>Operator </td>
             <td><a href="/launchpad/operators/{{ flightoperation.operator.id}}/detail">{{ flightoperation.operator.company.full_name }}</a></td>
         </tr>
@@ -53,14 +61,6 @@
             <td>Pilot</td>
             <td><a href="/launchpad/people/{{ flightoperation.pilot.person.id}}/detail">{{ flightoperation.pilot.person.first_name}} {{ flightoperation.pilot.person.last_name}}</a></td>
         </tr>
-        </tr>
-        <tr>
-            <td>Operation Start</td>
-            <td><p class="text-muted">{{ flightoperation.start_datetime }}</p></td>
-        </tr>
-        <tr>
-            <td>Opearation End</td>
-            <td><p class="text-muted">{{ flightoperation.end_datetime }}</p></td>
         </tr>
         <tr>
             <td>Ready to fly? </td>
