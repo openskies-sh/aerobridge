@@ -145,7 +145,6 @@ class AircraftUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aircraft
         exclude = ('final_assembly','manufacturer')
-        
 
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):

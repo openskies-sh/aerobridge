@@ -1,0 +1,26 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+<h1>Incident Report</h1>
+<br>
+
+<form action="{% url 'incident-update' incident_id=incident.pk %}" method="POST">
+    {% csrf_token %}
+    {% if errors %}    
+    
+    {% for err, val in errors.items %}
+        {% for v in val %}
+        <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    {% endif %}
+    {% render_form serializer %}
+    <br>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'incidents-list' %}" role="button">Cancel</a>
+        </form>
+    </div>
+    </div>
+{% endblock %}

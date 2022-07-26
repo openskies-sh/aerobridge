@@ -1,0 +1,37 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+<h1>Incident Detail</h1>
+<br>
+
+<table  class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tr>
+        <td>Impacted Aircraft</td>
+        <td>{{ incident.aircraft}}</td>    
+    </tr>
+    <tr>
+        <td>Notes </td>
+        <td><a href="{{ incident.aircraft}}">{{ incident.aircraft}}</a></td>
+    </tr>
+    <tr>
+        <td>Components</td>
+        <td>{{ incident.components}}</td>
+    </tr>    
+
+</table>
+<br>
+<p><a class="btn btn-primary" href="/launchpad/incidents/{{incident.id}}"><b>Update Details</b></a></p>
+
+    </div>
+    </div>
+{% endblock %}
