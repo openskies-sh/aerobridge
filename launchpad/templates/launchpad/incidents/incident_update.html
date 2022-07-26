@@ -4,10 +4,10 @@
 
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
-<h1>Incident Report</h1>
+<h2>Update Incident Report</h2>
 <br>
 
-<form action="{% url 'incident-update' incident_id=incident.pk %}" method="POST">
+<form action="{% url 'incidents-update' incident_id=incident.pk %}" method="POST">
     {% csrf_token %}
     {% if errors %}    
     

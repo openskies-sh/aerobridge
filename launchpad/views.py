@@ -27,6 +27,7 @@ from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, FlightLogSerializer
+from supply_chain_operations.serializers import IncidentUpdateSerializer
 import tempfile
 import arrow
 from django.db.models import Exists, OuterRef
@@ -2029,13 +2030,13 @@ class IncidentsUpdate(APIView):
     template_name = 'launchpad/incidents/incident_update.html'
 
     def get(self, request, incident_id):
-        incident = get_object_or_404(Person, pk=incident_id)
-        serializer = IncidentSerializer(incident)
+        incident = get_object_or_404(Incident, pk=incident_id)
+        serializer = IncidentUpdateSerializer(incident)
         return Response({'serializer': serializer, 'incident': incident})
 
     def post(self, request, incident_id):
         incident = get_object_or_404(Incident, pk=incident_id)
-        serializer = IncidentSerializer(incident, data=request.data)
+        serializer = IncidentUpdateSerializer(incident, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'incident': incident,'errors':serializer.errors})
         serializer.save()
@@ -2054,17 +2055,15 @@ class IncidentsDetail(APIView):
 
 class IncidentsCreateView(CreateView):
     def get(self, request, aircraft_id, *args, **kwargs):
-        
-        
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
-        
-        
         context = {'form': IncidentCreateForm(aircraft_id=aircraft_id), 'aircraft':aircraft}
         return render(request, 'launchpad/incidents/incident_create.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = IncidentCreateForm(request.POST)
-        context = {'form': form}
+    def post(self, request, aircraft_id, *args, **kwargs):
+        
+        aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
+        form = IncidentCreateForm(aircraft_id, request.POST)
+        context = {'form': form, 'aircraft':aircraft}
         if form.is_valid():
             form.save()
             return redirect('incidents-list')

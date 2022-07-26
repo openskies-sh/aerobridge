@@ -309,9 +309,7 @@ class IncidentCreateForm(forms.ModelForm):
         self.aircraft_qs =  Aircraft.objects.filter(id =aircraft_id)
         aircraft =  Aircraft.objects.get(id =aircraft_id)
         aircraft_assembly = aircraft.final_assembly
-        
         # The components that have not been selected
-       
         self.impacted_components_qs = aircraft_assembly.components
                       
         self.helper.layout = Layout(
@@ -322,7 +320,6 @@ class IncidentCreateForm(forms.ModelForm):
                         FloatingField("notes"),
                         FloatingField("new_status"),
                         ), 
-                        
                         always_open=True                   
                     ),
                     HTML("""
@@ -337,10 +334,26 @@ class IncidentCreateForm(forms.ModelForm):
         self.fields['aircraft'] = forms.ModelChoiceField(
                 required=True,
                 queryset=self.aircraft_qs)
+
         self.fields['impacted_components'] = forms.ModelMultipleChoiceField(
                 required=True,
                 queryset=self.impacted_components_qs,
                 widget=forms.SelectMultiple())
+    
+    def clean_impacted_components(self):
+        
+        impacted_components = self.cleaned_data.get('impacted_components', None)
+        new_status = self.cleaned_data.get('new_status', 50)
+        aircraft = self.cleaned_data.get('aircraft', None)
+        if impacted_components:
+            for component in impacted_components.all():
+                component.status = new_status
+                component.save()
+        if aircraft:
+            aircraft.status = 0
+            aircraft.save()
+        return self.cleaned_data
+
     class Meta:
         model = Incident
         fields = '__all__'

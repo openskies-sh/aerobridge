@@ -29,7 +29,7 @@ class Incident(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.aircraft + ' ' + self.notes[:10]  + '..'
+        return self.aircraft.name + ' : ' + self.notes[:20]  + '..'
 
     def __str__(self):
-        return self.aircraft + ' ' + self.notes[:10] + '..'
+        return self.aircraft.name + ' : ' + self.notes[:20] + '..'

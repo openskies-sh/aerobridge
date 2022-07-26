@@ -17,17 +17,23 @@
     
     <tr>
         <td>Impacted Aircraft</td>
-        <td>{{ incident.aircraft}}</td>    
+        <td><a href="/launchpad/aircrafts/{{ incident.aircraft.id}}/detail">{{ incident.aircraft}}</a</td>    
     </tr>
     <tr>
         <td>Notes </td>
-        <td><a href="{{ incident.aircraft}}">{{ incident.aircraft}}</a></td>
+        <td>{{ incident.notes}}</a></td>
     </tr>
     <tr>
         <td>Components</td>
-        <td>{{ incident.components}}</td>
+       
+        <td>
+            <ul class="list-group list-group-flush">
+            {% for component in incident.impacted_components.all %}
+                <li class="list-group-item"><a href="/launchpad/aircraft-components/{{component.id}}/detail">{{ component }}</a></li>
+            {% endfor %}
+            </ul>
+        </td>
     </tr>    
-
 </table>
 <br>
 <p><a class="btn btn-primary" href="/launchpad/incidents/{{incident.id}}"><b>Update Details</b></a></p>

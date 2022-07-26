@@ -15,7 +15,7 @@
 {% block content %}
 <div class="row mb-3">
     <h2>Incidents</h2>
-    <p>A list of all incidents in Aerobridge.</p>
+    <p>A list of all incidents as reported in Aerobridge.</p>
 </div>
 <div class="row mb-3">      
     <div class="col-md-8 themed-grid-col">
@@ -25,7 +25,7 @@
             <li class="list-group-item"><a href="/launchpad/incidents/{{incident.id}}/detail">{{ incident }}</a>&nbsp;&nbsp;<small class="text-muted"></small></li>
             {% endfor %}
         {% else %}
-            <li class="list-group-item"><p class="text-muted"><i>There are no incidents added in Aerobridge, once added the list of incidents will be displayed here.</i></p></li>
+            <li class="list-group-item"><p class="text-muted"><i>There are no incidents added in Aerobridge, once added a list of incidents will be displayed here.</i></p></li>
         {% endif %}
     </ul>
     <br>
