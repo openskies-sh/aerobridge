@@ -62,7 +62,12 @@ urlpatterns = [
     path('aircraft-assemblies/<str:view_type>', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     path('aircraft-assemblies', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     
- 
+    path('incidents/<uuid:aircraft_id>/new', launchpad_views.IncidentsCreateView.as_view(), name='incidents-create'),
+    path('incidents/<uuid:incident_id>', launchpad_views.IncidentsUpdate.as_view(), name='incidents-update'),
+    path('incidents/<uuid:incident_id>/detail', launchpad_views.IncidentsDetail.as_view(), name='incidents-detail'),    
+    path('incidents', launchpad_views.IncidentsList.as_view(), name='incidents-list'),
+    
+  
     path('aircraft-master-components', launchpad_views.AircraftMasterComponentsList.as_view(), name='aircraft-master-components-list'),
     path('aircraft-master-components/family/<int:aircraft_master_component_family>', launchpad_views.AircraftMasterComponentsFamilyList.as_view(), name='aircraft-master-components-list'),
     path('aircraft-master-components/<uuid:aircraft_master_component_id>', launchpad_views.AircraftMasterComponentsUpdate.as_view(), name='aircraft-master-components-update'),

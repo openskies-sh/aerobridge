@@ -4,6 +4,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import filters
 from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
+from supply_chain_operations.models import Incident
+from supply_chain_operations.serializers import IncidentSerializer
 from registry.models import AircraftDetail as ad
 from registry.models import AircraftComponent , AircraftAssembly
 from registry.serializers import AircraftFullSerializer
@@ -20,11 +22,12 @@ from pki_framework.serializers import AerobridgeCredentialSerializer, Aerobridge
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm, IncidentCreateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
 from gcs_operations.serializers import FlightPlanSerializer, FlightOperationSerializer, FlightPermissionSerializer, FlightLogSerializer
+from supply_chain_operations.serializers import IncidentUpdateSerializer
 import tempfile
 import arrow
 from django.db.models import Exists, OuterRef
@@ -2012,3 +2015,65 @@ class CloudFilesCreateView(APIView):
             context = {'form': CustomCloudFileCreateForm(request.POST, request.FILES), 'errors':form.errors}        
             return render(request, 'launchpad/cloud_file/cloudfiles_upload.html', context)
             
+
+### Incidents
+class IncidentsList(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/incidents/incident_list.html'
+
+    def get(self, request):
+        queryset = Incident.objects.all()
+        return Response({'incidents': queryset})
+    
+class IncidentsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/incidents/incident_update.html'
+
+    def get(self, request, incident_id):
+        incident = get_object_or_404(Incident, pk=incident_id)
+        serializer = IncidentUpdateSerializer(incident)
+        return Response({'serializer': serializer, 'incident': incident})
+
+    def post(self, request, incident_id):
+        incident = get_object_or_404(Incident, pk=incident_id)
+        serializer = IncidentUpdateSerializer(incident, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'incident': incident,'errors':serializer.errors})
+        serializer.save()
+        return redirect('incidents-list')
+
+
+class IncidentsDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/incidents/incident_detail.html'
+
+    def get(self, request, incident_id):
+        incident = get_object_or_404(Incident, pk=incident_id)
+        serializer = IncidentSerializer(incident)
+        return Response({'serializer': serializer, 'incident': incident})
+
+
+class IncidentsCreateView(CreateView):
+
+    
+    def get(self, request, aircraft_id, *args, **kwargs):
+        aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
+        context = {'form': IncidentCreateForm(aircraft_id=aircraft_id), 'aircraft':aircraft}
+        return render(request, 'launchpad/incidents/incident_create.html', context)
+
+    def post(self, request, aircraft_id, *args, **kwargs):
+        
+        aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
+        form = IncidentCreateForm(aircraft_id, request.POST)
+        context = {'form': form, 'aircraft':aircraft}
+        if form.is_valid():
+            # form.save()
+            tmp = form.save(commit=False)
+            tmp.aircraft = aircraft  
+            aircraft.status = 0
+            aircraft.save()          
+            tmp.save()
+            return redirect('incidents-list')
+            
+        return render(request, 'launchpad/incidents/incident_create.html', context)
+  

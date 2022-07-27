@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'jetway',
     'launchpad',
     'pki_framework',
+    'supply_chain_operations',
     'crispy_forms',
     "crispy_bootstrap5",
     "simple_history"

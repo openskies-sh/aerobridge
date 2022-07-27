@@ -1,0 +1,36 @@
+{% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Operations
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Incidents
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <h2>Incidents</h2>
+    <p>A list of all incidents as reported in Aerobridge.</p>
+</div>
+<div class="row mb-3">      
+    <div class="col-md-8 themed-grid-col">
+    <ul class="list-group list-group-flush">
+        {% if incidents %}
+            {% for incident in incidents %}
+            <li class="list-group-item"><a href="/launchpad/incidents/{{incident.id}}/detail">{{ incident }}</a>&nbsp;&nbsp;<small class="text-muted"></small></li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item"><p class="text-muted"><i>There are no incidents added in Aerobridge, once added a list of incidents will be displayed here.</i></p></li>
+        {% endif %}
+    </ul>
+    <br>
+    <small class="text-muted">To add an incident to this list, go to Trusted Flights -> Aircraft and report a incident from there</small>
+</div>
+<div class="col-md-4 themed-grid-col"></div>
+</div>
+{% endblock %}

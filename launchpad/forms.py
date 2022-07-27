@@ -1,6 +1,6 @@
-from doctest import master
 from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart, MasterComponentAssembly
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
+from supply_chain_operations.models import Incident
 from pki_framework.models import AerobridgeCredential
 from django import forms
 from django.core.exceptions import ValidationError
@@ -301,6 +301,63 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         }
         
         
+class IncidentCreateForm(forms.ModelForm):
+    def __init__(self,aircraft_id,  *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        self.aircraft_qs =  Aircraft.objects.filter(id =aircraft_id)
+        aircraft =  Aircraft.objects.get(id =aircraft_id)
+        aircraft_assembly = aircraft.final_assembly
+        # The components that have not been selected
+        self.impacted_components_qs = aircraft_assembly.components
+                      
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        FloatingField("aircraft"),
+                        FloatingField("impacted_components"),
+                        FloatingField("notes"),
+                        FloatingField("new_status"),
+                        ), 
+                        always_open=True                   
+                    ),
+                    HTML("""
+                            <br>
+                        """),
+                    ButtonHolder(
+                                Submit('submit', '+ Add Incident'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'incidents-list' %}" role="button">Cancel</a>""")
+                    )
+                )  
+
+        self.fields['aircraft'] = forms.ModelChoiceField(
+                required=True,                
+                empty_label=None,
+                queryset=self.aircraft_qs)
+
+        self.fields['impacted_components'] = forms.ModelMultipleChoiceField(
+                required=True,
+                queryset=self.impacted_components_qs,
+                widget=forms.SelectMultiple())
+    
+    def clean_impacted_components(self):
+        
+        impacted_components = self.cleaned_data.get('impacted_components', None)
+        new_status = self.cleaned_data.get('new_status', 50)
+        if impacted_components:
+            for component in impacted_components.all():
+                component.status = new_status
+                component.save()
+
+            
+        return self.cleaned_data
+
+    class Meta:
+        model = Incident
+        fields = '__all__'
+        
+
 class AircraftMasterComponentCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
