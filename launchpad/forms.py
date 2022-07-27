@@ -260,6 +260,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         
         self.fields['model'] = forms.ModelChoiceField(
                 required=True,
+                empty_label=None,
                 queryset=self.model_qs)
 
         self.fields['components'] = forms.ModelMultipleChoiceField(
