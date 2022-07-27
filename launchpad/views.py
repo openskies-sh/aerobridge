@@ -2054,6 +2054,8 @@ class IncidentsDetail(APIView):
 
 
 class IncidentsCreateView(CreateView):
+
+    
     def get(self, request, aircraft_id, *args, **kwargs):
         aircraft = get_object_or_404(Aircraft, pk=aircraft_id)
         context = {'form': IncidentCreateForm(aircraft_id=aircraft_id), 'aircraft':aircraft}
@@ -2065,8 +2067,13 @@ class IncidentsCreateView(CreateView):
         form = IncidentCreateForm(aircraft_id, request.POST)
         context = {'form': form, 'aircraft':aircraft}
         if form.is_valid():
-            form.save()
+            # form.save()
+            tmp = form.save(commit=False)
+            tmp.aircraft = aircraft  
+            aircraft.status = 0
+            aircraft.save()          
+            tmp.save()
             return redirect('incidents-list')
-
+            
         return render(request, 'launchpad/incidents/incident_create.html', context)
   

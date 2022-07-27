@@ -332,7 +332,8 @@ class IncidentCreateForm(forms.ModelForm):
                 )  
 
         self.fields['aircraft'] = forms.ModelChoiceField(
-                required=True,
+                required=True,                
+                empty_label=None,
                 queryset=self.aircraft_qs)
 
         self.fields['impacted_components'] = forms.ModelMultipleChoiceField(
@@ -344,14 +345,12 @@ class IncidentCreateForm(forms.ModelForm):
         
         impacted_components = self.cleaned_data.get('impacted_components', None)
         new_status = self.cleaned_data.get('new_status', 50)
-        aircraft = self.cleaned_data.get('aircraft', None)
         if impacted_components:
             for component in impacted_components.all():
                 component.status = new_status
                 component.save()
-        if aircraft:
-            aircraft.status = 0
-            aircraft.save()
+
+            
         return self.cleaned_data
 
     class Meta:
