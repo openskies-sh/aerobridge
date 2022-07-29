@@ -79,6 +79,7 @@ urlpatterns = [
   
     path('aircraft-components/<uuid:aircraft_component_id>', launchpad_views.AircraftComponentsUpdate.as_view(), name='aircraft-components-update'),
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),
+    path('aircraft-components/<uuid:aircraft_component_id>/remove', launchpad_views.AircraftComponentsRemove.as_view(), name='aircraft-components-remove'),
     path('aircraft-components/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
     path('aircraft-components/verify', launchpad_views.AircraftComponentsSearchView.as_view(), name='verify-aircraft-components'),
     path('aircraft-components/<str:aerobridge_id>/history', launchpad_views.AircraftComponentsHistoryView.as_view(), name='aircraft-components-history'),

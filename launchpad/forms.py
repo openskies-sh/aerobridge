@@ -234,7 +234,7 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         self.all_master_components = aircraft_model.master_components.all()
         self.relevant_supplier_parts = SupplierPart.objects.filter(manufacturer_part__master_component__in = self.all_master_components)
 
-        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(supplier_part__in =  self.relevant_supplier_parts)
+        self.components_qs = AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk')))).filter(supplier_part__in =  self.relevant_supplier_parts).filter(status=10)
               
         self.helper.layout = Layout(
                 BS5Accordion(
@@ -342,16 +342,19 @@ class IncidentCreateForm(forms.ModelForm):
                 queryset=self.impacted_components_qs,
                 widget=forms.SelectMultiple())
     
-    def clean_impacted_components(self):
+    def clean(self):
         
         impacted_components = self.cleaned_data.get('impacted_components', None)
+        aircraft = self.cleaned_data.get('aircraft')
         new_status = self.cleaned_data.get('new_status', 50)
+
+        aircraft.status = 0
+        aircraft.save()
         if impacted_components:
             for component in impacted_components.all():
                 component.status = new_status
                 component.save()
 
-            
         return self.cleaned_data
 
     class Meta:

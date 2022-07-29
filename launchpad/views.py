@@ -615,7 +615,7 @@ class AircraftAssembliesDetail(APIView):
     def get(self, request, aircraft_assembly_id):
         aircraft_assembly = get_object_or_404(AircraftAssembly, pk=aircraft_assembly_id)
         
-        assembly_components = aircraft_assembly.components.all()
+        assembly_components = aircraft_assembly.components.all().order_by('-status')
         
         serializer = AircraftAssemblySerializer(aircraft_assembly)
         return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'assembly_components':assembly_components})
@@ -1047,7 +1047,7 @@ class AircraftComponentsList(APIView):
 
         if view_type:
             
-            return AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in =OuterRef('pk'))))
+            return AircraftComponent.objects.filter(~Exists(AircraftAssembly.objects.filter(components__in =OuterRef('pk')))).filter(status = view_type)
         else:
             try:
                 return AircraftComponent.objects.all().order_by('created_at')	            
@@ -1056,7 +1056,7 @@ class AircraftComponentsList(APIView):
 
     def get(self, request, view_type=None):          
         
-        view_type = None if view_type not in ['available'] else view_type
+        view_type = None if view_type not in ['available'] else 10
         queryset = self.get_aircraft_components(view_type=view_type)
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -1080,6 +1080,30 @@ class AircraftComponentsDetail(APIView):
     def get(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
         
+        serializer = AircraftComponentSerializer(aircraft_component)
+        return Response({'serializer': serializer, 'aircraft_component': aircraft_component})
+
+class AircraftComponentsRemove(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_remove.html'
+
+    def get(self, request, aircraft_component_id):
+        aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+
+        relevant_assembiles = AircraftAssembly.objects.filter(components__in = [aircraft_component])
+        print(relevant_assembiles)
+
+        for assembly in relevant_assembiles:
+            assembly.components.remove(aircraft_component)
+            assembly.status = 1
+            
+            assembly.save()
+            relevant_aircraft = Aircraft.objects.filter(final_assembly = assembly)
+            print(relevant_aircraft)
+            for r in relevant_aircraft:
+                r.status =0
+                r.save()
+
         serializer = AircraftComponentSerializer(aircraft_component)
         return Response({'serializer': serializer, 'aircraft_component': aircraft_component})
 
@@ -2123,12 +2147,13 @@ class IncidentsCreateView(CreateView):
         form = IncidentCreateForm(aircraft_id, request.POST)
         context = {'form': form, 'aircraft':aircraft}
         if form.is_valid():
-            # form.save()
-            tmp = form.save(commit=False)
-            tmp.aircraft = aircraft  
-            aircraft.status = 0
-            aircraft.save()          
-            tmp.save()
+            form.save()
+            # tmp = form.save(commit=False)
+            # tmp.aircraft = aircraft  
+            # aircraft.status = 0
+            # aircraft.save()
+            # print(tmp.impacted_components)          
+            # tmp.save()
             return redirect('incidents-list')
             
         return render(request, 'launchpad/incidents/incident_create.html', context)

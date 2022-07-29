@@ -33,16 +33,26 @@ class OperatorSerializer(serializers.ModelSerializer):
 class AircraftSerializer(serializers.ModelSerializer):
 
 
+    assembly_component_status = serializers.SerializerMethodField()
     assembly_status = serializers.SerializerMethodField()
-    
-    def get_assembly_status(self, obj):
+    assembly_id =  serializers.SerializerMethodField()
+    def get_assembly_component_status(self, obj):
         assembly = obj.final_assembly
         x = assembly.components_ok
         return x
   
+    
+    def get_assembly_status(self, obj):
+        assembly = obj.final_assembly
+        x = assembly.status
+        return x
+  
+    def get_assembly_id(self, obj):
+        assembly_id = obj.final_assembly.id        
+        return assembly_id
     class Meta:
         model = Aircraft
-        fields = ('id','assembly_status','operator','name', 'flight_controller_id','status', 'final_assembly')
+        fields = ('id','assembly_component_status','assembly_status','assembly_id','operator','name', 'flight_controller_id','status', 'final_assembly')
 
 class CompanySerializer(serializers.ModelSerializer):  
     class Meta:

@@ -23,7 +23,7 @@
   <br>
   <br>
   <div>
-  <h2>Assembly Detail <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-success{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button></h2>
+  <h2>Assembly Detail <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-dark{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button></h2>
   <div class="row">
     <div class="col-8">
         <table  class="table">
@@ -46,7 +46,7 @@
   </div>
   <br>
     <h3>Assembled Components</h3>
-    <p>Following are the components installed in this assembly, click on the components to update them. </p>
+    <p>Following are the components installed in this assembly, the non-green ones need attention, click on the components to update them. </p>
     <ul class="list-group list-group-flush">
       {% if assembly_components %}
         {% for aircraft_component in assembly_components %}            
@@ -57,7 +57,7 @@
     {% endif %}
       </ul>
   <br>
-  <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Details</b></a></p>
+  <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Assembly</b></a></p>
 
   </div>
 {% endblock %}

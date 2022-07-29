@@ -20,11 +20,15 @@
         <td><a href="/launchpad/aircrafts/{{ incident.aircraft.id}}/detail">{{ incident.aircraft}}</a</td>    
     </tr>
     <tr>
+        <td>New Status </td>
+        <td><mark>{{ incident.get_new_status_display}}</mark></td>
+    </tr>
+    <tr>
         <td>Notes </td>
         <td>{{ incident.notes}}</a></td>
     </tr>
     <tr>
-        <td>Components</td>
+        <td>Impacted Components</td>
        
         <td>
             <ul class="list-group list-group-flush">

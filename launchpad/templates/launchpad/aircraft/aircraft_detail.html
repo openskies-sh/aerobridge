@@ -49,10 +49,6 @@
         <td>Assembly</td>
         <td><a href="/launchpad/aircraft-assemblies/{{ aircraft_assembly.id }}/detail">{{ aircraft_assembly }}</a> </td>
     </tr>
-    <tr>
-        <td>Assembly Status</td>
-        <td><button type="button" class="btn {% if aircraft_assembly.components_ok == 1 %}btn-outline-success{% elif aircraft_assembly.components_ok  == 0 %}btn-outline-danger{% endif %}" disabled>{% if aircraft_assembly.components_ok == 1 %}OK{% elif aircraft_assembly.components_ok  == 0 %}Needs Review{% endif %}</button></td>
-    </tr>
 </table>
 
 </div>

@@ -37,8 +37,7 @@
     </tr>
     <tr>
         <td>Status</td>
-        <td>
-          
+        <td>          
           <button type="button" class="btn {% if aircraft_component.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_component.get_status_display}}</button>
           </td>    
     </tr>
@@ -47,7 +46,7 @@
 
 <p class="text-muted">Updated at {{ aircraft_component.updated_at}}</p>
 <br>
-<p><a class="btn btn-primary" href="/launchpad/aircraft-components/{{aircraft_component.id}}"><b>Update Details</b></a></p>
+<p><a class="btn btn-primary" href="/launchpad/aircraft-components/{{aircraft_component.id}}"><b>Update Details</b></a>&nbsp;&nbsp;{% if aircraft_component.status != 10 %}<a href="/launchpad/aircraft-components/{{aircraft_component.id}}/remove" class="btn btn-danger">Remove from Assembly</a>{% endif %}</p>
 
 </div>
 </div>
