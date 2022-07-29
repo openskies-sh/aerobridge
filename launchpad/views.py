@@ -1,8 +1,8 @@
 
+import html
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
-from rest_framework import generics
-from rest_framework import filters
+
 from registry.models import AircraftMasterComponent, AircraftModel, Authorization, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity
 from supply_chain_operations.models import Incident
 from supply_chain_operations.serializers import IncidentSerializer
@@ -33,12 +33,20 @@ import arrow
 from django.db.models import Exists, OuterRef
 from rest_framework.parsers import MultiPartParser
 import boto3
+
 from gcs_operations import data_signer, permissions_issuer
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from botocore.exceptions import NoCredentialsError
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
+
+from django.views import generic
+from gcs_operations.utils import Calendar
+from datetime import datetime,timedelta, date
+from django.utils.safestring import mark_safe
+import calendar
+
 import os
 
 
@@ -1363,6 +1371,54 @@ class FlightPlanCreateView(CreateView):
      
 ## Flight Operation Views
     
+
+class FlightOperationsCalendar(generic.ListView):
+    model = FlightOperation
+    template_name = 'launchpad/flight_operation/flightoperation_calendar.html'
+
+    def get_context_data(self, **kwargs):
+        def get_date(req_day):
+            if req_day:
+                year, month = (int(x) for x in req_day.split('-'))
+                return date(year, month, day=1)
+            return datetime.today()
+
+        def get_date(req_month):
+            if req_month:
+                year, month = (int(x) for x in req_month.split('-'))
+                return date(year, month, day=1)
+            return datetime.today()
+
+        def prev_month(d):
+            first = d.replace(day=1)
+            prev_month = first - timedelta(days=1)
+            month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+            return month
+
+        def next_month(d):
+            days_in_month = calendar.monthrange(d.year, d.month)[1]
+            last = d.replace(day=days_in_month)
+            next_month = last + timedelta(days=1)
+            month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+            return month
+
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get('month', None))
+
+        # Instantiate our calendar class with today's year and date
+        cal = Calendar(d.year, d.month)
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context
+
+
 class FlightOperationsList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_operation/flightoperation_list.html'

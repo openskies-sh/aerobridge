@@ -143,22 +143,22 @@
             {% endblock %}
             
             <h2 class="mt-4">&nbsp;</h2>
-            <div class="row mb-3">
+            
             
                 {% block content %}
                 {% endblock %}
-            </div>
+            
 
             <footer class="pt-5 my-5 text-muted border-top">
                 <p>Get Aerobridge for your company! Contact us via <a href="https://about.openskies.sh/#contact">our homepage</a></p>
             </footer>
         </div>
+        <script src="{% static "jetway/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+        {% block footer_javascript %}
+        {% endblock %}
+        
 </body>
 
-<script src="{% static "jetway/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-
-
-{% block footer_javascript %}
-{% endblock %}
 
 </html>

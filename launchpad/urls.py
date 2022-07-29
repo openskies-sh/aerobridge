@@ -102,6 +102,7 @@ urlpatterns = [
     path('flightplans/new', launchpad_views.FlightPlanCreateView.as_view(), name='flightplans-create'),
   
     path('flightoperations', launchpad_views.FlightOperationsList.as_view(), name='flightoperations-list'),
+    path('flightoperations/calendar', launchpad_views.FlightOperationsCalendar.as_view(), name='flightoperations-calendar'),
     path('flightoperations/<uuid:flightoperation_id>', launchpad_views.FlightOperationsUpdate.as_view(), name='flightoperations-update'),
     path('flightoperations/<uuid:flightoperation_id>/detail', launchpad_views.FlightOperationsDetail.as_view(), name='flightoperations-detail'),
     path('flightoperations/new', launchpad_views.FlightOperationCreateView.as_view(), name='flightoperations-create'),

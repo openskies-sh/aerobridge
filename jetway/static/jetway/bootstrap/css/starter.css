@@ -1,14 +1,6 @@
-body {
-  padding-bottom: 20px;
-}
 
 .navbar {
   margin-bottom: 20px;
-}
-
-.help-block {
-  color: #6c757d!important;
-  font-size: .875em;
 }
 
 ul.error li {
@@ -17,11 +9,6 @@ ul.error li {
 
 .map {
   height: 400px;
-}
-
-.flush {
-  inline-size: 600px;
-  overflow-wrap: break-word;
 }
 
 .thumbnail  { min-height:150px; height:150px; } 
