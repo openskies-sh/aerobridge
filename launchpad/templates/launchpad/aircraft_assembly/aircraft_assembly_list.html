@@ -29,7 +29,7 @@
         {% if aircraft_assemblies %}
             {% for aircraft_a in aircraft_assemblies %}
             
-            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model.name }} / Series {{ aircraft_a.model.series }}</a>&nbsp;&nbsp;<button type="button" class="btn {% if aircraft_a.components_ok %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{% if aircraft_a.components_ok == 1 %}Components OK{% elif aircraft_a.components_ok  == 0 %}Components need review{% endif %}</button>  </li>
+            <li class="list-group-item"><a href="/launchpad/aircraft-assemblies/{{aircraft_a.id}}/detail">{{ aircraft_a.model.name }} / Series {{ aircraft_a.model.series }}</a>&nbsp;&nbsp;<button type="button" class="btn {% if aircraft_a.status  == 2 %}btn-outline-success{% elif aircraft_a.status == 1 %}btn-outline-danger{% endif %}" disabled>{% if aircraft_a.status == 1 %}Parts needed{% elif aircraft_a.status  == 2 %}Complete{% endif %}</button></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>You have not added any aircraft assembly details in Aerobridge, once added the list of the assembly will be displayed here, to create a new assembly go to the Manufacturing > Models section.</i></p></li>

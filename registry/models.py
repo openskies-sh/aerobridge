@@ -1343,7 +1343,23 @@ class AircraftAssembly(models.Model):
         else: 
             return False
 
+    @property
+    def missing_components(self):
+        missing_components = []
+        model_master_components = self.model.master_components.all()
+        components = self.components.all()
+        installed_master_components = []
+        for component in components:
+            if component.master_component: 
+                installed_master_components.append(component.master_component.id)
+            elif component.supplier_part.manufacturer_part.master_component: 
+                installed_master_components.append(component.supplier_part.manufacturer_part.master_component.id)
 
+        i_master_components = AircraftMasterComponent.objects.filter(pk__in =installed_master_components )
+        missing_components = model_master_components.difference(i_master_components)    
+
+
+        return missing_components
 
     def __unicode__(self):
         return ' Model: ' +self.model.name + ' / Series: ' + self.model.series

@@ -45,6 +45,17 @@
       </div>
   </div>
   <br>
+  {% if aircraft_assembly.missing_components %}
+  <h3>Missing Components</h3>
+  <p>Following components are missing the assembly</p>
+  <ul class="list-group list-group-flush">    
+      {% for missing_component in aircraft_assembly.missing_components %}                               
+        <li class="list-group-item"><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{missing_component.id}}/detail">{{ missing_component.name }}</a></li>
+      {% endfor %}
+  </ul>
+    
+  {% endif %}
+  <br>
     <h3>Assembled Components</h3>
     <p>Following are the components installed in this assembly, the non-green ones need attention, click on the components to update them. </p>
     <ul class="list-group list-group-flush">
