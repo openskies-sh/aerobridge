@@ -16,7 +16,7 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftUpdateSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftUpdateSerializer,AircraftAssemblyComponentsSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
@@ -634,6 +634,33 @@ class AircraftAssembliesUpdate(APIView):
         serializer = AircraftAssemblySerializer(aircraft_assembly, data=request.data)
         if not serializer.is_valid():
             return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'errors':serializer.errors})
+        serializer.save()
+        return redirect('aircraft-assemblies-list')
+
+class AircraftAssembliesComponentsUpdate(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html'
+
+    def get(self, request, aircraft_assembly_id):
+        aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
+        if not aircraft_assembly_exists: 
+            raise Http404
+        else: 
+            aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
+        aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+        serializer = AircraftAssemblyComponentsSerializer(aircraft_assembly)
+        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly, 'aircraft':aircraft})
+
+    def post(self, request, aircraft_assembly_id):
+        aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
+        if not aircraft_assembly_exists: 
+            raise Http404
+        else: 
+            aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
+        aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+        serializer = AircraftAssemblyComponentsSerializer(aircraft_assembly, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'errors':serializer.errors, 'aircraft':aircraft})
         serializer.save()
         return redirect('aircraft-assemblies-list')
 

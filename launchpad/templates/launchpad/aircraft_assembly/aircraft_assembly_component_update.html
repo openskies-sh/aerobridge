@@ -1,0 +1,33 @@
+{% extends "launchpad/layout.html" %} 
+{% load rest_framework %}
+{% block content %}
+
+<div class="alert alert-primary" role="alert">
+    <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
+  </div>
+<div class="row mb-3">
+<h2>Update Component Assembly for {{ aircraft }}</h2>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6 themed-grid-col">
+
+
+<form action="{% url 'aircraft-assemblies-components-update' aircraft_assembly_id=aircraft_assembly.pk %}" method="POST">
+  
+    {% csrf_token %}
+    {% if errors %}
+
+    {% for err, val in errors.items %}
+        {% for v in val %}
+        <p class="alert alert-danger" role="alert">{{err }} : {{ v }}</p><br>
+        {% endfor %}
+    {% endfor %}
+    
+    {% endif %}
+    {% render_form serializer %}
+    <br>
+    <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'aircraft-assemblies-list' %}" role="button">Cancel</a>
+</form>
+</div>
+</div>
+{% endblock %}

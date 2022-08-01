@@ -131,8 +131,10 @@ class AircraftComponentUpdateSerializer(serializers.ModelSerializer):
         if new_status != 10:
             assemblies = AircraftAssembly.objects.filter(components = instance).distinct()
             for assembly in assemblies:
+                assembly.status = 1
                 aircraft = Aircraft.objects.get(final_assembly = assembly)
                 aircraft.status = 0 
+                assembly.save()
                 aircraft.save()
         instance.save()
         return instance 
@@ -158,7 +160,7 @@ class AircraftUpdateSerializer(serializers.ModelSerializer):
 
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):
-    model_name = serializers.CharField(source='model.name')
+    aircraft_model_name = serializers.CharField(source='aircraft_model.name')
     status_type = serializers.SerializerMethodField()
     def get_status_type(self, obj):
         x = obj.get_status_display()        
@@ -166,7 +168,14 @@ class AircraftAssemblySerializer(serializers.ModelSerializer):
   
     class Meta:
         model = AircraftAssembly
-        fields = ('id','model_name','status_type','model','updated_at',)
+        fields = ('id','aircraft_model_name','status_type','aircraft_model','updated_at',)
+
+class AircraftAssemblyComponentsSerializer(serializers.ModelSerializer):
+    aircraft_model_name = serializers.CharField(source='aircraft_model.name')
+
+    class Meta:
+        model = AircraftAssembly
+        fields = ('id','components','updated_at','aircraft_model_name',)
 
 class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     # def get_installed_model(self, obj):
