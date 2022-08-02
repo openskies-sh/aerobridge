@@ -1157,22 +1157,18 @@ class AircraftComponentsUpdate(APIView):
 
 class AircraftComponentsCreateView(CreateView):
     def get(self, request, *args, **kwargs):
-       
-        context = {'form': AircraftComponentCreateForm())}
-
+        context = {'form': AircraftComponentCreateForm()}
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = AircraftComponentCreateForm()
-
+        form = AircraftComponentCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
             form.save()
             return redirect('aircraft-components-list-filtered',view_type='available')
-      
 
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
-
+        
 class AircraftComponentsSearchView(APIView):
     model = AircraftComponent
     renderer_classes = [TemplateHTMLRenderer]
