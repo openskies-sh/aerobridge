@@ -189,18 +189,32 @@ class AircraftDetailCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class AircraftComponentCreateForm(forms.ModelForm):
-    def __init__(self, aircraft_master_component_id, *args, **kwargs):
+    def __init__(self, aircraft_master_component_id = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.help_text_inline = True   
+        self.helper.help_text_inline = True
+
         if aircraft_master_component_id:
             self.aircraft_master_component = AircraftMasterComponent.objects.get(id = aircraft_master_component_id)
             manufacturer_part = ManufacturerPart.objects.get(master_component = self.aircraft_master_component)
-            self.supplier_part_qs = SupplierPart.objects.filter(manufacturer_part=manufacturer_part)
+            supplier_part_exists = SupplierPart.objects.filter(manufacturer_part=manufacturer_part).exists()
+            print(supplier_part_exists)
+
+            if supplier_part_exists: 
+                self.supplier_part_qs = SupplierPart.objects.filter(manufacturer_part=manufacturer_part)
+            else: 
+                self.supplier_part_qs = SupplierPart.objects.all()
+        else: 
+            self.supplier_part_qs = SupplierPart.objects.all()
+
+        self.fields['supplier_part'] = forms.ModelChoiceField(
+                required=True,
+                empty_label=None,
+                queryset=self.supplier_part_qs)
+
         self.helper.layout = Layout(
                 BS5Accordion(
-                    AccordionGroup("Mandatory Information",
-                    
+                    AccordionGroup("Mandatory Information",                    
                         FloatingField("supplier_part"),
                         FloatingField("invoice_receipt"),
                         FloatingField("description"),   
@@ -208,10 +222,7 @@ class AircraftComponentCreateForm(forms.ModelForm):
                     AccordionGroup("Optional Information",                                                 
                         FloatingField("status"),     
                         FloatingField("purchase_price"),
-                        ),                                 
-                    
-                    
-                   
+                        ),                                                                                        
                     ButtonHolder(
                                 HTML("""<br>"""),
                                 Submit('submit', '+ Add Aircraft Component Details'),
@@ -219,13 +230,7 @@ class AircraftComponentCreateForm(forms.ModelForm):
                     )
                 )
         )     
-        if aircraft_master_component_id:
-                
-            self.fields['supplier_part'] = forms.ModelChoiceField(
-                    required=True,
-                    empty_label=None,
-                    queryset=self.supplier_part_qs)
-
+                    
     class Meta:
         model = AircraftComponent
         fields = ('supplier_part','invoice_receipt','description','status','purchase_price')
