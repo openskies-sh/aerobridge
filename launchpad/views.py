@@ -22,7 +22,7 @@ from pki_framework.serializers import AerobridgeCredentialSerializer, Aerobridge
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm, IncidentCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm, IncidentCreateForm, AircraftAssemblyUpdateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -33,7 +33,6 @@ import arrow
 from django.db.models import Exists, OuterRef
 from rest_framework.parsers import MultiPartParser
 import boto3
-
 from gcs_operations import data_signer, permissions_issuer
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
@@ -637,6 +636,38 @@ class AircraftAssembliesUpdate(APIView):
         serializer.save()
         return redirect('aircraft-assemblies-list')
 
+class AircraftAssembliesComponentsUpdate(APIView):
+    
+    def get(self, request, aircraft_assembly_id):
+        aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
+        if not aircraft_assembly_exists: 
+            raise Http404
+        else: 
+            aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
+        # aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+        aircraft_model = aircraft_assembly.aircraft_model
+        context = {'form': AircraftAssemblyUpdateForm(aircraft_assembly_id=aircraft_assembly_id), 'aircraft_model':aircraft_model,'aircraft_assembly': aircraft_assembly}
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html', context)
+
+    def post(self, request, aircraft_assembly_id):
+        aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
+        if not aircraft_assembly_exists: 
+            raise Http404
+        else: 
+            aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
+        # aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+
+        form = AircraftAssemblyUpdateForm(request.POST, aircraft_assembly_id= aircraft_assembly_id,  instance = aircraft_assembly)
+        if form.is_valid():            
+            form.save()
+            return redirect('aircraft-assemblies-list')
+        
+        aircraft_model = aircraft_assembly.aircraft_model
+        context = {'form': form,'aircraft_model':aircraft_model,'aircraft_assembly': aircraft_assembly}
+
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html', context)
+
+
 class AircraftAssembliesCreateView(CreateView):
     def get(self, request,aircraft_model_id):
 
@@ -1079,9 +1110,11 @@ class AircraftComponentsDetail(APIView):
 
     def get(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+        component_in_assembly = AircraftAssembly.objects.filter(components__in = [aircraft_component]).exists()
         
+
         serializer = AircraftComponentSerializer(aircraft_component)
-        return Response({'serializer': serializer, 'aircraft_component': aircraft_component})
+        return Response({'serializer': serializer, 'aircraft_component': aircraft_component, 'component_in_assembly':component_in_assembly})
 
 class AircraftComponentsRemove(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -1091,7 +1124,7 @@ class AircraftComponentsRemove(APIView):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
 
         relevant_assembiles = AircraftAssembly.objects.filter(components__in = [aircraft_component])
-        print(relevant_assembiles)
+        
 
         for assembly in relevant_assembiles:
             assembly.components.remove(aircraft_component)
@@ -1099,7 +1132,7 @@ class AircraftComponentsRemove(APIView):
             
             assembly.save()
             relevant_aircraft = Aircraft.objects.filter(final_assembly = assembly)
-            print(relevant_aircraft)
+        
             for r in relevant_aircraft:
                 r.status =0
                 r.save()
@@ -1125,11 +1158,17 @@ class AircraftComponentsUpdate(APIView):
         return redirect('aircraft-components-list')
 
 class AircraftComponentsCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': AircraftComponentCreateForm()}
+    def get(self, request, aircraft_master_component_id = None, *args, **kwargs):
+
+        if aircraft_master_component_id: 
+            aircraft_master_component = get_object_or_404(AircraftMasterComponent, pk=aircraft_master_component_id)
+            context = {'form': AircraftComponentCreateForm(aircraft_master_component_id = aircraft_master_component_id)}
+
+        else:
+            context = {'form': AircraftComponentCreateForm(aircraft_master_component_id=None)}
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, aircraft_master_component_id = None, *args, **kwargs):
         form = AircraftComponentCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
@@ -2102,7 +2141,7 @@ class IncidentsList(APIView):
     template_name = 'launchpad/incidents/incident_list.html'
 
     def get(self, request):
-        queryset = Incident.objects.all()
+        queryset = Incident.objects.all().order_by('-created_at')
         return Response({'incidents': queryset})
     
 class IncidentsUpdate(APIView):

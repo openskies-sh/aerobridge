@@ -57,8 +57,9 @@ urlpatterns = [
     path('aircraft-models/<uuid:aircraft_model_id>/master-components', launchpad_views.AircraftModelMasterComponents.as_view(), name='aircraft-models-detail'),
  
     path('aircraft-assemblies/<uuid:aircraft_model_id>/new', launchpad_views.AircraftAssembliesCreateView.as_view(), name='aircraft-assemblies-create'),
-    path('aircraft-assemblies/<uuid:aircraft_assembly_id>', launchpad_views.AircraftAssembliesUpdate.as_view(), name='aircraft-assemblies-update'),
+    path('aircraft-assemblies/<uuid:aircraft_assembly_id>/update', launchpad_views.AircraftAssembliesComponentsUpdate.as_view(), name='aircraft-assemblies-components-update'),
     path('aircraft-assemblies/<uuid:aircraft_assembly_id>/detail', launchpad_views.AircraftAssembliesDetail.as_view(), name='aircraft-assemblies-detail'),
+    # path('aircraft-assemblies/<uuid:aircraft_assembly_id>', launchpad_views.AircraftAssembliesUpdate.as_view(), name='aircraft-assemblies-update'),
     path('aircraft-assemblies/<str:view_type>', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     path('aircraft-assemblies', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     
@@ -80,6 +81,7 @@ urlpatterns = [
     path('aircraft-components/<uuid:aircraft_component_id>', launchpad_views.AircraftComponentsUpdate.as_view(), name='aircraft-components-update'),
     path('aircraft-components/<uuid:aircraft_component_id>/detail', launchpad_views.AircraftComponentsDetail.as_view(), name='aircraft-components-detail'),
     path('aircraft-components/<uuid:aircraft_component_id>/remove', launchpad_views.AircraftComponentsRemove.as_view(), name='aircraft-components-remove'),
+    path('aircraft-components/<uuid:aircraft_master_component_id>/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
     path('aircraft-components/new', launchpad_views.AircraftComponentsCreateView.as_view(), name='aircraft-components-create'),
     path('aircraft-components/verify', launchpad_views.AircraftComponentsSearchView.as_view(), name='verify-aircraft-components'),
     path('aircraft-components/<str:aerobridge_id>/history', launchpad_views.AircraftComponentsHistoryView.as_view(), name='aircraft-components-history'),

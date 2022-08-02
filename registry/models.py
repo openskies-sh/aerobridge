@@ -1250,14 +1250,14 @@ class AircraftComponent(models.Model):
     @property
     def component_common_name(self):
         items = []
-        items.append(self.description)
+        items.append(self.aerobridge_id)
+        # items.append(self.description)
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
         else: 
             items.append(self.master_component.name)
 
-        items.append(self.aerobridge_id)
         return ' - '.join(items)
 
     @property
@@ -1316,7 +1316,7 @@ class AircraftAssembly(models.Model):
     STATUS_CHOICES = ((0, _('In Progress')), (1, _('Parts needed')),(2, _('Complete')),)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model to this aircraft")
+    aircraft_model = models.ForeignKey(AircraftModel, on_delete=models.CASCADE, help_text="Assign a model definition to this aircraft")
     status = models.IntegerField(choices=STATUS_CHOICES, default=1,
                                  help_text="Set the status of this drone assembly, only complete assemblies maybe added to the drone")
 
@@ -1346,7 +1346,7 @@ class AircraftAssembly(models.Model):
     @property
     def missing_components(self):
         missing_components = []
-        model_master_components = self.model.master_components.all()
+        model_master_components = self.aircraft_model.master_components.all()
         components = self.components.all()
         installed_master_components = []
         for component in components:
@@ -1362,10 +1362,10 @@ class AircraftAssembly(models.Model):
         return missing_components
 
     def __unicode__(self):
-        return ' Model: ' +self.model.name + ' / Series: ' + self.model.series
+        return ' Model: ' +self.aircraft_model.name + ' / Series: ' + self.aircraft_model.series
 
     def __str__(self):
-        return ' Model: ' +self.model.name + ' / Series: ' + self.model.series
+        return ' Model: ' +self.aircraft_model.name + ' / Series: ' + self.aircraft_model.series
 
 class Aircraft(models.Model):
     STATUS_CHOICES = ((0, _('Inactive')), (1, _('Active')),)

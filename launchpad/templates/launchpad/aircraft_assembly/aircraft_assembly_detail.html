@@ -14,16 +14,14 @@
 </nav>
 
 {% endblock %}
-{% block content %}
-
-    
+{% block content %}    
   <div class="alert alert-primary" role="alert">
     <span class="bi bi-bell-fill"></span> You are in the blueprints section of Aerobridge, make sure you read the instructions before proceeding. Changes here may cause disruptions in your manufacturing operations. 
   </div>
   <br>
   <br>
   <div>
-  <h2>Assembly Detail <button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-dark{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button></h2>
+  <h2>Assembly Detail&nbsp;&nbsp;<button type="button" class="btn {% if aircraft_assembly.status == 2 %}btn-outline-dark{% elif aircraft_assembly.status_code  == 0 %}btn-outline-warning{% else %}btn-outline-danger{% endif %}" disabled>{{ aircraft_assembly.get_status_display|upper }}</button></h2>
   <div class="row">
     <div class="col-8">
         <table  class="table">
@@ -39,15 +37,15 @@
           </tr>
           <tr>
               <td>Model</td>
-              <td><h6>{{ aircraft_assembly.model}}</h6></td>    
+              <td><h6>{{ aircraft_assembly.aircraft_model}}</h6></td>    
           </tr>
         </table>
       </div>
   </div>
   <br>
   {% if aircraft_assembly.missing_components %}
-  <h3>Missing Components</h3>
-  <p>Following components are missing the assembly</p>
+  <h3>Components not in assembly</h3>
+  <p>Following components are not present in the assembly, this could be for a number of reasons including by design</p>
   <ul class="list-group list-group-flush">    
       {% for missing_component in aircraft_assembly.missing_components %}                               
         <li class="list-group-item"><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{{missing_component.id}}/detail">{{ missing_component.name }}</a></li>
@@ -57,7 +55,7 @@
   {% endif %}
   <br>
     <h3>Assembled Components</h3>
-    <p>Following are the components installed in this assembly, the non-green ones need attention, click on the components to update them. </p>
+    <p>Following are the components installed in this assembly, click on the components to update them. </p>
     <ul class="list-group list-group-flush">
       {% if assembly_components %}
         {% for aircraft_component in assembly_components %}            
@@ -68,7 +66,7 @@
     {% endif %}
       </ul>
   <br>
-  <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}"><b>Update Assembly</b></a></p>
+  <p><a class="btn btn-primary" href="/launchpad/aircraft-assemblies/{{aircraft_assembly.id}}/update"><b>Update Component Assembly</b></a></p>
 
   </div>
 {% endblock %}

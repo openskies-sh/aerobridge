@@ -131,8 +131,10 @@ class AircraftComponentUpdateSerializer(serializers.ModelSerializer):
         if new_status != 10:
             assemblies = AircraftAssembly.objects.filter(components = instance).distinct()
             for assembly in assemblies:
+                assembly.status = 1
                 aircraft = Aircraft.objects.get(final_assembly = assembly)
                 aircraft.status = 0 
+                assembly.save()
                 aircraft.save()
         instance.save()
         return instance 
@@ -158,7 +160,7 @@ class AircraftUpdateSerializer(serializers.ModelSerializer):
 
 
 class AircraftAssemblySerializer(serializers.ModelSerializer):
-    model_name = serializers.CharField(source='model.name')
+    aircraft_model_name = serializers.CharField(source='aircraft_model.name')
     status_type = serializers.SerializerMethodField()
     def get_status_type(self, obj):
         x = obj.get_status_display()        
@@ -166,7 +168,45 @@ class AircraftAssemblySerializer(serializers.ModelSerializer):
   
     class Meta:
         model = AircraftAssembly
-        fields = ('id','model_name','status_type','model','updated_at',)
+        fields = ('id','aircraft_model_name','status_type','aircraft_model','updated_at',)
+
+
+
+# class AircraftAssemblyComponentsSerializer(serializers.ModelSerializer):
+#     aircraft_model_name = serializers.CharField(source='aircraft_model.name')
+#     components_to_add = serializers.MultipleChoiceField()
+
+#     def get_components_to_add(self, obj):
+#         not_found_components = []
+#         # Components in the Assembly 
+#         all_components = obj.components.all()
+
+#         # Master Components that should be in the model 
+#         aircraft_model = obj.aircraft_model        
+#         all_master_components = aircraft_model.master_components.all()
+
+#         is_found = False
+#         for current_component in all_components:
+#             supplier_part_exists = current_component.supplier_part
+
+#             if supplier_part_exists is not None:
+#                 if (current_component.supplier_part.manufacturer_part.master_component in all_master_components):
+#                     is_found = True
+#             else: 
+#                 if current_component.master_component in all_master_components:
+#                     is_found = True
+
+#             if is_found == False:
+#                 if supplier_part_exists:                     
+#                     not_found_components.append(current_component.supplier_part.manufacturer_part.master_component)
+#                 else:
+#                     not_found_components.append(current_component.master_component.id)
+        
+#         return AircraftComponent.objects.filter(pk__in = not_found_components)
+
+#     class Meta:
+#         model = AircraftAssembly
+#         fields = ('id','updated_at','aircraft_model_name','components_to_add')
 
 class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     # def get_installed_model(self, obj):

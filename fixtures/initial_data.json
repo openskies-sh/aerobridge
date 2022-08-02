@@ -1625,7 +1625,7 @@
     "model": "registry.aircraftassembly",
     "pk": "a1f90fa1-872f-400b-ab36-823a8a9ff409",
     "fields": {
-      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "aircraft_model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2022-06-06T09:51:09.832Z",
@@ -1651,7 +1651,7 @@
     "model": "registry.aircraftassembly",
     "pk": "af594965-df22-4aa7-ba51-b3c3afa90ed2",
     "fields": {
-      "model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
+      "aircraft_model": "c6348b3f-0a66-427f-ab28-76b70e3c5e22",
       "status": 2,
       "created_at": "2018-09-04T12:20:30Z",
       "updated_at": "2022-06-06T09:51:02.154Z",

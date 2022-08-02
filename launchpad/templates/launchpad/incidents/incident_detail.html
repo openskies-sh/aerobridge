@@ -20,8 +20,11 @@
         <td><a href="/launchpad/aircrafts/{{ incident.aircraft.id}}/detail">{{ incident.aircraft}}</a</td>    
     </tr>
     <tr>
-        <td>New Status </td>
-        <td><mark>{{ incident.get_new_status_display}}</mark></td>
+        <td>Component Status </td>
+        <td>
+            <button type="button" class="btn {% if incident.new_status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{ incident.get_new_status_display}}</button>
+            
+            </td>
     </tr>
     <tr>
         <td>Notes </td>
@@ -39,7 +42,9 @@
         </td>
     </tr>    
 </table>
-<br>
+<small class="text-muted">Created at {{ incident.created_at }} </small>
+<br><br>
+
 <p><a class="btn btn-primary" href="/launchpad/incidents/{{incident.id}}"><b>Update Details</b></a></p>
 
     </div>
