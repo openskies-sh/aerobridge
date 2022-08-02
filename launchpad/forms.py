@@ -1,4 +1,5 @@
-from registry.models import AircraftMasterComponent, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart, MasterComponentAssembly
+
+from registry.models import AircraftMasterComponent, ManufacturerPart, Person, Address, Operator, Aircraft, Company, Firmware, Contact, Pilot, Activity, Authorization, AircraftDetail, AircraftComponent,AircraftModel,AircraftAssembly,SupplierPart, MasterComponentAssembly
 from gcs_operations.models import FlightOperation, FlightLog, FlightPlan, FlightPermission
 from supply_chain_operations.models import Incident
 from pki_framework.models import AerobridgeCredential
@@ -188,11 +189,14 @@ class AircraftDetailCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class AircraftComponentCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, aircraft_master_component_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.help_text_inline = True   
-        
+        if aircraft_master_component_id:
+            self.aircraft_master_component = AircraftMasterComponent.objects.get(id = aircraft_master_component_id)
+            manufacturer_part = ManufacturerPart.objects.get(master_component = self.aircraft_master_component)
+            self.supplier_part_qs = SupplierPart.objects.filter(manufacturer_part=manufacturer_part)
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
@@ -215,6 +219,12 @@ class AircraftComponentCreateForm(forms.ModelForm):
                     )
                 )
         )     
+        if aircraft_master_component_id:
+                
+            self.fields['supplier_part'] = forms.ModelChoiceField(
+                    required=True,
+                    empty_label=None,
+                    queryset=self.supplier_part_qs)
 
     class Meta:
         model = AircraftComponent
