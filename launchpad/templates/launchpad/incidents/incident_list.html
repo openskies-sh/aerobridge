@@ -22,7 +22,7 @@
     <ul class="list-group list-group-flush">
         {% if incidents %}
             {% for incident in incidents %}
-            <li class="list-group-item"><a href="/launchpad/incidents/{{incident.id}}/detail">{{ incident }}</a>&nbsp;&nbsp;<small class="text-muted"></small></li>
+            <li class="list-group-item"><a href="/launchpad/incidents/{{incident.id}}/detail">{{ incident }}</a>&nbsp;&nbsp;<small class="text-muted">&mdash; Created at {{ incident.created_at }} </small></li>
             {% endfor %}
         {% else %}
             <li class="list-group-item"><p class="text-muted"><i>There are no incidents added in Aerobridge, once added a list of incidents will be displayed here.</i></p></li>

@@ -11,6 +11,7 @@ from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import AccordionGroup
 from crispy_bootstrap5.bootstrap5 import Field, FloatingField, BS5Accordion
 from django.db.models import OuterRef, Exists
+from django.db.models import Q
 
 KEY_ENVIRONMENT = ((0, _('DIGITAL SKY OPERATOR')),(1, _('DIGITAL SKY MANUFACTURER')),(2, _('DIGITAL SKY PILOT')),(3, _('RFM')),(4, _('OTHER')),)
 TOKEN_TYPE= ((0, _('PUBLIC_KEY')),(1, _('PRIVATE_KEY')),(2, _('AUTHENTICATION TOKEN')),(3, _('RFM KEY')),(4, _('OTHER')),)
@@ -302,6 +303,109 @@ class AircraftAssemblyCreateForm(forms.ModelForm):
         }
         
         
+class AircraftAssemblyUpdateForm(forms.ModelForm):
+    
+    def __init__(self,  *args,aircraft_assembly_id, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.help_text_inline = True   
+        
+        self.model_qs =  AircraftAssembly.objects.filter(id = aircraft_assembly_id)
+        aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
+        all_assembly_components = aircraft_assembly.components.all()
+        # The components that have not been selected
+        aircraft_model = aircraft_assembly.aircraft_model
+        self.aircraft_model_qs =  AircraftModel.objects.filter(id = aircraft_model.id)
+        self.all_master_components = aircraft_model.master_components.all()
+
+        all_assembly_master_components = []
+        for current_component in all_assembly_components:
+            supplier_part_exists = current_component.supplier_part
+            if supplier_part_exists is not None:
+                all_assembly_master_components.append(current_component.supplier_part.manufacturer_part.master_component.id)
+            else: 
+                all_assembly_master_components.append(current_component.master_component.id)
+
+        
+        all_assembly_master_components_qs = AircraftMasterComponent.objects.filter(pk__in = all_assembly_master_components)
+        self.qs_diff = self.all_master_components.difference(all_assembly_master_components_qs)    
+        
+
+        missing_id_list = self.qs_diff.values_list('id', flat=True)
+        self.components_qs = AircraftComponent.objects.filter(Q(master_component__in = missing_id_list)| Q(supplier_part__manufacturer_part__master_component__in = missing_id_list)).filter(status=10).filter(~Exists(AircraftAssembly.objects.filter(components__in=OuterRef('pk'))))
+
+              
+        self.helper.layout = Layout(
+                BS5Accordion(
+                    AccordionGroup("Mandatory Information",
+                        Field("aircraft_model"),
+                        Field("components"),
+                        HTML("""
+                                <small>Select from available components, if no components are avialable, the assembly is complete and does not need changes.</small>
+                                <br>                                
+                            """),
+                        ),
+                            
+                        HTML("""
+                                <br>
+                            """),
+                    ButtonHolder(
+                                Submit('submit', 'Update Aircraft Assembly'),
+                                HTML("""<a class="btn btn-secondary" href="{% url 'aircraft-assemblies-list' %}" role="button">Cancel</a>""")
+                    )
+                )
+        )            
+        
+        self.fields['components'] = forms.ModelMultipleChoiceField(
+                required=True,
+                queryset=self.components_qs,
+                widget=forms.SelectMultiple())
+
+        self.fields['aircraft_model'] = forms.ModelChoiceField(                
+                empty_label=None, 
+                queryset=self.aircraft_model_qs)
+
+
+
+    def clean(self):        
+        
+        added_components = self.cleaned_data.get('components')        
+        existing_components = self.instance.components        
+        for added_component in added_components.all():
+            existing_components.add(added_component)
+        # check if the assembly is complete
+        all_master_components = self.instance.aircraft_model.master_components
+        master_component_referenced_list = []
+        for master_component in all_master_components.all():
+            master_component_referenced = False
+            for component in existing_components.all():                
+                supplier_part_exists = component.supplier_part
+                if component.master_component == master_component:
+                    master_component_referenced = True
+                    break
+                elif supplier_part_exists: 
+                    component.supplier_part.manufacturer_part.master_component == master_component
+                    master_component_referenced = True
+                    break
+            master_component_referenced_list.append(master_component_referenced)
+
+        if all(master_component_referenced_list):
+            self.instance.status = 2
+            self.instance.save()
+                
+
+        self.cleaned_data['components'] = existing_components.all()
+        
+        return self.cleaned_data
+
+    class Meta:
+        model = AircraftAssembly
+        exclude = ('status',)
+        
+        help_texts = {
+            'components': 'Select from available components',
+        }
+        
 class IncidentCreateForm(forms.ModelForm):
     def __init__(self,aircraft_id,  *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -422,7 +526,7 @@ class AircraftModelCreateForm(forms.ModelForm):
                     AccordionGroup("Documents",
                         Field("documents"),
                         ),
-                    HTML("""
+                HTML("""
                             <br>
                         """),
                     ButtonHolder(

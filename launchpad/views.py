@@ -16,13 +16,13 @@ from django.views.generic import TemplateView, CreateView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftUpdateSerializer,AircraftAssemblyComponentsSerializer
+from .serializers import AircraftAssemblySerializer, PersonSerializer, AddressSerializer, OperatorSerializer, AircraftSerializer, CompanySerializer, FirmwareSerializer, ContactSerializer, PilotSerializer, ActivitySerializer, AuthorizationSerializer, AircraftDetailSerializer,FlightPlanReadSerializer, AircraftComponentSerializer, AircraftModelSerializer, AircraftMasterComponentSerializer,AircraftComponentUpdateSerializer, AircraftUpdateSerializer
 from pki_framework.serializers import AerobridgeCredentialSerializer, AerobridgeCredentialGetSerializer
 # from pki_framework.forms import TokenCreateForm
 from pki_framework import encrpytion_util
 from jetway.pagination import StandardResultsSetPagination
 from rest_framework.generics import DestroyAPIView
-from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm, IncidentCreateForm
+from .forms import PersonCreateForm, AddressCreateForm, OperatorCreateForm , AircraftCreateForm, CompanyCreateForm, FirmwareCreateForm, FlightLogCreateForm, FlightOperationCreateForm, AircraftDetailCreateForm, FlightPlanCreateForm,  ContactCreateForm, PilotCreateForm, ActivityCreateForm,CustomCloudFileCreateForm, AuthorizationCreateForm, TokenCreateForm, AircraftComponentCreateForm,AircraftModelCreateForm, AircraftMasterComponentCreateForm, AircraftAssemblyCreateForm, IncidentCreateForm, AircraftAssemblyUpdateForm
 from django.shortcuts import redirect
 from django.http import Http404
 from django.conf import settings
@@ -33,7 +33,6 @@ import arrow
 from django.db.models import Exists, OuterRef
 from rest_framework.parsers import MultiPartParser
 import boto3
-
 from gcs_operations import data_signer, permissions_issuer
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
@@ -638,18 +637,17 @@ class AircraftAssembliesUpdate(APIView):
         return redirect('aircraft-assemblies-list')
 
 class AircraftAssembliesComponentsUpdate(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html'
-
+    
     def get(self, request, aircraft_assembly_id):
         aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
         if not aircraft_assembly_exists: 
             raise Http404
         else: 
             aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
-        aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
-        serializer = AircraftAssemblyComponentsSerializer(aircraft_assembly)
-        return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly, 'aircraft':aircraft})
+        # aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+        aircraft_model = aircraft_assembly.aircraft_model
+        context = {'form': AircraftAssemblyUpdateForm(aircraft_assembly_id=aircraft_assembly_id), 'aircraft_model':aircraft_model,'aircraft_assembly': aircraft_assembly}
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html', context)
 
     def post(self, request, aircraft_assembly_id):
         aircraft_assembly_exists = AircraftAssembly.objects.filter(id = aircraft_assembly_id).exists()
@@ -657,12 +655,18 @@ class AircraftAssembliesComponentsUpdate(APIView):
             raise Http404
         else: 
             aircraft_assembly = AircraftAssembly.objects.get(id = aircraft_assembly_id)
-        aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
-        serializer = AircraftAssemblyComponentsSerializer(aircraft_assembly, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'aircraft_assembly': aircraft_assembly,'errors':serializer.errors, 'aircraft':aircraft})
-        serializer.save()
-        return redirect('aircraft-assemblies-list')
+        # aircraft = Aircraft.objects.get(final_assembly= aircraft_assembly)
+
+        form = AircraftAssemblyUpdateForm(request.POST, aircraft_assembly_id= aircraft_assembly_id,  instance = aircraft_assembly)
+        if form.is_valid():            
+            form.save()
+            return redirect('aircraft-assemblies-list')
+        
+        aircraft_model = aircraft_assembly.aircraft_model
+        context = {'form': form,'aircraft_model':aircraft_model,'aircraft_assembly': aircraft_assembly}
+
+        return render(request, 'launchpad/aircraft_assembly/aircraft_assembly_component_update.html', context)
+
 
 class AircraftAssembliesCreateView(CreateView):
     def get(self, request,aircraft_model_id):
@@ -1156,7 +1160,7 @@ class AircraftComponentsCreateView(CreateView):
         context = {'form': AircraftComponentCreateForm()}
         return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, aircraft_master_component_id=None, *args, **kwargs):
         form = AircraftComponentCreateForm(request.POST)
         context = {'form': form}
         if form.is_valid():
