@@ -1250,14 +1250,14 @@ class AircraftComponent(models.Model):
     @property
     def component_common_name(self):
         items = []
-        items.append(self.description)
+        items.append(self.aerobridge_id)
+        # items.append(self.description)
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:
                 items.append(self.supplier_part.manufacturer_part.master_component.name)
         else: 
             items.append(self.master_component.name)
 
-        items.append(self.aerobridge_id)
         return ' - '.join(items)
 
     @property

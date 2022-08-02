@@ -19,14 +19,14 @@
 <div class="row mb-3">
     
     <h2>Aircraft Models</h2>
-    <p>A list of all the aircraft models built / assembled by the company, a model will have a associated list of master components that forms the Blueprint.</p>
+    <p>A list of all the aircraft models built / assembled by the company, a model will have a associated list of master components that forms the Blueprint. See <a class="" href="/launchpad/aircraft-assemblies"> existing assemblies</a></p>
 </div>
 <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
       <ul class="list-group list-group-flush">
           {% if aircraft_models %}
               {% for aircraft_model in aircraft_models.results %}
-              <li class="list-group-item"><a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }} / Series {{ aircraft_model.series }}</a>&nbsp;&nbsp;<a class="btn btn-outline-dark" href="/launchpad/aircraft-assemblies/{{ aircraft_model.id }}/new">&#43; Start a new assembly</a>&nbsp;or&nbsp;<a class="btn btn-outline-dark" href="/launchpad/aircraft-assemblies">See existing assemblies</a></li>
+              <li class="list-group-item"><a href="/launchpad/aircraft-models/{{aircraft_model.id}}/detail">{{ aircraft_model.name }} / Series {{ aircraft_model.series }}</a>&nbsp;&nbsp;<a class="btn btn-outline-dark" href="/launchpad/aircraft-assemblies/{{ aircraft_model.id }}/new">&#43; Start a new assembly</a></li>
               {% endfor %}
           {% else %}
               <li class="list-group-item"><p class="text-muted"><i>You have not added any models to assemble / manufacture, once added the list of the models will be displayed here.</i></p></li>

@@ -30,13 +30,6 @@
         <td>{{aircraft_master_component.name }}</td>
     </tr>
     
-    {%if aircraft_master_component.drawing %}
-    <tr>
-        <td>Drawing</td>
-        <td><a href="{{ aircraft_master_component.drawing }}" target="_blank">{{ aircraft_master_component.drawing }} <i class="bi bi-link"></i></a></td>    
-    </tr>    
-    {% endif %}
-    
     <tr>
         <td>Stock Keeping</td>
         <td><a href="/launchpad/stock-keeping/{{ aircraft_master_component.id }}">Order more / check stocks &rarr;</a></td>    
@@ -67,15 +60,45 @@
 </ul> 
 {% endif %}
 <br>
+<br>
 {% if components %}
 
 <h4>Existing Components</h4>
-<small>A list of current components for this master component in Aerobridge</small>
+<p>A list of current and past components with acknowledged custody </p]>
+
 <ul class="list-group list-group-flush">
     {% for component in components.all %} 
         <li class="list-group-item"><a href="/launchpad/aircraft-components/{{ component.id }}/detail">{{ component.component_common_name}}</a>&nbsp;&nbsp;<button type="button" class="btn {% if component.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{component.get_status_display}}</button></li>
     {%endfor %}
 </ul> 
 {% endif %}
+
+<br>
+<br>
+<h4>Additional Details</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    {%if aircraft_master_component.drawing %}
+    <tr>
+        <td>Drawing</td>
+        <td><a href="{{ aircraft_master_component.drawing }}" target="_blank">{{ aircraft_master_component.drawing }} <i class="bi bi-link"></i></a></td>    
+    </tr>    
+    {% else %}
+    <tr>
+        <td>Drawing</td>
+        <td>No drawing provided</td>    
+    </tr>    
+    {% endif %}
+       
+    
+</table>
+
+<br>
+<br>
 </div>
 {% endblock %}

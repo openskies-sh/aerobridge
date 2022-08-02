@@ -1110,9 +1110,11 @@ class AircraftComponentsDetail(APIView):
 
     def get(self, request, aircraft_component_id):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
+        component_in_assembly = AircraftAssembly.objects.filter(components__in = [aircraft_component]).exists()
         
+
         serializer = AircraftComponentSerializer(aircraft_component)
-        return Response({'serializer': serializer, 'aircraft_component': aircraft_component})
+        return Response({'serializer': serializer, 'aircraft_component': aircraft_component, 'component_in_assembly':component_in_assembly})
 
 class AircraftComponentsRemove(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -1122,7 +1124,7 @@ class AircraftComponentsRemove(APIView):
         aircraft_component = get_object_or_404(AircraftComponent, pk=aircraft_component_id)
 
         relevant_assembiles = AircraftAssembly.objects.filter(components__in = [aircraft_component])
-        print(relevant_assembiles)
+        
 
         for assembly in relevant_assembiles:
             assembly.components.remove(aircraft_component)
@@ -1130,7 +1132,7 @@ class AircraftComponentsRemove(APIView):
             
             assembly.save()
             relevant_aircraft = Aircraft.objects.filter(final_assembly = assembly)
-            print(relevant_aircraft)
+        
             for r in relevant_aircraft:
                 r.status =0
                 r.save()
@@ -2139,7 +2141,7 @@ class IncidentsList(APIView):
     template_name = 'launchpad/incidents/incident_list.html'
 
     def get(self, request):
-        queryset = Incident.objects.all()
+        queryset = Incident.objects.all().order_by('-created_at')
         return Response({'incidents': queryset})
     
 class IncidentsUpdate(APIView):
