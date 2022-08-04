@@ -1156,18 +1156,21 @@ class AircraftComponentsUpdate(APIView):
         return redirect('aircraft-components-list')
 
 class AircraftComponentsCreateView(CreateView):
-    def get(self, request, *args, **kwargs):
-        context = {'form': AircraftComponentCreateForm()}
-        return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
+    form_class = AircraftComponentCreateForm
+    template_name = 'launchpad/aircraft_component/aircraft_components_create.html'
+    def get_context_data(self, *args, **kwargs):
+        aircraft_master_component_id = self.kwargs.get('aircraft_master_component_id')
+        master_component = get_object_or_404(AircraftMasterComponent, pk=aircraft_master_component_id)
+        context = super(AircraftComponentsCreateView, self).get_context_data(**kwargs)
+        context['form'] =AircraftComponentCreateForm(aircraft_master_component_id = aircraft_master_component_id)
+        # return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
+        return context
 
-    def post(self, request, *args, **kwargs):
-        form = AircraftComponentCreateForm(request.POST)
-        context = {'form': form}
-        if form.is_valid():
-            form.save()
-            return redirect('aircraft-components-list-filtered',view_type='available')
-
-        return render(request, 'launchpad/aircraft_component/aircraft_components_create.html', context)
+    def form_valid(self, form,*args, **kwargs):
+        aircraft_master_component_id = self.kwargs.get('aircraft_master_component_id')
+        master_component = get_object_or_404(AircraftMasterComponent, pk=aircraft_master_component_id)        
+        form.save()
+        return redirect('aircraft-components-list-filtered',view_type='available')
         
 class AircraftComponentsSearchView(APIView):
     model = AircraftComponent
