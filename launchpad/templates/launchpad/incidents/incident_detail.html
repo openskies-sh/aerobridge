@@ -1,4 +1,16 @@
 {% extends "launchpad/layout.html" %} 
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Operations
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Incidents
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
 {% load rest_framework %}
 {% block content %}
 

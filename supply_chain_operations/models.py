@@ -1,5 +1,7 @@
+from datetime import datetime
 from django.db import models
 import uuid
+import datetime
 from registry.models import Aircraft, AircraftComponent
 from gcs_operations.models import FlightLog
 from django.utils.translation import gettext_lazy as _
@@ -24,6 +26,7 @@ class Incident(models.Model):
         choices=StockStatus.items(),
         validators=[MinValueValidator(0)])
 
+    event_datetime = models.DateTimeField(default = datetime.datetime.now)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

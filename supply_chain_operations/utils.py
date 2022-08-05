@@ -1,16 +1,19 @@
-from calendar import HTMLCalendar
-from .models import FlightOperation
 
-class Calendar(HTMLCalendar):
+from .models import Incident
+from calendar import HTMLCalendar
+
+
+
+class IncidentCalendar(HTMLCalendar):
 	def __init__(self, year=None, month=None):
 		self.year = year
 		self.month = month
-		super(Calendar, self).__init__()
+		super(IncidentCalendar, self).__init__()
 
 	# formats a day as a td
 	# filter events by day
 	def formatday(self, day, events):
-		events_per_day = events.filter(start_datetime__day=day)
+		events_per_day = events.filter(event_datetime__day=day)
 		d = '<ul>'
 		for event in events_per_day:
 			d += f'<li><small><a href="/launchpad/flightoperations/{event.id}/detail">{event}</a></small> </li>'
@@ -29,7 +32,7 @@ class Calendar(HTMLCalendar):
 	# formats a month as a table
 	# filter events by year and month
 	def formatmonth(self, withyear=True):
-		events = FlightOperation.objects.filter(start_datetime__year=self.year, start_datetime__month=self.month)
+		events = Incident.objects.filter(event_datetime__year=self.year, event_datetime__month=self.month)
 
 		cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
 		cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'

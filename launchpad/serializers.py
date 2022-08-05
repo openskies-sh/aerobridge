@@ -1,7 +1,7 @@
 from csv import excel
 from xxlimited import new
 from rest_framework import serializers
-from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly
+from registry.models import Activity, AircraftMasterComponent, AircraftModel, Operator, Contact, Aircraft, AircraftDetail, Pilot, Address, Person, Company, Firmware, Contact, Pilot, Authorization, AircraftComponent, AircraftAssembly, SupplierPart
 from gcs_operations.models import FlightPlan
 
 class PersonSerializer(serializers.ModelSerializer):         
@@ -220,6 +220,7 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
     linked_models = serializers.SerializerMethodField()
     family = serializers.SerializerMethodField()
     assembly_names = serializers.SerializerMethodField()
+    has_supplier_manufacturer_part = serializers.SerializerMethodField()
     def get_assembly_names(self, obj):        
         assembly_names =[]
         if obj.assembly:
@@ -239,6 +240,10 @@ class AircraftMasterComponentSerializer(serializers.ModelSerializer):
         for x1 in x: 
             name_series.append(x1.name + ' / Series ' + x1.series)
         return ','.join(name_series)
+
+    def get_has_supplier_manufacturer_part(self, obj):        
+        supplier_part_exists = SupplierPart.objects.filter(manufacturer_part__master_component = obj).exists()
+        return supplier_part_exists
     class Meta:
         model = AircraftMasterComponent
-        fields = ('id','name','family','drawing', 'minimum_stock','linked_models','assembly','assembly_names', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock','procurement_origin','net_stock','allocated_stock',)
+        fields = ('id','name','family','drawing', 'minimum_stock','linked_models','assembly','assembly_names', 'created_at', 'updated_at','slugify_family','default_supplier','order_price','total_stock','procurement_origin','net_stock','allocated_stock','has_supplier_manufacturer_part',)

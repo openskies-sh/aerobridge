@@ -45,8 +45,10 @@
                       <td>{{aircraft_master_component.minimum_stock}}</td>
                       <td>{{aircraft_master_component.total_stock }}</td>
                       <td>
-                        <a class="btn btn-outline-dark" href="/launchpad/aircraft-components/{{aircraft_master_component.id}}/new"><b>&#43; Add received component</b></a>
-                      
+                        {%if aircraft_master_component.has_supplier_manufacturer_part%}<a class="btn btn-outline-dark" href="/launchpad/aircraft-components/{{aircraft_master_component.id}}/new"><b>&#43; Add received component</b></a>
+                        {% else %}
+                        <small class="text-muted">Setup Supplier details to acknowledge custody</small>
+                        {% endif %}
                       </td>
                     </tr>
                   </tbody>

@@ -63,7 +63,8 @@ urlpatterns = [
     path('aircraft-assemblies/<str:view_type>', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     path('aircraft-assemblies', launchpad_views.AircraftAssembliesList.as_view(), name='aircraft-assemblies-list'),
     
-    path('incidents/<uuid:aircraft_id>/new', launchpad_views.IncidentsCreateView.as_view(), name='incidents-create'),
+    path('incidents/<uuid:aircraft_id>/new', launchpad_views.IncidentsCreateView.as_view(), name='incidents-create'),    
+    path('incidents/calendar', launchpad_views.IncidentsCalendar.as_view(), name='incidents-calendar'),
     path('incidents/<uuid:incident_id>', launchpad_views.IncidentsUpdate.as_view(), name='incidents-update'),
     path('incidents/<uuid:incident_id>/detail', launchpad_views.IncidentsDetail.as_view(), name='incidents-detail'),    
     path('incidents', launchpad_views.IncidentsList.as_view(), name='incidents-list'),

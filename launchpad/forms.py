@@ -210,7 +210,7 @@ class AircraftComponentCreateForm(forms.ModelForm):
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                     
-                        FloatingField("supplier_part"),
+                        FloatingField("supplier_part"),            
                         FloatingField("invoice_receipt"),
                         FloatingField("description"),   
                         ),
@@ -438,10 +438,11 @@ class IncidentCreateForm(forms.ModelForm):
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
-                        FloatingField("aircraft"),
+                        FloatingField("aircraft"),            
                         FloatingField("impacted_components"),
                         FloatingField("notes"),
-                        FloatingField("new_status"),
+                        FloatingField("new_status"),                        
+                        FloatingField("event_datetime"),
                         ), 
                         always_open=True                   
                     ),
@@ -482,6 +483,11 @@ class IncidentCreateForm(forms.ModelForm):
     class Meta:
         model = Incident
         fields = '__all__'
+        
+        widgets = {            
+            'event_datetime': forms.DateTimeInput( attrs={'class':'form-control', 'placeholder':'Select a date / time', 'type':'datetime-local'}),
+            'impacted_components': forms.CheckboxSelectMultiple( attrs={'class':'form-control'})
+        }
         
 
 class AircraftMasterComponentCreateForm(forms.ModelForm):
