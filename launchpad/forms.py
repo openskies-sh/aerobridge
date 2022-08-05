@@ -189,11 +189,23 @@ class AircraftDetailCreateForm(forms.ModelForm):
         fields = '__all__'
 
 class AircraftComponentCreateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, aircraft_master_component_id=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.help_text_inline = True   
+        self.helper.help_text_inline = True
         
+        if aircraft_master_component_id:
+            master_component = AircraftMasterComponent.objects.get(id = aircraft_master_component_id)
+        
+            supplier_part_exists = SupplierPart.objects.filter(manufacturer_part__master_component = master_component).exists()
+            if supplier_part_exists:
+                self.model_qs =  SupplierPart.objects.filter(manufacturer_part__master_component = master_component)
+            else: 
+                self.model_qs = SupplierPart.objects.all()
+        else:
+            self.model_qs = SupplierPart.objects.all()
+
+
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
@@ -216,6 +228,11 @@ class AircraftComponentCreateForm(forms.ModelForm):
                     )
                 )
         )     
+
+        self.fields['supplier_part'] = forms.ModelChoiceField(
+                required=True,
+                empty_label=None,
+                queryset=self.model_qs)
 
     class Meta:
         model = AircraftComponent
