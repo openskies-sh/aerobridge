@@ -23,7 +23,7 @@
     <br>    
     <button class="btn btn-primary" type="submit" value="Update">Update</button>&nbsp;&nbsp;<a class="btn btn-secondary" href="{% url 'contacts-list' %}" role="button">Cancel</a>
     <br><br>
-    <small class="text-muted">Updated at: {{ serializer.updated_at|date:'Y-m-d H:i' }}</small>
+    <small class="text-muted">Updated at: {{ contact.updated_at|date:'Y-m-d H:i' }} </small>
 </form>
 </div>
 </div>

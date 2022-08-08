@@ -1,0 +1,61 @@
+{% extends "launchpad/layout.html" %}
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+        Manufacturing
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <i class="bi bi-search"></i> Aircraft Component Search
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="row mb-3">
+  <h2><i class="bi bi-search"></i>&nbsp;Search Results</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-12">    
+    <p> {% if object_list %}Your query found <b>{{ object_list.count }}</b> components(s)..{% else %}{% endif %}</p>
+    <table class="table">
+        <thead>
+          <td><b>Name</b></td>
+          <td><b>Status</b></td>
+          <td><b>Linked Aircraft</b></td>
+          <td><b>Aerobridge ID</b></td>
+        </thead>
+        
+        <tbody>
+        {% if object_list %}
+        {% for aircraft_c in object_list %}    
+          <tr>
+            <td><a href="/launchpad/aircraft-components/{{aircraft_c.id}}/detail">{{ aircraft_c }}</a></td>
+            <td><button type="button" class="btn {% if aircraft_c.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_c.get_status_display}}</button></td>
+            <td>{% if aircraft_c.aircraft_details %}{% for aircraft_detail in aircraft_c.aircraft_details %} <a href="/launchpad/aircrafts/{{aircraft_detail.id}}/detail">{{aircraft_detail.name}}</a> {% endfor %}{% endif %}</td>
+            <td><code>{{aircraft_c.aerobridge_id}}</code> </td>
+
+
+          </tr>
+
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td><p class="text-muted"><i>There are no components to show in your query.</i></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {% endif %}
+        </tbody>
+
+
+      </table> 
+
+  </div>
+</div>
+
+{% endblock %}

@@ -61,6 +61,7 @@ class Person(models.Model):
                                               help_text="If social security / identification number is avaialble associate it with a person")
                                 
     date_of_birth = models.DateField(blank=True, null=True, help_text="Assign a date of birth with this person")
+    is_active = models.BooleanField(default= True, help_text="Set if the person is still active / works for the company")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -366,10 +367,10 @@ class Contact(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+        return  self.operator.company_name +  ' : '+ self.person.first_name + ' ' + self.person.last_name + ' : '
 
     def __str__(self):
-        return self.person.first_name + ' ' + self.person.last_name + ' : ' + self.operator.company_name
+        return self.operator.company_name + ' : ' +self.person.first_name + ' ' + self.person.last_name 
 
 
 class Pilot(models.Model):
@@ -1250,7 +1251,7 @@ class AircraftComponent(models.Model):
     @property
     def component_common_name(self):
         items = []
-        items.append(self.aerobridge_id)
+        # items.append(self.aerobridge_id)
         # items.append(self.description)
         if self.supplier_part:
             if self.supplier_part.manufacturer_part:

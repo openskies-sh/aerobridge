@@ -1,5 +1,4 @@
 
-import html
 from pki_framework.models import AerobridgeCredential
 from django.shortcuts import render
 
@@ -12,7 +11,7 @@ from registry.serializers import AircraftFullSerializer
 from gcs_operations.models import CloudFile, FlightOperation, FlightLog, FlightPlan, FlightPermission, SignedFlightLog
 from gcs_operations.serializers import CloudFileSerializer, FlightLogSerializer, SignedFlightLogSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
@@ -1221,6 +1220,22 @@ class AircraftComponentsHistoryView(APIView):
                 
 
         return Response({'aircraft_component_history': all_component_history_diff })
+        
+        
+class AircraftComponentsSearchResultsView(ListView):
+    model = AircraftComponent
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'launchpad/aircraft_component/aircraft_components_search_results.html' 
+
+    def get_queryset(self): # new
+        
+        query = self.request.GET.get("q")
+        
+        object_list = AircraftComponent.objects.filter(
+            Q(master_component__name__icontains=query) | Q(supplier_part__manufacturer_part__master_component__name__icontains=query)
+        )
+        
+        return object_list
         
 ### Company Views
     

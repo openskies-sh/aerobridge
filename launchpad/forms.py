@@ -1001,6 +1001,8 @@ class CustomCloudFileCreateForm(forms.Form):
     UPLOAD_TYPE = (
         ('logs', 'Logs'),
         ('documents', 'Documents'),
+        ('receipts', 'Receipts'),
+        ('invoices', 'Invoices'),
         ('other', 'Other'),
     )
     file = forms.FileField()
