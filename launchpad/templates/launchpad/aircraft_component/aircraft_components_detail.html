@@ -32,7 +32,7 @@
         <td><i class="bi bi-motherboard"></i>&nbsp;<a href="/launchpad/aircraft-master-components/{%if aircraft_component.master_component %}{{aircraft_component.master_component.id }}{% else %}{{aircraft_component.supplier_part.manufacturer_part.master_component.id }}{%endif%}/detail">{{aircraft_component.component_common_name}}</a></td>
     </tr>
     <tr>
-        <td><span data-bs-toggle="tooltip" title="Aerobridge ID is a unique global identifier for this compoent assigned at the time custody is acknowledged.">Aerobridge ID&nbsp;&nbsp;<i class="bi bi-question-circle-fill"></i></span></td>
+        <td><span data-bs-toggle="tooltip" title="Aerobridge ID is a unique global identifier for this component assigned at the time custody is acknowledged.">Aerobridge ID&nbsp;&nbsp;<i class="bi bi-question-circle-fill"></i></span></td>
         <td><code>{{ aircraft_component.aerobridge_id }}</code></td>
     </tr>
     <tr>
