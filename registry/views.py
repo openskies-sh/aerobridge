@@ -3,7 +3,7 @@ from rest_framework import generics, mixins
 from django.http import Http404
 
 from rest_framework.response import Response
-from .models import Firmware, Operator, Aircraft, Company, Pilot, Activity
+from .models import AircraftComponent, Firmware, Operator, Aircraft, Company, Pilot, Activity
 from .serializers import (OperatorSerializer, AircraftSerializer, AircraftFullSerializer, ManufacturerSerializer,PilotSerializer,ActivitySerializer)
 from gcs_operations.serializers import FirmwareSerializer
 
@@ -167,6 +167,31 @@ class AircraftFirmwareDetail(mixins.RetrieveModelMixin,
         firmware = self.get_AircraftFirmware(flight_controller_id = flight_controller_id)
         serializer = FirmwareSerializer(firmware)
         return Response(serializer.data)
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class VerifyAerobridgeID(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Aircraft instance.
+    """
+    # authentication_classes = (SessionAuthentication,TokenAuthentication)
+    # permission_classes = (IsAuthenticated,)
+
+    queryset = AircraftComponent.objects.all()
+    serializer_class = FirmwareSerializer
+    
+    def get_AerobridgeIDExists(self, aerobridge_id):
+        
+        a = AircraftComponent.objects.get(aerobridge_id=aerobridge_id).exists()
+        return a
+        
+    def get(self, request, aerobridge_id, format=None):
+        id_valid = self.get_AerobridgeIDExists(aerobridge_id = aerobridge_id)
+        if id_valid:
+            response = {'aerobridge_id': aerobridge_id, 'status': id_valid}
+        
+        return Response(response)
 
 @method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
 class AircraftRFMDetail(mixins.RetrieveModelMixin,

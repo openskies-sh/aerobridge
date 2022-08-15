@@ -903,6 +903,34 @@ paths:
       tags:
         - Manufacturer
 
+
+  /registry/aircraft-component/verify:
+    get:
+      operationId: verifyAerobridgeID
+      summary: Verify authenticity of a component
+      description: "Use this endpoint to verify if a Component ID is valid within the company "
+      security:
+        - AuthFromPassport: [aerobridge.read]
+      
+      parameters:
+      - name: aerobridge_id
+        in: query
+        required: true
+        description: A UUID string identifying this pilot.
+        schema:
+          $ref: '#/components/schemas/AerobridgeID'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerificationStatus"
+          description: "Status of whether the Aerobridge ID provided is valid"
+      tags:
+        - Aircraft Components
+
+
+
   /registry/pilots/:
     get:
       security:
@@ -988,33 +1016,7 @@ paths:
           description: 'Activity Details successfully retrieved'
       tags:
       - Activitiy
-  /operator_auth_test:
-    summary: Create a test and process data related to operator authorization
-    put:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/OperatorDataFormat"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorDataProcessingResponseFormat"
-          description: Requested test was created successfully.
-
-      operationId: createTest
-      summary: Create a test and process data
-      description: >-
-        Request the creation of one or more operational intents based on injection of the provided Volume4D data.
-        These fields may not be modified.
-      security:
-        - TestAuth:
-            - scd.inject_test_data
-      tags:
-        - Strategic Deconfliction Operator Data
+      
 
 tags:
   - name: Files
@@ -1025,6 +1027,8 @@ tags:
     description: "Operators have a very specific definition in the context of drone operations. Usually they are enties who fly and operate a drone, use these endpoints to identify and query operators stored in Aerobridge"
   - name: Aircrafts
     description: "All endpoints related to Aircraft objects stored in Aerobridge, we recommend that you use the frontend to create a new Aircraft and associate extended details with the aircraft"
+  - name: Aircraft Components
+    description: "All endpoints related to Aircraft component objects stored in Aerobridge"
   # - name: Digital Sky
   #   description: "Aerobridge can communicate with Digital Sky and all endpoints related to Digital Sky are here. As of September-2021 Digital Sky is changing and some commands and endpoints are not supported."
   - name: Flight Permissions
@@ -1209,96 +1213,6 @@ components:
       required:
       - name
 
-
-    OperatorDataFormat:
-      description: |-
-        Parameters for a request to start a authorization request.
-      type: object
-      properties:
-        uas_serial_number:
-          type: string
-          example: "T4S6BBMSZV4H0650"
-          description: Serial number of the UAS per the CTA-2063-A standard
-        operation_mode:
-          type: string
-          anyOf:
-            - $ref: "#/components/schemas/OperationMode"
-        operation_category:
-          type: string
-          example: "normal"
-          description: |-
-            Specify if the flight is "special" or has a specific priority.
-        uas_class:
-          type: string
-          anyOf:
-            - $ref: "#/components/schemas/UASClass"
-        identification_technologies:
-          type: string
-          anyOf:
-            - $ref: "#/components/schemas/IdentificationTechnology"
-        connectivity_methods:
-          type: array
-          $ref: "#/components/schemas/ArrayOfConnectivityMethods"
-        endurance_minutes:
-          type: integer
-          description: A number to specify the endurance of the drone in minutes
-        emergency_procedure_url:
-          type: string
-          format: url
-        operator_id:
-          type: string
-          example: "CHE0n4fujx7nwanb-fwi"
-          description: ID assigned to the operator per the EN4709-02 standard
-      required:
-        - uas_serial_number
-        - operation_mode
-        - uas_class
-        - identification_technologies
-        - operator_id
-
-    OperationMode:
-      type: string
-      enum:
-        - vlos
-        - bvlos
-      description: Specify if the operation is `vlos` or `bvlos` operations
-
-    UASClass:
-      type: string
-      enum:
-        - C0
-        - C1
-        - C2
-        - C3
-        - C4
-      description: Specify the class of the UAS to be flown, for classes bey
-
-    IdentificationTechnology:
-      type: string
-      enum:
-        - network
-        - broadcast
-      description: Specify a Identification technology
-
-    ArrayOfConnectivityMethods:
-      type: array
-      items:
-        type: string
-      example: ["http://ussp.com/emergency"]
-
-    OperatorDataProcessingResponseFormat:
-      type: object
-      properties:
-        result:
-          type: string
-          anyOf:
-            - $ref: "#/components/schemas/ProcessingPassorFail"
-    ProcessingPassorFail:
-      type: string
-      enum:
-        - pass
-        - fail
-      description: Specify if the operator data posted passed or failed processing
 
     Operator:
       type: object
@@ -1713,6 +1627,55 @@ components:
         - purpose
         - start_datetime
         - end_datetime
+
+    ComponentVerificationStatus:
+      type: object
+      properties:
+        aerobridge_id:
+          $ref: '#/components/schemas/AerobridgeID' 
+        status:
+          enum:
+          - 0
+          - 1          
+          type: integer
+          description: >
+            Specify if the Aerobridge ID is verified
+             * `0` - Not verfied
+             * `1` - Verified
+             
+    AerobridgeID: 
+      type: string
+      pattern: '^\w{3-10}-\w{3-10}-\w{3-15}$'
+      example: 'coypu-bullwhack-headman'
+      description: Aerobridge ID is a unique global identifier for this component assigned at the time custody is acknowledged
+
+    AircraftComponent:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/UUIDv4Format' 
+          readOnly: true
+        raw_log:
+          type: object
+          description: A JSON file from the drone that has the raw log. Once the log has been uploaded, it is recommended that the file be deleted from the RFM / SD card on the drone.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        operation:
+          type: string
+          format: uuid
+          example: 29ec06cb-c6fb-4578-aea6-56fa438f4f82
+          description: Specify the operation object that this log deals with
+
+      required:
+        - raw_log
+        - operation
+
 
     FlightLog:
       type: object
