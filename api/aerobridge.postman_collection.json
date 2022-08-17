@@ -3,7 +3,8 @@
 		"_postman_id": "6a879886-c38e-4236-8ec3-6ad186dbdaa8",
 		"name": "Aerobridge Production",
 		"description": "A set of calls to Test Aerobridge",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "393882"
 	},
 	"item": [
 		{
@@ -2224,7 +2225,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/001C00243237511538343932",
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/004E00403237511538343932",
 							"protocol": "https",
 							"host": [
 								"aerobridgetestflight",
@@ -2235,7 +2236,92 @@
 								"registry",
 								"aircraft",
 								"firmware",
-								"001C00243237511538343932"
+								"004E00403237511538343932"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify AerobridgeID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft-component/verify/coypu-bullwhack-headman",
+							"protocol": "https",
+							"host": [
+								"aerobridgetestflight",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"registry",
+								"aircraft-component",
+								"verify",
+								"coypu-bullwhack-headman"
 							]
 						}
 					},

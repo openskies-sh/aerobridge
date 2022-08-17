@@ -183,12 +183,14 @@ class VerifyAerobridgeID(mixins.RetrieveModelMixin,
     
     def get_AerobridgeIDExists(self, aerobridge_id):
         
-        a = AircraftComponent.objects.get(aerobridge_id=aerobridge_id).exists()
+        a = AircraftComponent.objects.filter(aerobridge_id=aerobridge_id).exists()
         return a
         
     def get(self, request, aerobridge_id, format=None):
         id_valid = self.get_AerobridgeIDExists(aerobridge_id = aerobridge_id)
         if id_valid:
+            response = {'aerobridge_id': aerobridge_id, 'status': id_valid}
+        else:
             response = {'aerobridge_id': aerobridge_id, 'status': id_valid}
         
         return Response(response)

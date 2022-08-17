@@ -904,7 +904,7 @@ paths:
         - Manufacturer
 
 
-  /registry/aircraft-component/verify:
+  /registry/aircraft-component/{aerobrige_id}:
     get:
       operationId: verifyAerobridgeID
       summary: Verify authenticity of a component
@@ -914,7 +914,7 @@ paths:
       
       parameters:
       - name: aerobridge_id
-        in: query
+        in: path
         required: true
         description: A UUID string identifying this pilot.
         schema:
