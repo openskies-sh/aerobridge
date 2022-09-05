@@ -1,8 +1,20 @@
 {% extends "launchpad/layout.html" %} 
 {% load rest_framework %}
+
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Operations
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Company Details
+      </li>
+    </ol>
+  </nav>
+{% endblock %}
 {% block content %}
-<div>
-<h1>Company Details - {{ company.common_name }}</h1>
+<h2>Company Details - {{ company.common_name }}</h2>
 <p></p>
 <br>
 <table  class="table">
@@ -51,5 +63,5 @@
     {%endfor %}
 </ul> 
 {% endif %}
-</div>
+
 {% endblock %}

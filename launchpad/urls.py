@@ -122,6 +122,7 @@ urlpatterns = [
     # path('digitalsky-flight-permissions/<uuid:flightpermission_id>/request', launchpad_views.FlightPermissionDigitalSkyRequest.as_view(), name='flightpermissions-digitalsky-request'),
  
     path('flightlogs', launchpad_views.FlightLogsList.as_view(), name='flightlogs-list'),
+    path('flightlogs/calendar', launchpad_views.FlightLogsCalender.as_view(), name='flightlogs-calendar'),
     path('flightlogs/<uuid:flightlog_id>/detail', launchpad_views.FlightLogsDetail.as_view(), name='flightlogs-detail'),
     path('flightlogs/<uuid:flightlog_id>/sign', launchpad_views.FlightLogsSign.as_view(), name='flightlogs-sign-thanks'),
     path('flightlogs/<uuid:flightlog_id>', launchpad_views.FlightLogsUpdate.as_view(), name='flightlogs-update'),

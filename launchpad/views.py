@@ -40,8 +40,9 @@ from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 
 from django.views import generic
-from gcs_operations.utils import Calendar
+from gcs_operations.utils import Calendar, FlightLogCalendar
 from supply_chain_operations.utils import IncidentCalendar
+
 from datetime import datetime,timedelta, date
 from django.utils.safestring import mark_safe
 import calendar
@@ -1774,6 +1775,56 @@ class FlightLogsList(APIView):
         queryset = FlightLog.objects.all()
         return Response({'flightlogs': queryset})
     
+class FlightLogsCalender(generic.ListView):
+    model = FlightLog
+    template_name = 'launchpad/flight_log/flightlog_calendar.html'
+
+    def get_context_data(self, **kwargs):
+        def get_date(req_day):
+            if req_day:
+                year, month = (int(x) for x in req_day.split('-'))
+                return date(year, month, day=1)
+            return datetime.today()
+
+        def get_date(req_month):
+            if req_month:
+                year, month = (int(x) for x in req_month.split('-'))
+                return date(year, month, day=1)
+            return datetime.today()
+
+        def prev_month(d):
+            first = d.replace(day=1)
+            prev_month = first - timedelta(days=1)
+            month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+            return month
+
+        def next_month(d):
+            days_in_month = calendar.monthrange(d.year, d.month)[1]
+            last = d.replace(day=days_in_month)
+            next_month = last + timedelta(days=1)
+            month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+            return month
+
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get('month', None))
+
+        # Instantiate our calendar class with today's year and date
+        cal = FlightLogCalendar(d.year, d.month)
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context
+
+
+
+
+
 class FlightLogsSign(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/flight_log/flightlog_sign_thanks.html'

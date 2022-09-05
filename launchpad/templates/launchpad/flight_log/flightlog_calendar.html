@@ -1,0 +1,32 @@
+{% extends "launchpad/layout.html" %} 
+{% load static %}
+
+    
+{% block custom_css %}
+<link href="{% static "jetway/css/cal.css" %}" rel="stylesheet">   
+{% endblock %}
+{% block navbreadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        Flights
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+        Logs
+        </li>
+    </ol>
+  </nav>
+{% endblock %}
+{% block content %}
+
+    <h2>Flight Logs Calendar</h2>
+    <p>See all the flight logs in a calendar view, use the month controls to navigate and see past and future logs</p>
+
+  {{ calendar }}
+
+  <div class="btn-group" role="group" aria-label="Calender buttons">
+    <a class="btn btn-primary" href="{% url 'flightlogs-calendar' %}?{{ prev_month }}"> Previous Month </a>
+    <a class="btn btn-primary" href="{% url 'flightlogs-calendar' %}?{{ next_month }}"> Next Month </a>
+  </div>
+
+{% endblock %}
