@@ -3,20 +3,21 @@
 {% load static %}
 {% block content %}
 <div class="row mb-3">
-    <h2>Get started with Aerobridge Assembly / Manufacturing</h2>
-    <p>Aerobridge gives you the ability manage assembly and manufacturing of drone and its components:</p><br><br>
+    <h2>Get started with Assembly / Manufacturing</h2>
+    <p>Aerobridge gives you the ability manage assembly and manufacturing of drone and its components with a four step process</p><br><br>
 </div>
 <div class="row mb-3">
     <ol class="list-group list-group-numbered">
        
-        <li class="list-group-item">The following image shows how objects for manufacturing work internaly. A model and master Bill of Materials (BOM) is created (on left). 
-            
-        </li>
-        <li class="list-group-item">On the right assembled equipment as objects in the data are created. 
-
+        <li class="list-group-item">Start with adding master components, master components are the core building blocks that form the drone assembly.</li>
         </li>
         <li class="list-group-item">
-            <img src="{% static "jetway/images/manufacturing-read-first.png" %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy">
+            You can then create an Aircraft Model by linking master components to a Aircraft Model.
+        </li>
+        <li class="list-group-item">Once master components are added, you can acknowledge custody of components to add components to Aerobridge. 
+        </li>
+        <li class="list-group-item">
+            You can then create a Aircraft Assembly based on acknolwedged components.
         </li>
     </ol>
 </div>

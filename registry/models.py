@@ -1147,24 +1147,24 @@ class AircraftModel(models.Model):
     (5, _('GYROPLANE')), (6, _('BALLOON')), (7, _('AIRSHIP')), (8, _('UAV')), (9, _('Multirotor')), (10, _('Hybrid')),)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=280, help_text="Give this a name e.g. Aerobridge F1")
-    popular_name = models.CharField(max_length=140, help_text="e.g. F1")
+    name = models.CharField(max_length=280, help_text="Give this model a full name you can remember e.g. Aerobridge F1")
+    popular_name = models.CharField(max_length=140, help_text="Give this e.g. F1")
     category = models.IntegerField(choices=AIRCRAFT_CATEGORY, default=0,
                                    help_text="Set the category for this aircraft, use the closest aircraft type")
     master_components = models.ManyToManyField(AircraftMasterComponent, name="master_components")   
     series = models.CharField(max_length=10, default="2022.1", help_text="Define the production series for this Aircraft Model e.g. 2022.1") 
     max_endurance = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                        help_text="Set the endurance in minutes")
+                                        help_text="Set the flight endurance of this model in minutes")
     max_range = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                    help_text="Set the range in kms for the drone")
+                                    help_text="Set the flight range of this model in kms.")
     max_speed = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                    help_text="Set the maximum speed in km/hr.")
+                                    help_text="Set the maximum flight speed in km/hr.")
     dimension_length = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                           help_text="Set the length of the drone in cms")
+                                           help_text="Set the maximum length of the drone in cms")
     dimension_breadth = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                            help_text="Set the breadth of the drone in cms")
+                                            help_text="Set the maximum breadth of the drone in cms")
     dimension_height = models.DecimalField(decimal_places=2, max_digits=10, default=0.00,
-                                           help_text="Set the height of the drone in cms")
+                                           help_text="Set the maximum height of the drone in cms")
     firmware = models.ForeignKey(Firmware, on_delete=models.CASCADE, help_text="Associate a firmware with this aircraft model")
 
     
