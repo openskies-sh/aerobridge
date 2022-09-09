@@ -13,7 +13,6 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 - Integration with Ardupilot (PX4 coming soon)
 - Approve flights via one-time-password like permissions
 - Integrate with UTM system of choice
-
 ## Live Demo 🚀
 
 - You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
