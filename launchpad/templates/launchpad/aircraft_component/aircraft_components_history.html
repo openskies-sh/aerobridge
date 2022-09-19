@@ -61,7 +61,7 @@
       {% if aircraft_component_history %}
       {% for aircraft_c_h in aircraft_component_history %}
       <li>
-        <p class="text-muted">{{aircraft_c_h.0.history_date|date:"M d, Y" }}</p>
+        <p class="text-muted">{{aircraft_c_h.0.history_date|date:"M d, Y H:i" }}</p>
         <div class="ms-2 me-auto">
           <code>{{aircraft_c_h.1}}</code>          
         </div>

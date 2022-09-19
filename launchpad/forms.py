@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import arrow
 from crispy_forms.helper import FormHelper
+from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 from crispy_forms.layout import Layout, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import AccordionGroup
 from crispy_bootstrap5.bootstrap5 import Field, FloatingField, BS5Accordion
@@ -425,21 +426,22 @@ class AircraftAssemblyUpdateForm(forms.ModelForm):
         }
         
 class IncidentCreateForm(forms.ModelForm):
-    def __init__(self,aircraft_id,  *args, **kwargs):
+    def __init__(self,aircraft_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.help_text_inline = True   
+        
         self.aircraft_qs =  Aircraft.objects.filter(id =aircraft_id)
         aircraft =  Aircraft.objects.get(id =aircraft_id)
         aircraft_assembly = aircraft.final_assembly
         # The components that have not been selected
         self.impacted_components_qs = aircraft_assembly.components
-                      
+                     
         self.helper.layout = Layout(
                 BS5Accordion(
                     AccordionGroup("Mandatory Information",
                         FloatingField("aircraft"),            
-                        FloatingField("impacted_components"),
+                        Field("impacted_components",css_class="full-length", help_text='Select the components impacted in this incident, you can select multiple.'),                        
                         FloatingField("notes"),
                         FloatingField("new_status"),                        
                         FloatingField("event_datetime"),
@@ -449,6 +451,7 @@ class IncidentCreateForm(forms.ModelForm):
                     HTML("""
                             <br>
                         """),
+                                    
                     ButtonHolder(
                                 Submit('submit', '+ Add Incident'),
                                 HTML("""<a class="btn btn-secondary" href="{% url 'incidents-list' %}" role="button">Cancel</a>""")

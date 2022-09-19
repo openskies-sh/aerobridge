@@ -36,6 +36,10 @@
         <td><code>{{ aircraft_component.aerobridge_id }}</code></td>
     </tr>
     <tr>
+        <td>History&nbsp;&nbsp;</td>
+        <td><a href="/launchpad/aircraft-components/{{ aircraft_component.aerobridge_id }}/history"><i class="bi bi-clock-history"></i> Component History</a></td>
+    </tr>
+    <tr>
         <td>Status</td>
         <td>          
           <button type="button" class="btn {% if aircraft_component.status == 10 %}btn-outline-success{% else %}btn-outline-warning{% endif %}" disabled>{{aircraft_component.get_status_display}}</button>

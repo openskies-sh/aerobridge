@@ -1206,7 +1206,7 @@ class AircraftComponentsHistoryView(APIView):
 
     def get(self, request, aerobridge_id):
         component = get_object_or_404(AircraftComponent, aerobridge_id=aerobridge_id)
-        all_component_history = component.history.all()
+        all_component_history = component.history.all().order_by('history_date')
         all_component_history_diff = []
         old_record = None
         for current_component_history in all_component_history:
