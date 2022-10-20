@@ -55,8 +55,8 @@ Now you can use the Docker or non-Docker methods to run the installation, if you
 #### Non-Docker
 
 1. Migrate the database `python manage.py migrate` , this will create a SQLlite database called `aerobridge.sqlite3`
-2. Load sample data `python manage.py loadddata registry/defaultregistrydata.json`
-3. Launch server via `python manange.py runserver`
+2. Load sample data `python manage.py loaddata fixtures/initial_data.json`
+3. Launch server via `python manage.py runserver`
 
 ## Additional Dependencies
 
