@@ -420,6 +420,7 @@ class SupplierPartManager(models.Manager):
         )
 
 
+""" AircraftMasterComponentClass starts """
 
 class AircraftMasterComponent(models.Model):
     ''' '''
