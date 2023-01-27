@@ -18,8 +18,8 @@ from django.urls import include, path
 
 
 
-# from django.conf import settings
-# from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls.static import static
 import jetway.views as jetwayviews
 
 urlpatterns = [
@@ -34,6 +34,6 @@ urlpatterns = [
     path('registry/', include('registry.urls')),
     # YOUR PATTERNS
 ]
-# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
