@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECURE_API_ENDPOINTS = True
+SECURE_API_ENDPOINTS = False
 
 # if DEBUG:
 #     BROKER_URL = os.getenv("REDIS_URL",'redis://localhost:6379/')
