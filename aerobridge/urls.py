@@ -34,6 +34,6 @@ urlpatterns = [
     path('registry/', include('registry.urls')),
     # YOUR PATTERNS
 ]
-+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
