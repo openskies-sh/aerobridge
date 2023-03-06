@@ -2074,7 +2074,7 @@ class CredentialsDetail(APIView):
     def get(self, request, credential_id):
         credential = get_object_or_404(AerobridgeCredential, pk=credential_id)
         serializer = AerobridgeCredentialSerializer(credential)
-        return Response({'serializer': serializer, 'credential': credential})
+        return Response({'serializer': serializer.data,})
 
 
 
@@ -2123,7 +2123,7 @@ class CredentialsCreateView(CreateView):
         secret_key = settings.CRYPTOGRAPHY_SALT.encode('utf-8')
 
         f = encrpytion_util.EncrpytionHelper(secret_key= secret_key)
-
+        
         enc_token = f.encrypt(message = form.data['credential'].encode('utf-8'))
         self.object.token = enc_token
         self.object.save()
