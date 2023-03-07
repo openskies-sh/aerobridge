@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from registry.models import Aircraft, Company, Operator
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-
+from common.validators import validate_currency_code, validate_url
 no_special_characters_regex = RegexValidator(regex=r'^[-, ,_\w]*$', message="No special characters allowed in this field.")
 
 
@@ -49,3 +49,26 @@ class AerobridgeCredential(models.Model):
     
     def token_type_verbose(self):
         return dict(AerobridgeCredential.TOKEN_TYPE)[self.token_type]
+
+      
+class AerobridgeExternalCredential(models.Model):
+    ''' A model for custom firmware '''
+    KEY_ENVIRONMENT = ((0, _('Auth Server')),)
+    TOKEN_TYPE= ((0, _('Full Chain')),)
+    token_type = models.IntegerField(choices=TOKEN_TYPE, help_text="Set the type of credential this is, e.g Public / Private Key etc.")
+    association = models.IntegerField(choices=KEY_ENVIRONMENT, default = 4, help_text="Set the entity this credential is associated with. The association will be used when calling external servers.")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    binary_file_url = models.URLField(help_text="Enter a url from where the credential can be downloaded",validators=[validate_url])
+    
+    name = models.CharField(max_length=140, help_text="Give it a friendly name e.g. Auth server full chain pem")
+    is_active = models.BooleanField(default=False,
+                                    help_text="Set if the credential is active, don't forget to mark old credentials as inactive")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.version
+
+    def __str__(self):
+        return self.version

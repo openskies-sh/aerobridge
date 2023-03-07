@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from pki_framework.models import AerobridgeCredential
+from pki_framework.models import AerobridgeCredential, AerobridgeExternalCredential
 from . import encrpytion_util
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -121,3 +121,14 @@ class AerobridgeCredentialGetSerializer(serializers.ModelSerializer):
         # extra_kwargs = {
         #     'token': {'write_only': True}
         # }
+
+
+
+class AerobridgeExternalCredentialSerializer(serializers.ModelSerializer):
+    ''' A serializer for saving Firmware '''
+
+    class Meta:
+        model = AerobridgeExternalCredential
+        fields = ['name', 'id','binary_file_url']
+        ordering = ['-created_at']
+

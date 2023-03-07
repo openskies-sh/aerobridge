@@ -352,6 +352,19 @@
       "created_at": "2022-02-15T21:44:29.648Z",
       "updated_at": "2022-02-15T21:44:29.648Z"
     }
+  },  
+  {
+    "model": "pki_framework.aerobridgeexternalcredential",
+    "pk": "6d91bc52-3436-443c-8140-df312e04b434",
+    "fields": {
+      "binary_file_url": "https://aerobridge-pro-datastore.ams3.digitaloceanspaces.com/testflight%2Fauth-server%2Ffullchain.pem",
+      "name": "Auth server fullchain",
+      "is_active": true,
+      "token_type":0, 
+      "association":0,
+      "created_at": "2022-02-15T21:44:29.648Z",
+      "updated_at": "2022-02-15T21:44:29.648Z"
+    }
   },
   {
     "model": "registry.operator",

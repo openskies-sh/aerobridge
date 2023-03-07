@@ -127,6 +127,23 @@ paths:
       tags:
         - Credentials
 
+  /pki/auth_server_fullchain:
+    get:
+      summary: "A list of all full chain certificates stored in the Aerobridge management server"
+      operationId: listAuthServerFullChain
+      description: "Get a list of all Auth Server Full Chain certifiacte stored in Aerobridge"
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AerobridgeRemoteCredential"
+          description: "Successfully retrieved Remote Credential stored"
+      tags:
+        - Credentials
   /gcs/firmware:
     get:
       summary: "A list of all Firmware releases stored in the Aerobridge management server"
@@ -1336,6 +1353,36 @@ components:
         - operational_authorizations
         - authorized_activities
 
+    AerobridgeRemoteCredential:
+      type: object
+      properties:
+        name:
+          type: string
+          description:
+            Enter a friendly name / description for the type of credential
+            you are storing
+          pattern: ^[-, ,_\w]*$
+          maxLength: 100
+          
+        binary_file_url:
+          type: string
+          format: uri
+          maxLength: 200
+          pattern:
+            "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1-\uFFFF0-9])?(?:\\\
+            .(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\z"
+          description: The Files API provides ways to generate a URL to upload your files
+        id:        
+          $ref: '#/components/schemas/UUIDv4Format'
+          readOnly: true
+          example: 5d84afc6-47e1-4b92-ad9e-541b8ebc54b1
+      required:
+        - name
+        - binary_file_url
+        - id
     AerobridgeCredential:
       type: object
       properties:

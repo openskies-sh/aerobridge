@@ -2077,7 +2077,6 @@ class CredentialsDetail(APIView):
         return Response({'serializer': serializer.data,})
 
 
-
 class CredentialsUpdate(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'launchpad/credential/credential_update.html'

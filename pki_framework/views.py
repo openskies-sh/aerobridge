@@ -1,8 +1,8 @@
 
 from rest_framework import generics, mixins
 
-from .models import AerobridgeCredential
-from .serializers import (AerobridgeCredentialGetSerializer, AerobridgeCredentialPostSerializer)
+from .models import AerobridgeCredential, AerobridgeExternalCredential
+from .serializers import (AerobridgeCredentialGetSerializer, AerobridgeCredentialPostSerializer, AerobridgeExternalCredentialSerializer)
 from django.utils.decorators import method_decorator
 from pki_framework.utils import requires_scopes
 from rest_framework.views import APIView
@@ -48,3 +48,22 @@ class CredentialsDetail(mixins.RetrieveModelMixin,
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+
+
+@method_decorator(requires_scopes(['aerobridge.read']), name='dispatch')
+class AuthServerFullChain(mixins.RetrieveModelMixin,
+        generics.GenericAPIView):
+    """
+    Retrieve, update or delete a Aircraft instance.
+    """
+    # authentication_classes = (SessionAuthentication,TokenAuthentication)
+    # permission_classes = (IsAuthenticated,)
+
+    queryset = AerobridgeExternalCredential.objects.filter(token_type= 0, association =0, is_active = 1)
+    serializer_class = AerobridgeExternalCredentialSerializer
+    
+
+    def get(self, request, flight_controller_id, format=None):
+        auth_server_full_chain =  AerobridgeExternalCredential.objects.filter(token_type= 0, association =0, is_active = 1)
+        serializer = AerobridgeExternalCredentialSerializer(auth_server_full_chain, many = True)
+        return Response(serializer.data)
