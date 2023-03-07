@@ -129,9 +129,9 @@ paths:
 
   /pki/auth_server_fullchain:
     get:
-      summary: "A list of all full chain certificates stored in the Aerobridge management server"
+      summary: "Full chain certificates of the Auth Server"
       operationId: listAuthServerFullChain
-      description: "Get a list of all Auth Server Full Chain certifiacte stored in Aerobridge"
+      description: "Get a list of all Auth Server Full Chain certifiactes stored in Aerobridge, used in Trusted Flight"
       parameters: []
       responses:
         "200":
@@ -141,7 +141,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AerobridgeRemoteCredential"
-          description: "Successfully retrieved Remote Credential stored"
+          description: "Successfully retrieved Remote Credential"
       tags:
         - Credentials
   /gcs/firmware:
