@@ -1,31 +1,24 @@
 {
 	"info": {
-		"_postman_id": "6a879886-c38e-4236-8ec3-6ad186dbdaa8",
-		"name": "Aerobridge Production",
+		"_postman_id": "e3f9ce26-d4b8-4747-b34f-ce54358059e2",
+		"name": "Aerobridge",
 		"description": "A set of calls to Test Aerobridge",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "393882"
 	},
 	"item": [
 		{
-			"name": "Registry - Manufacturers",
+			"name": "SCD Auth",
 			"item": [
 				{
-					"name": "GET all Manufacturers",
+					"name": "PUT Check Flight operator details",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
 								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
 									"type": "string"
 								},
 								{
@@ -34,8 +27,20 @@
 									"type": "string"
 								},
 								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
+									"key": "audience",
+									"value": {
+										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
 									"type": "string"
 								},
 								{
@@ -44,86 +49,8 @@
 									"type": "string"
 								},
 								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/manufacturers",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"manufacturers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Single Manufacturer",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
 									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -158,192 +85,28 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/manufacturers/4effcea2-e9d4-4696-891f-52d350d68a9f",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"manufacturers",
-								"4effcea2-e9d4-4696-891f-52d350d68a9f"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Registry - Activities",
-			"item": [
-				{
-					"name": "Get All Activities",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"Flight Operation Z2\",\r\n    \"type_of_operation\": 0,    \r\n    \"drone\": \"0797d9ef-02d9-41cf-93ff-439aaf1609ae\",\r\n    \"flight_plan\": \"12818e87-4c96-4e4c-8c63-82b8e12c3b73\",\r\n    \"operator\":\"41174c3f-e86c-4e5a-a629-32d4d9da6011\",\r\n    \"purpose\": \"26b6a66d-5e77-4a43-94e9-630e141a1087\",\r\n    \"pilot\": \"2f15a395-65a3-4a73-a492-57c7c470d527\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/activities",
-							"protocol": "https",
+							"raw": "http://local.test:8000/operator_auth_test/",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"registry",
-								"activities"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Single Activiy Details",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Flight Blender Token",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/activities/26b6a66d-5e77-4a43-94e9-630e141a1087",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"activities",
-								"26b6a66d-5e77-4a43-94e9-630e141a1087"
+								"operator_auth_test",
+								""
 							]
 						}
 					},
@@ -422,13 +185,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/pilots",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/pilots",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"registry",
 								"pilots"
@@ -505,13 +268,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/pilots",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/pilots",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"registry",
 								"pilots"
@@ -523,10 +286,93 @@
 			]
 		},
 		{
-			"name": "GCS Operations - Firmware",
+			"name": "Registry - Activities",
 			"item": [
 				{
-					"name": "GET all Firmware",
+					"name": "Get All Activities",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "scope",
+									"value": "{{aerobridge_scopes}}",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/registry/activities",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"registry",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Activiy Details",
 					"request": {
 						"auth": {
 							"type": "oauth2",
@@ -544,38 +390,8 @@
 									"type": "string"
 								},
 								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
 									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
+									"value": "Flight Blender Token",
 									"type": "string"
 								},
 								{
@@ -587,22 +403,53 @@
 									"key": "addTokenTo",
 									"value": "header",
 									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/firmware",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/activities/26b6a66d-5e77-4a43-94e9-630e141a1087",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"gcs",
-								"firmware"
+								"registry",
+								"activities",
+								"26b6a66d-5e77-4a43-94e9-630e141a1087"
 							]
 						}
 					},
@@ -611,26 +458,14 @@
 			]
 		},
 		{
-			"name": "GCS Operations - Files",
+			"name": "Registry - Aircraft",
 			"item": [
 				{
-					"name": "GET all Cloud files",
+					"name": "GET All Aircrafts",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
 								{
 									"key": "clientId",
 									"value": "{{client_id}}",
@@ -642,8 +477,20 @@
 									"type": "string"
 								},
 								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -681,39 +528,27 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/files",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/aircraft",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"gcs",
-								"files"
+								"registry",
+								"aircraft"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET a single Cloudfile",
+					"name": "GET Single Aircraft by RFM ID",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
 								{
 									"key": "clientId",
 									"value": "{{client_id}}",
@@ -725,8 +560,20 @@
 									"type": "string"
 								},
 								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -764,17 +611,272 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/api/files/4dab259d-c549-490a-9da1-af628118fe45",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/aircraft/rfm/xZEM5RGvC8thujXX",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"api",
-								"files",
-								"4dab259d-c549-490a-9da1-af628118fe45"
+								"registry",
+								"aircraft",
+								"rfm",
+								"xZEM5RGvC8thujXX"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Aircraft Firmware by RFM ID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/registry/aircraft/firmware/001C00243237511538343932",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"registry",
+								"aircraft",
+								"firmware",
+								"001C00243237511538343932"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Aircraft",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/registry/aircraft/0450852f-856e-4ecb-beb6-01ccded8529d",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"registry",
+								"aircraft",
+								"0450852f-856e-4ecb-beb6-01ccded8529d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify AerobridgeID",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/registry/aircraft-component/verify/coypu-bullwhack-headman",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"registry",
+								"aircraft-component",
+								"verify",
+								"coypu-bullwhack-headman"
 							]
 						}
 					},
@@ -783,26 +885,14 @@
 			]
 		},
 		{
-			"name": "GCS Operations - Flight Log",
+			"name": "Registry - Manufacturers",
 			"item": [
 				{
-					"name": "Sign single raw Flight Log",
+					"name": "GET all Manufacturers",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
 								{
 									"key": "clientId",
 									"value": "{{client_id}}",
@@ -814,93 +904,20 @@
 									"type": "string"
 								},
 								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-logs/af58a9dc-6474-41b9-a64c-ece932aff6ef/sign",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"gcs",
-								"flight-logs",
-								"af58a9dc-6474-41b9-a64c-ece932aff6ef",
-								"sign"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET all raw Flight Logs",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
 									"key": "audience",
 									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
 									},
 									"type": "any"
 								},
 								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -938,39 +955,27 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-logs",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/manufacturers",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"gcs",
-								"flight-logs"
+								"registry",
+								"manufacturers"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET single raw Flight Log",
+					"name": "GET Single Manufacturer",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
 								{
 									"key": "clientId",
 									"value": "{{client_id}}",
@@ -982,8 +987,20 @@
 									"type": "string"
 								},
 								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -1021,120 +1038,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/api/flight-logs/f1a3fd4e-13a4-40c4-b10d-0e27683bbe9c",
-							"protocol": "https",
+							"raw": "http://local.test:8000/registry/manufacturers/4effcea2-e9d4-4696-891f-52d350d68a9f",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"api",
-								"flight-logs",
-								"f1a3fd4e-13a4-40c4-b10d-0e27683bbe9c"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Upload Raw Log file",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "tokenName",
-									"value": "Aerobridge RW Token",
-									"type": "string"
-								},
-								{
-									"key": "audience",
-									"value": {
-										"56d75814-297b-4a52-b60d-94e1b4f0aee6": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenType",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:8000/",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/oauth/authorize/",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "raw_log",
-									"value": "{\"permissionArtefact\":\"81e1ba84-f4fd-11eb-9ed7-0242ac1f0002\",\"previousLogHash\":\"c56e7da56d6c8646ec8ac4bd11a4df487dd6c4f1209966b11a9c40debc90ddec\",\"logEntries\":[{\"entryType\":\"TAKEOFF/ARM\",\"timeStamp\":1628085721,\"longitude\":72.515114,\"latitude\":23.017818,\"altitude\":0.0098},{\"entryType\":\"LAND/DISARM\",\"timeStamp\":1628085731,\"longitude\":72.515114,\"latitude\":23.017818,\"altitude\":0.0097}]}",
-									"type": "text"
-								},
-								{
-									"key": "operation",
-									"value": "d6eef60e-4190-4789-9ad8-691a1982211f",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-logs",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"gcs",
-								"flight-logs"
+								"registry",
+								"manufacturers",
+								"4effcea2-e9d4-4696-891f-52d350d68a9f"
 							]
 						}
 					},
@@ -1146,108 +1060,12 @@
 			"name": "GCS Operations - Flight Plans",
 			"item": [
 				{
-					"name": "GET Single Flight Plan",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-plans/ec565c01-2b35-4f4f-9e01-77093d77521c",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"gcs",
-								"flight-plans",
-								"ec565c01-2b35-4f4f-9e01-77093d77521c"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "GET all Flight Plans",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
 								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
 									"key": "clientId",
 									"value": "{{client_id}}",
 									"type": "string"
@@ -1258,8 +1076,20 @@
 									"type": "string"
 								},
 								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -1297,16 +1127,100 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-plans",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-plans",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"gcs",
 								"flight-plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Flight Plan",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/flight-plans/12818e87-4c96-4e4c-8c63-82b8e12c3b73",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"flight-plans",
+								"12818e87-4c96-4e4c-8c63-82b8e12c3b73"
 							]
 						}
 					},
@@ -1391,7 +1305,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"South West Delivery Plan\",\r\n  \"plan_file_json\": {\"fileType\":\"Plan\",\"geoFence\":{\"circles\":[],\"polygons\":[],\"version\":2},\"groundStation\":\"QGroundControl\",\"mission\":{\"cruiseSpeed\":15,\"firmwareType\":3,\"globalPlanAltitudeMode\":1,\"hoverSpeed\":5,\"items\":[{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":22,\"doJumpId\":1,\"frame\":3,\"params\":[0,0,0,null,0,0,50],\"type\":\"SimpleItem\"},{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":16,\"doJumpId\":2,\"frame\":3,\"params\":[0,0,0,null,30.72499973,76.76561685,50],\"type\":\"SimpleItem\"},{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":16,\"doJumpId\":3,\"frame\":3,\"params\":[0,0,0,null,30.72464388,76.7659469,50],\"type\":\"SimpleItem\"}],\"plannedHomePosition\":[30.72500213,76.76617066,334.2220439999931],\"vehicleType\":2,\"version\":2},\"rallyPoints\":{\"points\":[],\"version\":2},\"version\":1}\r\n\r\n}",
+							"raw": "{\r\n  \"name\": \"Simple\",\r\n  \"plan_file_json\": {\"fileType\":\"Plan\",\"geoFence\":{\"circles\":[],\"polygons\":[],\"version\":2},\"groundStation\":\"QGroundControl\",\"mission\":{\"cruiseSpeed\":15,\"firmwareType\":3,\"globalPlanAltitudeMode\":1,\"hoverSpeed\":5,\"items\":[{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":22,\"doJumpId\":1,\"frame\":3,\"params\":[0,0,0,null,0,0,50],\"type\":\"SimpleItem\"},{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":16,\"doJumpId\":2,\"frame\":3,\"params\":[0,0,0,null,30.72499973,76.76561685,50],\"type\":\"SimpleItem\"},{\"AMSLAltAboveTerrain\":null,\"Altitude\":50,\"AltitudeMode\":1,\"autoContinue\":true,\"command\":16,\"doJumpId\":3,\"frame\":3,\"params\":[0,0,0,null,30.72464388,76.7659469,50],\"type\":\"SimpleItem\"}],\"plannedHomePosition\":[30.72500213,76.76617066,334.2220439999931],\"vehicleType\":2,\"version\":2},\"rallyPoints\":{\"points\":[],\"version\":2},\"version\":1}\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1399,13 +1313,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-plans",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-plans",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"gcs",
 								"flight-plans"
@@ -1417,24 +1331,17 @@
 			]
 		},
 		{
-			"name": "PKI Framework - Credentials",
+			"name": "GCS Operations - Flight Operations",
 			"item": [
 				{
-					"name": "POST single credentials details",
+					"name": "GET Single Flight Operations",
 					"request": {
 						"auth": {
 							"type": "oauth2",
 							"oauth2": [
 								{
-									"key": "audience",
-									"value": {
-										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
+									"key": "clientId",
+									"value": "{{client_id}}",
 									"type": "string"
 								},
 								{
@@ -1443,126 +1350,20 @@
 									"type": "string"
 								},
 								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenType",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "accessToken",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"token\": \"PUBLIC KEY AS STRING\",\r\n    \"name\": \"Manufacturer Public Token\",\r\n    \"token_type\": 0,\r\n    \"association\": 1,\r\n    \"is_active\": true,\r\n    \"aircraft\": null,\r\n    \"manufacturer\": \"4effcea2-e9d4-4696-891f-52d350d68a9f\",\r\n    \"operator\": null\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/pki/credentials/",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"pki",
-								"credentials",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET single credentials details",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
 									"key": "audience",
 									"value": {
-										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "{{aerobridge_audience}}"
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
 									},
 									"type": "any"
 								},
 								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenType",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "accessToken",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
-									"type": "string"
-								},
-								{
 									"key": "tokenName",
 									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
 									"type": "string"
 								},
 								{
@@ -1600,28 +1401,121 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/pki/credentials",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-operations/3408bce9-dbab-4665-abfc-8ea03b0ad871",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
-								"pki",
-								"credentials"
+								"gcs",
+								"flight-operations",
+								"3408bce9-dbab-4665-abfc-8ea03b0ad871"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "GCS Operations - Flight Operations",
-			"item": [
+				},
 				{
-					"name": "Get / Create Flight Permission",
+					"name": "PUT Create Flight Operation",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://local.test:8000/gcs/flight-operations",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"flight-operations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Get or create Flight Permission",
 					"request": {
 						"auth": {
 							"type": "oauth2",
@@ -1698,13 +1592,13 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-operations/3408bce9-dbab-4665-abfc-8ea03b0ad871/permission",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-operations/3408bce9-dbab-4665-abfc-8ea03b0ad871/permission",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"gcs",
 								"flight-operations",
@@ -1722,18 +1616,6 @@
 							"type": "oauth2",
 							"oauth2": [
 								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
 									"key": "clientId",
 									"value": "{{client_id}}",
 									"type": "string"
@@ -1744,92 +1626,11 @@
 									"type": "string"
 								},
 								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-operations",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"gcs",
-								"flight-operations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Flight Operation",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
 									"key": "audience",
 									"value": {
-										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
 									},
 									"type": "any"
-								},
-								{
-									"key": "tokenType",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "accessToken",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
-									"type": "string"
 								},
 								{
 									"key": "tokenName",
@@ -1873,455 +1674,19 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "   {        \r\n        \"name\": \"Flight Operation Z1\",\r\n        \"type_of_operation\": 0,        \r\n        \"drone\": \"0797d9ef-02d9-41cf-93ff-439aaf1609ae\",\r\n        \"flight_plan\": \"12818e87-4c96-4e4c-8c63-82b8e12c3b73\",\r\n        \"purpose\": \"26b6a66d-5e77-4a43-94e9-630e141a1087\",\r\n        \"operator\":\"41174c3f-e86c-4e5a-a629-32d4d9da6011\",\r\n        \"pilot\": \"2f15a395-65a3-4a73-a492-57c7c470d527\", \r\n        \"start_datetime\":\"2021-12-22T20:10:18.383944Z\", \r\n        \"end_datetime\":\"2021-12-22T20:20:18.383944Z\" \r\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-operations",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-operations",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"gcs",
 								"flight-operations"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Registry - Aircraft",
-			"item": [
-				{
-					"name": "GET Single Aircraft",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/0450852f-856e-4ecb-beb6-01ccded8529d",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"aircraft",
-								"0450852f-856e-4ecb-beb6-01ccded8529d"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET All Aircrafts",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"aircraft"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Single Aircraft by RFM ID",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/rfm/001C00243237511538343932",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"aircraft",
-								"rfm",
-								"001C00243237511538343932"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Single Aircraft Firmware by RFM ID",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "scope",
-									"value": "{{aerobridge_scopes}}",
-									"type": "string"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft/firmware/004E00403237511538343932",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"aircraft",
-								"firmware",
-								"004E00403237511538343932"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Verify AerobridgeID",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "accessTokenUrl",
-									"value": "https://id.openskies.sh/oauth/token/",
-									"type": "string"
-								},
-								{
-									"key": "audience",
-									"value": {
-										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
-									},
-									"type": "any"
-								},
-								{
-									"key": "clientId",
-									"value": "{{client_id}}",
-									"type": "string"
-								},
-								{
-									"key": "clientSecret",
-									"value": "{{client_secret}}",
-									"type": "string"
-								},
-								{
-									"key": "tokenName",
-									"value": "Aerobridge Token",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "aerobridge.read aerobridge.write",
-									"type": "string"
-								},
-								{
-									"key": "redirect_uri",
-									"value": "http://local.test:3000/callback",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "http://local.test:8000/o/authorize",
-									"type": "string"
-								},
-								{
-									"key": "client_authentication",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/registry/aircraft-component/verify/coypu-bullwhack-headman",
-							"protocol": "https",
-							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
-							],
-							"path": [
-								"registry",
-								"aircraft-component",
-								"verify",
-								"coypu-bullwhack-headman"
 							]
 						}
 					},
@@ -2332,6 +1697,296 @@
 		{
 			"name": "GCS Operations - Flight Log",
 			"item": [
+				{
+					"name": "GET all raw Flight Logs",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/flight-logs",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"flight-logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single raw Flight Log",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/flight-logs/af58a9dc-6474-41b9-a64c-ece932aff6ef",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"flight-logs",
+								"af58a9dc-6474-41b9-a64c-ece932aff6ef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign single raw Flight Log",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "{{aerobridge_scopes}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/flight-logs/af58a9dc-6474-41b9-a64c-ece932aff6ef/sign",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"flight-logs",
+								"af58a9dc-6474-41b9-a64c-ece932aff6ef",
+								"sign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload New Log file",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/hrishiballal/Desktop/oauth-scheme.png.zip"
+								},
+								{
+									"key": "filename",
+									"value": "rfm_logs.zip",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://local.test:8000/gcs/files/logs/upload",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"files",
+								"logs",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Update Raw Log",
 					"request": {
@@ -2415,13 +2070,13 @@
 							]
 						},
 						"url": {
-							"raw": "https://aerobridgetestflight.herokuapp.com/gcs/flight-logs/af58a9dc-6474-41b9-a64c-ece932aff6ef",
-							"protocol": "https",
+							"raw": "http://local.test:8000/gcs/flight-logs/af58a9dc-6474-41b9-a64c-ece932aff6ef",
+							"protocol": "http",
 							"host": [
-								"aerobridgetestflight",
-								"herokuapp",
-								"com"
+								"local",
+								"test"
 							],
+							"port": "8000",
 							"path": [
 								"gcs",
 								"flight-logs",
@@ -2432,6 +2087,593 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "PKI Framework - Credentials",
+			"item": [
+				{
+					"name": "POST single credentials details",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"PUBLIC KEY AS STRING\",\r\n    \"name\": \"Manufacturer Public Token\",\r\n    \"token_type\": 0,\r\n    \"association\": 1,\r\n    \"is_active\": true,\r\n    \"aircraft\": null,\r\n    \"manufacturer\": \"4effcea2-e9d4-4696-891f-52d350d68a9f\",\r\n    \"operator\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://local.test:8000/pki/credentials/",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"pki",
+								"credentials",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET single credentials details Copy",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/pki/credentials",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"pki",
+								"credentials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Full Chain of Auth server",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "http://local.test:9000/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "{{aerobridge_scopes}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"04fa8968-e2a4-424d-b1f4-be558d3e3e95": "{{aerobridge_audience}}"
+									},
+									"type": "any"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDMyNTZiLTVlYTUtNGY0OC04NzJlLTE0YTI5N2NmZTkzYyJ9.eyJpc3MiOiJodHRwczovL2lkLm9wZW5za2llcy5zaC8iLCJleHAiOjE2MjczNzk4MzgsImlhdCI6MTYyNzM3NjIzOCwic3ViIjoiVldSWjNZbzBuaGVVOUJadjBGdzd0VG00TUFQcjJkRkI1bFBRTW1KdEBjbGllbnRzIiwic2NvcGUiOiJhZXJvYnJpZGdlLnJlYWQgYWVyb2JyaWRnZS53cml0ZSIsInR5cCI6IkJlYXJlciJ9.ioXlDxplnG0GNZGdpbvMAhAfNxZZs6FCqqPvVYh7k1PROb0a2ZCIIXrhrvqpLMHyo36pUerLpPEp1sISL9yNR7L6VynZ5ZrD8fOZXZGVtj64i9wwh9jjxNU4RWVcE_W45yO5e1Q956uhrzA4MEQlhPKUs-aRGk5SGQvmXjNDy5oLkIr12i_6Sz1xt42pR3HTAyXai9dPd-2Vrn8JnHqbRVhWr---TcxzBfjntmYwQE_7QfFuXADGdazvGdOx8nftt8tVESLkP9Fnk92Po07JFDbcgVr5wczCaGd4bS4HJOqUMfFVeKh0giSSNuvDXeTrJLePh1SNQhAbKP8_w5mocr3OhOf1uJwImZu_Flt0Dol_TUCNNl6aKtyQcy_HyiycIZNCWvfOQdmlEzGxMhqlchnnqULBfQBjRLi2-quO1ou1fuX9FLR9fx9Ro1EFuOPSNhCUJJ_Pkss_OypMf8xo5GliD07qUnjuXLnEfub1LbynGmd6Z-wG8V7jpEIfzi_7_yHHG9uLbP4w8skbLFxkFmsF_VsAgj7aoTZm3WJULSpEa9w6AiddAGHqoSUm7BDGG0rHyRfyKC0mBePY1mbBsMYAiY1XnBufkMXuN3TlxMUV-pUK4lLA7iAx1ORKE07geHSPLJce_WyrDFR2CBuDJSgKQsxhu5v0aeh50xN-0w8",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/pki/auth_server_fullchain",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"pki",
+								"auth_server_fullchain"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GCS Operations- Firmware",
+			"item": [
+				{
+					"name": "GET all Firmware",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/firmware",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"firmware"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GCS Operations - Cloud Files",
+			"item": [
+				{
+					"name": "GET all Cloud files",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/files",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET a single Cloudfile",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "audience",
+									"value": {
+										"80890cef-8eb3-4561-ad4e-1addf4cfe11a": "testflight.aerobridge.in"
+									},
+									"type": "any"
+								},
+								{
+									"key": "tokenName",
+									"value": "Aerobridge Token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "aerobridge.read aerobridge.write",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://local.test:3000/callback",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "http://local.test:8000/o/authorize",
+									"type": "string"
+								},
+								{
+									"key": "client_authentication",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "https://id.openskies.sh/oauth/token/",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://local.test:8000/gcs/files/4dab259d-c549-490a-9da1-af628118fe45",
+							"protocol": "http",
+							"host": [
+								"local",
+								"test"
+							],
+							"port": "8000",
+							"path": [
+								"gcs",
+								"files",
+								"4dab259d-c549-490a-9da1-af628118fe45"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Flight Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJsb2NhbC50ZXN0IiwiZXhwIjoxNjQ2MjI1MDA2LCJpc3MiOiJkdW1teSIsInNjb3BlIjoidXRtLmluamVjdF90ZXN0X2RhdGEiLCJzdWIiOiJ1c3MxIn0.QBdU8W-9f0Jl5_OMZW2TIjRu_DuByP5iQX68NRVqdsDZIPazBY43ppELgybtRUoz_E8ML3c7TRkPRTc6rCNbYaZ31gxFbodIG0DNlJ8z2wZtOSGvh319s8oYlhexE5ofZjRDxT_B0yjD5gL8n0ASpVsbdk_Q4V3ClF7VU7tYGzQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://local.test:8000/uss/a3423b-213401-0023/flights/",
+					"protocol": "http",
+					"host": [
+						"local",
+						"test"
+					],
+					"port": "8000",
+					"path": [
+						"uss",
+						"a3423b-213401-0023",
+						"flights",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
