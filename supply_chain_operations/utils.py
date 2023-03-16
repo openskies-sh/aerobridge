@@ -18,9 +18,10 @@ class IncidentCalendar(HTMLCalendar):
 		for event in events_per_day:
 			d += f'<li><small><a href="/launchpad/incidents/{event.id}/detail">{event}</a></small> </li>'
 		d += '</ul>'
-		if day != 0:
-			return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
-		return '<td></td>'
+		if day != 0 and d != '<ul></ul>':
+			return f"<td class='bg-warning'><span class='date'>{day}</span><ul> {d} </ul></td>"
+		else:	
+			return '<td></td>'
 
 	# formats a week as a tr 
 	def formatweek(self, theweek, events):
