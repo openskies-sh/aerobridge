@@ -15,7 +15,7 @@ If you are a drone manufacturer, operator or just a researcher, you can benefit 
 - Integrate with UTM system of choice
 ## Live Demo 🚀
 
-- You can see the frontend using the [Testflight frontend](https://aerobridgetestflight.herokuapp.com/launchpad)
+- You can see the frontend using the [Testflight frontend](https://aerobridge.io)
 - Take a look at the backend API: [Aerobridge OpenAPI renderer](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/openskies-sh/aerobridge/master/api/aerobridge-1.0.0.resolved.yaml)
 
 ## Webinar and pilot program ✨

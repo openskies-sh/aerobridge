@@ -1061,7 +1061,7 @@ tags:
   - name: Firmware
     description: "Manufacturer can sign and release firmwares and these endpoints help in downloading the latest firmware to the GCS and / or check if the firmware is the latest one"
   - name: Credentials
-    description: "Aerobridge server can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials. Read [the documentation](https://aerobridgetestflight.herokuapp.com/launchpad/credentials-read-first) for more details."
+    description: "Aerobridge server can store credentials securely on the server, use these endpoints to store public and private keys and retrieve the associated details with the credentials. Read the documentation for more details."
 
 components:
   securitySchemes:
