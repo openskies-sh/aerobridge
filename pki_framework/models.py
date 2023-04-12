@@ -13,8 +13,8 @@ class AerobridgeCredential(models.Model):
     ''' A class to store different tokens used in drone operations '''
     
     KEY_ENVIRONMENT = ((0, _('Operator')),(1, _('Manufacturer')),(2, _('Pilot')),(3, _('RFM')),(4, _('Company')),(5, _('Management Server')),)
-    TOKEN_TYPE= ((0, _('Public Key')),(2, _('Authentication Token')),(3, _('Other')),(4, _('x509 Digital Certificate')),)
-    FILE_EXTENSION = ((0, _('other')),(1, _('.der')),(2, _('.csr')),(3, _('.key')),(4, _('.cer')),(5, _('.pem'),))
+    TOKEN_TYPE= ((0, _('Public Key')),(1, _('x509 Digital Certificate')),)
+    FILE_EXTENSION = ((0, _('other')),(1, _('jwk')),)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
