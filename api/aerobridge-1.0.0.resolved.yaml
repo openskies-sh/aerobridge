@@ -1400,33 +1400,23 @@ components:
           enum:
             - 0
             - 1
-            - 2
-            - 3
-            - 4
-            - 5
           type: integer
+          example: 3
           description: >
             The type of data that can be stored is the following: 
              * `0` - Other
-             * `1` - .der
-             * `2` - .csr
-             * `3` - .key
-             * `4` - .cer
-             * `4` - .pem
+             * `1` - jwk
         token_type:
           enum:
             - 0
             - 1
             - 2
-            - 3
-            - 4
+          example: 0
           description: >
             Specify the type of data stored:
              * `0` - Public Key
-             * `1` - Private Key
-             * `2` - Authentication Token
-             * `3` - Other
-             * `4` - x509 Digital Certificate
+             * `1` - x509 Digital Certificate
+             * `2` - Other
         association:
           enum:
             - 0
