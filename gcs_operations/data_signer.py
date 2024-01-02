@@ -2,7 +2,7 @@ import json
 import logging
 from enum import Enum
 from os import environ as env
-
+from django.core.signing import Signer
 import requests
 import hashlib
 from django.core.exceptions import ObjectDoesNotExist
@@ -30,13 +30,7 @@ class SigningHelper():
         self.token_client_secret = env.get('FLIGHT_PASSPORT_PERMISSION_CLIENT_SECRET', None)
         self.passport_url = env.get('PASSPORT_URL', None)
         self.token_url = env.get('PASSPORT_TOKEN_URL', None)
-        
-        self.signing_url = env.get('FLIGHT_PASSPORT_SIGNING_URL', None)
-        
-        self.signing_client_id = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID')
-        self.signing_client_secret = env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET')
-        
-        
+
     def issue_jwt_permission(self, data_payload):              
         ''' This is a method to issue a JWT token for a flight permision '''
         signed_json = None
@@ -70,22 +64,10 @@ class SigningHelper():
 
         
     def sign_json(self, data_to_sign):      
-        
         signed_json = None
-        try:
-            assert self.signing_client_id is not None
-            assert self.signing_client_secret is not None
-            assert self.signing_url is not None
-        except AssertionError as ae:
-            logger.warn("Client ID and Secret or signing URL not set in the environment")
-        else:            
-            payload = {"client_id": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_ID'),"client_secret": env.get('FLIGHT_PASSPORT_SIGNING_CLIENT_SECRET'),"raw_data":data_to_sign }
-
-            signed_json = requests.post(self.passport_url + self.signing_url, json = payload)
-            signed_json = signed_json.json() 
-            
+        signer = Signer()
+        signed_json = signer.sign_object(data_to_sign)
         return signed_json
-
 
 def signed_flight_log_exists(flight_log):
     return SignedFlightLog.objects.filter(raw_flight_log=flight_log).exists()
