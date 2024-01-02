@@ -1,5 +1,8 @@
 <img src="https://i.imgur.com/88pvVBP.png" height="200">
 
+# Repository status
+December 2023: This repository is in an archive mode, use the <a href="https://aerobridge.io/">Aerobridge Pro</a> for a professional implementation of these stacks.
+
 # Introduction
 
 Aerobridge is management server to help you with your drone flights and operations. With Aerobridge your GCS, Drones and Pilots interface with your company's digital infrastructure in a standardized fashion and be in compliance with the regulatory requirements around operating drones.
@@ -107,7 +110,7 @@ Aerobridge provides the following toolset:
 
 ## LICENSE
 
-Aerobridge is licensed under a BSL license popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
+Aerobridge is licensed under a BUSL license popularized by other products such as [CockroachDB](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html) and [Sentry](https://blog.sentry.io/2019/11/06/relicensing-sentry). Basically, it means the following:
 
 - You cannot offer a version of Aerobridge as a service to third parties, if you want to do this, you will need an agreement with Openskies (the license grant restriction)
 - After 24 months, the code becomes Apache-2.0 licensed (the conversion period)
